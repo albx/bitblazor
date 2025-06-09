@@ -1,0 +1,29 @@
+<button style="background-color: @(this.Color);" @onclick="OnClick">
+    <span>@this.Text</span>
+</button>
+
+@code {
+
+    /// <summary>
+    /// Set a text that is button caption.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// Set a color of the button.
+    /// </summary>
+    [Parameter]
+    public string Color { get; set; } = "#007bff";
+
+    /// <summary>
+    /// Set a callback for the button click event.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>
+    /// This is basic button component.
+    /// </summary>
+    public Button() { }
+}
