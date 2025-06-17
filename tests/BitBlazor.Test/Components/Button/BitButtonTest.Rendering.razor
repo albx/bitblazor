@@ -1,0 +1,18 @@
+@inherits TestContext
+
+@code
+{
+    #region Colors tests
+    [Fact]
+    public void BitButton_Should_Render_Primary_Button()
+    {
+        var component = Render(@<BitButton Text="Test"
+                                           Color="Color.Primary"/>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary">
+                Test
+            </button>);
+    }
+    #endregion
+}
