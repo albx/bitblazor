@@ -6,5 +6,10 @@ public enum Color
     Secondary,
     Success,
     Danger,
-    Warning
+    Warning,
+    PrimaryOutline,
+    SecondaryOutline,
+    SuccessOutline,
+    DangerOutline,
+    WarningOutline
 }

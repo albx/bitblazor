@@ -3,16 +3,63 @@
 @code
 {
     #region Colors tests
-    [Fact]
-    public void BitButton_Should_Render_Primary_Button()
+    [Theory]
+    [InlineData(Color.Primary, "btn-primary")]
+    [InlineData(Color.Secondary, "btn-secondary")]
+    [InlineData(Color.Success, "btn-success")]
+    [InlineData(Color.Danger, "btn-danger")]
+    [InlineData(Color.Warning, "btn-warning")]
+    [InlineData(Color.PrimaryOutline, "btn-outline-primary")]
+    [InlineData(Color.SecondaryOutline, "btn-outline-secondary")]
+    [InlineData(Color.SuccessOutline, "btn-outline-success")]
+    [InlineData(Color.DangerOutline, "btn-outline-danger")]
+    [InlineData(Color.WarningOutline, "btn-outline-warning")]
+    public void BitButton_Should_Render_Button_With_Correct_Color_Class(Color color, string colorCssClass)
     {
         var component = Render(@<BitButton Text="Test"
-                                           Color="Color.Primary"/>);
+                                           Color="color"/>);
 
         component.MarkupMatches(
-            @<button type="button" class="btn btn-primary">
+            @<button type="button" class="btn @colorCssClass">
                 Test
             </button>);
     }
+    #endregion
+
+    #region Button type tests
+    [Fact]
+    public void BitButton_Should_Render_Button_Type_By_Default()
+    {
+        var component = Render(@<BitButton Text="Test" Color="Color.Primary" />);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary">Test</button>);
+    }
+
+    [Theory]
+    [InlineData(ButtonType.Button, "button")]
+    [InlineData(ButtonType.Submit, "submit")]
+    [InlineData(ButtonType.Reset, "reset")]
+    public void BitButton_Should_Render_Button_Type_Correctly(ButtonType buttonType, string buttonTypeString)
+    {
+        var component = Render(@<BitButton Text="Test" Color="Color.Primary" Type="buttonType" />);
+
+        component.MarkupMatches(
+            @<button type="@buttonTypeString" class="btn btn-primary">Test</button>);
+    }
+    #endregion
+
+    #region Size tests
+    [Theory]
+    [InlineData(Size.Large, "btn-lg")]
+    [InlineData(Size.Small, "btn-sm")]
+    [InlineData(Size.Mini, "btn-xs")]
+    public void BitButton_Should_Render_Button_Size_Correctly(Size size, string sizeCssClass)
+    {
+        var component = Render(@<BitButton Text="Test" Color="Color.Primary" Size="size" />);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary @sizeCssClass">Test</button>);
+        }
     #endregion
 }
