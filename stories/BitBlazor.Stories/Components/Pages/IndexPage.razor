@@ -1,3 +1,4 @@
+﻿@inject NavigationManager NavigationManager
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,25 +6,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BitBlazor.Stories</title>
-    <base href="/" />
+    <base href="@(new Uri(NavigationManager.BaseUri).AbsolutePath)" />
+    <ImportMap />
     <!--
     DON'T PUT ANY ADDITIONAL CSS OR JAVASCRIPT LINKS IN THIS FILE.
-    Please do that in the "iframe.html" instead.
+    Please do that in the "IFramePage.razor" instead.
     -->
     <link rel="stylesheet" href="css/blazor-ui.css" />
+    <HeadOutlet @rendermode="@InteractiveServer" />
 </head>
 
 <body>
-    <div id="app">
-        <div class="loading-progress">
-            <svg>
-                <circle r="40%" cx="50%" cy="50%" />
-                <circle r="40%" cx="50%" cy="50%" />
-            </svg>
-            <div class="text"></div>
-            <img src="_content/BlazingStory/images/icon.min.svg" />
-        </div>
-    </div>
+    <BitBlazor.Stories.Components.App @rendermode="@InteractiveServer" />
 
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -33,9 +27,9 @@
 
     <!--
     DON'T PUT ANY ADDITIONAL JAVASCRIPT LINKS IN THIS FILE.
-    Please do that in the "iframe.html" instead.
+    Please do that in the "IFramePage.razor" instead.
     -->
-    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.web.js"></script>
 </body>
 
 </html>

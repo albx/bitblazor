@@ -1,0 +1,22 @@
+﻿@attribute [Stories("Examples/Components/BitButton")]
+
+<Stories TComponent="BitButton">
+
+    <ArgType For="_ => _.Color" Control="ControlType.Select" />
+    <ArgType For="_ => _.Size" Control="ControlType.Select" />
+    <ArgType For="_ => _.Type" Control="ControlType.Select" />
+
+    <Story Name="Default">
+
+        <Arguments>
+            <Arg For="_ => _.Text" Value='"Default"' />
+            <Arg For="_ => _.Color" Value="Color.Primary" />
+        </Arguments>
+
+        <Template>
+            <BitButton @attributes="context.Args" />
+        </Template>
+
+    </Story>
+
+</Stories>

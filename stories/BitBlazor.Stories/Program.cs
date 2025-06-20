@@ -1,11 +1,36 @@
-﻿using BitBlazor.Stories;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using BitBlazor.Stories.Components.Pages;
+using BlazingStory.Components;
+using BlazingStory.McpServer;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>("#app");
-builder.RootComponents.Add<HeadOutlet>("head::after");
+var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
-await builder.Build().RunAsync();
+var serverUrl = builder.Configuration[WebHostDefaults.ServerUrlsKey]?.Split(';').FirstOrDefault() ?? "http://localhost:5173";
+builder.Services.TryAddScoped(sp => new HttpClient { BaseAddress = new Uri(serverUrl) });
+builder.Services.AddBlazingStoryMcpServer();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+app.MapBlazingStoryMcp();
+app.MapStaticAssets();
+app.UseRouting();
+app.UseAntiforgery();
+
+app.MapRazorComponents<BlazingStoryServerComponent<IndexPage, IFramePage>>()
+    .AddInteractiveServerRenderMode();
+
+app.Run();

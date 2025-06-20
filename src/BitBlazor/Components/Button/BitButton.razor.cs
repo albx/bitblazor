@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using System.Text;
 
 namespace BitBlazor.Components;
 
@@ -30,8 +29,15 @@ public partial class BitButton
 
     private string ComputeCssClasses()
     {
-        var computedClasses = new StringBuilder();
+        var cssClasses = new List<string>();
+        AddColorClass(cssClasses);
+        AddSizeClass(cssClasses);
 
+        return string.Join(" ", cssClasses);
+    }
+
+    private void AddColorClass(List<string> cssClasses)
+    {
         var colorClass = Color switch
         {
             Color.Primary => "btn-primary",
@@ -46,8 +52,15 @@ public partial class BitButton
             Color.WarningOutline => "btn-outline-warning",
             _ => string.Empty
         };
-        computedClasses.Append(colorClass);
 
+        if (!string.IsNullOrEmpty(colorClass))
+        {
+            cssClasses.Add(colorClass);
+        }
+    }
+
+    private void AddSizeClass(List<string> cssClasses)
+    {
         var sizeClass = Size switch
         {
             BitBlazor.Size.Large => "btn-lg",
@@ -55,8 +68,10 @@ public partial class BitButton
             BitBlazor.Size.Mini => "btn-xs",
             _ => string.Empty
         };
-        computedClasses.Append($" {sizeClass}");
 
-        return computedClasses.ToString();
+        if (!string.IsNullOrEmpty(sizeClass))
+        {
+            cssClasses.Add(sizeClass);
+        }
     }
 }
