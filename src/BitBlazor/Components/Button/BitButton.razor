@@ -1,5 +1,7 @@
 ﻿@namespace BitBlazor.Components
  
-<button type="@ButtonTypeString" class="@ComputedCssClasses">
+<button type="@ButtonTypeString" 
+        class="@ComputedCssClasses" 
+        @onclick="OnClick">
     @Text
 </button>

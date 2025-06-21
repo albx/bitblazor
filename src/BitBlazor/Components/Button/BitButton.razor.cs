@@ -18,6 +18,12 @@ public partial class BitButton
     [Parameter]
     public Size? Size { get; set; }
 
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    [Parameter]
+    public string? CssClass { get; set; }
+
     private string ComputedCssClasses => $"btn {ComputeCssClasses()}".Trim();
 
     private string ButtonTypeString => Type switch
@@ -32,6 +38,11 @@ public partial class BitButton
         var cssClasses = new List<string>();
         AddColorClass(cssClasses);
         AddSizeClass(cssClasses);
+
+        if (!string.IsNullOrWhiteSpace(CssClass))
+        {
+            cssClasses.Add(CssClass);
+        }
 
         return string.Join(" ", cssClasses);
     }

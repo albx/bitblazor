@@ -60,6 +60,17 @@
 
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary @sizeCssClass">Test</button>);
-        }
+    }
+    #endregion
+
+    #region CssClass tests
+    [Fact]
+    public void BitButton_Should_Render_Custom_Css_Classes_If_Specified()
+    {
+        var component = Render(@<BitButton Text="Test" Color="Color.Primary" CssClass="my-class another-class" />);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary my-class another-class">Test</button>);
+    }
     #endregion
 }
