@@ -1,4 +1,4 @@
-﻿@attribute [Stories("Examples/Components/BitButton")]
+﻿@attribute [Stories("Components/BitButton")]
 
 <Stories TComponent="BitButton">
 
@@ -14,9 +14,104 @@
         </Arguments>
 
         <Template>
-            <BitButton @attributes="context.Args" />
+            <div class="py-2 px-2">
+                <BitButton @attributes="context.Args" />
+            </div>
         </Template>
 
+    </Story>
+
+    <Story Name="Colors">
+        <Template>
+            <div class="py-2 px-2">
+                <div class="mb-2">
+                    <BitButton Text="Primary" Color="Color.Primary" />
+                    <BitButton Text="Primary outline" Color="Color.PrimaryOutline" />
+                    <BitButton Text="Primary disabled" Color="Color.Primary" Disabled="true" />
+                    <BitButton Text="Primary outline disabled" Color="Color.PrimaryOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Secondary" Color="Color.Secondary" />
+                    <BitButton Text="Secondary outline" Color="Color.SecondaryOutline" />
+                    <BitButton Text="Secondary disabled" Color="Color.Secondary" Disabled="true" />
+                    <BitButton Text="Secondary outline disabled" Color="Color.SecondaryOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Success" Color="Color.Success" />
+                    <BitButton Text="Success outline" Color="Color.SuccessOutline" />
+                    <BitButton Text="Success disabled" Color="Color.Success" Disabled="true" />
+                    <BitButton Text="Success outline disabled" Color="Color.SuccessOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Danger" Color="Color.Danger" />
+                    <BitButton Text="Danger outline" Color="Color.DangerOutline" />
+                    <BitButton Text="Danger disabled" Color="Color.Danger" Disabled="true" />
+                    <BitButton Text="Danger outline disabled" Color="Color.DangerOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Warning" Color="Color.Warning" />
+                    <BitButton Text="Warning outline" Color="Color.WarningOutline" />
+                    <BitButton Text="Warning disabled" Color="Color.Warning" Disabled="true" />
+                    <BitButton Text="Warning outline disabled" Color="Color.WarningOutline" Disabled="true" />
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Colors with dark background">
+        <Template>
+            <div class="bg-dark py-2 px-2">
+                <div class="mb-2">
+                    <BitButton Text="Primary" Color="Color.Primary" />
+                    <BitButton Text="Primary outline" Color="Color.PrimaryOutline" />
+                    <BitButton Text="Primary disabled" Color="Color.Primary" Disabled="true" />
+                    <BitButton Text="Primary outline disabled" Color="Color.PrimaryOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Secondary" Color="Color.Secondary" />
+                    <BitButton Text="Secondary outline" Color="Color.SecondaryOutline" />
+                    <BitButton Text="Secondary disabled" Color="Color.Secondary" Disabled="true" />
+                    <BitButton Text="Secondary outline disabled" Color="Color.SecondaryOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Success" Color="Color.Success" />
+                    <BitButton Text="Success outline" Color="Color.SuccessOutline" />
+                    <BitButton Text="Success disabled" Color="Color.Success" Disabled="true" />
+                    <BitButton Text="Success outline disabled" Color="Color.SuccessOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Danger" Color="Color.Danger" />
+                    <BitButton Text="Danger outline" Color="Color.DangerOutline" />
+                    <BitButton Text="Danger disabled" Color="Color.Danger" Disabled="true" />
+                    <BitButton Text="Danger outline disabled" Color="Color.DangerOutline" Disabled="true" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Warning" Color="Color.Warning" />
+                    <BitButton Text="Warning outline" Color="Color.WarningOutline" />
+                    <BitButton Text="Warning disabled" Color="Color.Warning" Disabled="true" />
+                    <BitButton Text="Warning outline disabled" Color="Color.WarningOutline" Disabled="true" />
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Sizes">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="mb-2">
+                    <BitButton Text="Primary large" Color="Color.Primary" Size="Size.Large" />
+                    <BitButton Text="Secondary large" Color="Color.Secondary" Size="Size.Large" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Primary small" Color="Color.Primary" Size="Size.Small" />
+                    <BitButton Text="Secondary small" Color="Color.Secondary" Size="Size.Small" />
+                </div>
+                <div class="mb-2">
+                    <BitButton Text="Primary mini" Color="Color.Primary" Size="Size.Mini" />
+                    <BitButton Text="Secondary mini" Color="Color.Secondary" Size="Size.Mini" />
+                </div>
+            </div>
+        </Template>
     </Story>
 
 </Stories>

@@ -73,4 +73,15 @@
             @<button type="button" class="btn btn-primary my-class another-class">Test</button>);
     }
     #endregion
+
+    #region Disabled tests
+    [Fact]
+    public void BitButton_Should_Render_Disabled_Class_If_Disabled_Parameter_Is_True()
+    {
+        var component = Render(@<BitButton Text="test" Color="Color.Primary" Disabled="true" />);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary disabled">test</button>);
+    }
+    #endregion
 }

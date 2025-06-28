@@ -16,7 +16,10 @@ public partial class BitButton
     public ButtonType Type { get; set; } = ButtonType.Button;
 
     [Parameter]
-    public Size? Size { get; set; }
+    public Size Size { get; set; } = Size.Default;
+
+    [Parameter]
+    public bool Disabled { get; set; }
 
     [Parameter]
     public EventCallback OnClick { get; set; }
@@ -38,6 +41,11 @@ public partial class BitButton
         var cssClasses = new List<string>();
         AddColorClass(cssClasses);
         AddSizeClass(cssClasses);
+
+        if (Disabled)
+        {
+            cssClasses.Add("disabled");
+        }
 
         if (!string.IsNullOrWhiteSpace(CssClass))
         {
@@ -74,9 +82,9 @@ public partial class BitButton
     {
         var sizeClass = Size switch
         {
-            BitBlazor.Size.Large => "btn-lg",
-            BitBlazor.Size.Small => "btn-sm",
-            BitBlazor.Size.Mini => "btn-xs",
+            Size.Large => "btn-lg",
+            Size.Small => "btn-sm",
+            Size.Mini => "btn-xs",
             _ => string.Empty
         };
 
