@@ -84,4 +84,59 @@
             @<button type="button" class="btn btn-primary disabled">test</button>);
     }
     #endregion
+
+    #region Icon tests
+    [Fact]
+    public void BitButton_Should_Render_Icon_Before_Text_If_Icon_Position_Is_Start()
+    {
+        var component = Render(@<BitButton Text="test" 
+                                           Color="Color.Primary"
+                                           Icon="@BitBlazor.Utilities.Icons.ItStarFull"
+                                           IconPosition="IconPosition.Start"/>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary btn-icon">
+                <svg class="icon icon-white ms-1">
+                    <use href="/bootstrap-italia/dist/svg/sprites.svg#it-star-full" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-star-full" />
+                </svg>
+                <span>test</span>
+            </button>);
+    }
+
+    [Fact]
+    public void BitButton_Should_Render_Icon_After_Text_If_Icon_Position_Is_End()
+    {
+        var component = Render(@<BitButton Text="test" 
+                                           Color="Color.Primary"
+                                           Icon="@BitBlazor.Utilities.Icons.ItStarFull"
+                                           IconPosition="IconPosition.End"/>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary btn-icon">
+                <span>test</span>
+                <svg class="icon icon-white ms-1">
+                    <use href="/bootstrap-italia/dist/svg/sprites.svg#it-star-full" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-star-full" />
+                </svg>
+            </button>);
+    }
+
+    [Fact]
+    public void BitButton_Should_Render_Icon_Rounded_Correctly()
+    {
+        var component = Render(@<BitButton Text="test" 
+                                           Color="Color.Primary"
+                                           Icon="@BitBlazor.Utilities.Icons.ItStarFull"
+                                           IconRounded="true"/>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary btn-icon">
+                <span class="rounded-icon">
+                    <svg class="icon icon-white ms-1">
+                        <use href="/bootstrap-italia/dist/svg/sprites.svg#it-star-full" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-star-full" />
+                    </svg>
+                </span>
+                <span>test</span>
+            </button>);
+    }
+    #endregion
 }

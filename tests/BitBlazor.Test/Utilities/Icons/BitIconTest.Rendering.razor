@@ -1,0 +1,75 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitIcon_Should_Render_Specified_Icon_Correctly()
+    {
+        var component = Render(@<BitIcon IconName="@Icons.ItTool" />);
+        component.MarkupMatches(
+            @<svg class="icon">
+                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-tool" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-tool"></use>
+             </svg>);
+    }
+
+    [Theory]
+    [InlineData(IconSize.ExtraSmall, "icon-xs")]
+    [InlineData(IconSize.Small, "icon-sm")]
+    [InlineData(IconSize.Large, "icon-lg")]
+    [InlineData(IconSize.ExtraLarge, "icon-xl")]
+    public void BitIcon_Should_Render_Icon_With_Correct_Size_Class(IconSize iconSize, string expectedClass)
+    {
+        var component = Render(@<BitIcon IconName="@Icons.ItCheckCircle"
+                                         Size="@iconSize"/>);
+
+        component.MarkupMatches(
+            @<svg class="icon @expectedClass">
+                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+             </svg>);
+    }
+
+    [Fact]
+    public void BitIcon_Should_Render_Padded_Class_Correctly_If_Specified()
+    {
+        var component = Render(@<BitIcon IconName="@Icons.ItCheckCircle"
+                                         Padded="true"/>);
+
+        component.MarkupMatches(
+            @<svg class="icon icon-padded">
+                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+             </svg>);
+    }
+
+    [Theory]
+    [InlineData(IconColor.Primary, "icon-primary")]
+    [InlineData(IconColor.Secondary, "icon-secondary")]
+    [InlineData(IconColor.Success, "icon-success")]
+    [InlineData(IconColor.Warning, "icon-warning")]
+    [InlineData(IconColor.Danger, "icon-danger")]
+    [InlineData(IconColor.Light, "icon-light")]
+    [InlineData(IconColor.White, "icon-white")]
+    public void BitIcon_Should_Render_Icon_With_Correct_Color_Class(IconColor iconColor, string expectedClass)
+    {
+        var component = Render(@<BitIcon IconName="@Icons.ItCheckCircle"
+                                         Color="iconColor"/>);
+
+        component.MarkupMatches(
+            @<svg class="icon @expectedClass">
+                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+             </svg>);
+    }
+
+    [Theory]
+    [InlineData(IconAlignment.Bottom, "align-bottom")]
+    [InlineData(IconAlignment.Middle, "align-middle")]
+    [InlineData(IconAlignment.Top, "align-top")]
+    public void BitIcon_Should_Render_Icon_With_Correct_Alignment_Class(IconAlignment iconAlignment, string expectedClass)
+    {
+        var component = Render(@<BitIcon IconName="@Icons.ItCheckCircle"
+                                         Align="iconAlignment"/>);
+
+        component.MarkupMatches(
+            @<svg class="icon @expectedClass">
+                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+             </svg>);
+    }
+}

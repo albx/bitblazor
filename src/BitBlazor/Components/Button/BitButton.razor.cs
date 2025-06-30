@@ -22,6 +22,15 @@ public partial class BitButton
     public bool Disabled { get; set; }
 
     [Parameter]
+    public string? Icon { get; set; }
+
+    [Parameter]
+    public bool IconRounded { get; set; }
+
+    [Parameter]
+    public IconPosition IconPosition { get; set; } = IconPosition.Start;
+
+    [Parameter]
     public EventCallback OnClick { get; set; }
 
     [Parameter]
@@ -38,7 +47,7 @@ public partial class BitButton
 
     private string ComputeCssClasses()
     {
-        var cssClasses = new List<string>();
+        var cssClasses = new HashSet<string>();
         AddColorClass(cssClasses);
         AddSizeClass(cssClasses);
 
@@ -55,7 +64,7 @@ public partial class BitButton
         return string.Join(" ", cssClasses);
     }
 
-    private void AddColorClass(List<string> cssClasses)
+    private void AddColorClass(HashSet<string> cssClasses)
     {
         var colorClass = Color switch
         {
@@ -78,7 +87,7 @@ public partial class BitButton
         }
     }
 
-    private void AddSizeClass(List<string> cssClasses)
+    private void AddSizeClass(HashSet<string> cssClasses)
     {
         var sizeClass = Size switch
         {
