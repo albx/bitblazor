@@ -3,8 +3,9 @@
 <Stories TComponent="BitButton">
 
     <ArgType For="_ => _.Color" Control="ControlType.Select" />
-    <ArgType For="_ => _.Size" Control="ControlType.Select" />
-    <ArgType For="_ => _.Type" Control="ControlType.Select" />
+    <ArgType For="_ => _.Size" Control="ControlType.Select" DefaultValue="Size.Default" />
+    <ArgType For="_ => _.Type" Control="ControlType.Select" DefaultValue="ButtonType.Button" />
+    <ArgType For="_ => _.IconPosition" Control="ControlType.Select" DefaultValue="IconPosition.Start" />
 
     <Story Name="Default">
 

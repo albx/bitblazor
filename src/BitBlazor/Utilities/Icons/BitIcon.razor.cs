@@ -20,7 +20,10 @@ public partial class BitIcon
     [Parameter]
     public IconAlignment Align { get; set; } = IconAlignment.Default;
 
-    private string Href => $"/bootstrap-italia/dist/svg/sprites.svg#{IconName}";
+    [Parameter]
+    public string? CssClass { get; set; }
+
+    private string Href => $"/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}";
 
     private string ComputedCssClasses => $"icon {ComputeCssClasses()}".Trim();
 
@@ -34,6 +37,11 @@ public partial class BitIcon
         if (Padded)
         {
             cssClasses.Add("icon-padded");
+        }
+
+        if (!string.IsNullOrWhiteSpace(CssClass))
+        {
+            cssClasses.Add(CssClass);
         }
 
         return string.Join(" ", cssClasses);

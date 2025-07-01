@@ -1,7 +1,24 @@
 ﻿@namespace BitBlazor.Components
+@using BitBlazor.Utilities
  
 <button type="@ButtonTypeString" 
         class="@ComputedCssClasses" 
         @onclick="OnClick">
-    @Text
+    @if (HasIcon(IconPosition.Start))
+    {
+        @IconFragment
+    }
+
+    <span>@Text</span>
+
+    @if (HasIcon(IconPosition.End))
+    {
+        @IconFragment
+    }
 </button>
+
+@code {
+    private RenderFragment IconFragment => IconRounded
+        ? @<span class="rounded-icon"><BitIcon IconName="@Icon" Color="ComputeIconColor()" /></span>
+        : @<BitIcon IconName="@Icon" Color="ComputeIconColor()" CssClass="ms-1"/>;
+}

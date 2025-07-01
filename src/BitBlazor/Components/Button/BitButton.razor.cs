@@ -1,3 +1,4 @@
+using BitBlazor.Utilities;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
@@ -56,6 +57,11 @@ public partial class BitButton
             cssClasses.Add("disabled");
         }
 
+        if (!string.IsNullOrWhiteSpace(Icon))
+        {
+            cssClasses.Add("btn-icon");
+        }
+
         if (!string.IsNullOrWhiteSpace(CssClass))
         {
             cssClasses.Add(CssClass);
@@ -101,5 +107,28 @@ public partial class BitButton
         {
             cssClasses.Add(sizeClass);
         }
+    }
+
+    private bool HasIcon(IconPosition position)
+    {
+        return !string.IsNullOrWhiteSpace(Icon) && IconPosition == position;
+    }
+
+    private IconColor ComputeIconColor()
+    {
+        if (IconRounded || (Color is Color.PrimaryOutline or Color.SecondaryOutline or Color.WarningOutline or Color.SuccessOutline or Color.DangerOutline))
+        {
+            return Color switch
+            {
+                Color.PrimaryOutline or Color.Primary => IconColor.Primary,
+                Color.SecondaryOutline or Color.Secondary => IconColor.Secondary,
+                Color.WarningOutline or Color.Warning => IconColor.Warning,
+                Color.DangerOutline or Color.Danger => IconColor.Danger,
+                Color.SuccessOutline or Color.Success => IconColor.Success,
+                _ => IconColor.White
+            };
+        }
+
+        return IconColor.White;
     }
 }

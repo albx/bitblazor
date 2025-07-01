@@ -7,7 +7,7 @@
         var component = Render(@<BitIcon IconName="@Icons.ItTool" />);
         component.MarkupMatches(
             @<svg class="icon">
-                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-tool" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-tool"></use>
+                <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-tool" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-tool"></use>
              </svg>);
     }
 
@@ -23,7 +23,7 @@
 
         component.MarkupMatches(
             @<svg class="icon @expectedClass">
-                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+                <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle"></use>
              </svg>);
     }
 
@@ -35,7 +35,7 @@
 
         component.MarkupMatches(
             @<svg class="icon icon-padded">
-                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+                <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle"></use>
              </svg>);
     }
 
@@ -54,7 +54,7 @@
 
         component.MarkupMatches(
             @<svg class="icon @expectedClass">
-                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+                <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle"></use>
              </svg>);
     }
 
@@ -69,7 +69,19 @@
 
         component.MarkupMatches(
             @<svg class="icon @expectedClass">
-                <use href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-check-circle"></use>
+                <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle"></use>
+             </svg>);
+    }
+
+    [Fact]
+    public void BitIcon_Should_Render_Specified_Css_Class()
+    {
+        var component = Render(@<BitIcon IconName="@Icons.ItCheckCircle"
+                                         CssClass="ms-1"/>);
+
+        component.MarkupMatches(
+            @<svg class="icon ms-1">
+                <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check-circle"></use>
              </svg>);
     }
 }
