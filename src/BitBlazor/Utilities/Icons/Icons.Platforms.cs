@@ -1,0 +1,55 @@
+﻿namespace BitBlazor.Utilities;
+
+public static partial class Icons
+{
+    public const string ItAndroid = "it-android";
+    public const string ItAndroidSquare = "it-android-square";
+    public const string ItApple = "it-apple";
+    public const string ItAppleSquare = "it-apple-square";
+    public const string ItBehance = "it-behance";
+    public const string ItBluesky = "it-bluesky";
+    public const string ItFacebook = "it-facebook";
+    public const string ItFacebookSquare = "it-facebook-square";
+    public const string ItFigma = "it-figma";
+    public const string ItFigmaSquare = "it-figma-square";
+    public const string ItFlickr = "it-flickr";
+    public const string ItFlickrSquare = "it-flickr-square";
+    public const string ItGithub = "it-github";
+    public const string ItInstagram = "it-instagram";
+    public const string ItLinkedin = "it-linkedin";
+    public const string ItLinkedinSquare = "it-linkedin-square";
+    public const string ItMastodon = "it-mastodon";
+    public const string ItMastodonSquare = "it-mastodon-square";
+    public const string ItMedium = "it-medium";
+    public const string ItMediumSquare = "it-medium-square";
+    public const string ItMoodle = "it-moodle";
+    public const string ItMoodleSquare = "it-moodle-square";
+    public const string ItPinterest = "it-pinterest";
+    public const string ItPinterestSquare = "it-pinterest-square";
+    public const string ItQuora = "it-quora";
+    public const string ItQuoraSquare = "it-quora-square";
+    public const string ItReddit = "it-reddit";
+    public const string ItRedditSquare = "it-reddit-square";
+    public const string ItSlack = "it-slack";
+    public const string ItSlackSquare = "it-slack-square";
+    public const string ItSnapchat = "it-snapchat";
+    public const string ItSnapchatSquare = "it-snapchat-square";
+    public const string ItStackexchange = "it-stackexchange";
+    public const string ItStackexchangeSquare = "it-stackexchange-square";
+    public const string ItStackoverflow = "it-stackoverflow";
+    public const string ItStackoverflowSquare = "it-stackoverflow-square";
+    public const string ItSpotify = "it-spotify";
+    public const string ItTelegram = "it-telegram";
+    public const string ItThreads = "it-threads";
+    public const string ItThreadsSquare = "it-threads-square";
+    public const string ItTiktok = "it-tiktok";
+    public const string ItTiktokSquare = "it-tiktok-square";
+    public const string ItTwitter = "it-twitter";
+    public const string ItTwitterSquare = "it-twitter-square";
+    public const string ItVimeo = "it-vimeo";
+    public const string ItVimeoSquare = "it-vimeo-square";
+    public const string ItWhatsapp = "it-whatsapp";
+    public const string ItWhatsappSquare = "it-whatsapp-square";
+    public const string ItYoutube = "it-youtube";
+    public const string ItGoogle = "it-google";
+}
