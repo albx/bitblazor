@@ -89,7 +89,7 @@
         var component = Render(@<BitButton Text="test" Color="Color.Primary" Disabled="true" />);
 
         component.MarkupMatches(
-            @<button type="button" class="btn btn-primary disabled">
+            @<button type="button" class="btn btn-primary disabled" disabled aria-disabled="true">
                 <span>test</span>
              </button>);
     }
@@ -107,7 +107,7 @@
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary btn-icon">
                 <svg class="icon icon-white ms-1">
-                    <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
+                    <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
                 </svg>
                 <span>test</span>
             </button>);
@@ -125,7 +125,7 @@
             @<button type="button" class="btn btn-primary btn-icon">
                 <span>test</span>
                 <svg class="icon icon-white ms-1">
-                    <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
+                    <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
                 </svg>
             </button>);
     }
@@ -152,7 +152,7 @@
             @<button type="button" class="btn @buttonColorClass btn-icon">
                 <span class="rounded-icon">
                     <svg class="icon @expectedIconColor">
-                        <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
+                        <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
                     </svg>
                 </span>
                 <span>test</span>
@@ -179,7 +179,7 @@
         component.MarkupMatches(
             @<button type="button" class="btn @buttonColorClass btn-icon">
                  <svg class="icon @expectedIconColor ms-1">
-                     <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" xlink:href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
+                     <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
                  </svg>
                 <span>test</span>
             </button>);

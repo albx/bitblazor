@@ -2,24 +2,45 @@ using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Utilities;
 
+/// <summary>
+/// Represents an icon component which displays one of the icons available in Bootstrap Italia.
+/// </summary>
 public partial class BitIcon
 {
+    /// <summary>
+    /// Gets or sets the name of the icon to display. This is required.
+    /// </summary>
     [Parameter]
     [EditorRequired]
     public string IconName { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Gets or sets the size of the icon.
+    /// </summary>
     [Parameter]
     public IconSize Size { get; set; } = IconSize.Default;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the icon should have padding.
+    /// </summary>
     [Parameter]
     public bool Padded { get; set; }
 
+    /// <summary>
+    /// Gets or sets the color of the icon.
+    /// </summary>
     [Parameter]
     public IconColor Color { get; set; } = IconColor.Default;
 
+    /// <summary>
+    /// Gets or sets the alignment of the icon.
+    /// </summary>
     [Parameter]
     public IconAlignment Align { get; set; } = IconAlignment.Default;
 
+    /// <summary>
+    /// Gets or sets additional CSS classes to apply to the icon.
+    /// </summary>
     [Parameter]
     public string? CssClass { get; set; }
 
@@ -29,7 +50,7 @@ public partial class BitIcon
 
     private string ComputeCssClasses()
     {
-        var cssClasses = new HashSet<string>();
+        var cssClasses = new List<string>();
         AddSizeClass(cssClasses);
         AddColorClass(cssClasses);
         AddAlignmentClass(cssClasses);
@@ -47,7 +68,7 @@ public partial class BitIcon
         return string.Join(" ", cssClasses);
     }
 
-    private void AddAlignmentClass(HashSet<string> cssClasses)
+    private void AddAlignmentClass(List<string> cssClasses)
     {
         var alignmentClass = Align switch
         {
@@ -63,7 +84,7 @@ public partial class BitIcon
         }
     }
 
-    private void AddColorClass(HashSet<string> cssClasses)
+    private void AddColorClass(List<string> cssClasses)
     {
         var colorClass = Color switch
         {
@@ -83,7 +104,7 @@ public partial class BitIcon
         }
     }
 
-    private void AddSizeClass(HashSet<string> cssClasses)
+    private void AddSizeClass(List<string> cssClasses)
     {
         var sizeClass = Size switch
         {
