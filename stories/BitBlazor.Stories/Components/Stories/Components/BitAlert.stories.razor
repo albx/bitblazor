@@ -1,0 +1,51 @@
+﻿@attribute [Stories("Components/BitAlert")]
+
+<Stories TComponent="BitAlert">
+    <ArgType For="_ => _.Type" Control="ControlType.Select" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Type" Value="AlertType.Primary" />
+        </Arguments>
+
+        <Template>
+            <div class="px-2 py-2">
+                <BitAlert @attributes="context.Args">
+                    Alert content
+                </BitAlert>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Alert types">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Primary">
+                        This is a "<b>primary</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Info">
+                        This is a "<b>info</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Success">
+                        This is a "<b>success</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Warning">
+                        This is a "<b>warning</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Danger">
+                        This is a "<b>danger</b>" alert
+                    </BitAlert>
+                </div>
+            </div>
+        </Template>
+    </Story>
+</Stories>

@@ -1,0 +1,22 @@
+﻿@inherits TestContext
+
+@code {
+    [Theory]
+    [InlineData(AlertType.Primary, "alert-primary")]
+    [InlineData(AlertType.Info, "alert-info")]
+    [InlineData(AlertType.Success, "alert-success")]
+    [InlineData(AlertType.Warning, "alert-warning")]
+    [InlineData(AlertType.Danger, "alert-danger")]
+    public void BitAlert_Should_Render_The_Alert_Type_Correctly(AlertType type, string expectedTypeClass)
+    {
+        var component = Render(
+            @<BitAlert Type="type">
+                My alert content.
+             </BitAlert>);
+
+        component.MarkupMatches(
+            @<div class="alert @expectedTypeClass" role="alert">
+                My alert content.
+            </div>);
+    }
+}
