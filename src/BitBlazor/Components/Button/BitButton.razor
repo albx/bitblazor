@@ -22,5 +22,5 @@
 @code {
     private RenderFragment IconFragment => IconRounded
         ? @<span class="rounded-icon"><BitIcon IconName="@Icon" Color="ComputeIconColor()" /></span>
-        : @<BitIcon IconName="@Icon" Color="ComputeIconColor()" CssClass="ms-1"/>;
+        : @<BitIcon IconName="@Icon" Color="ComputeIconColor()" CssClass="@(IconPosition is IconPosition.Start ? "me-1" : "ms-1")"/>;
 }
