@@ -72,7 +72,7 @@ public partial class BitButton
 
     private string ComputedCssClasses => $"btn {ComputeCssClasses()}".Trim();
 
-    private Dictionary<string, object> attributes = [];
+    private Dictionary<string, object> attributes = new();
 
     private string ButtonTypeString => Type switch
     {
