@@ -21,6 +21,12 @@ public partial class BitAlert
     [EditorRequired]
     public RenderFragment ChildContent { get; set; } = default!;
 
+    /// <summary>
+    /// Gets or sets the alert's title
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
     private string ComputedCssClasses => $"alert {ComputeCssClasses()}".Trim();
 
     private string ComputeCssClasses()

@@ -19,4 +19,20 @@
                 My alert content.
             </div>);
     }
+
+    [Fact]
+    public void BitAlert_Should_Render_Alert_Heading_Correctly()
+    {
+        var component = Render(
+            @<BitAlert Type="AlertType.Primary"
+                       Title="Alert title!">
+                <p>Alert with heading and additional content</p>
+             </BitAlert>);
+
+        component.MarkupMatches(
+            @<div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">Alert title!</h4>
+                <p>Alert with heading and additional content</p>
+             </div>);
+    }
 }

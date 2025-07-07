@@ -1,5 +1,9 @@
 ﻿@namespace BitBlazor.Components
 
 <div class="@ComputedCssClasses" role="alert">
+    @if (!string.IsNullOrWhiteSpace(Title))
+	{
+        <h4 class="alert-heading">@Title</h4>
+	}
     @ChildContent
 </div>
