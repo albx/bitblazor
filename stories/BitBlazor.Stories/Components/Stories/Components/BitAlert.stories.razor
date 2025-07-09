@@ -79,4 +79,20 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Dismissable alert">
+        <Arguments>
+            <Arg For="_ => _.Type" Value="AlertType.Primary" />
+            <Arg For="_ => _.CloseButtonAriaLabel" Value="@("Close alert")" />
+        </Arguments>
+
+        <Template>
+            <div class="px-2 py-2">
+                <BitAlert @attributes="context.Args" 
+                          Dismissible="true">
+                    This is a dismissible alert
+                </BitAlert>
+            </div>
+        </Template>
+    </Story>
 </Stories>

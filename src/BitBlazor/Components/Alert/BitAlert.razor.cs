@@ -27,12 +27,42 @@ public partial class BitAlert
     [Parameter]
     public string? Title { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the alert is dimissible
+    /// </summary>
+    [Parameter]
+    public bool Dismissible { get; set; }
+
+    /// <summary>
+    /// Gets or sets the aria-label attribute for the close button in case of dismissible alert
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonAriaLabel { get; set; }
+
     private string ComputedCssClasses => $"alert {ComputeCssClasses()}".Trim();
+
+    private List<string> dismissibleClasses = [];
+
+    private bool closed;
+
+    /// <summary>
+    /// Initializes the component.
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        dismissibleClasses = ["alert-dismissible", "fade", "show"];
+        closed = false;
+    }
 
     private string ComputeCssClasses()
     {
         var cssClasses = new List<string>();
         AddTypeClass(cssClasses);
+
+        if (Dismissible)
+        {
+            cssClasses.AddRange(dismissibleClasses);
+        }
 
         return string.Join(" ", cssClasses);
     }
@@ -50,5 +80,16 @@ public partial class BitAlert
         };
 
         cssClasses.Add(typeClass);
+    }
+
+    private void Close()
+    {
+        if (!Dismissible)
+        {
+            throw new InvalidOperationException("Alert is not dismissible");
+        }
+
+        dismissibleClasses.Remove("show");
+        closed = true;
     }
 }
