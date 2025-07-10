@@ -1,0 +1,98 @@
+﻿@attribute [Stories("Components/BitAlert")]
+
+<Stories TComponent="BitAlert">
+    <ArgType For="_ => _.Type" Control="ControlType.Select" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Type" Value="AlertType.Primary" />
+        </Arguments>
+
+        <Template>
+            <div class="px-2 py-2">
+                <BitAlert @attributes="context.Args">
+                    Alert content
+                </BitAlert>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Alert types">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Primary">
+                        This is a "<b>primary</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Info">
+                        This is a "<b>info</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Success">
+                        This is a "<b>success</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Warning">
+                        This is a "<b>warning</b>" alert
+                    </BitAlert>
+                </div>
+                <div class="mb-2">
+                    <BitAlert Type="AlertType.Danger">
+                        This is a "<b>danger</b>" alert
+                    </BitAlert>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Alert with links">
+        <Arguments>
+            <Arg For="_ => _.Type" Value="AlertType.Primary" />
+        </Arguments>
+
+        <Template>
+            <div class="px-2 py-2">
+                <BitAlert @attributes="context.Args">
+                    This is an alert with a <a href="#" class="alert-link">link</a> inside
+                </BitAlert>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Additional content">
+        <Arguments>
+            <Arg For="_ => _.Type" Value="AlertType.Primary" />
+            <Arg For="_ => _.Title" Value="@("Well done")" />
+        </Arguments>
+
+        <Template>
+            <div class="px-2 py-2">
+                <BitAlert @attributes="context.Args">
+                    <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                    <hr>
+                    <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                </BitAlert>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Dismissable alert">
+        <Arguments>
+            <Arg For="_ => _.Type" Value="AlertType.Primary" />
+            <Arg For="_ => _.CloseButtonAriaLabel" Value="@("Close alert")" />
+        </Arguments>
+
+        <Template>
+            <div class="px-2 py-2">
+                <BitAlert @attributes="context.Args" 
+                          Dismissible="true">
+                    This is a dismissible alert
+                </BitAlert>
+            </div>
+        </Template>
+    </Story>
+</Stories>

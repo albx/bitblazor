@@ -1,0 +1,91 @@
+﻿@inherits TestContext
+
+@code {
+    [Theory]
+    [InlineData(AlertType.Primary, "alert-primary")]
+    [InlineData(AlertType.Info, "alert-info")]
+    [InlineData(AlertType.Success, "alert-success")]
+    [InlineData(AlertType.Warning, "alert-warning")]
+    [InlineData(AlertType.Danger, "alert-danger")]
+    public void BitAlert_Should_Render_The_Alert_Type_Correctly(AlertType type, string expectedTypeClass)
+    {
+        var component = Render(
+            @<BitAlert Type="@type">
+                My alert content.
+             </BitAlert>);
+
+        component.MarkupMatches(
+            @<div class="alert @expectedTypeClass" role="alert">
+                My alert content.
+            </div>);
+    }
+
+    [Fact]
+    public void BitAlert_Should_Render_Alert_Heading_Correctly()
+    {
+        var component = Render(
+            @<BitAlert Type="AlertType.Primary"
+                       Title="Alert title!">
+                <p>Alert with heading and additional content</p>
+             </BitAlert>);
+
+        component.MarkupMatches(
+            @<div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading">Alert title!</h4>
+                <p>Alert with heading and additional content</p>
+             </div>);
+    }
+
+    [Fact]
+    public void BitAlert_Should_Render_Close_Button_Correctly()
+    {
+        var component = Render(
+            @<BitAlert Type="AlertType.Primary" 
+                       Dismissible="true" 
+                       CloseButtonAriaLabel="Close alert">
+                <strong>Dismissable alert</strong>
+             </BitAlert>);
+
+        component.MarkupMatches(
+            @<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Dismissable alert</strong>
+                <button type="button" class="btn-close" aria-label="Close alert">
+                    <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-close"></use></svg>
+                </button>
+             </div>);
+    }
+
+    [Fact]
+    public void BitAlert_Should_Remove_Markup_When_Close_Button_Is_Clicked()
+    {
+        var component = Render(
+            @<BitAlert Type="AlertType.Primary" 
+                       Dismissible="true" 
+                       CloseButtonAriaLabel="Close alert">
+                <strong>Dismissable alert</strong>
+             </BitAlert>);
+
+        var closeButton = component.Find("button.btn-close");
+        closeButton.Click();
+
+        Assert.Empty(component.Markup);
+    }
+
+    [Fact]
+    public void BitAlert_Should_Render_Default_Aria_Label_Attribute_On_Close_Button_If_It_Is_Not_Provided()
+    {
+        var component = Render(
+            @<BitAlert Type="AlertType.Primary" 
+                       Dismissible="true">
+                <strong>Dismissable alert</strong>
+             </BitAlert>);
+
+        component.MarkupMatches(
+            @<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Dismissable alert</strong>
+                <button type="button" class="btn-close" aria-label="close this alert">
+                    <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-close"></use></svg>
+                </button>
+             </div>);
+    }
+}
