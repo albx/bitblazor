@@ -108,11 +108,6 @@ public partial class BitAlert
 
     private async Task CloseAsync()
     {
-        if (!Dismissible)
-        {
-            throw new InvalidOperationException("Alert is not dismissible");
-        }
-
         await OnClose.InvokeAsync();
 
         dismissibleClasses.Remove("show");
