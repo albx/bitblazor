@@ -28,7 +28,7 @@ public partial class BitAlert
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the alert is dimissible
+    /// Gets or sets whether the alert is dismissible
     /// </summary>
     [Parameter]
     public bool Dismissible { get; set; }

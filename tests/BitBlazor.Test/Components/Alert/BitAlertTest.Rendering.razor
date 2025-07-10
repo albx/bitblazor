@@ -10,7 +10,7 @@
     public void BitAlert_Should_Render_The_Alert_Type_Correctly(AlertType type, string expectedTypeClass)
     {
         var component = Render(
-            @<BitAlert Type="type">
+            @<BitAlert Type="@type">
                 My alert content.
              </BitAlert>);
 
