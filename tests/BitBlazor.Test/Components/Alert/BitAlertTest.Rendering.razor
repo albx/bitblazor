@@ -70,4 +70,22 @@
 
         Assert.Empty(component.Markup);
     }
+
+    [Fact]
+    public void BitAlert_Should_Render_Default_Aria_Label_Attribute_On_Close_Button_If_It_Is_Not_Provided()
+    {
+        var component = Render(
+            @<BitAlert Type="AlertType.Primary" 
+                       Dismissible="true">
+                <strong>Dismissable alert</strong>
+             </BitAlert>);
+
+        component.MarkupMatches(
+            @<div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Dismissable alert</strong>
+                <button type="button" class="btn-close" aria-label="close this alert">
+                    <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-close"></use></svg>
+                </button>
+             </div>);
+    }
 }

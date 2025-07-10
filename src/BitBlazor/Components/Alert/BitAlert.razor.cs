@@ -66,6 +66,18 @@ public partial class BitAlert
         closed = false;
     }
 
+    /// <summary>
+    /// Sets default values for component parameters when they are not provided.
+    /// </summary>
+    /// <remarks>If the <see cref="CloseButtonAriaLabel"/> parameter is not set or is whitespace, it defaults to "close this alert" to ensure accessibility.</remarks>
+    protected override void OnParametersSet()
+    {
+        if (Dismissible && string.IsNullOrWhiteSpace(CloseButtonAriaLabel))
+        {
+            CloseButtonAriaLabel = "close this alert";
+        }
+    }
+
     private string ComputeCssClasses()
     {
         var cssClasses = new List<string>();
