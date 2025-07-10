@@ -8,11 +8,12 @@
         {
             <h4 class="alert-heading">@Title</h4>
         }
+
         @ChildContent
 
         @if (Dismissible)
         {
-            <button type="button" class="btn-close" aria-label="@CloseButtonAriaLabel" @onclick="Close">
+            <button type="button" class="btn-close" aria-label="@CloseButtonAriaLabel" @onclick="CloseAsync">
                 <BitIcon IconName="@Icons.ItClose" />
             </button>
         }

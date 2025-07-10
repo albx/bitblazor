@@ -39,6 +39,18 @@ public partial class BitAlert
     [Parameter]
     public string? CloseButtonAriaLabel { get; set; }
 
+    /// <summary>
+    /// Gets or sets the callback which will be called just before the closing of the alert
+    /// </summary>
+    [Parameter]
+    public EventCallback OnClose { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback which will be called just after the alert has been closed
+    /// </summary>
+    [Parameter]
+    public EventCallback OnClosed { get; set; }
+
     private string ComputedCssClasses => $"alert {ComputeCssClasses()}".Trim();
 
     private List<string> dismissibleClasses = [];
@@ -82,14 +94,18 @@ public partial class BitAlert
         cssClasses.Add(typeClass);
     }
 
-    private void Close()
+    private async Task CloseAsync()
     {
         if (!Dismissible)
         {
             throw new InvalidOperationException("Alert is not dismissible");
         }
 
+        await OnClose.InvokeAsync();
+
         dismissibleClasses.Remove("show");
         closed = true;
+
+        await OnClosed.InvokeAsync();
     }
 }
