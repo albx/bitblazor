@@ -23,6 +23,12 @@ public partial class BitButton
     public Color Color { get; set; }
 
     /// <summary>
+    /// Gets or sets the variant of the button
+    /// </summary>
+    [Parameter]
+    public Variant Variant { get; set; } = Variant.Solid;
+
+    /// <summary>
     /// Gets or sets the type of the button (Button, Submit, or Reset).
     /// </summary>
     [Parameter]
@@ -126,18 +132,18 @@ public partial class BitButton
 
     private void AddColorClass(List<string> cssClasses)
     {
-        var colorClass = Color switch
+        var colorClass = (Color, Variant) switch
         {
-            Color.Primary => "btn-primary",
-            Color.Secondary => "btn-secondary",
-            Color.Success => "btn-success",
-            Color.Danger => "btn-danger",
-            Color.Warning => "btn-warning",
-            Color.PrimaryOutline => "btn-outline-primary",
-            Color.SecondaryOutline => "btn-outline-secondary",
-            Color.SuccessOutline => "btn-outline-success",
-            Color.DangerOutline => "btn-outline-danger",
-            Color.WarningOutline => "btn-outline-warning",
+            (Color.Primary, Variant.Solid) => "btn-primary",
+            (Color.Secondary, Variant.Solid) => "btn-secondary",
+            (Color.Success, Variant.Solid) => "btn-success",
+            (Color.Danger, Variant.Solid) => "btn-danger",
+            (Color.Warning, Variant.Solid) => "btn-warning",
+            (Color.Primary, Variant.Outline) => "btn-outline-primary",
+            (Color.Secondary, Variant.Outline) => "btn-outline-secondary",
+            (Color.Success, Variant.Outline) => "btn-outline-success",
+            (Color.Danger, Variant.Outline) => "btn-outline-danger",
+            (Color.Warning, Variant.Outline) => "btn-outline-warning",
             _ => string.Empty
         };
 
@@ -170,15 +176,15 @@ public partial class BitButton
 
     private IconColor ComputeIconColor()
     {
-        if (IconRounded || (Color is Color.PrimaryOutline or Color.SecondaryOutline or Color.WarningOutline or Color.SuccessOutline or Color.DangerOutline))
+        if (IconRounded || Variant is Variant.Outline)
         {
             return Color switch
             {
-                Color.PrimaryOutline or Color.Primary => IconColor.Primary,
-                Color.SecondaryOutline or Color.Secondary => IconColor.Secondary,
-                Color.WarningOutline or Color.Warning => IconColor.Warning,
-                Color.DangerOutline or Color.Danger => IconColor.Danger,
-                Color.SuccessOutline or Color.Success => IconColor.Success,
+                Color.Primary => IconColor.Primary,
+                Color.Secondary => IconColor.Secondary,
+                Color.Warning => IconColor.Warning,
+                Color.Danger => IconColor.Danger,
+                Color.Success => IconColor.Success,
                 _ => IconColor.White
             };
         }
