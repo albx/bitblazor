@@ -1,0 +1,57 @@
+﻿@attribute [Stories("Components/BitBadge")]
+
+<Stories TComponent="BitBadge">
+    <ArgType For="_ => _.Text" DefaultValue="@("Test")" />
+    <ArgType For="_ => _.BackgroundColor" Control="ControlType.Select" DefaultValue="Color.Primary" />
+    <ArgType For="_ => _.Rounded" DefaultValue="false" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Text" Value="@("Test")" />
+            <Arg For="_ => _.BackgroundColor" Value="Color.Primary" />
+            <Arg For="_ => _.Rounded" Value="false" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2">
+                <BitBadge @attributes="context.Args" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Dimensions">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="h1">Titolo di esempio h1 <BitBadge Text="New" BackgroundColor="Color.Secondary" /></div>
+                <div class="h2">Titolo di esempio h2 <BitBadge Text="New" BackgroundColor="Color.Secondary" /></div>
+                <div class="h3">Titolo di esempio h3 <BitBadge Text="New" BackgroundColor="Color.Secondary" /></div>
+                <div class="h4">Titolo di esempio h4 <BitBadge Text="New" BackgroundColor="Color.Secondary" /></div>
+                <div class="h5">Titolo di esempio h5 <BitBadge Text="New" BackgroundColor="Color.Secondary" /></div>
+                <div class="h6">Titolo di esempio h6 <BitBadge Text="New" BackgroundColor="Color.Secondary" /></div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Colors">
+        <Template>
+            <div class="px-2 py-2">
+                <BitBadge Text="Primary" BackgroundColor="Color.Primary" />
+                <BitBadge Text="Secondary" BackgroundColor="Color.Secondary" />
+                <BitBadge Text="Success" BackgroundColor="Color.Success" />
+                <BitBadge Text="Danger" BackgroundColor="Color.Danger" />
+                <BitBadge Text="Warning" BackgroundColor="Color.Warning" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Rounded badges">
+        <Template>
+            <div class="px-2 py-2">
+                <BitBadge Text="Primary" BackgroundColor="Color.Primary" Rounded="true" />
+                <BitBadge Text="Secondary" BackgroundColor="Color.Secondary" Rounded="true" />
+                <BitBadge Text="Success" BackgroundColor="Color.Success" Rounded="true" />
+                <BitBadge Text="Danger" BackgroundColor="Color.Danger" Rounded="true" />
+                <BitBadge Text="Warning" BackgroundColor="Color.Warning" Rounded="true" />
+            </div>
+        </Template>
+    </Story>
+</Stories>
