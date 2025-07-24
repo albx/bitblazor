@@ -16,6 +16,20 @@
     }
 
     [Theory]
+    [InlineData(Color.Primary, "bg-white text-primary")]
+    [InlineData(Color.Secondary, "bg-white text-secondary")]
+    [InlineData(Color.Success, "bg-white text-success")]
+    [InlineData(Color.Danger, "bg-white text-danger")]
+    [InlineData(Color.Warning, "bg-white text-warning")]
+    public void BitAlert_Should_Render_Background_Color_With_Outline_Variant_Correctly(Color color, string backgroundCssClass)
+    {
+        var component = Render(@<BitBadge Text="Test" BackgroundColor="color" Variant="Variant.Outline" />);
+
+        component.MarkupMatches(
+            @<span class="badge @backgroundCssClass">Test</span>);
+    }
+
+    [Theory]
     [InlineData(Color.Primary, "bg-primary")]
     [InlineData(Color.Secondary, "bg-secondary")]
     [InlineData(Color.Success, "bg-success")]

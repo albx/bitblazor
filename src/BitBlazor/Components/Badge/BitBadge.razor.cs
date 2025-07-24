@@ -22,6 +22,12 @@ public partial class BitBadge
     public Color BackgroundColor { get; set; }
 
     /// <summary>
+    /// Gets or sets the variant of the badge
+    /// </summary>
+    [Parameter]
+    public Variant Variant { get; set; } = Variant.Solid;
+
+    /// <summary>
     /// Gets or sets whether the badge is rounded
     /// </summary>
     [Parameter]
@@ -32,7 +38,7 @@ public partial class BitBadge
     private string ComputeCssClasses()
     {
         var cssClasses = new List<string>();
-        AddBackgroundColorClass(cssClasses);
+        AddColorClass(cssClasses);
 
         if (Rounded)
         {
@@ -42,15 +48,20 @@ public partial class BitBadge
         return string.Join(" ", cssClasses);
     }
 
-    private void AddBackgroundColorClass(List<string> cssClasses)
+    private void AddColorClass(List<string> cssClasses)
     {
-        var backgroundColorCssClass = BackgroundColor switch
+        var backgroundColorCssClass = (BackgroundColor, Variant) switch
         {
-            Color.Primary => "bg-primary",
-            Color.Secondary => "bg-secondary",
-            Color.Success => "bg-success",
-            Color.Warning => "bg-warning",
-            Color.Danger => "bg-danger",
+            (Color.Primary, Variant.Solid) => "bg-primary",
+            (Color.Secondary, Variant.Solid) => "bg-secondary",
+            (Color.Success, Variant.Solid) => "bg-success",
+            (Color.Warning, Variant.Solid) => "bg-warning",
+            (Color.Danger, Variant.Solid) => "bg-danger",
+            (Color.Primary, Variant.Outline) => "bg-white text-primary",
+            (Color.Secondary, Variant.Outline) => "bg-white text-secondary",
+            (Color.Success, Variant.Outline) => "bg-white text-success",
+            (Color.Warning, Variant.Outline) => "bg-white text-warning",
+            (Color.Danger, Variant.Outline) => "bg-white text-danger",
             _ => string.Empty
         };
 
