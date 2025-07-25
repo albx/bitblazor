@@ -1,0 +1,45 @@
+﻿@inherits TestContext
+
+@code {
+    [Theory]
+    [InlineData(Color.Primary, "bg-primary")]
+    [InlineData(Color.Secondary, "bg-secondary")]
+    [InlineData(Color.Success, "bg-success")]
+    [InlineData(Color.Danger, "bg-danger")]
+    [InlineData(Color.Warning, "bg-warning")]
+    public void BitBadge_Should_Render_Background_Color_Correctly(Color color, string backgroundCssClass)
+    {
+        var component = Render(@<BitBadge Text="Test" BackgroundColor="color" />);
+
+        component.MarkupMatches(
+            @<span class="badge @backgroundCssClass">Test</span>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "bg-white text-primary")]
+    [InlineData(Color.Secondary, "bg-white text-secondary")]
+    [InlineData(Color.Success, "bg-white text-success")]
+    [InlineData(Color.Danger, "bg-white text-danger")]
+    [InlineData(Color.Warning, "bg-white text-warning")]
+    public void BitBadge_Should_Render_Background_Color_With_Outline_Variant_Correctly(Color color, string backgroundCssClass)
+    {
+        var component = Render(@<BitBadge Text="Test" BackgroundColor="color" Variant="Variant.Outline" />);
+
+        component.MarkupMatches(
+            @<span class="badge @backgroundCssClass">Test</span>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "bg-primary")]
+    [InlineData(Color.Secondary, "bg-secondary")]
+    [InlineData(Color.Success, "bg-success")]
+    [InlineData(Color.Danger, "bg-danger")]
+    [InlineData(Color.Warning, "bg-warning")]
+    public void BitBadge_Should_Render_Rounded_Pill_Correctly(Color color, string backgroundCssClass)
+    {
+        var component = Render(@<BitBadge Text="Test" BackgroundColor="color" Rounded="true" />);
+
+        component.MarkupMatches(
+            @<span class="badge @backgroundCssClass rounded-pill">Test</span>);
+    }
+}

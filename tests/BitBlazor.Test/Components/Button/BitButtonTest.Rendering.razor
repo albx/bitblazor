@@ -9,20 +9,31 @@
     [InlineData(Color.Success, "btn-success")]
     [InlineData(Color.Danger, "btn-danger")]
     [InlineData(Color.Warning, "btn-warning")]
-    [InlineData(Color.PrimaryOutline, "btn-outline-primary")]
-    [InlineData(Color.SecondaryOutline, "btn-outline-secondary")]
-    [InlineData(Color.SuccessOutline, "btn-outline-success")]
-    [InlineData(Color.DangerOutline, "btn-outline-danger")]
-    [InlineData(Color.WarningOutline, "btn-outline-warning")]
     public void BitButton_Should_Render_Button_With_Correct_Color_Class(Color color, string colorCssClass)
     {
-        var component = Render(@<BitButton Text="Test"
-                                           Color="color"/>);
+        var component = Render(@<BitButton Color="color">Test</BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn @colorCssClass">
-                <span>Test</span>
+                Test
             </button>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "btn-outline-primary")]
+    [InlineData(Color.Secondary, "btn-outline-secondary")]
+    [InlineData(Color.Success, "btn-outline-success")]
+    [InlineData(Color.Danger, "btn-outline-danger")]
+    [InlineData(Color.Warning, "btn-outline-warning")]
+    public void BitButton_Should_Render_Button_With_Outlined_Color_Correctly(Color color, string colorCssClass)
+    {
+        var component = Render(@<BitButton Color="color"
+                                           Variant="Variant.Outline">Test</BitButton>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn @colorCssClass">
+                Test
+             </button>);
     }
     #endregion
 
@@ -30,11 +41,11 @@
     [Fact]
     public void BitButton_Should_Render_Button_Type_By_Default()
     {
-        var component = Render(@<BitButton Text="Test" Color="Color.Primary" />);
+        var component = Render(@<BitButton Color="Color.Primary">Test</BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary">
-                <span>Test</span>
+                Test
              </button>);
     }
 
@@ -44,11 +55,11 @@
     [InlineData(ButtonType.Reset, "reset")]
     public void BitButton_Should_Render_Button_Type_Correctly(ButtonType buttonType, string buttonTypeString)
     {
-        var component = Render(@<BitButton Text="Test" Color="Color.Primary" Type="buttonType" />);
+        var component = Render(@<BitButton Color="Color.Primary" Type="buttonType">Test</BitButton>);
 
         component.MarkupMatches(
             @<button type="@buttonTypeString" class="btn btn-primary">
-                <span>Test</span>
+                Test
              </button>);
     }
     #endregion
@@ -60,11 +71,11 @@
     [InlineData(Size.Mini, "btn-xs")]
     public void BitButton_Should_Render_Button_Size_Correctly(Size size, string sizeCssClass)
     {
-        var component = Render(@<BitButton Text="Test" Color="Color.Primary" Size="size" />);
+        var component = Render(@<BitButton Color="Color.Primary" Size="size">Test</BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary @sizeCssClass">
-                <span>Test</span>
+                Test
              </button>);
     }
     #endregion
@@ -73,11 +84,11 @@
     [Fact]
     public void BitButton_Should_Render_Custom_Css_Classes_If_Specified()
     {
-        var component = Render(@<BitButton Text="Test" Color="Color.Primary" CssClass="my-class another-class" />);
+        var component = Render(@<BitButton Color="Color.Primary" CssClass="my-class another-class">Test</BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary my-class another-class">
-                <span>Test</span>
+                Test
              </button>);
     }
     #endregion
@@ -86,11 +97,11 @@
     [Fact]
     public void BitButton_Should_Render_Disabled_Class_If_Disabled_Parameter_Is_True()
     {
-        var component = Render(@<BitButton Text="test" Color="Color.Primary" Disabled="true" />);
+        var component = Render(@<BitButton Color="Color.Primary" Disabled="true">test</BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary disabled" disabled aria-disabled="true">
-                <span>test</span>
+                test
              </button>);
     }
     #endregion
@@ -99,10 +110,9 @@
     [Fact]
     public void BitButton_Should_Render_Icon_Before_Text_If_Icon_Position_Is_Start()
     {
-        var component = Render(@<BitButton Text="test" 
-                                           Color="Color.Primary"
+        var component = Render(@<BitButton Color="Color.Primary"
                                            Icon="@BitBlazor.Utilities.Icons.ItStarFull"
-                                           IconPosition="IconPosition.Start"/>);
+                                           IconPosition="IconPosition.Start"><span>test</span></BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary btn-icon">
@@ -116,10 +126,9 @@
     [Fact]
     public void BitButton_Should_Render_Icon_After_Text_If_Icon_Position_Is_End()
     {
-        var component = Render(@<BitButton Text="test" 
-                                           Color="Color.Primary"
+        var component = Render(@<BitButton Color="Color.Primary"
                                            Icon="@BitBlazor.Utilities.Icons.ItStarFull"
-                                           IconPosition="IconPosition.End"/>);
+                                           IconPosition="IconPosition.End"><span>test</span></BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn btn-primary btn-icon">
@@ -136,17 +145,35 @@
     [InlineData(Color.Success, "btn-success", "icon-success")]
     [InlineData(Color.Warning, "btn-warning", "icon-warning")]
     [InlineData(Color.Danger, "btn-danger", "icon-danger")]
-    [InlineData(Color.PrimaryOutline, "btn-outline-primary", "icon-primary")]
-    [InlineData(Color.SecondaryOutline, "btn-outline-secondary", "icon-secondary")]
-    [InlineData(Color.SuccessOutline, "btn-outline-success", "icon-success")]
-    [InlineData(Color.WarningOutline, "btn-outline-warning", "icon-warning")]
-    [InlineData(Color.DangerOutline, "btn-outline-danger", "icon-danger")]
     public void BitButton_Should_Render_Icon_Rounded_Correctly(Color color, string buttonColorClass, string expectedIconColor)
     {
-        var component = Render(@<BitButton Text="test" 
-                                           Color="color"
+        var component = Render(@<BitButton Color="color"
                                            Icon="@BitBlazor.Utilities.Icons.ItStarFull"
-                                           IconRounded="true"/>);
+                                           IconRounded="true"><span>test</span></BitButton>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn @buttonColorClass btn-icon">
+                <span class="rounded-icon">
+                    <svg class="icon @expectedIconColor">
+                        <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
+                    </svg>
+                </span>
+                <span>test</span>
+            </button>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "btn-outline-primary", "icon-primary")]
+    [InlineData(Color.Secondary, "btn-outline-secondary", "icon-secondary")]
+    [InlineData(Color.Success, "btn-outline-success", "icon-success")]
+    [InlineData(Color.Warning, "btn-outline-warning", "icon-warning")]
+    [InlineData(Color.Danger, "btn-outline-danger", "icon-danger")]
+    public void BitButton_Should_Render_Icon_Rounded_Correctly_With_Outline_Variant(Color color, string buttonColorClass, string expectedIconColor)
+    {
+        var component = Render(@<BitButton Color="color"
+                                           Variant="Variant.Outline"
+                                           Icon="@BitBlazor.Utilities.Icons.ItStarFull"
+                                           IconRounded="true"><span>test</span></BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn @buttonColorClass btn-icon">
@@ -165,16 +192,10 @@
     [InlineData(Color.Success, "btn-success", "icon-white")]
     [InlineData(Color.Warning, "btn-warning", "icon-white")]
     [InlineData(Color.Danger, "btn-danger", "icon-white")]
-    [InlineData(Color.PrimaryOutline, "btn-outline-primary", "icon-primary")]
-    [InlineData(Color.SecondaryOutline, "btn-outline-secondary", "icon-secondary")]
-    [InlineData(Color.SuccessOutline, "btn-outline-success", "icon-success")]
-    [InlineData(Color.WarningOutline, "btn-outline-warning", "icon-warning")]
-    [InlineData(Color.DangerOutline, "btn-outline-danger", "icon-danger")]
     public void BitButton_Should_Render_Icon_Color_Correctly(Color color, string buttonColorClass, string expectedIconColor)
     {
-        var component = Render(@<BitButton Text="test" 
-                                   Color="color"
-                                   Icon="@BitBlazor.Utilities.Icons.ItStarFull"/>);
+        var component = Render(@<BitButton Color="color"
+                                           Icon="@BitBlazor.Utilities.Icons.ItStarFull"><span>test</span></BitButton>);
 
         component.MarkupMatches(
             @<button type="button" class="btn @buttonColorClass btn-icon">
@@ -183,6 +204,88 @@
                  </svg>
                 <span>test</span>
             </button>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "btn-outline-primary", "icon-primary")]
+    [InlineData(Color.Secondary, "btn-outline-secondary", "icon-secondary")]
+    [InlineData(Color.Success, "btn-outline-success", "icon-success")]
+    [InlineData(Color.Warning, "btn-outline-warning", "icon-warning")]
+    [InlineData(Color.Danger, "btn-outline-danger", "icon-danger")]
+    public void BitButton_Should_Render_Icon_Color_Correctly_With_Outline_Variant(Color color, string buttonColorClass, string expectedIconColor)
+    {
+        var component = Render(@<BitButton Color="color"
+                                           Variant="Variant.Outline"
+                                           Icon="@BitBlazor.Utilities.Icons.ItStarFull"><span>test</span></BitButton>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn @buttonColorClass btn-icon">
+                 <svg class="icon @expectedIconColor me-1">
+                     <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-full" />
+                 </svg>
+                <span>test</span>
+            </button>);
+    }
+    #endregion
+
+    #region Badge tests
+    [Theory]
+    [InlineData(Color.Primary, "btn-primary", "text-primary")]
+    [InlineData(Color.Secondary, "btn-secondary", "text-secondary")]
+    [InlineData(Color.Success, "btn-success", "text-success")]
+    [InlineData(Color.Warning, "btn-warning", "text-warning")]
+    [InlineData(Color.Danger, "btn-danger", "text-danger")]
+    public void BitButton_Should_Render_Correctly_Badge_Inside(Color color, string buttonColorClass, string badgeTextClass)
+    {
+        var component = Render(
+            @<BitButton Color="color">
+                Test
+                <ButtonBadge Text="9" />
+             </BitButton>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn @buttonColorClass">
+                Test
+                <span class="badge bg-white @badgeTextClass">9</span>
+             </button>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "btn-outline-primary", "bg-primary")]
+    [InlineData(Color.Secondary, "btn-outline-secondary", "bg-secondary")]
+    [InlineData(Color.Success, "btn-outline-success", "bg-success")]
+    [InlineData(Color.Warning, "btn-outline-warning", "bg-warning")]
+    [InlineData(Color.Danger, "btn-outline-danger", "bg-danger")]
+    public void BitButton_Should_Render_Correctly_Badge_Inside_With_Outline_Variant(Color color, string buttonColorClass, string badgeBackgroundClass)
+    {
+        var component = Render(
+            @<BitButton Color="color" Variant="Variant.Outline">
+                Test
+                <ButtonBadge Text="9" />
+             </BitButton>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn @buttonColorClass">
+                Test
+                <span class="badge @badgeBackgroundClass">9</span>
+             </button>);
+    }
+
+    [Fact]
+    public void BitButton_Should_Render_Correctly_Badge_Inside_With_Additional_Text()
+    {
+        var component = Render(
+            @<BitButton Color="Color.Primary">
+                Test
+                <ButtonBadge Text="9" AdditionalText="unread messages" />
+             </BitButton>);
+
+        component.MarkupMatches(
+            @<button type="button" class="btn btn-primary">
+                Test
+                <span class="badge bg-white text-primary">9</span>
+                <span class="visually-hidden">unread messages</span>
+             </button>);
     }
     #endregion
 }

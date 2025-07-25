@@ -1,7 +1,7 @@
 ﻿namespace BitBlazor;
 
 /// <summary>
-/// Defines color options for BitBlazor components, including solid and outline variants.
+/// Defines color options for BitBlazor components.
 /// </summary>
 public enum Color
 {
@@ -24,25 +24,5 @@ public enum Color
     /// <summary>
     /// The warning color.
     /// </summary>
-    Warning,
-    /// <summary>
-    /// The primary outline color.
-    /// </summary>
-    PrimaryOutline,
-    /// <summary>
-    /// The secondary outline color.
-    /// </summary>
-    SecondaryOutline,
-    /// <summary>
-    /// The success outline color.
-    /// </summary>
-    SuccessOutline,
-    /// <summary>
-    /// The danger outline color.
-    /// </summary>
-    DangerOutline,
-    /// <summary>
-    /// The warning outline color.
-    /// </summary>
-    WarningOutline
+    Warning
 }

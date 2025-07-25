@@ -1,23 +1,25 @@
 ﻿@namespace BitBlazor.Components
 @using BitBlazor.Utilities
- 
-<button type="@ButtonTypeString" 
-        class="@ComputedCssClasses" 
-        @onclick="OnClick"
-        disabled="@Disabled"
-        @attributes="attributes">
-    @if (HasIcon(IconPosition.Start))
-    {
-        @IconFragment
-    }
 
-    <span>@Text</span>
+<CascadingValue Value="this">
+    <button type="@ButtonTypeString"
+            class="@ComputedCssClasses"
+            @onclick="OnClick"
+            disabled="@Disabled"
+            @attributes="attributes">
+        @if (HasIcon(IconPosition.Start))
+        {
+            @IconFragment
+        }
 
-    @if (HasIcon(IconPosition.End))
-    {
-        @IconFragment
-    }
-</button>
+        @ChildContent
+
+        @if (HasIcon(IconPosition.End))
+        {
+            @IconFragment
+        }
+    </button>
+</CascadingValue>
 
 @code {
     private RenderFragment IconFragment => IconRounded

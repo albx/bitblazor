@@ -17,7 +17,7 @@ public class BitButtonTest
         // Act
         var component = ctx.RenderComponent<BitButton>(
             parameters => parameters
-                .Add(p => p.Text, "Click Me")
+                .Add(p => p.ChildContent, "Click Me")
                 .Add(p => p.Color, Color.Primary)
                 .Add(p => p.OnClick, onClickHandler));
 
