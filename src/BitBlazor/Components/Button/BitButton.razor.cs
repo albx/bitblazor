@@ -9,11 +9,11 @@ namespace BitBlazor.Components;
 public partial class BitButton
 {
     /// <summary>
-    /// Gets or sets the text displayed on the button.
+    /// Gets or sets the content of the button
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public string Text { get; set; } = string.Empty;
+    public RenderFragment ChildContent { get; set; }
 
     /// <summary>
     /// Gets or sets the color style of the button.

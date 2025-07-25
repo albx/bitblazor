@@ -1,0 +1,10 @@
+﻿@namespace BitBlazor.Components
+
+<BitBadge Text="@Text"
+          BackgroundColor="BadgeBackgroundColor"
+          Variant="BadgeVariant"/>
+
+@if (!string.IsNullOrWhiteSpace(AdditionalText))
+{
+    <span class="visually-hidden">@AdditionalText</span>
+}

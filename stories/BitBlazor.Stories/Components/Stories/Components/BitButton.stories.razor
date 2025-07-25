@@ -11,14 +11,13 @@
     <Story Name="Default">
 
         <Arguments>
-            <Arg For="_ => _.Text" Value='"Default"' />
             <Arg For="_ => _.Color" Value="Color.Primary" />
             <Arg For="_ => _.Variant" Value="Variant.Solid" />
         </Arguments>
 
         <Template>
             <div class="py-2 px-2">
-                <BitButton @attributes="context.Args" />
+                <BitButton @attributes="context.Args">Default</BitButton>
             </div>
         </Template>
 
@@ -28,34 +27,34 @@
         <Template>
             <div class="py-2 px-2">
                 <div class="mb-2">
-                    <BitButton Text="Primary" Color="Color.Primary" />
-                    <BitButton Text="Primary outline" Color="Color.Primary" Variant="Variant.Outline" />
-                    <BitButton Text="Primary disabled" Color="Color.Primary" Disabled="true" />
-                    <BitButton Text="Primary outline disabled" Color="Color.Primary" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Primary">Primary</BitButton>
+                    <BitButton Color="Color.Primary" Variant="Variant.Outline">Primary outline</BitButton>
+                    <BitButton Color="Color.Primary" Disabled="true">Primary disabled</BitButton>
+                    <BitButton Color="Color.Primary" Variant="Variant.Outline" Disabled="true">Primary outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Secondary" Color="Color.Secondary" />
-                    <BitButton Text="Secondary outline" Color="Color.Secondary" Variant="Variant.Outline" />
-                    <BitButton Text="Secondary disabled" Color="Color.Secondary" Disabled="true" />
-                    <BitButton Text="Secondary outline disabled" Color="Color.Secondary" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Secondary">Secondary</BitButton>
+                    <BitButton Color="Color.Secondary" Variant="Variant.Outline">Secondary outline</BitButton>
+                    <BitButton Color="Color.Secondary" Disabled="true">Secondary disabled</BitButton>
+                    <BitButton Color="Color.Secondary" Variant="Variant.Outline" Disabled="true">Secondary outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Success" Color="Color.Success" />
-                    <BitButton Text="Success outline" Color="Color.Success" Variant="Variant.Outline" />
-                    <BitButton Text="Success disabled" Color="Color.Success" Disabled="true" />
-                    <BitButton Text="Success outline disabled" Color="Color.Success" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Success">Success</BitButton>
+                    <BitButton Color="Color.Success" Variant="Variant.Outline">Success outline</BitButton>
+                    <BitButton Color="Color.Success" Disabled="true">Success disabled</BitButton>
+                    <BitButton Color="Color.Success" Variant="Variant.Outline" Disabled="true">Success outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Danger" Color="Color.Danger" />
-                    <BitButton Text="Danger outline" Color="Color.Danger" Variant="Variant.Outline" />
-                    <BitButton Text="Danger disabled" Color="Color.Danger" Disabled="true" />
-                    <BitButton Text="Danger outline disabled" Color="Color.Danger" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Danger">Danger</BitButton>
+                    <BitButton Color="Color.Danger" Variant="Variant.Outline">Danger outline</BitButton>
+                    <BitButton Color="Color.Danger" Disabled="true">Danger disabled</BitButton>
+                    <BitButton Color="Color.Danger" Variant="Variant.Outline" Disabled="true">Danger outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Warning" Color="Color.Warning" />
-                    <BitButton Text="Warning outline" Color="Color.Warning" Variant="Variant.Outline" />
-                    <BitButton Text="Warning disabled" Color="Color.Warning" Disabled="true" />
-                    <BitButton Text="Warning outline disabled" Color="Color.Warning" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Warning">Warning</BitButton>
+                    <BitButton Color="Color.Warning" Variant="Variant.Outline">Warning outline</BitButton>
+                    <BitButton Color="Color.Warning" Disabled="true">Warning disabled</BitButton>
+                    <BitButton Color="Color.Warning" Variant="Variant.Outline" Disabled="true">Warning outline disabled</BitButton>
                 </div>
             </div>
         </Template>
@@ -65,34 +64,34 @@
         <Template>
             <div class="bg-dark py-2 px-2">
                 <div class="mb-2">
-                    <BitButton Text="Primary" Color="Color.Primary" />
-                    <BitButton Text="Primary outline" Color="Color.Primary" Variant="Variant.Outline" />
-                    <BitButton Text="Primary disabled" Color="Color.Primary" Disabled="true" />
-                    <BitButton Text="Primary outline disabled" Color="Color.Primary" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Primary">Primary</BitButton>
+                    <BitButton Color="Color.Primary" Variant="Variant.Outline">Primary outline</BitButton>
+                    <BitButton Color="Color.Primary" Disabled="true">Primary disabled</BitButton>
+                    <BitButton Color="Color.Primary" Variant="Variant.Outline" Disabled="true">Primary outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Secondary" Color="Color.Secondary" />
-                    <BitButton Text="Secondary outline" Color="Color.Secondary" Variant="Variant.Outline" />
-                    <BitButton Text="Secondary disabled" Color="Color.Secondary" Disabled="true" />
-                    <BitButton Text="Secondary outline disabled" Color="Color.Secondary" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Secondary">Secondary</BitButton>
+                    <BitButton Color="Color.Secondary" Variant="Variant.Outline">Secondary outline</BitButton>
+                    <BitButton Color="Color.Secondary" Disabled="true">Secondary disabled</BitButton>
+                    <BitButton Color="Color.Secondary" Variant="Variant.Outline" Disabled="true">Secondary outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Success" Color="Color.Success" />
-                    <BitButton Text="Success outline" Color="Color.Success" Variant="Variant.Outline" />
-                    <BitButton Text="Success disabled" Color="Color.Success" Disabled="true" />
-                    <BitButton Text="Success outline disabled" Color="Color.Success" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Success">Success</BitButton>
+                    <BitButton Color="Color.Success" Variant="Variant.Outline">Success outline</BitButton>
+                    <BitButton Color="Color.Success" Disabled="true">Success disabled</BitButton>
+                    <BitButton Color="Color.Success" Variant="Variant.Outline" Disabled="true">Success outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Danger" Color="Color.Danger" />
-                    <BitButton Text="Danger outline" Color="Color.Danger" Variant="Variant.Outline" />
-                    <BitButton Text="Danger disabled" Color="Color.Danger" Disabled="true" />
-                    <BitButton Text="Danger outline disabled" Color="Color.Danger" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Danger">Danger</BitButton>
+                    <BitButton Color="Color.Danger" Variant="Variant.Outline">Danger outline</BitButton>
+                    <BitButton Color="Color.Danger" Disabled="true">Danger disabled</BitButton>
+                    <BitButton Color="Color.Danger" Variant="Variant.Outline" Disabled="true">Danger outline disabled</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Warning" Color="Color.Warning" />
-                    <BitButton Text="Warning outline" Color="Color.Warning" Variant="Variant.Outline" />
-                    <BitButton Text="Warning disabled" Color="Color.Warning" Disabled="true" />
-                    <BitButton Text="Warning outline disabled" Color="Color.Warning" Variant="Variant.Outline" Disabled="true" />
+                    <BitButton Color="Color.Warning">Warning</BitButton>
+                    <BitButton Color="Color.Warning" Variant="Variant.Outline">Warning outline</BitButton>
+                    <BitButton Color="Color.Warning" Disabled="true">Warning disabled</BitButton>
+                    <BitButton Color="Color.Warning" Variant="Variant.Outline" Disabled="true">Warning outline disabled</BitButton>
                 </div>
             </div>
         </Template>
@@ -102,16 +101,16 @@
         <Template>
             <div class="px-2 py-2">
                 <div class="mb-2">
-                    <BitButton Text="Primary large" Color="Color.Primary" Size="Size.Large" />
-                    <BitButton Text="Secondary large" Color="Color.Secondary" Size="Size.Large" />
+                    <BitButton Color="Color.Primary" Size="Size.Large">Primary large</BitButton>
+                    <BitButton Color="Color.Secondary" Size="Size.Large">Secondary large</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Primary small" Color="Color.Primary" Size="Size.Small" />
-                    <BitButton Text="Secondary small" Color="Color.Secondary" Size="Size.Small" />
+                    <BitButton Color="Color.Primary" Size="Size.Small">Primary small</BitButton>
+                    <BitButton Color="Color.Secondary" Size="Size.Small">Secondary small</BitButton>
                 </div>
                 <div class="mb-2">
-                    <BitButton Text="Primary mini" Color="Color.Primary" Size="Size.Mini" />
-                    <BitButton Text="Secondary mini" Color="Color.Secondary" Size="Size.Mini" />
+                    <BitButton Color="Color.Primary" Size="Size.Mini">Primary mini</BitButton>
+                    <BitButton Color="Color.Secondary" Size="Size.Mini">Secondary mini</BitButton>
                 </div>
             </div>
         </Template>
@@ -120,28 +119,32 @@
     <Story Name="Icons">
         <Template>
             <div class="px-2 py-2">
-                <BitButton Text="Icon button large"
-                           Color="Color.Success"
+                <BitButton Color="Color.Success"
                            Size="Size.Large"
                            Icon="@BitBlazor.Utilities.Icons.ItStarFull"
-                           IconPosition="IconPosition.End" />
+                           IconPosition="IconPosition.End">
+                    <span>Icon button large</span>
+                </BitButton>
 
-                <BitButton Text="Icon button"
-                           Color="Color.Primary"
+                <BitButton Color="Color.Primary"
                            Icon="@BitBlazor.Utilities.Icons.ItStarFull"
-                           IconPosition="IconPosition.End" />
+                           IconPosition="IconPosition.End">
+                    <span>Icon button</span>
+                </BitButton>
 
-                <BitButton Text="Icon button small"
-                           Color="Color.Danger"
+                <BitButton Color="Color.Danger"
                            Size="Size.Small"
                            Icon="@BitBlazor.Utilities.Icons.ItStarFull"
-                           IconPosition="IconPosition.End" />
+                           IconPosition="IconPosition.End">
+                    <span>Icon button small</span>
+                </BitButton>
 
-                <BitButton Text="Icon extra small"
-                           Color="Color.Secondary"
+                <BitButton Color="Color.Secondary"
                            Size="Size.Mini"
                            Icon="@BitBlazor.Utilities.Icons.ItStarFull"
-                           IconPosition="IconPosition.End" />
+                           IconPosition="IconPosition.End">
+                    <span>Icon extra small</span>
+                </BitButton>
             </div>
         </Template>
     </Story>
@@ -149,32 +152,36 @@
     <Story Name="Rounded icons">
         <Template>
             <div class="px-2 py-2">
-                <BitButton Text="Round Icon large"
-                           Color="Color.Success"
+                <BitButton Color="Color.Success"
                            Size="Size.Large"
                            Icon="@BitBlazor.Utilities.Icons.ItUser"
                            IconPosition="IconPosition.Start"
-                           IconRounded="true" />
+                           IconRounded="true">
+                    <span>Round Icon large</span>
+                </BitButton>
 
-                <BitButton Text="Round Icon"
-                           Color="Color.Primary"
+                <BitButton Color="Color.Primary"
                            Icon="@BitBlazor.Utilities.Icons.ItUser"
                            IconPosition="IconPosition.Start"
-                           IconRounded="true" />
+                           IconRounded="true">
+                    <span>Round Icon</span>
+                </BitButton>
 
-                <BitButton Text="Round Icon small"
-                           Color="Color.Danger"
+                <BitButton Color="Color.Danger"
                            Size="Size.Small"
                            Icon="@BitBlazor.Utilities.Icons.ItUser"
                            IconPosition="IconPosition.Start"
-                           IconRounded="true" />
+                           IconRounded="true">
+                    <span>Round Icon small</span>
+                </BitButton>
 
-                <BitButton Text="Round Icon extra small"
-                           Color="Color.Secondary"
+                <BitButton Color="Color.Secondary"
                            Size="Size.Mini"
                            Icon="@BitBlazor.Utilities.Icons.ItUser"
                            IconPosition="IconPosition.Start"
-                           IconRounded="true" />
+                           IconRounded="true">
+                    <span>Round Icon extra small</span>
+                </BitButton>
             </div>
         </Template>
     </Story>
