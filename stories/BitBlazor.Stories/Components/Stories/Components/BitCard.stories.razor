@@ -1,0 +1,20 @@
+﻿@attribute [Stories("Components/BitCard")]
+
+<Stories TComponent="BitCard">
+    <ArgType For="_ => _.TitleTypography" Control="ControlType.Select" DefaultValue="Typography.H3"/>
+
+    <Story Name="Default">
+        <Template>
+            <div class="px-2 py-2">
+                <BitCard>
+                    <CardTitle>
+                        <a href="#">Card title</a>
+                    </CardTitle>
+                    <CardBody>
+                        <p class="it-card-text">Brief description</p>
+                    </CardBody>
+                </BitCard>
+            </div>
+        </Template>
+    </Story>
+</Stories>

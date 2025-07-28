@@ -1,0 +1,68 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitCard_Should_Render_Specified_Title_And_Body_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <p class="it-card-text">Brief description</p>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Theory]
+    [InlineData(Typography.H1)]
+    [InlineData(Typography.H2)]
+    [InlineData(Typography.H3)]
+    [InlineData(Typography.H4)]
+    [InlineData(Typography.H5)]
+    [InlineData(Typography.H6)]
+    public void BitCardTest_Should_Render_Title_Tag_Correctly(Typography titleTypography)
+    {
+        var component = Render(
+            @<BitCard TitleTypography="titleTypography">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <p class="it-card-text">Brief description</p>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                @RenderExpectedCardTitleFragment(titleTypography)
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    private RenderFragment RenderExpectedCardTitleFragment(Typography titleTypography)
+    {
+        return titleTypography switch
+        {
+            Typography.H1 => @<h1 class="it-card-title"><a href="#">Card title</a></h1>,
+            Typography.H2 => @<h2 class="it-card-title"><a href="#">Card title</a></h2>,
+            Typography.H4 => @<h4 class="it-card-title"><a href="#">Card title</a></h4>,
+            Typography.H5 => @<h5 class="it-card-title"><a href="#">Card title</a></h5>,
+            Typography.H6 => @<h6 class="it-card-title"><a href="#">Card title</a></h6>,
+            _ => @<h3 class="it-card-title"><a href="#">Card title</a></h3>
+        };
+    }
+}
