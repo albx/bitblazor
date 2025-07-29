@@ -4,16 +4,54 @@
     <ArgType For="_ => _.TitleTypography" Control="ControlType.Select" DefaultValue="Typography.H3"/>
 
     <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.TitleTypography" Value="Typography.H3" />
+        </Arguments>
+
         <Template>
             <div class="px-2 py-2">
-                <BitCard>
-                    <CardTitle>
-                        <a href="#">Card title</a>
-                    </CardTitle>
-                    <CardBody>
-                        <p class="it-card-text">Brief description</p>
-                    </CardBody>
-                </BitCard>
+                <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <BitCard @attributes="context.Args">
+                        <CardTitle>
+                            <a href="#">Card title</a>
+                        </CardTitle>
+                        <CardBody>
+                            <p class="it-card-text">Brief description</p>
+                        </CardBody>
+                    </BitCard>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Base card structure">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <BitCard>
+                        <CardTitle>
+                            <a href="#">Card title</a>
+                        </CardTitle>
+
+                        <CardImageWrapper>
+                            <div class="ratio ratio-16x9">
+                                <figure class="figure img-full">
+                                    <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                                </figure>
+                            </div>
+                        </CardImageWrapper>
+
+                        <CardBody>
+                            <p class="it-card-text">
+                                This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                            </p>
+                        </CardBody>
+
+                        <CardFooter>
+                            <time class="it-card-date" datetime="@DateTime.Today.ToString("yyyy-MM-dd")">@DateTime.Today.ToString("dd MMM yyyy")</time>
+                        </CardFooter>
+                    </BitCard>
+                </div>
             </div>
         </Template>
     </Story>
