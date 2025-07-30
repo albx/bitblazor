@@ -35,5 +35,18 @@ public partial class BitCard
     /// Gets or sets the content to be rendered in the card image wrapper section of the card
     /// </summary>
     [Parameter]
-    public RenderFragment? CardImageWrapper { get; set; }
+    public RenderFragment? CardImageContainer { get; set; }
+
+    private string ComputedCssClasses => $"it-card rounded shadow-sm border {ComputeCssClasses()}".Trim();
+
+    private string ComputeCssClasses()
+    {
+        var cssClasses = new List<string>();
+        if (CardImageContainer is not null)
+        {
+            cssClasses.Add("it-card-image");
+        }
+
+        return string.Join(" ", cssClasses);
+    }
 }

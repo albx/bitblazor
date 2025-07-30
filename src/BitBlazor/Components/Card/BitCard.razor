@@ -1,12 +1,12 @@
 ﻿@namespace BitBlazor.Components
 
-<article class="it-card rounded shadow-sm border">
+<article class="@ComputedCssClasses">
     @CardTitleFragment
 
-    @if (CardImageWrapper is not null)
+    @if (CardImageContainer is not null)
     {
         <div class="it-card-image-wrapper">
-            @CardImageWrapper
+            @CardImageContainer
         </div>
     }
 
@@ -16,9 +16,9 @@
 
     @if (CardFooter is not null)
     {
-        <div class="it-card-related it-card-footer">
+        <footer class="it-card-related it-card-footer">
             @CardFooter
-        </div>
+        </footer>
     }
 </article>
 

@@ -53,6 +53,75 @@
              </article>);
     }
 
+    [Fact]
+    public void BitCard_Should_Render_Footer_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <p class="it-card-text">Brief description</p>
+                </CardBody>
+                <CardFooter>
+                    <time class="it-card-date" datetime="2025-01-01">january 1st 2025</time>
+                </CardFooter>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+                <footer class="it-card-related it-card-footer">
+                    <time class="it-card-date" datetime="2025-01-01">january 1st 2025</time>
+                </footer>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Image_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <p class="it-card-text">Brief description</p>
+                </CardBody>
+
+                <CardImageContainer>
+                    <div class="ratio ratio-16x9">
+                        <figure class="figure img-full">
+                            <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                        </figure>
+                    </div>
+                </CardImageContainer>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-image rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
     private RenderFragment RenderExpectedCardTitleFragment(Typography titleTypography)
     {
         return titleTypography switch
