@@ -2,10 +2,16 @@
 
 <Stories TComponent="BitCard">
     <ArgType For="_ => _.TitleTypography" Control="ControlType.Select" DefaultValue="Typography.H3"/>
+    <ArgType For="_ => _.Bordered" DefaultValue="true"/>
+    <ArgType For="_ => _.Shadow" Control="ControlType.Select" DefaultValue="CardShadow.Small"/>
+    <ArgType For="_ => _.FullHeight" DefaultValue="false"/>
 
     <Story Name="Default">
         <Arguments>
             <Arg For="_ => _.TitleTypography" Value="Typography.H3" />
+            <Arg For="_ => _.Bordered" Value="true" />
+            <Arg For="_ => _.Shadow" Value="CardShadow.Small" />
+            <Arg For="_ => _.FullHeight" Value="false" />
         </Arguments>
 
         <Template>
@@ -49,6 +55,57 @@
                             <CardDate Date="@DateTime.Today"
                                       DatetimeFormat="yyyy-MM-dd"
                                       DisplayFormat="dd MMM yyyy"/>
+                        </CardFooter>
+                    </BitCard>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Full height card">
+        <Template>
+            <div class="px-2 py-2 row">
+                <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <BitCard FullHeight="true">
+                        <CardTitle>
+                            <a href="#">Card title</a>
+                        </CardTitle>
+
+                        <CardImageContainer>
+                            <CardImage Ratio="Ratio.Ratio16x9"
+                                       ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                       ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                        </CardImageContainer>
+
+                        <CardBody>
+                            <CardText>
+                                This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                            </CardText>
+                        </CardBody>
+
+                        <CardFooter>
+                            <CardDate Date="@DateTime.Today"
+                                      DatetimeFormat="yyyy-MM-dd"
+                                      DisplayFormat="dd MMM yyyy" />
+                        </CardFooter>
+                    </BitCard>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                    <BitCard FullHeight="true">
+                        <CardTitle>
+                            <a href="#">Card title</a>
+                        </CardTitle>
+
+                        <CardBody>
+                            <CardText>
+                                This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                            </CardText>
+                        </CardBody>
+
+                        <CardFooter>
+                            <CardDate Date="@DateTime.Today"
+                                      DatetimeFormat="yyyy-MM-dd"
+                                      DisplayFormat="dd MMM yyyy" />
                         </CardFooter>
                     </BitCard>
                 </div>

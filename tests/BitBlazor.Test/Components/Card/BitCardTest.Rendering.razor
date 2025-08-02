@@ -122,6 +122,158 @@
              </article>);
     }
 
+    [Fact]
+    public void BitCard_Should_Render_Card_Subtitle_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardSubtitle>Subtitle</CardSubtitle>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-subtitle">Subtitle</p>
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+
+    [Fact]
+    public void BitCard_Should_Render_Card_Signature_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardSignature>Author</CardSignature>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <address class="it-card-signature">Author</address>
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Theory]
+    [InlineData(CardShadow.Small, "shadow-sm")]
+    [InlineData(CardShadow.Medium, "shadow")]
+    [InlineData(CardShadow.Large, "shadow-lg")]
+    public void BitCard_Should_Apply_Shadow_Class_Correctly(CardShadow shadow, string expectedShadowClass)
+    {
+        var component = Render(
+            @<BitCard Shadow="shadow">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded @expectedShadowClass border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Remove_Border_Class_If_Bordered_Parameter_Is_Set_To_False()
+    {
+        var component = Render(
+            @<BitCard Bordered="false">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Display_Border_Class_If_Bordered_Parameter_Is_Set_To_True()
+    {
+        var component = Render(
+            @<BitCard Bordered="true">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Display_Full_Height_Class_Correctly_If_FullHeight_Parameter_Is_Set_To_True()
+    {
+        var component = Render(
+            @<BitCard FullHeight="true">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border it-card-height-full">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
     private RenderFragment RenderExpectedCardTitleFragment(Typography titleTypography)
     {
         return titleTypography switch
