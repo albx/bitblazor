@@ -1,26 +1,28 @@
 ﻿@namespace BitBlazor.Components
 
-<article class="@ComputedCssClasses">
-    @CardTitleFragment
+<CascadingValue Value="this">
+    <article class="@ComputedCssClasses">
+        @CardTitleFragment
 
-    @if (CardImageContainer is not null)
-    {
-        <div class="it-card-image-wrapper">
-            @CardImageContainer
+        @if (CardImageContainer is not null)
+        {
+            <div class="it-card-image-wrapper">
+                @CardImageContainer
+            </div>
+        }
+
+        <div class="it-card-body">
+            @CardBody
         </div>
-    }
 
-    <div class="it-card-body">
-        @CardBody
-    </div>
-
-    @if (CardFooter is not null)
-    {
-        <footer class="it-card-related it-card-footer">
-            @CardFooter
-        </footer>
-    }
-</article>
+        @if (CardFooter is not null)
+        {
+            <footer class="it-card-related it-card-footer">
+                @CardFooter
+            </footer>
+        }
+    </article>
+</CascadingValue>
 
 @code {
     private RenderFragment CardTitleFragment => TitleTypography switch

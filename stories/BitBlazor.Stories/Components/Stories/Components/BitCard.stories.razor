@@ -16,7 +16,7 @@
                             <a href="#">Card title</a>
                         </CardTitle>
                         <CardBody>
-                            <p class="it-card-text">Brief description</p>
+                            <CardText>Brief description</CardText>
                         </CardBody>
                     </BitCard>
                 </div>
@@ -34,21 +34,21 @@
                         </CardTitle>
 
                         <CardImageContainer>
-                            <div class="ratio ratio-16x9">
-                                <figure class="figure img-full">
-                                    <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
-                                </figure>
-                            </div>
+                            <CardImage Ratio="Ratio.Ratio16x9"
+                                       ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                       ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
                         </CardImageContainer>
 
                         <CardBody>
-                            <p class="it-card-text">
+                            <CardText>
                                 This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
-                            </p>
+                            </CardText>
                         </CardBody>
 
                         <CardFooter>
-                            <time class="it-card-date" datetime="@DateTime.Today.ToString("yyyy-MM-dd")">@DateTime.Today.ToString("dd MMM yyyy")</time>
+                            <CardDate Date="@DateTime.Today"
+                                      DatetimeFormat="yyyy-MM-dd"
+                                      DisplayFormat="dd MMM yyyy"/>
                         </CardFooter>
                     </BitCard>
                 </div>

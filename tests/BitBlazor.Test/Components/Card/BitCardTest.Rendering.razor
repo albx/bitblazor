@@ -10,7 +10,7 @@
                     <a href="#">Card title</a>
                 </CardTitle>
                 <CardBody>
-                    <p class="it-card-text">Brief description</p>
+                    <CardText>Brief description</CardText>
                 </CardBody>
              </BitCard>);
 
@@ -40,7 +40,7 @@
                     <a href="#">Card title</a>
                 </CardTitle>
                 <CardBody>
-                    <p class="it-card-text">Brief description</p>
+                    <CardText>Brief description</CardText>
                 </CardBody>
              </BitCard>);
 
@@ -62,10 +62,12 @@
                     <a href="#">Card title</a>
                 </CardTitle>
                 <CardBody>
-                    <p class="it-card-text">Brief description</p>
+                    <CardText>Brief description</CardText>
                 </CardBody>
                 <CardFooter>
-                    <time class="it-card-date" datetime="2025-01-01">january 1st 2025</time>
+                    <CardDate Date="@(new DateTime(2025, 1, 1))"
+                              DatetimeFormat="yyyy-MM-dd"
+                              DisplayFormat="yyyy-MM-dd" />
                 </CardFooter>
              </BitCard>);
 
@@ -78,7 +80,7 @@
                     <p class="it-card-text">Brief description</p>
                 </div>
                 <footer class="it-card-related it-card-footer">
-                    <time class="it-card-date" datetime="2025-01-01">january 1st 2025</time>
+                    <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
                 </footer>
              </article>);
     }
@@ -92,15 +94,13 @@
                     <a href="#">Card title</a>
                 </CardTitle>
                 <CardBody>
-                    <p class="it-card-text">Brief description</p>
+                    <CardText>Brief description</CardText>
                 </CardBody>
 
                 <CardImageContainer>
-                    <div class="ratio ratio-16x9">
-                        <figure class="figure img-full">
-                            <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
-                        </figure>
-                    </div>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
                 </CardImageContainer>
              </BitCard>);
 
