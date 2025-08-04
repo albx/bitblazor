@@ -62,6 +62,221 @@
         </Template>
     </Story>
 
+    <Story Name="Card for editorial content">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
+
+                            <CardImageContainer>
+                                <CardImage Ratio="Ratio.Ratio16x9"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageContainer>
+
+                            <CardBody>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <a href="#" class="it-card-category it-card-link link-secondary">
+                                        <span class="visually-hidden">Related category: </span>Category name
+                                    </a>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
+
+                            <CardImageContainer>
+                                <CardImage Ratio="Ratio.Ratio16x9"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageContainer>
+
+                            <CardBody>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <ul class="it-card-chips chips-list" aria-label="Related topics: ">
+                                        <li class="list-item">
+                                            <a class="chip chip-simple chip-sm" href="#">
+                                                <span class="chip-label"><span class="visually-hidden">Topic: </span>Topic 1</span>
+                                            </a>
+                                        </li>
+                                        <li class="list-item">
+                                            <a class="chip chip-simple chip-sm" href="#">
+                                                <span class="chip-label"><span class="visually-hidden">Topic: </span>Topic 2</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
+
+                            <CardBody>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Featured editorial card">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">
+                                    Featured content title <span class="visually-hidden">(external link)</span>
+                                    <BitIcon IconName="@Icons.ItFile" Color="IconColor.Primary" />
+                                </a>
+                            </CardTitle>
+
+                            <CardImageContainer>
+                                <CardImage Ratio="Ratio.Ratio16x9"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageContainer>
+
+                            <CardBody>
+                                <CardSubtitle>Content subtitle</CardSubtitle>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <a href="#" class="it-card-category it-card-link link-secondary">
+                                        <span class="visually-hidden">Related category: </span>Category name
+                                    </a>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">
+                                    Featured content title <span class="visually-hidden">(external link)</span>
+                                    <BitIcon IconName="@Icons.ItDesignersItalia" Color="IconColor.Primary" />
+                                </a>
+                            </CardTitle>
+
+                            <CardImageContainer>
+                                <CardImage Ratio="Ratio.Ratio16x9"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageContainer>
+
+                            <CardBody>
+                                <CardSubtitle>Content subtitle</CardSubtitle>
+                                <CardSignature>by John Doe</CardSignature>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <ul class="it-card-chips chips-list" aria-label="Related topics: ">
+                                        <li class="list-item">
+                                            <a class="chip chip-simple chip-sm" href="#">
+                                                <span class="chip-label"><span class="visually-hidden">Topic: </span>Topic 1</span>
+                                            </a>
+                                        </li>
+                                        <li class="list-item">
+                                            <a class="chip chip-simple chip-sm" href="#">
+                                                <span class="chip-label"><span class="visually-hidden">Topic: </span>Topic 2</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">
+                                    Featured content title <span class="visually-hidden">(external link)</span>
+                                    <BitIcon IconName="@Icons.ItExternalLink" Color="IconColor.Primary" />
+                                </a>
+                            </CardTitle>
+
+                            <CardBody>
+                                <CardSignature>by John Doe</CardSignature>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
     <Story Name="Full height card">
         <Template>
             <div class="px-2 py-2 row">
