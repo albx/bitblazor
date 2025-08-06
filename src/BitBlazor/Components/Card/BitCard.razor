@@ -2,36 +2,47 @@
 
 <CascadingValue Value="this">
     <article class="@ComputedCssClasses">
-        @CardTitleFragment
-
-        @if (CardImageContainer is not null)
+        @if (Type is CardType.Default)
         {
-            <div class="it-card-image-wrapper">
-                @CardImageContainer
-            </div>
+            @RenderCardTitle()
+
+            @RenderCardImage()
+
+            @RenderCardBody()
+
+            @RenderCardFooter()
         }
-
-        <div class="it-card-body">
-            @CardBody
-        </div>
-
-        @if (CardFooter is not null)
+        else
         {
-            <footer class="it-card-related it-card-footer">
-                @CardFooter
-            </footer>
+            <div class="it-card-inline-content">
+                @RenderCardTitle()
+
+                @RenderCardBody()
+
+                @RenderCardFooter()
+            </div>
+            @RenderCardImage()
         }
     </article>
 </CascadingValue>
 
 @code {
-    private RenderFragment CardTitleFragment => TitleTypography switch
+    private RenderFragment RenderCardTitle() => TitleTypography switch
     {
-        Typography.H1 => @<h1 class="it-card-title">@CardTitle</h1>,
+        Typography.H1 =>@<h1 class="it-card-title">@CardTitle</h1>,
         Typography.H2 => @<h2 class="it-card-title">@CardTitle</h2>,
         Typography.H4 => @<h4 class="it-card-title">@CardTitle</h4>,
         Typography.H5 => @<h5 class="it-card-title">@CardTitle</h5>,
         Typography.H6 => @<h6 class="it-card-title">@CardTitle</h6>,
         _ => @<h3 class="it-card-title">@CardTitle</h3>
     };
+
+    private RenderFragment? RenderCardBody() 
+        => CardBody is not null ? @<div class="it-card-body">@CardBody</div> : null;
+
+    private RenderFragment? RenderCardFooter()
+        => CardFooter is not null ? @<footer class="it-card-related it-card-footer">@CardFooter</footer> : null;
+
+    private RenderFragment? RenderCardImage()
+        => CardImageContainer is not null ? @<div class="it-card-image-wrapper">@CardImageContainer</div> : null;
 }

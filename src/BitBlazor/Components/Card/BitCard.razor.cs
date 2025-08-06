@@ -8,6 +8,26 @@ namespace BitBlazor.Components;
 public partial class BitCard
 {
     /// <summary>
+    /// Gets or sets the type of the card (Default or Inline).
+    /// </summary>
+    [Parameter]
+    public CardType Type { get; set; } = CardType.Default;
+
+    /// <summary>
+    /// Gets or sets whether display the inline card in reverse mode.
+    /// </summary>
+    /// <remarks>This parameter works only when the card is Inline</remarks>
+    [Parameter]
+    public bool Reverse { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether display the inline card as mini variant.
+    /// </summary>
+    /// <remarks>This parameter works only when the card is Inline</remarks>
+    [Parameter]
+    public bool Mini { get; set; }
+
+    /// <summary>
     /// Gets or sets the content to be rendered in the title section of the card.
     /// </summary>
     [Parameter]
@@ -17,7 +37,7 @@ public partial class BitCard
     /// Gets or sets the content to be rendered in the body section of the card
     /// </summary>
     [Parameter]
-    public RenderFragment CardBody { get; set; } = default!;
+    public RenderFragment? CardBody { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the content to be rendered in the footer section of the card
@@ -60,6 +80,30 @@ public partial class BitCard
     private string ComputeCssClasses()
     {
         var cssClasses = new List<string>();
+
+        var cardClass = Type switch
+        {
+            CardType.Inline => "it-card-inline",
+            _ => string.Empty
+        };
+
+        if (Type is CardType.Inline)
+        {
+            if (Reverse)
+            {
+                cssClasses.Add("it-card-inline-reverse");
+            }
+
+            if (Mini)
+            {
+                cssClasses.Add("it-card-inline-mini");
+            }
+        }
+
+        if (!string.IsNullOrEmpty(cardClass))
+        {
+            cssClasses.Add(cardClass);
+        }
 
         if (Bordered)
         {

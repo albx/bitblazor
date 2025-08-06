@@ -274,6 +274,184 @@
              </article>);
     }
 
+    [Fact]
+    public void BitCard_Should_Render_Inline_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Inline">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+
+                <CardImageContainer>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
+                </CardImageContainer>
+
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+
+                <CardFooter>
+                    <div class="it-card-taxonomy">
+                        <a href="#" class="it-card-category it-card-link link-secondary">
+                            <span class="visually-hidden">Related category: </span>Category name
+                        </a>
+                    </div>
+
+                    <CardDate Date="@(new DateTime(2025, 1, 1))"
+                              DatetimeFormat="yyyy-MM-dd"
+                              DisplayFormat="yyyy-MM-dd" />
+                </CardFooter>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-inline it-card-image rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title">
+                        <a href="#">Card title</a>
+                    </h3>
+
+                    <div class="it-card-body">
+                        <p class="it-card-text">Brief description</p>
+                    </div>
+
+                    <footer class="it-card-related it-card-footer">
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+                        <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
+                    </footer>
+                </div>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Reverse_Class_Correctly_If_Reverse_Is_Set_To_True()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Inline" Reverse="true">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+
+                <CardImageContainer>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
+                </CardImageContainer>
+
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+
+                <CardFooter>
+                    <div class="it-card-taxonomy">
+                        <a href="#" class="it-card-category it-card-link link-secondary">
+                            <span class="visually-hidden">Related category: </span>Category name
+                        </a>
+                    </div>
+
+                    <CardDate Date="@(new DateTime(2025, 1, 1))"
+                              DatetimeFormat="yyyy-MM-dd"
+                              DisplayFormat="yyyy-MM-dd" />
+                </CardFooter>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-inline it-card-inline-reverse it-card-image rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title">
+                        <a href="#">Card title</a>
+                    </h3>
+
+                    <div class="it-card-body">
+                        <p class="it-card-text">Brief description</p>
+                    </div>
+
+                    <footer class="it-card-related it-card-footer">
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+                        <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
+                    </footer>
+                </div>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Inline_Card_Mini_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Inline" Mini="true">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+
+                <CardImageContainer>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
+                </CardImageContainer>
+
+                <CardFooter>
+                    <div class="it-card-taxonomy">
+                        <a href="#" class="it-card-category it-card-link link-secondary">
+                            <span class="visually-hidden">Related category: </span>Category name
+                        </a>
+                    </div>
+
+                    <CardDate Date="@(new DateTime(2025, 1, 1))"
+                              DatetimeFormat="yyyy-MM-dd"
+                              DisplayFormat="yyyy-MM-dd" />
+                </CardFooter>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-inline it-card-inline-mini it-card-image rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title">
+                        <a href="#">Card title</a>
+                    </h3>
+
+                    <footer class="it-card-related it-card-footer">
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+                        <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
+                    </footer>
+                </div>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+             </article>);
+    }
+
     private RenderFragment RenderExpectedCardTitleFragment(Typography titleTypography)
     {
         return titleTypography switch
