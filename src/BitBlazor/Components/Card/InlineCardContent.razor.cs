@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
 /// <summary>
-/// Represents a component that displays a block of text content.
+/// Represents the container to use for inline cards
 /// </summary>
-public partial class CardText
+public partial class InlineCardContent
 {
     [CascadingParameter]
     BitCard Parent { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the content to be displayed
+    /// Gets or sets the content of the inline content component
     /// </summary>
     [Parameter]
-    [EditorRequired]
     public RenderFragment ChildContent { get; set; } = default!;
 }

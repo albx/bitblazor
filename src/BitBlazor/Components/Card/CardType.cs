@@ -17,5 +17,15 @@ public enum CardType
     /// <summary>
     /// Inline card type
     /// </summary>
-    Inline
+    Inline,
+
+    /// <summary>
+    /// Profile card type
+    /// </summary>
+    Profile,
+
+    /// <summary>
+    /// Banner card type
+    /// </summary>
+    Banner
 }

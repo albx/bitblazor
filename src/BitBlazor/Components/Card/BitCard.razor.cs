@@ -8,54 +8,37 @@ namespace BitBlazor.Components;
 public partial class BitCard
 {
     /// <summary>
-    /// Gets or sets the type of the card (Default or Inline).
+    /// Gets or sets the content of the card
     /// </summary>
+    [Parameter]
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    ///// <summary>
+    ///// Gets or sets the content to be rendered in the body section of the card
+    ///// </summary>
+    //[Parameter]
+    //public RenderFragment? CardBody { get; set; } = default!;
+
+    ///// <summary>
+    ///// Gets or sets the content to be rendered in the footer section of the card
+    ///// </summary>
+    //[Parameter]
+    //public RenderFragment? CardFooter { get; set; }
+
+    ///// <summary>
+    ///// Gets or sets the content to be rendered in the card image wrapper section of the card
+    ///// </summary>
+    //[Parameter]
+    //public RenderFragment? CardImageContainer { get; set; }
+
+    /// <summary>
+    /// Gets or sets the type of the card
+    /// </summary>
+    /// <remarks>
+    /// Set this property in order to display the different types of card (inline cards, profile cards or banner cards)
+    /// </remarks>
     [Parameter]
     public CardType Type { get; set; } = CardType.Default;
-
-    /// <summary>
-    /// Gets or sets whether display the inline card in reverse mode.
-    /// </summary>
-    /// <remarks>This parameter works only when the card is Inline</remarks>
-    [Parameter]
-    public bool Reverse { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether display the inline card as mini variant.
-    /// </summary>
-    /// <remarks>This parameter works only when the card is Inline</remarks>
-    [Parameter]
-    public bool Mini { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be rendered in the title section of the card.
-    /// </summary>
-    [Parameter]
-    public RenderFragment CardTitle { get; set; } = default!;
-
-    /// <summary>
-    /// Gets or sets the content to be rendered in the body section of the card
-    /// </summary>
-    [Parameter]
-    public RenderFragment? CardBody { get; set; } = default!;
-
-    /// <summary>
-    /// Gets or sets the content to be rendered in the footer section of the card
-    /// </summary>
-    [Parameter]
-    public RenderFragment? CardFooter { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content to be rendered in the card image wrapper section of the card
-    /// </summary>
-    [Parameter]
-    public RenderFragment? CardImageContainer { get; set; }
-
-    /// <summary>
-    /// Gets or sets the level of the heading of the card title (default h3)
-    /// </summary>
-    [Parameter]
-    public Typography TitleTypography { get; set; } = Typography.H3;
 
     /// <summary>
     /// Gets or sets whether the component should display a border. (default true)
@@ -75,34 +58,47 @@ public partial class BitCard
     [Parameter]
     public bool FullHeight { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether display the inline card in reverse mode.
+    /// </summary>
+    /// <remarks>This parameter works only when the card is Inline</remarks>
+    [Parameter]
+    public bool Reverse { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether display the inline card as mini variant.
+    /// </summary>
+    /// <remarks>This parameter works only when the card is Inline</remarks>
+    [Parameter]
+    public bool Mini { get; set; }
+
     private string ComputedCssClasses => $"it-card rounded {ComputeCssClasses()}".Trim();
+
+    #region Image management
+    private bool hasImage = false;
+
+    internal void NotifyHasImageChanged(bool hasImage)
+    {
+        this.hasImage = hasImage;
+        StateHasChanged();
+    }
+    #endregion
 
     private string ComputeCssClasses()
     {
         var cssClasses = new List<string>();
 
-        var cardClass = Type switch
+        switch (Type)
         {
-            CardType.Inline => "it-card-inline",
-            _ => string.Empty
-        };
-
-        if (Type is CardType.Inline)
-        {
-            if (Reverse)
-            {
-                cssClasses.Add("it-card-inline-reverse");
-            }
-
-            if (Mini)
-            {
-                cssClasses.Add("it-card-inline-mini");
-            }
-        }
-
-        if (!string.IsNullOrEmpty(cardClass))
-        {
-            cssClasses.Add(cardClass);
+            case CardType.Inline:
+                AddInlineClasses(cssClasses);
+                break;
+            case CardType.Profile:
+                break;
+            case CardType.Banner:
+                break;
+            default:
+                break;
         }
 
         if (Bordered)
@@ -124,11 +120,25 @@ public partial class BitCard
             cssClasses.Add("it-card-height-full");
         }
 
-        if (CardImageContainer is not null)
+        if (hasImage)
         {
             cssClasses.Add("it-card-image");
         }
 
         return string.Join(" ", cssClasses);
+    }
+
+    private void AddInlineClasses(List<string> cssClasses)
+    {
+        cssClasses.Add("it-card-inline");
+
+        if (Mini)
+        {
+            cssClasses.Add("it-card-inline-mini");
+        }
+        if (Reverse)
+        {
+            cssClasses.Add("it-card-inline-reverse");
+        }
     }
 }

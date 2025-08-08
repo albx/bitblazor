@@ -8,7 +8,7 @@ namespace BitBlazor.Components;
 public partial class CardImage
 {
     [CascadingParameter]
-    BitCard Card { get; set; } = default!;
+    BitCard Parent { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the aspect ratio for the component.

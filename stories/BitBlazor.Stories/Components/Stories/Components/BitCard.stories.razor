@@ -1,16 +1,15 @@
 ﻿@attribute [Stories("Components/BitCard")]
 
 <Stories TComponent="BitCard">
-    <ArgType For="_ => _.TitleTypography" Control="ControlType.Select" DefaultValue="Typography.H3" />
+    <ArgType For="_ => _.Type" Control="ControlType.Select" DefaultValue="CardType.Default" />
     <ArgType For="_ => _.Bordered" DefaultValue="true" />
     <ArgType For="_ => _.Shadow" Control="ControlType.Select" DefaultValue="CardShadow.Small" />
     <ArgType For="_ => _.FullHeight" DefaultValue="false" />
-    <ArgType For="_ => _.Type" DefaultValue="CardType.Default" />
+    <ArgType For="_ => _.Mini" DefaultValue="false" />
+    <ArgType For="_ => _.Mini" DefaultValue="false" />
 
     <Story Name="Default">
         <Arguments>
-            <Arg For="_ => _.Type" Value="CardType.Default" />
-            <Arg For="_ => _.TitleTypography" Value="Typography.H3" />
             <Arg For="_ => _.Bordered" Value="true" />
             <Arg For="_ => _.Shadow" Value="CardShadow.Small" />
             <Arg For="_ => _.FullHeight" Value="false" />
@@ -41,11 +40,11 @@
                             <a href="#">Card title</a>
                         </CardTitle>
 
-                        <CardImageContainer>
+                        <CardImageWrapper>
                             <CardImage Ratio="Ratio.Ratio16x9"
                                        ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                        ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                        </CardImageContainer>
+                        </CardImageWrapper>
 
                         <CardBody>
                             <CardText>
@@ -74,11 +73,11 @@
                                 <a href="#">Content title</a>
                             </CardTitle>
 
-                            <CardImageContainer>
+                            <CardImageWrapper>
                                 <CardImage Ratio="Ratio.Ratio16x9"
                                            ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                            ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                            </CardImageContainer>
+                            </CardImageWrapper>
 
                             <CardBody>
                                 <CardText>
@@ -105,11 +104,11 @@
                                 <a href="#">Content title</a>
                             </CardTitle>
 
-                            <CardImageContainer>
+                            <CardImageWrapper>
                                 <CardImage Ratio="Ratio.Ratio16x9"
                                            ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                            ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                            </CardImageContainer>
+                            </CardImageWrapper>
 
                             <CardBody>
                                 <CardText>
@@ -178,11 +177,11 @@
                                 </a>
                             </CardTitle>
 
-                            <CardImageContainer>
+                            <CardImageWrapper>
                                 <CardImage Ratio="Ratio.Ratio16x9"
                                            ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                            ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                            </CardImageContainer>
+                            </CardImageWrapper>
 
                             <CardBody>
                                 <CardSubtitle>Content subtitle</CardSubtitle>
@@ -213,11 +212,11 @@
                                 </a>
                             </CardTitle>
 
-                            <CardImageContainer>
+                            <CardImageWrapper>
                                 <CardImage Ratio="Ratio.Ratio16x9"
                                            ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                            ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                            </CardImageContainer>
+                            </CardImageWrapper>
 
                             <CardBody>
                                 <CardSubtitle>Content subtitle</CardSubtitle>
@@ -284,64 +283,68 @@
             <div class="px-2 py-2 row">
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
                     <BitCard Type="CardType.Inline">
-                        <CardTitle>
-                            <a href="#">Content title</a>
-                        </CardTitle>
+                        <InlineCardContent>
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
 
-                        <CardImageContainer>
+                            <CardBody>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <a href="#" class="it-card-category it-card-link link-secondary">
+                                        <span class="visually-hidden">Related category: </span>Category name
+                                    </a>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </InlineCardContent>
+
+                        <CardImageWrapper>
                             <CardImage Ratio="Ratio.Ratio16x9"
                                        ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                        ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                        </CardImageContainer>
-
-                        <CardBody>
-                            <CardText>
-                                This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
-                            </CardText>
-                        </CardBody>
-
-                        <CardFooter>
-                            <div class="it-card-taxonomy">
-                                <a href="#" class="it-card-category it-card-link link-secondary">
-                                    <span class="visually-hidden">Related category: </span>Category name
-                                </a>
-                            </div>
-
-                            <CardDate Date="@DateTime.Today"
-                                      DatetimeFormat="yyyy-MM-dd"
-                                      DisplayFormat="dd MMM yyyy" />
-                        </CardFooter>
+                        </CardImageWrapper>
                     </BitCard>
                 </div>
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
                     <BitCard Type="CardType.Inline" Reverse="true">
-                        <CardTitle>
-                            <a href="#">Content title</a>
-                        </CardTitle>
+                        <InlineCardContent>
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
 
-                        <CardImageContainer>
+                            <CardBody>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                            </CardBody>
+
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <a href="#" class="it-card-category it-card-link link-secondary">
+                                        <span class="visually-hidden">Related category: </span>Category name
+                                    </a>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </InlineCardContent>
+
+                        <CardImageWrapper>
                             <CardImage Ratio="Ratio.Ratio16x9"
                                        ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                        ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                        </CardImageContainer>
-
-                        <CardBody>
-                            <CardText>
-                                This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
-                            </CardText>
-                        </CardBody>
-
-                        <CardFooter>
-                            <div class="it-card-taxonomy">
-                                <a href="#" class="it-card-category it-card-link link-secondary">
-                                    <span class="visually-hidden">Related category: </span>Category name
-                                </a>
-                            </div>
-
-                            <CardDate Date="@DateTime.Today"
-                                      DatetimeFormat="yyyy-MM-dd"
-                                      DisplayFormat="dd MMM yyyy" />
-                        </CardFooter>
+                        </CardImageWrapper>
                     </BitCard>
                 </div>
             </div>
@@ -353,52 +356,56 @@
             <div class="px-2 py-2 row">
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
                     <BitCard Type="CardType.Inline" Mini="true">
-                        <CardTitle>
-                            <a href="#">Content title</a>
-                        </CardTitle>
+                        <InlineCardContent>
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
 
-                        <CardImageContainer>
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <a href="#" class="it-card-category it-card-link link-secondary">
+                                        <span class="visually-hidden">Related category: </span>Category name
+                                    </a>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </InlineCardContent>
+
+                        <CardImageWrapper>
                             <CardImage Ratio="Ratio.Ratio16x9"
                                        ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                        ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                        </CardImageContainer>
-
-                        <CardFooter>
-                            <div class="it-card-taxonomy">
-                                <a href="#" class="it-card-category it-card-link link-secondary">
-                                    <span class="visually-hidden">Related category: </span>Category name
-                                </a>
-                            </div>
-
-                            <CardDate Date="@DateTime.Today"
-                                      DatetimeFormat="yyyy-MM-dd"
-                                      DisplayFormat="dd MMM yyyy" />
-                        </CardFooter>
+                        </CardImageWrapper>
                     </BitCard>
                 </div>
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
-                    <BitCard Type="CardType.Inline" Reverse="true" Mini="true">
-                        <CardTitle>
-                            <a href="#">Content title</a>
-                        </CardTitle>
+                    <BitCard Type="CardType.Inline" Mini="true" Reverse="true">
+                        <InlineCardContent>
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
 
-                        <CardImageContainer>
+                            <CardFooter>
+                                <div class="it-card-taxonomy">
+                                    <a href="#" class="it-card-category it-card-link link-secondary">
+                                        <span class="visually-hidden">Related category: </span>Category name
+                                    </a>
+                                </div>
+
+                                <CardDate Date="@DateTime.Today"
+                                          DatetimeFormat="yyyy-MM-dd"
+                                          DisplayFormat="dd MMM yyyy" />
+                            </CardFooter>
+                        </InlineCardContent>
+
+                        <CardImageWrapper>
                             <CardImage Ratio="Ratio.Ratio16x9"
                                        ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                        ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                        </CardImageContainer>
-
-                        <CardFooter>
-                            <div class="it-card-taxonomy">
-                                <a href="#" class="it-card-category it-card-link link-secondary">
-                                    <span class="visually-hidden">Related category: </span>Category name
-                                </a>
-                            </div>
-
-                            <CardDate Date="@DateTime.Today"
-                                      DatetimeFormat="yyyy-MM-dd"
-                                      DisplayFormat="dd MMM yyyy" />
-                        </CardFooter>
+                        </CardImageWrapper>
                     </BitCard>
                 </div>
             </div>
@@ -414,11 +421,11 @@
                             <a href="#">Card title</a>
                         </CardTitle>
 
-                        <CardImageContainer>
+                        <CardImageWrapper>
                             <CardImage Ratio="Ratio.Ratio16x9"
                                        ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                        ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
-                        </CardImageContainer>
+                        </CardImageWrapper>
 
                         <CardBody>
                             <CardText>

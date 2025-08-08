@@ -35,8 +35,8 @@
     public void BitCardTest_Should_Render_Title_Tag_Correctly(Typography titleTypography)
     {
         var component = Render(
-            @<BitCard TitleTypography="titleTypography">
-                <CardTitle>
+            @<BitCard>
+                <CardTitle Typography="titleTypography">
                     <a href="#">Card title</a>
                 </CardTitle>
                 <CardBody>
@@ -93,19 +93,20 @@
                 <CardTitle>
                     <a href="#">Card title</a>
                 </CardTitle>
+
+                <CardImageWrapper>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                </CardImageWrapper>
+
                 <CardBody>
                     <CardText>Brief description</CardText>
                 </CardBody>
-
-                <CardImageContainer>
-                    <CardImage Ratio="Ratio.Ratio16x9"
-                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
-                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
-                </CardImageContainer>
              </BitCard>);
 
         component.MarkupMatches(
-            @<article class="it-card it-card-image rounded shadow-sm border">
+            @<article class="it-card rounded it-card-image shadow-sm border">
                 <h3 class="it-card-title">
                     <a href="#">Card title</a>
                 </h3>
@@ -279,31 +280,33 @@
     {
         var component = Render(
             @<BitCard Type="CardType.Inline">
-                <CardTitle>
-                    <a href="#">Card title</a>
-                </CardTitle>
+                <InlineCardContent>
+                    <CardTitle>
+                        <a href="#">Card title</a>
+                    </CardTitle>
 
-                <CardImageContainer>
+                    <CardBody>
+                        <CardText>Brief description</CardText>
+                    </CardBody>
+
+                    <CardFooter>
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+
+                        <CardDate Date="@(new DateTime(2025, 1, 1))"
+                                  DatetimeFormat="yyyy-MM-dd"
+                                  DisplayFormat="yyyy-MM-dd" />
+                    </CardFooter>
+                </InlineCardContent>
+
+                <CardImageWrapper>
                     <CardImage Ratio="Ratio.Ratio16x9"
                                ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
-                </CardImageContainer>
-
-                <CardBody>
-                    <CardText>Brief description</CardText>
-                </CardBody>
-
-                <CardFooter>
-                    <div class="it-card-taxonomy">
-                        <a href="#" class="it-card-category it-card-link link-secondary">
-                            <span class="visually-hidden">Related category: </span>Category name
-                        </a>
-                    </div>
-
-                    <CardDate Date="@(new DateTime(2025, 1, 1))"
-                              DatetimeFormat="yyyy-MM-dd"
-                              DisplayFormat="yyyy-MM-dd" />
-                </CardFooter>
+                </CardImageWrapper>
              </BitCard>);
 
         component.MarkupMatches(
@@ -341,31 +344,32 @@
     {
         var component = Render(
             @<BitCard Type="CardType.Inline" Reverse="true">
-                <CardTitle>
-                    <a href="#">Card title</a>
-                </CardTitle>
+                <InlineCardContent>
+                    <CardTitle>
+                        <a href="#">Card title</a>
+                    </CardTitle>
+                    <CardBody>
+                        <CardText>Brief description</CardText>
+                    </CardBody>
 
-                <CardImageContainer>
+                    <CardFooter>
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+
+                        <CardDate Date="@(new DateTime(2025, 1, 1))"
+                                  DatetimeFormat="yyyy-MM-dd"
+                                  DisplayFormat="yyyy-MM-dd" />
+                    </CardFooter>
+                </InlineCardContent>
+
+                <CardImageWrapper>
                     <CardImage Ratio="Ratio.Ratio16x9"
                                ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
-                </CardImageContainer>
-
-                <CardBody>
-                    <CardText>Brief description</CardText>
-                </CardBody>
-
-                <CardFooter>
-                    <div class="it-card-taxonomy">
-                        <a href="#" class="it-card-category it-card-link link-secondary">
-                            <span class="visually-hidden">Related category: </span>Category name
-                        </a>
-                    </div>
-
-                    <CardDate Date="@(new DateTime(2025, 1, 1))"
-                              DatetimeFormat="yyyy-MM-dd"
-                              DisplayFormat="yyyy-MM-dd" />
-                </CardFooter>
+                </CardImageWrapper>
              </BitCard>);
 
         component.MarkupMatches(
@@ -403,27 +407,28 @@
     {
         var component = Render(
             @<BitCard Type="CardType.Inline" Mini="true">
-                <CardTitle>
-                    <a href="#">Card title</a>
-                </CardTitle>
+                <InlineCardContent>
+                    <CardTitle>
+                        <a href="#">Card title</a>
+                    </CardTitle>
+                    <CardFooter>
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
 
-                <CardImageContainer>
+                        <CardDate Date="@(new DateTime(2025, 1, 1))"
+                                  DatetimeFormat="yyyy-MM-dd"
+                                  DisplayFormat="yyyy-MM-dd" />
+                    </CardFooter>
+                </InlineCardContent>
+
+                <CardImageWrapper>
                     <CardImage Ratio="Ratio.Ratio16x9"
                                ImageSrc="https://placeholderimage.eu/api/city/800/600"
                                ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
-                </CardImageContainer>
-
-                <CardFooter>
-                    <div class="it-card-taxonomy">
-                        <a href="#" class="it-card-category it-card-link link-secondary">
-                            <span class="visually-hidden">Related category: </span>Category name
-                        </a>
-                    </div>
-
-                    <CardDate Date="@(new DateTime(2025, 1, 1))"
-                              DatetimeFormat="yyyy-MM-dd"
-                              DisplayFormat="yyyy-MM-dd" />
-                </CardFooter>
+                </CardImageWrapper>            
              </BitCard>);
 
         component.MarkupMatches(

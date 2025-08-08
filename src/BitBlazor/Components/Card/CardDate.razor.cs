@@ -2,10 +2,13 @@
 
 namespace BitBlazor.Components;
 
+/// <summary>
+/// Represents the element which display the date on a card component
+/// </summary>
 public partial class CardDate
 {
     [CascadingParameter]
-    BitCard Card { get; set; } = default!;
+    BitCard Parent { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the date to be displayed in the card.

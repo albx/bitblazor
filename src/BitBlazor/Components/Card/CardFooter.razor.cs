@@ -1,19 +1,18 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
 /// <summary>
-/// Represents a component that displays a block of text content.
+/// Represents the footer section of the card
 /// </summary>
-public partial class CardText
+public partial class CardFooter
 {
     [CascadingParameter]
     BitCard Parent { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets the content to be displayed
+    /// Gets or sets the content of the card footer
     /// </summary>
     [Parameter]
-    [EditorRequired]
     public RenderFragment ChildContent { get; set; } = default!;
 }
