@@ -3,38 +3,5 @@
 <CascadingValue Value="this">
     <article class="@ComputedCssClasses">
         @ChildContent
-
-
-        @*@if (Type is CardType.Default)
-        {
-            @RenderCardTitle()
-
-            @RenderCardImage()
-
-            @RenderCardBody()
-
-            @RenderCardFooter()
-        }
-        else
-        {
-            <div class="it-card-inline-content">
-                @RenderCardTitle()
-
-                @RenderCardBody()
-
-                @RenderCardFooter()
-            </div>
-            @RenderCardImage()
-        }*@
     </article>
 </CascadingValue>
-
-@code {
-    @*
-
-    private RenderFragment? RenderCardFooter()
-        => CardFooter is not null ? @<footer class="it-card-related it-card-footer">@CardFooter</footer> : null;
-
-    private RenderFragment? RenderCardImage()
-        => CardImageContainer is not null ? @<div class="it-card-image-wrapper">@CardImageContainer</div> : null;*@
-}
