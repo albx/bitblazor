@@ -170,10 +170,10 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
                         <BitCard FullHeight="true">
-                            <CardTitle>
+                            <CardTitle HasIcon="true">
                                 <a href="#">
                                     Featured content title <span class="visually-hidden">(external link)</span>
-                                    <BitIcon IconName="@Icons.ItFile" Color="IconColor.Primary" />
+                                    <CardTitleIcon Icon="@Icons.ItFile" />
                                 </a>
                             </CardTitle>
 
@@ -205,10 +205,10 @@
                     </div>
                     <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
                         <BitCard FullHeight="true">
-                            <CardTitle>
+                            <CardTitle HasIcon="true">
                                 <a href="#">
                                     Featured content title <span class="visually-hidden">(external link)</span>
-                                    <BitIcon IconName="@Icons.ItDesignersItalia" Color="IconColor.Primary" />
+                                    <CardTitleIcon Icon="@Icons.ItDesignersItalia" />
                                 </a>
                             </CardTitle>
 
@@ -252,10 +252,10 @@
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
                         <BitCard FullHeight="true">
-                            <CardTitle>
+                            <CardTitle HasIcon="true">
                                 <a href="#">
                                     Featured content title <span class="visually-hidden">(external link)</span>
-                                    <BitIcon IconName="@Icons.ItExternalLink" Color="IconColor.Primary" />
+                                    <CardTitleIcon Icon="@Icons.ItExternalLink" />
                                 </a>
                             </CardTitle>
 
@@ -407,6 +407,195 @@
                                        ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
                         </CardImageWrapper>
                     </BitCard>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Cards for events">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true" CssClass="mb-3">
+                            <CardTitle>
+                                <a href="#">Event title</a>
+                            </CardTitle>
+
+                            <CardImageWrapper>
+                                <CardImage Ratio="Ratio.Ratio16x9"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageWrapper>
+
+                            <CardBody>
+                                <CardSubtitle>From August 4th to August 6th</CardSubtitle>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+
+                                <footer class="it-card-related">
+                                    <div class="it-card-taxonomy">
+                                        <a href="#" class="it-card-category it-card-link link-secondary">
+                                            <span class="visually-hidden">Related category: </span>Category name
+                                        </a>
+                                    </div>
+
+                                    <CardDate Date="@DateTime.Today"
+                                              DatetimeFormat="yyyy-MM-dd"
+                                              DisplayFormat="dd MMM yyyy" />
+                                </footer>
+                            </CardBody>
+                            <footer class="it-card-footer" aria-label="Related links">
+                                <a href="#" class="it-card-link">Subscribe to event</a>
+                            </footer>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true" CssClass="mb-3">
+                            <CardTitle>
+                                <a href="#">Event title</a>
+                            </CardTitle>
+
+                            <CardImageWrapper>
+                                <CardImage Ratio="Ratio.Ratio16x9"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageWrapper>
+
+                            <CardBody>
+                                <CardSubtitle>From August 4th to August 6th</CardSubtitle>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+
+                                <footer class="it-card-related">
+                                    <div class="it-card-taxonomy">
+                                        <a href="#" class="it-card-category it-card-link link-secondary">
+                                            <span class="visually-hidden">Related category: </span>Category name
+                                        </a>
+                                    </div>
+
+                                    <CardDate Date="@DateTime.Today"
+                                              DatetimeFormat="yyyy-MM-dd"
+                                              DisplayFormat="dd MMM yyyy" />
+                                </footer>
+                            </CardBody>
+                            <footer class="it-card-footer" aria-label="Related links">
+                                <BitButton Color="Color.Secondary" Variant="Variant.Outline">Fill the subscription form</BitButton>
+                            </footer>
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard>
+                            <CardTitle>
+                                <a href="#">Event title</a>
+                            </CardTitle>
+                            <CardBody>
+                                <CardSubtitle>August 19th, 11:30 - 13:00</CardSubtitle>
+                                <CardText>
+                                    This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+
+                                <footer class="it-card-related">
+                                    <div class="it-card-taxonomy">
+                                        <a href="#" class="it-card-category it-card-link link-secondary">
+                                            <span class="visually-hidden">Related category: </span>Category name
+                                        </a>
+                                    </div>
+
+                                    <CardDate Date="@DateTime.Today"
+                                              DatetimeFormat="yyyy-MM-dd"
+                                              DisplayFormat="dd MMM yyyy" />
+                                </footer>
+                            </CardBody>
+                        </BitCard>
+                    </div>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Inline cards for events">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Inline">
+                            <InlineCardContent>
+                                <CardTitle>
+                                    <a href="#">Event title</a>
+                                </CardTitle>
+
+                                <CardBody>
+                                    <CardSubtitle>From August 4th to August 6th</CardSubtitle>
+                                    <CardText>
+                                        This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                    </CardText>
+
+                                    <footer class="it-card-related">
+                                        <div class="it-card-taxonomy">
+                                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                                <span class="visually-hidden">Related category: </span>Category name
+                                            </a>
+                                        </div>
+
+                                        <CardDate Date="@DateTime.Today"
+                                                  DatetimeFormat="yyyy-MM-dd"
+                                                  DisplayFormat="dd MMM yyyy" />
+                                    </footer>
+                                </CardBody>
+                                <footer class="it-card-footer" aria-label="Related links">
+                                    <a href="#" class="it-card-link">Subscribe to event</a>
+                                </footer>
+                            </InlineCardContent>
+                            <CardImageWrapper>
+                                <CardImage Ratio="Ratio.Ratio1x1"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageWrapper>
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Inline" Reverse="true">
+                            <InlineCardContent>
+                                <CardTitle>
+                                    <a href="#">Event title</a>
+                                </CardTitle>
+
+                                <CardBody>
+                                    <CardSubtitle>From August 4th to August 6th</CardSubtitle>
+                                    <CardText>
+                                        This is a short text that summarizes the content of the destination page in a maximum of three or four lines, without truncation.
+                                    </CardText>
+
+                                    <footer class="it-card-related">
+                                        <div class="it-card-taxonomy">
+                                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                                <span class="visually-hidden">Related category: </span>Category name
+                                            </a>
+                                        </div>
+
+                                        <CardDate Date="@DateTime.Today"
+                                                  DatetimeFormat="yyyy-MM-dd"
+                                                  DisplayFormat="dd MMM yyyy" />
+                                    </footer>
+                                </CardBody>
+                                <footer class="it-card-footer" aria-label="Related links">
+                                    <BitButton Color="Color.Secondary" Variant="Variant.Outline">Fill the subscription form</BitButton>
+                                </footer>
+                            </InlineCardContent>
+                            <CardImageWrapper>
+                                <CardImage Ratio="Ratio.Ratio1x1"
+                                           ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageWrapper>
+                        </BitCard>
+                    </div>
                 </div>
             </div>
         </Template>

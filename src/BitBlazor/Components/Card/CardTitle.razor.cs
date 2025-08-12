@@ -21,4 +21,22 @@ public partial class CardTitle
     /// </summary>
     [Parameter]
     public Typography Typography { get; set; } = Typography.H3;
+
+    /// <summary>
+    /// Gets or sets whether the title has an icon associated
+    /// </summary>
+    [Parameter]
+    public bool HasIcon { get; set; }
+
+    private string ComputeCssClasses()
+    {
+        List<string> cssClasses = ["it-card-title"];
+
+        if (HasIcon)
+        {
+            cssClasses.Add("it-card-title-icon");
+        }
+
+        return string.Join(" ", cssClasses);
+    }
 }

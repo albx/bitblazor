@@ -72,6 +72,12 @@ public partial class BitCard
     [Parameter]
     public bool Mini { get; set; }
 
+    /// <summary>
+    /// Gets or sets additional css classes
+    /// </summary>
+    [Parameter]
+    public string? CssClass { get; set; }
+
     private string ComputedCssClasses => $"it-card rounded {ComputeCssClasses()}".Trim();
 
     #region Image management
@@ -123,6 +129,11 @@ public partial class BitCard
         if (hasImage)
         {
             cssClasses.Add("it-card-image");
+        }
+
+        if (!string.IsNullOrWhiteSpace(CssClass))
+        {
+            cssClasses.Add(CssClass);
         }
 
         return string.Join(" ", cssClasses);

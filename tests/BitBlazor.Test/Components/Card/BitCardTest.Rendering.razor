@@ -457,6 +457,30 @@
              </article>);
     }
 
+    [Fact]
+    public void BitCard_Should_Render_Additional_Css_Classes_Correctly()
+    {
+        var component = Render(
+            @<BitCard CssClass="mb-3">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border mb-3">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
     private RenderFragment RenderExpectedCardTitleFragment(Typography titleTypography)
     {
         return titleTypography switch

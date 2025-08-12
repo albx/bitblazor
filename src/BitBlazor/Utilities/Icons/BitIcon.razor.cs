@@ -44,9 +44,36 @@ public partial class BitIcon
     [Parameter]
     public string? CssClass { get; set; }
 
+    /// <summary>
+    /// Gets or sets the role of the icon
+    /// </summary>
+    [Parameter]
+    public string? Role { get; set; }
+
+    /// <summary>
+    /// Gets or sets the title of the icon
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
     private string Href => $"/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}";
 
     private string ComputedCssClasses => $"icon {ComputeCssClasses()}".Trim();
+
+    private Dictionary<string, object> attributes = new();
+
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
+    {
+        if (!string.IsNullOrWhiteSpace(Role))
+        {
+            attributes["role"] = Role;
+        }
+        else
+        {
+            attributes.Remove("role");
+        }
+    }
 
     private string ComputeCssClasses()
     {

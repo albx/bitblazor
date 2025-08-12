@@ -5,11 +5,11 @@
 @code {
     private RenderFragment RenderCardTitle() => Typography switch
     {
-        Typography.H1 => @<h1 class="it-card-title">@ChildContent</h1>,
-        Typography.H2 => @<h2 class="it-card-title">@ChildContent</h2>,
-        Typography.H4 => @<h4 class="it-card-title">@ChildContent</h4>,
-        Typography.H5 => @<h5 class="it-card-title">@ChildContent</h5>,
-        Typography.H6 => @<h6 class="it-card-title">@ChildContent</h6>,
-        _ => @<h3 class="it-card-title">@ChildContent</h3>
+        Typography.H1 => @<h1 class="@ComputeCssClasses()">@ChildContent</h1>,
+        Typography.H2 => @<h2 class="@ComputeCssClasses()">@ChildContent</h2>,
+        Typography.H4 => @<h4 class="@ComputeCssClasses()">@ChildContent</h4>,
+        Typography.H5 => @<h5 class="@ComputeCssClasses()">@ChildContent</h5>,
+        Typography.H6 => @<h6 class="@ComputeCssClasses()">@ChildContent</h6>,
+        _ => @<h3 class="@ComputeCssClasses()">@ChildContent</h3>
     };
 }
