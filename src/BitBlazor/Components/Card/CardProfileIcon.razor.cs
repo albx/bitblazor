@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
+/// <summary>
+/// Represents the container for the icon displayed in the card profile.
+/// </summary>
 public partial class CardProfileIcon
 {
     [CascadingParameter]

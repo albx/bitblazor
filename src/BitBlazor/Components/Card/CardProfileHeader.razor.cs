@@ -2,6 +2,9 @@
 
 namespace BitBlazor.Components;
 
+/// <summary>
+/// Represents the header section of a card profile, containing profile information such as name, role, avatar, type, and image.
+/// </summary>
 public partial class CardProfileHeader
 {
     [CascadingParameter]
