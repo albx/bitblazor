@@ -1,0 +1,119 @@
+﻿@attribute [Stories("Utilities/BitIcon")]
+
+<Stories TComponent="BitIcon">
+    <ArgType For="_ => _.IconName" DefaultValue="@Icons.ItTool" />
+    <ArgType For="_ => _.Color" Control="ControlType.Select" DefaultValue="IconColor.Default" />
+    <ArgType For="_ => _.Size" Control="ControlType.Select" DefaultValue="IconSize.Default" />
+    <ArgType For="_ => _.Padded" DefaultValue="false" />
+    <ArgType For="_ => _.Align" Control="ControlType.Select" DefaultValue="IconAlignment.Default" />
+    <ArgType For="_ => _.Role" />
+    <ArgType For="_ => _.Title" />
+    <ArgType For="_ => _.CssClass" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.IconName" Value="@Icons.ItTool" />
+            <Arg For="_ => _.Color" Value="IconColor.Default" />
+            <Arg For="_ => _.Size" Value="IconSize.Default" />
+            <Arg For="_ => _.Padded" Value="false" />
+            <Arg For="_ => _.Align" Value="IconAlignment.Default" />
+            <Arg For="_ => _.Role" />
+            <Arg For="_ => _.Title" />
+            <Arg For="_ => _.CssClass" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2">
+                <BitIcon @attributes="context.Args" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Size">
+        <Template>
+            <div class="px-2 py-2">
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.ExtraSmall" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.Small" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.Large" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.ExtraLarge" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Padding">
+        <Template>
+            <div class="px-2 py-2">
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.ExtraSmall"
+                         Padded="true" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.Small"
+                         Padded="true" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Padded="true" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.Large"
+                         Padded="true" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Size="IconSize.ExtraLarge"
+                         Padded="true" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Colors">
+        <Template>
+            <div class="px-2 py-2">
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Color="IconColor.Primary" />
+
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Color="IconColor.Secondary" />
+                
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Color="IconColor.Success" />
+                
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Color="IconColor.Warning" />
+                
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Color="IconColor.Danger" />
+                
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Color="IconColor.Light" />
+                
+                <BitIcon IconName="@Icons.ItCheckCircle"
+                         Color="IconColor.White" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Alignments">
+        <Template>
+            <div class="px-2 py-2">
+                <div style="line-height:4em;">
+                    <BitIcon IconName="@Icons.ItCheckCircle"
+                             Align="IconAlignment.Bottom" />
+
+                    <BitIcon IconName="@Icons.ItCheckCircle"
+                             Align="IconAlignment.Middle" />
+
+                    <BitIcon IconName="@Icons.ItCheckCircle"
+                             Align="IconAlignment.Top" />
+                </div>
+            </div>
+        </Template>
+    </Story>
+</Stories>
