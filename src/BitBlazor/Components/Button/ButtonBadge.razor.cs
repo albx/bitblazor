@@ -2,6 +2,14 @@ using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
+/// <summary>
+/// Represents a badge component that displays text and integrates with a parent button.
+/// </summary>
+/// <remarks>
+/// The <see cref="ButtonBadge"/> is designed to be used in conjunction with a <see cref="BitButton"/> component. 
+/// It displays a badge with customizable text and optional additional context for assistive technologies.
+/// The badge's appearance is influenced by the parent button's properties, such as its variant and color.
+/// </remarks>
 public partial class ButtonBadge
 {
     [CascadingParameter]

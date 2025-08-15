@@ -6,7 +6,7 @@
 public static partial class Icons
 {
     /// <summary>Designer Italia icon.</summary>
-    public const string ItDesignerItalia = "it-designer-italia";
+    public const string ItDesignersItalia = "it-designers-italia";
     /// <summary>Team Digitale icon.</summary>
     public const string ItTeamDigitale = "it-team-digitale";
 }

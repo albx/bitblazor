@@ -1,0 +1,619 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitCard_Should_Render_Specified_Title_And_Body_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Theory]
+    [InlineData(Typography.H1)]
+    [InlineData(Typography.H2)]
+    [InlineData(Typography.H3)]
+    [InlineData(Typography.H4)]
+    [InlineData(Typography.H5)]
+    [InlineData(Typography.H6)]
+    public void BitCardTest_Should_Render_Title_Tag_Correctly(Typography titleTypography)
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle Typography="titleTypography">
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                @RenderExpectedCardTitleFragment(titleTypography)
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Footer_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+                <CardFooter>
+                    <CardDate Date="@(new DateTime(2025, 1, 1))"
+                              DatetimeFormat="yyyy-MM-dd"
+                              DisplayFormat="yyyy-MM-dd" />
+                </CardFooter>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+                <footer class="it-card-related it-card-footer">
+                    <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
+                </footer>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Image_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+
+                <CardImageWrapper>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                </CardImageWrapper>
+
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded it-card-image shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Card_Subtitle_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardSubtitle>Subtitle</CardSubtitle>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-subtitle">Subtitle</p>
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+
+    [Fact]
+    public void BitCard_Should_Render_Card_Signature_Correctly()
+    {
+        var component = Render(
+            @<BitCard>
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardSignature>Author</CardSignature>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <address class="it-card-signature">Author</address>
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Theory]
+    [InlineData(CardShadow.Small, "shadow-sm")]
+    [InlineData(CardShadow.Medium, "shadow")]
+    [InlineData(CardShadow.Large, "shadow-lg")]
+    public void BitCard_Should_Apply_Shadow_Class_Correctly(CardShadow shadow, string expectedShadowClass)
+    {
+        var component = Render(
+            @<BitCard Shadow="shadow">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded @expectedShadowClass border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Remove_Border_Class_If_Bordered_Parameter_Is_Set_To_False()
+    {
+        var component = Render(
+            @<BitCard Bordered="false">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Display_Border_Class_If_Bordered_Parameter_Is_Set_To_True()
+    {
+        var component = Render(
+            @<BitCard Bordered="true">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Display_Full_Height_Class_Correctly_If_FullHeight_Parameter_Is_Set_To_True()
+    {
+        var component = Render(
+            @<BitCard FullHeight="true">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border it-card-height-full">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Inline_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Inline="true">
+                <InlineCardContent>
+                    <CardTitle>
+                        <a href="#">Card title</a>
+                    </CardTitle>
+
+                    <CardBody>
+                        <CardText>Brief description</CardText>
+                    </CardBody>
+
+                    <CardFooter>
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+
+                        <CardDate Date="@(new DateTime(2025, 1, 1))"
+                                  DatetimeFormat="yyyy-MM-dd"
+                                  DisplayFormat="yyyy-MM-dd" />
+                    </CardFooter>
+                </InlineCardContent>
+
+                <CardImageWrapper>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
+                </CardImageWrapper>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-inline it-card-image rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title">
+                        <a href="#">Card title</a>
+                    </h3>
+
+                    <div class="it-card-body">
+                        <p class="it-card-text">Brief description</p>
+                    </div>
+
+                    <footer class="it-card-related it-card-footer">
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+                        <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
+                    </footer>
+                </div>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Reverse_Class_Correctly_If_Reverse_Is_Set_To_True()
+    {
+        var component = Render(
+            @<BitCard Inline="true" Reverse="true">
+                <InlineCardContent>
+                    <CardTitle>
+                        <a href="#">Card title</a>
+                    </CardTitle>
+                    <CardBody>
+                        <CardText>Brief description</CardText>
+                    </CardBody>
+
+                    <CardFooter>
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+
+                        <CardDate Date="@(new DateTime(2025, 1, 1))"
+                                  DatetimeFormat="yyyy-MM-dd"
+                                  DisplayFormat="yyyy-MM-dd" />
+                    </CardFooter>
+                </InlineCardContent>
+
+                <CardImageWrapper>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
+                </CardImageWrapper>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-inline it-card-inline-reverse it-card-image rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title">
+                        <a href="#">Card title</a>
+                    </h3>
+
+                    <div class="it-card-body">
+                        <p class="it-card-text">Brief description</p>
+                    </div>
+
+                    <footer class="it-card-related it-card-footer">
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+                        <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
+                    </footer>
+                </div>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Inline_Card_Mini_Correctly()
+    {
+        var component = Render(
+            @<BitCard Inline="true" Mini="true">
+                <InlineCardContent>
+                    <CardTitle>
+                        <a href="#">Card title</a>
+                    </CardTitle>
+                    <CardFooter>
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+
+                        <CardDate Date="@(new DateTime(2025, 1, 1))"
+                                  DatetimeFormat="yyyy-MM-dd"
+                                  DisplayFormat="yyyy-MM-dd" />
+                    </CardFooter>
+                </InlineCardContent>
+
+                <CardImageWrapper>
+                    <CardImage Ratio="Ratio.Ratio16x9"
+                               ImageSrc="https://placeholderimage.eu/api/city/800/600"
+                               ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty."/>
+                </CardImageWrapper>            
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-inline it-card-inline-mini it-card-image rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title">
+                        <a href="#">Card title</a>
+                    </h3>
+
+                    <footer class="it-card-related it-card-footer">
+                        <div class="it-card-taxonomy">
+                            <a href="#" class="it-card-category it-card-link link-secondary">
+                                <span class="visually-hidden">Related category: </span>Category name
+                            </a>
+                        </div>
+                        <time class="it-card-date" datetime="2025-01-01">2025-01-01</time>
+                    </footer>
+                </div>
+                <div class="it-card-image-wrapper">
+                    <div class="ratio ratio-16x9">
+                      <figure class="figure img-full">
+                        <img src="https://placeholderimage.eu/api/city/800/600" alt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty.">
+                      </figure>
+                    </div>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Additional_Css_Classes_Correctly()
+    {
+        var component = Render(
+            @<BitCard CssClass="mb-3">
+                <CardTitle>
+                    <a href="#">Card title</a>
+                </CardTitle>
+                <CardBody>
+                    <CardText>Brief description</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card rounded shadow-sm border mb-3">
+                <h3 class="it-card-title">
+                    <a href="#">Card title</a>
+                </h3>
+                <div class="it-card-body">
+                    <p class="it-card-text">Brief description</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Personal_Profile_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Profile" FullHeight="true">
+                <CardProfileHeader>
+                    <ProfileName>
+                        <a href="#">Full name</a>
+                    </ProfileName>
+                    <ProfileRole>Role in the organization</ProfileRole>
+                    <ProfileAvatar>
+                        <p aria-hidden="true">FN</p>
+                    </ProfileAvatar>
+                </CardProfileHeader>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-profile it-card-height-full rounded shadow-sm border">
+                <div class="it-card-profile-header">
+                    <div class="it-card-profile">
+                        <h4 class="it-card-profile-name">
+                            <a href="#">Full name</a>
+                        </h4>
+                        <p class="it-card-profile-role">Role in the organization</p>
+                    </div>
+                    <div class="avatar size-xl">
+                        <p aria-hidden="true">FN</p>
+                    </div>
+                </div>
+             </article>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "it-card-border-top-primary")]
+    [InlineData(Color.Secondary, "it-card-border-top-secondary")]
+    [InlineData(Color.Success, "it-card-border-top-success")]
+    [InlineData(Color.Warning, "it-card-border-top-warning")]
+    [InlineData(Color.Danger, "it-card-border-top-danger")]
+    public void BitCard_Should_Render_Top_Border_Correctly(Color borderTopColor, string expectedBorderTopColorClass)
+    {
+        var component = Render(
+            @<BitCard BorderTopColor="borderTopColor">
+                <CardBody>
+                    <CardText>This is a card text</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card border rounded shadow-sm it-card-border-top @expectedBorderTopColorClass">
+                <div class="it-card-body">
+                    <p class="it-card-text">This is a card text</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Banner_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Banner">
+                <CardTitle>
+                    <a href="#">Content title</a>
+                </CardTitle>
+
+                <CardBannerIcon Icon="@Icons.ItChartLine"
+                                IconColor="IconColor.Secondary"
+                                AriaHidden="true"/>
+
+                <CardBody>
+                    <CardSubtitle>Subtitle</CardSubtitle>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-banner rounded shadow-sm border">
+                <h3 class="it-card-title ">
+                    <a href="#">Content title</a>
+                </h3>
+                <div class="it-card-banner-icon-wrapper">
+                    <svg class="icon icon-secondary icon-xl" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chart-line"></use></svg>
+                </div>
+                <div class="it-card-body">
+                    <p class="it-card-subtitle">Subtitle</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Inline_Banner_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Banner" Inline="true">
+                 <InlineCardContent>
+                     <CardTitle>
+                         <a href="#">Content title</a>
+                     </CardTitle>
+                     <CardBody>
+                         <CardSubtitle>Subtitle</CardSubtitle>
+                     </CardBody>
+                 </InlineCardContent>
+                
+
+                <CardBannerIcon Icon="@Icons.ItChartLine"
+                                IconColor="IconColor.Secondary"
+                                AriaHidden="true"/>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-banner it-card-inline rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title ">
+                        <a href="#">Content title</a>
+                    </h3>
+                    <div class="it-card-body">
+                        <p class="it-card-subtitle">Subtitle</p>
+                    </div>
+                </div>
+                <div class="it-card-banner-icon-wrapper">
+                    <svg class="icon icon-secondary icon-xl" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chart-line"></use></svg>
+                </div>
+             </article>);
+    }
+
+    private RenderFragment RenderExpectedCardTitleFragment(Typography titleTypography)
+    {
+        return titleTypography switch
+        {
+            Typography.H1 => @<h1 class="it-card-title"><a href="#">Card title</a></h1>,
+            Typography.H2 => @<h2 class="it-card-title"><a href="#">Card title</a></h2>,
+            Typography.H4 => @<h4 class="it-card-title"><a href="#">Card title</a></h4>,
+            Typography.H5 => @<h5 class="it-card-title"><a href="#">Card title</a></h5>,
+            Typography.H6 => @<h6 class="it-card-title"><a href="#">Card title</a></h6>,
+            _ => @<h3 class="it-card-title"><a href="#">Card title</a></h3>
+        };
+    }
+}

@@ -44,9 +44,51 @@ public partial class BitIcon
     [Parameter]
     public string? CssClass { get; set; }
 
+    /// <summary>
+    /// Gets or sets the role of the icon
+    /// </summary>
+    [Parameter]
+    public string? Role { get; set; }
+
+    /// <summary>
+    /// Gets or sets the title of the icon
+    /// </summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the icon should be hidden from assistive technologies.
+    /// </summary>
+    [Parameter]
+    public bool AriaHidden { get; set; }
+
     private string Href => $"/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}";
 
     private string ComputedCssClasses => $"icon {ComputeCssClasses()}".Trim();
+
+    private Dictionary<string, object> attributes = new();
+
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
+    {
+        if (!string.IsNullOrWhiteSpace(Role))
+        {
+            attributes["role"] = Role;
+        }
+        else
+        {
+            attributes.Remove("role");
+        }
+
+        if (AriaHidden)
+        {
+            attributes["aria-hidden"] = "true";
+        }
+        else
+        {
+            attributes.Remove("aria-hidden");
+        }
+    }
 
     private string ComputeCssClasses()
     {
