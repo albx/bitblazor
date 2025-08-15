@@ -28,6 +28,12 @@ public partial class CardFooter
     [Parameter]
     public string? AriaLabel { get; set; }
 
+    /// <summary>
+    /// Gets or sets additional css classes
+    /// </summary>
+    [Parameter]
+    public string? CssClass { get; set; }
+
     private Dictionary<string, object> attributes = new();
 
     /// <inheritdoc/>
@@ -50,6 +56,11 @@ public partial class CardFooter
         if (CardRelated)
         {
             cssClasses.Add("it-card-related");
+        }
+
+        if (!string.IsNullOrWhiteSpace(CssClass))
+        {
+            cssClasses.Add(CssClass);
         }
 
         return string.Join(" ", cssClasses);

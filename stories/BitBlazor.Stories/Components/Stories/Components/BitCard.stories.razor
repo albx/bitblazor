@@ -1029,6 +1029,206 @@
         </Template>
     </Story>
 
+    <Story Name="Card for places">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Place name</a>
+                                </ProfileName>
+                                <ProfileType>Type of place</ProfileType>
+                                <ProfileImage>
+                                    <CardProfileIcon Icon="@Icons.ItPa"
+                                                     IconColor="IconColor.Primary"
+                                                     AriaHidden="true"/>
+                                </ProfileImage>
+                            </CardProfileHeader>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Place name</a>
+                                </ProfileName>
+                                <ProfileType>Type of place</ProfileType>
+                                <ProfileImage>
+                                    <div class="it-card-profile-image-icon-wrapper">
+                                        <figure class="figure img-full">
+                                            <img src="https://placeholderimage.eu/api/monument/320/320" alt="Brief image description.">
+                                        </figure>
+                                    </div>
+                                </ProfileImage>
+                            </CardProfileHeader>
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Place name</a>
+                                </ProfileName>
+                                <ProfileType>Type of place</ProfileType>
+                                <ProfileImage>
+                                    <CardProfileIcon Icon="@Icons.ItPa"
+                                                     IconColor="IconColor.Primary"
+                                                     AriaHidden="true" />
+                                </ProfileImage>
+                            </CardProfileHeader>
+                            <CardBody>
+                                <dl class="it-card-description-list">
+                                    <div>
+                                        <dt>Email:</dt>
+                                        <dd>me@mail.com</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Phone number:</dt>
+                                        <dd>111.22222</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Address:</dt>
+                                        <dd>Address Street, 5 - 11111 City</dd>
+                                    </div>
+                                </dl>
+                            </CardBody>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Place name</a>
+                                </ProfileName>
+                                <ProfileType>Type of place</ProfileType>
+                                <ProfileImage>
+                                    <div class="it-card-profile-image-icon-wrapper">
+                                        <figure class="figure img-full">
+                                            <img src="https://placeholderimage.eu/api/monument/320/320" alt="Brief image description.">
+                                        </figure>
+                                    </div>
+                                </ProfileImage>
+                            </CardProfileHeader>
+                            <CardBody>
+                                <dl class="it-card-description-list">
+                                    <div>
+                                        <dt>Email:</dt>
+                                        <dd>me@mail.com</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Phone number:</dt>
+                                        <dd>111.22222</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Address:</dt>
+                                        <dd>Address Street, 5 - 11111 City</dd>
+                                    </div>
+                                </dl>
+                            </CardBody>
+                        </BitCard>
+                    </div>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Cards with Lists of Related Content">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">Topic Y</a>
+                            </CardTitle>
+
+                            <CardImageWrapper>
+                                <CardImage Ratio="Ratio.Ratio21x9"
+                                           ImageSrc="https://placeholderimage.eu/api/nature/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageWrapper>
+
+                            <CardBody>
+                                <CardText>
+                                    Brief description of the topic, summarizing the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                                <ul class="list-group list-group-flush" aria-label="Featured contents:">
+                                    <li class="list-group-item"><a href="#">Related news title</a></li>
+                                    <li class="list-group-item"><a href="#">Related media title</a></li>
+                                    <li class="list-group-item"><a href="#">Other related card title</a></li>
+                                    <li class="list-group-item"><a href="#">Related profile page</a></li>
+                                </ul>
+                            </CardBody>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">Event title</a>
+                            </CardTitle>
+
+                            <CardImageWrapper>
+                                <CardImage Ratio="Ratio.Ratio21x9"
+                                           ImageSrc="https://placeholderimage.eu/api/monument/800/600"
+                                           ImageAlt="Brief image description if it makes sense in the context, otherwise mark as decorative by leaving the alt attribute applied but empty." />
+                            </CardImageWrapper>
+
+                            <CardBody>
+                                <CardText>
+                                    Brief description of the event, summarizing the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                                <ul class="list-group list-group-flush" aria-label="Featured contents:">
+                                    <li class="list-group-item"><a href="#">Artists</a></li>
+                                    <li class="list-group-item"><a href="#">Location</a></li>
+                                    <li class="list-group-item"><a href="#">Full schedule</a></li>
+                                </ul>
+                            </CardBody>
+                            <CardFooter CssClass="border-top pt-3">
+                                <div style="flex-grow:1">
+                                    <a class="it-card-link" href="#">Subscribe</a>
+                                </div>
+                                <a href="#" target="_blank" class="it-card-link">
+                                    Open map
+                                    <span class="visually-hidden"> of event title (open in a new tab)</span>
+                                    <BitIcon IconName="@Icons.ItExternalLink"
+                                             Color="IconColor.Secondary"
+                                             Size="IconSize.Small"
+                                             AriaHidden="true"
+                                             CssClass="ms-2"/>
+                                </a>
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard FullHeight="true">
+                            <CardTitle>
+                                <a href="#">Topic X</a>
+                            </CardTitle>
+
+                            <CardBody>
+                                <CardText>
+                                    Brief description of the topic, summarizing the content of the destination page in a maximum of three or four lines, without truncation.
+                                </CardText>
+                                <ul class="list-group list-group-flush" aria-label="Featured contents:">
+                                    <li class="list-group-item"><a href="#">Related news title</a></li>
+                                    <li class="list-group-item"><a href="#">Related media title</a></li>
+                                    <li class="list-group-item"><a href="#">Other related card title</a></li>
+                                    <li class="list-group-item"><a href="#">Related profile page</a></li>
+                                </ul>
+                            </CardBody>
+                        </BitCard>
+                    </div>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
     <Story Name="Full height card">
         <Template>
             <div class="px-2 py-2 row">

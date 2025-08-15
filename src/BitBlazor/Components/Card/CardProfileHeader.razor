@@ -1,18 +1,30 @@
 ﻿@namespace BitBlazor.Components
 
-<div class="it-card-profile-header">
-    <div class="it-card-profile">
-        @RenderProfileName()
-        @if (ProfileRole is not null)
+<CascadingValue Value="this">
+    <div class="it-card-profile-header">
+        <div class="it-card-profile">
+            @RenderProfileName()
+
+            @if (ProfileRole is not null)
+            {
+                <p class="it-card-profile-role">@ProfileRole</p>
+            }
+
+            @if (ProfileType is not null)
+            {
+                <p class="it-card-profile-type">@ProfileType</p>
+            }
+        </div>
+        @if (ProfileAvatar is not null)
         {
-            <p class="it-card-profile-role">@ProfileRole</p>
+            <div class="avatar size-xl">@ProfileAvatar</div>
+        }
+        @if (ProfileImage is not null)
+        {
+            <div class="it-card-profile-image ratio ratio-1x1">@ProfileImage</div>
         }
     </div>
-    @if (ProfileAvatar is not null)
-    {
-        <div class="avatar size-xl">@ProfileAvatar</div>
-    }
-</div>
+</CascadingValue>
 
 @code {
     private RenderFragment RenderProfileName() => Typography switch

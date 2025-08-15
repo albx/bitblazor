@@ -1,6 +1,8 @@
 ﻿@namespace BitBlazor.Components
 
-@RenderCardTitle()
+<CascadingValue Value="this">
+    @RenderCardTitle()
+</CascadingValue>
 
 @code {
     private RenderFragment RenderCardTitle() => Typography switch

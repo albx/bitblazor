@@ -26,6 +26,18 @@ public partial class CardProfileHeader
     public RenderFragment? ProfileAvatar { get; set; }
 
     /// <summary>
+    /// Gets or sets the content of the profile type section
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ProfileType { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content of the profile image section
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ProfileImage { get; set; }
+
+    /// <summary>
     /// Gets or sets the type of typography to be used for the profile name
     /// </summary>
     [Parameter]
