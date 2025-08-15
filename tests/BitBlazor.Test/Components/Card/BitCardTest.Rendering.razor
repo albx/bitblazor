@@ -481,6 +481,61 @@
              </article>);
     }
 
+    [Fact]
+    public void BitCard_Should_Render_Personal_Profile_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Profile" FullHeight="true">
+                <CardProfileHeader>
+                    <ProfileName>
+                        <a href="#">Full name</a>
+                    </ProfileName>
+                    <ProfileRole>Role in the organization</ProfileRole>
+                    <ProfileAvatar>
+                        <p aria-hidden="true">FN</p>
+                    </ProfileAvatar>
+                </CardProfileHeader>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-profile it-card-height-full rounded shadow-sm border">
+                <div class="it-card-profile-header">
+                    <div class="it-card-profile">
+                        <h4 class="it-card-profile-name">
+                            <a href="#">Full name</a>
+                        </h4>
+                        <p class="it-card-profile-role">Role in the organization</p>
+                    </div>
+                    <div class="avatar size-xl">
+                        <p aria-hidden="true">FN</p>
+                    </div>
+                </div>
+             </article>);
+    }
+
+    [Theory]
+    [InlineData(Color.Primary, "it-card-border-top-primary")]
+    [InlineData(Color.Secondary, "it-card-border-top-secondary")]
+    [InlineData(Color.Success, "it-card-border-top-success")]
+    [InlineData(Color.Warning, "it-card-border-top-warning")]
+    [InlineData(Color.Danger, "it-card-border-top-danger")]
+    public void BitCard_Should_Render_Top_Border_Correctly(Color borderTopColor, string expectedBorderTopColorClass)
+    {
+        var component = Render(
+            @<BitCard BorderTopColor="borderTopColor">
+                <CardBody>
+                    <CardText>This is a card text</CardText>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card border rounded shadow-sm it-card-border-top @expectedBorderTopColorClass">
+                <div class="it-card-body">
+                    <p class="it-card-text">This is a card text</p>
+                </div>
+             </article>);
+    }
+
     private RenderFragment RenderExpectedCardTitleFragment(Typography titleTypography)
     {
         return titleTypography switch

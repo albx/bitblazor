@@ -7,6 +7,7 @@
     <ArgType For="_ => _.FullHeight" DefaultValue="false" />
     <ArgType For="_ => _.Mini" DefaultValue="false" />
     <ArgType For="_ => _.Mini" DefaultValue="false" />
+    <ArgType For="_ => _.BorderTopColor" Control="ControlType.Select" />
 
     <Story Name="Default">
         <Arguments>
@@ -929,12 +930,100 @@
         <Template>
             <div class="px-2 py-2">
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4"></div>
-                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4"></div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile" FullHeight="true">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Full name</a>
+                                </ProfileName>
+                                <ProfileRole>Role in the organization</ProfileRole>
+                                <ProfileAvatar>
+                                    <p aria-hidden="true">FN</p>
+                                </ProfileAvatar>
+                            </CardProfileHeader>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile" FullHeight="true" BorderTopColor="Color.Secondary">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Full name</a>
+                                </ProfileName>
+                                <ProfileRole>Role in the organization</ProfileRole>
+                                <ProfileAvatar>
+                                    <img src="https://randomuser.me/api/portraits/women/14.jpg" alt="Woman image">
+                                </ProfileAvatar>
+                            </CardProfileHeader>
+                        </BitCard>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4"></div>
-                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4"></div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile" FullHeight="true">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Full name</a>
+                                </ProfileName>
+                                <ProfileRole>Role in the organization</ProfileRole>
+                                <ProfileAvatar>
+                                    <p aria-hidden="true">FN</p>
+                                </ProfileAvatar>
+                            </CardProfileHeader>
+                            <CardBody>
+                                <dl class="it-card-description-list">
+                                    <div>
+                                        <dt>Area:</dt>
+                                        <dd><a class="it-card-link" href="#">Area name</a></dd>
+                                    </div>
+                                    <div>
+                                        <dt>Email:</dt>
+                                        <dd>me@mail.com</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Phone number:</dt>
+                                        <dd>111.22222</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Address:</dt>
+                                        <dd>Address Street, 5 - 11111 City</dd>
+                                    </div>
+                                </dl>
+                            </CardBody>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Profile" FullHeight="true" BorderTopColor="Color.Secondary">
+                            <CardProfileHeader>
+                                <ProfileName>
+                                    <a href="#">Full name</a>
+                                </ProfileName>
+                                <ProfileRole>Role in the organization</ProfileRole>
+                                <ProfileAvatar>
+                                    <img src="https://randomuser.me/api/portraits/women/14.jpg" alt="Woman image">
+                                </ProfileAvatar>
+                            </CardProfileHeader>
+                            <CardBody>
+                                <dl class="it-card-description-list">
+                                    <div>
+                                        <dt>Area:</dt>
+                                        <dd><a class="it-card-link" href="#">Area name</a></dd>
+                                    </div>
+                                    <div>
+                                        <dt>Email:</dt>
+                                        <dd>me@mail.com</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Phone number:</dt>
+                                        <dd>111.22222</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Address:</dt>
+                                        <dd>Address Street, 5 - 11111 City</dd>
+                                    </div>
+                                </dl>
+                            </CardBody>
+                        </BitCard>
+                    </div>
                 </div>
             </div>
         </Template>

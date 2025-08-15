@@ -13,24 +13,6 @@ public partial class BitCard
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;
 
-    ///// <summary>
-    ///// Gets or sets the content to be rendered in the body section of the card
-    ///// </summary>
-    //[Parameter]
-    //public RenderFragment? CardBody { get; set; } = default!;
-
-    ///// <summary>
-    ///// Gets or sets the content to be rendered in the footer section of the card
-    ///// </summary>
-    //[Parameter]
-    //public RenderFragment? CardFooter { get; set; }
-
-    ///// <summary>
-    ///// Gets or sets the content to be rendered in the card image wrapper section of the card
-    ///// </summary>
-    //[Parameter]
-    //public RenderFragment? CardImageContainer { get; set; }
-
     /// <summary>
     /// Gets or sets the type of the card
     /// </summary>
@@ -78,6 +60,12 @@ public partial class BitCard
     [Parameter]
     public string? CssClass { get; set; }
 
+    /// <summary>
+    /// Gets or sets the color of the top border of the card.
+    /// </summary>
+    [Parameter]
+    public Color? BorderTopColor { get; set; }
+
     private string ComputedCssClasses => $"it-card rounded {ComputeCssClasses()}".Trim();
 
     #region Image management
@@ -100,6 +88,7 @@ public partial class BitCard
                 AddInlineClasses(cssClasses);
                 break;
             case CardType.Profile:
+                cssClasses.Add("it-card-profile");
                 break;
             case CardType.Banner:
                 break;
@@ -134,6 +123,25 @@ public partial class BitCard
         if (!string.IsNullOrWhiteSpace(CssClass))
         {
             cssClasses.Add(CssClass);
+        }
+
+        if (BorderTopColor.HasValue)
+        {
+            cssClasses.Add("it-card-border-top");
+            var borderTopColorClass = BorderTopColor.Value switch
+            {
+                Color.Primary => "it-card-border-top-primary",
+                Color.Secondary => "it-card-border-top-secondary",
+                Color.Success => "it-card-border-top-success",
+                Color.Warning => "it-card-border-top-warning",
+                Color.Danger => "it-card-border-top-danger",
+                _ => string.Empty
+            };
+
+            if (!string.IsNullOrEmpty(borderTopColorClass))
+            {
+                cssClasses.Add(borderTopColorClass);
+            }
         }
 
         return string.Join(" ", cssClasses);
