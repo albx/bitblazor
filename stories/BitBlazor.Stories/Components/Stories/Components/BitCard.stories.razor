@@ -283,7 +283,7 @@
         <Template>
             <div class="px-2 py-2 row">
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
-                    <BitCard Type="CardType.Inline">
+                    <BitCard Inline="true">
                         <InlineCardContent>
                             <CardTitle>
                                 <a href="#">Content title</a>
@@ -316,7 +316,7 @@
                     </BitCard>
                 </div>
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
-                    <BitCard Type="CardType.Inline" Reverse="true">
+                    <BitCard Inline="true" Reverse="true">
                         <InlineCardContent>
                             <CardTitle>
                                 <a href="#">Content title</a>
@@ -356,7 +356,7 @@
         <Template>
             <div class="px-2 py-2 row">
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
-                    <BitCard Type="CardType.Inline" Mini="true">
+                    <BitCard Inline="true" Mini="true">
                         <InlineCardContent>
                             <CardTitle>
                                 <a href="#">Content title</a>
@@ -383,7 +383,7 @@
                     </BitCard>
                 </div>
                 <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
-                    <BitCard Type="CardType.Inline" Mini="true" Reverse="true">
+                    <BitCard Inline="true" Mini="true" Reverse="true">
                         <InlineCardContent>
                             <CardTitle>
                                 <a href="#">Content title</a>
@@ -524,7 +524,7 @@
             <div class="px-2 py-2">
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
-                        <BitCard Type="CardType.Inline">
+                        <BitCard Inline="true">
                             <InlineCardContent>
                                 <CardTitle>
                                     <a href="#">Event title</a>
@@ -562,7 +562,7 @@
                 </div>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12 col-xl-10 mb-3 mb-md-4">
-                        <BitCard Type="CardType.Inline" Reverse="true">
+                        <BitCard Inline="true" Reverse="true">
                             <InlineCardContent>
                                 <CardTitle>
                                     <a href="#">Event title</a>
@@ -1222,6 +1222,157 @@
                                     <li class="list-group-item"><a href="#">Related profile page</a></li>
                                 </ul>
                             </CardBody>
+                        </BitCard>
+                    </div>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Banner cards">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Banner">
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
+
+                            <CardBannerIcon Icon="@Icons.ItChartLine"
+                                            IconColor="IconColor.Secondary"
+                                            AriaHidden="true" />
+
+                            <CardBody>
+                                <CardSubtitle>Subtitle</CardSubtitle>
+                            </CardBody>
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Banner">
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
+
+                            <CardBannerIcon Icon="@Icons.ItChartLine"
+                                            IconColor="IconColor.Secondary"
+                                            AriaHidden="true" />
+
+                            <CardBody>
+                                <CardSubtitle>Subtitle</CardSubtitle>
+                            </CardBody>
+
+                            <CardFooter CardRelated="false" AriaLabel="Related links:">
+                                <a href="#">
+                                    Discover more informations
+                                    <span class="visually-hidden"> on Content title</span>
+                                </a>
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Banner">
+                            <CardTitle>
+                                <a href="#">Content title</a>
+                            </CardTitle>
+
+                            <CardBannerIcon Icon="@Icons.ItChartLine"
+                                            IconColor="IconColor.Secondary"
+                                            AriaHidden="true" />
+
+                            <CardBody>
+                                <CardSubtitle>Subtitle</CardSubtitle>
+                            </CardBody>
+
+                            <CardFooter CardRelated="false" AriaLabel="Related links:">
+                                <BitButton Type="ButtonType.Button"
+                                           Color="Color.Primary"
+                                           Variant="Variant.Outline">
+                                    Open the subscription form
+                                    <span class="visually-hidden">for Content title</span>
+                                </BitButton>
+                            </CardFooter>
+                        </BitCard>
+                    </div>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Inline banner cards">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Banner" Inline="true">
+                            <InlineCardContent>
+                                <CardTitle>
+                                    <a href="#">Content title</a>
+                                </CardTitle>
+                                <CardBody>
+                                    <CardSubtitle>Subtitle</CardSubtitle>
+                                </CardBody>
+                            </InlineCardContent>
+
+
+                            <CardBannerIcon Icon="@Icons.ItChartLine"
+                                            IconColor="IconColor.Secondary"
+                                            AriaHidden="true" />
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Banner" Inline="true" Reverse="true">
+                            <InlineCardContent>
+                                <CardTitle>
+                                    <a href="#">Content title</a>
+                                </CardTitle>
+                                <CardBody>
+                                    <CardSubtitle>Subtitle</CardSubtitle>
+                                </CardBody>
+                            </InlineCardContent>
+
+
+                            <CardBannerIcon Icon="@Icons.ItChartLine"
+                                            IconColor="IconColor.Secondary"
+                                            AriaHidden="true" />
+                        </BitCard>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Banner" Inline="true" Mini="true">
+                            <InlineCardContent>
+                                <CardTitle>
+                                    <a href="#">Content title</a>
+                                </CardTitle>
+                                <CardBody>
+                                    <CardSubtitle>Subtitle</CardSubtitle>
+                                </CardBody>
+                            </InlineCardContent>
+
+
+                            <CardBannerIcon Icon="@Icons.ItChartLine"
+                                            IconColor="IconColor.Secondary"
+                                            AriaHidden="true" />
+                        </BitCard>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 mb-3 mb-md-4">
+                        <BitCard Type="CardType.Banner" Inline="true" Mini="true" Reverse="true">
+                            <InlineCardContent>
+                                <CardTitle>
+                                    <a href="#">Content title</a>
+                                </CardTitle>
+                                <CardBody>
+                                    <CardSubtitle>Subtitle</CardSubtitle>
+                                </CardBody>
+                            </InlineCardContent>
+
+
+                            <CardBannerIcon Icon="@Icons.ItChartLine"
+                                            IconColor="IconColor.Secondary"
+                                            AriaHidden="true" />
                         </BitCard>
                     </div>
                 </div>

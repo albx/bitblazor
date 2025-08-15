@@ -279,7 +279,7 @@
     public void BitCard_Should_Render_Inline_Card_Correctly()
     {
         var component = Render(
-            @<BitCard Type="CardType.Inline">
+            @<BitCard Inline="true">
                 <InlineCardContent>
                     <CardTitle>
                         <a href="#">Card title</a>
@@ -343,7 +343,7 @@
     public void BitCard_Should_Render_Reverse_Class_Correctly_If_Reverse_Is_Set_To_True()
     {
         var component = Render(
-            @<BitCard Type="CardType.Inline" Reverse="true">
+            @<BitCard Inline="true" Reverse="true">
                 <InlineCardContent>
                     <CardTitle>
                         <a href="#">Card title</a>
@@ -406,7 +406,7 @@
     public void BitCard_Should_Render_Inline_Card_Mini_Correctly()
     {
         var component = Render(
-            @<BitCard Type="CardType.Inline" Mini="true">
+            @<BitCard Inline="true" Mini="true">
                 <InlineCardContent>
                     <CardTitle>
                         <a href="#">Card title</a>
@@ -532,6 +532,74 @@
             @<article class="it-card border rounded shadow-sm it-card-border-top @expectedBorderTopColorClass">
                 <div class="it-card-body">
                     <p class="it-card-text">This is a card text</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Banner_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Banner">
+                <CardTitle>
+                    <a href="#">Content title</a>
+                </CardTitle>
+
+                <CardBannerIcon Icon="@Icons.ItChartLine"
+                                IconColor="IconColor.Secondary"
+                                AriaHidden="true"/>
+
+                <CardBody>
+                    <CardSubtitle>Subtitle</CardSubtitle>
+                </CardBody>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-banner rounded shadow-sm border">
+                <h3 class="it-card-title ">
+                    <a href="#">Content title</a>
+                </h3>
+                <div class="it-card-banner-icon-wrapper">
+                    <svg class="icon icon-secondary icon-xl" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chart-line"></use></svg>
+                </div>
+                <div class="it-card-body">
+                    <p class="it-card-subtitle">Subtitle</p>
+                </div>
+             </article>);
+    }
+
+    [Fact]
+    public void BitCard_Should_Render_Inline_Banner_Card_Correctly()
+    {
+        var component = Render(
+            @<BitCard Type="CardType.Banner" Inline="true">
+                 <InlineCardContent>
+                     <CardTitle>
+                         <a href="#">Content title</a>
+                     </CardTitle>
+                     <CardBody>
+                         <CardSubtitle>Subtitle</CardSubtitle>
+                     </CardBody>
+                 </InlineCardContent>
+                
+
+                <CardBannerIcon Icon="@Icons.ItChartLine"
+                                IconColor="IconColor.Secondary"
+                                AriaHidden="true"/>
+             </BitCard>);
+
+        component.MarkupMatches(
+            @<article class="it-card it-card-banner it-card-inline rounded shadow-sm border">
+                <div class="it-card-inline-content">
+                    <h3 class="it-card-title ">
+                        <a href="#">Content title</a>
+                    </h3>
+                    <div class="it-card-body">
+                        <p class="it-card-subtitle">Subtitle</p>
+                    </div>
+                </div>
+                <div class="it-card-banner-icon-wrapper">
+                    <svg class="icon icon-secondary icon-xl" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chart-line"></use></svg>
                 </div>
              </article>);
     }

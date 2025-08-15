@@ -41,6 +41,12 @@ public partial class BitCard
     public bool FullHeight { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the content should be rendered inline.
+    /// </summary>
+    [Parameter]
+    public bool Inline { get; set; }
+
+    /// <summary>
     /// Gets or sets whether display the inline card in reverse mode.
     /// </summary>
     /// <remarks>This parameter works only when the card is Inline</remarks>
@@ -84,16 +90,19 @@ public partial class BitCard
 
         switch (Type)
         {
-            case CardType.Inline:
-                AddInlineClasses(cssClasses);
-                break;
             case CardType.Profile:
                 cssClasses.Add("it-card-profile");
                 break;
             case CardType.Banner:
+                cssClasses.Add("it-card-banner");
                 break;
             default:
                 break;
+        }
+
+        if (Inline)
+        {
+            AddInlineClasses(cssClasses);
         }
 
         if (Bordered)

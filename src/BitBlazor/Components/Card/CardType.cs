@@ -13,11 +13,6 @@ public enum CardType
     /// Default card type
     /// </summary>
     Default,
-    
-    /// <summary>
-    /// Inline card type
-    /// </summary>
-    Inline,
 
     /// <summary>
     /// Profile card type
