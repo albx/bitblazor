@@ -1,5 +1,5 @@
 ---
-$attribute: CustomPage("Examples/Welcome")
+$attribute: CustomPage("Welcome")
 ---
 
 # <img src="https://raw.githubusercontent.com/jsakamoto/BlazingStory/main/assets/icon.min.64x64.svg" style="vertical-align: middle;" /> Welcome to Blazing Story!
