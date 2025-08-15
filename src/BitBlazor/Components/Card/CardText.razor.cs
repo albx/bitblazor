@@ -16,4 +16,25 @@ public partial class CardText
     [Parameter]
     [EditorRequired]
     public RenderFragment ChildContent { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the element is hidden from assistive technologies.
+    /// </summary>
+    [Parameter]
+    public bool AriaHidden { get; set; }
+
+    private Dictionary<string, object> attributes = new();
+
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
+    {
+        if (AriaHidden)
+        {
+            attributes["aria-hidden"] = "true";
+        }
+        else
+        {
+            attributes.Remove("aria-hidden");
+        }
+    }
 }

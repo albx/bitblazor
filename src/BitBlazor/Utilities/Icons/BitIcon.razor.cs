@@ -56,6 +56,12 @@ public partial class BitIcon
     [Parameter]
     public string? Title { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the icon should be hidden from assistive technologies.
+    /// </summary>
+    [Parameter]
+    public bool AriaHidden { get; set; }
+
     private string Href => $"/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}";
 
     private string ComputedCssClasses => $"icon {ComputeCssClasses()}".Trim();
@@ -72,6 +78,15 @@ public partial class BitIcon
         else
         {
             attributes.Remove("role");
+        }
+
+        if (AriaHidden)
+        {
+            attributes["aria-hidden"] = "true";
+        }
+        else
+        {
+            attributes.Remove("aria-hidden");
         }
     }
 

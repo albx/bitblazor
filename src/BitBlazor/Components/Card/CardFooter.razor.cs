@@ -30,6 +30,7 @@ public partial class CardFooter
 
     private Dictionary<string, object> attributes = new();
 
+    /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         if (!string.IsNullOrWhiteSpace(AriaLabel))
