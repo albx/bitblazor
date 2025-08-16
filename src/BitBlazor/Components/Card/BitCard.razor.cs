@@ -50,14 +50,14 @@ public partial class BitCard
     /// <summary>
     /// Gets or sets whether display the inline card in reverse mode.
     /// </summary>
-    /// <remarks>This parameter works only when the card is Inline</remarks>
+    /// <remarks>This parameter works only when the property <see cref="Inline"/> is true</remarks>
     [Parameter]
     public bool Reverse { get; set; }
 
     /// <summary>
     /// Gets or sets whether display the inline card as mini variant.
     /// </summary>
-    /// <remarks>This parameter works only when the card is Inline</remarks>
+    /// <remarks>This parameter works only when the property <see cref="Inline"/> is true</remarks>
     [Parameter]
     public bool Mini { get; set; }
 
