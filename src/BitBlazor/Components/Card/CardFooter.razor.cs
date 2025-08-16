@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
@@ -51,18 +52,18 @@ public partial class CardFooter
 
     private string ComputeCssClasses()
     {
-        List<string> cssClasses = ["it-card-footer"];
+        var builder = new CssClassBuilder("it-card-footer");
 
         if (CardRelated)
         {
-            cssClasses.Add("it-card-related");
+            builder.Add("it-card-related");
         }
 
         if (!string.IsNullOrWhiteSpace(CssClass))
         {
-            cssClasses.Add(CssClass);
+            builder.Add(CssClass);
         }
 
-        return string.Join(" ", cssClasses);
+        return builder.Build();
     }
 }

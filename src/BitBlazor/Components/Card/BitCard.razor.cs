@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
@@ -72,8 +73,6 @@ public partial class BitCard
     [Parameter]
     public Color? BorderTopColor { get; set; }
 
-    private string ComputedCssClasses => $"it-card rounded {ComputeCssClasses()}".Trim();
-
     #region Image management
     private bool hasImage = false;
 
@@ -86,15 +85,15 @@ public partial class BitCard
 
     private string ComputeCssClasses()
     {
-        var cssClasses = new List<string>();
+        var builder = new CssClassBuilder("it-card", "rounded");
 
         switch (Type)
         {
             case CardType.Profile:
-                cssClasses.Add("it-card-profile");
+                builder.Add("it-card-profile");
                 break;
             case CardType.Banner:
-                cssClasses.Add("it-card-banner");
+                builder.Add("it-card-banner");
                 break;
             default:
                 break;
@@ -102,12 +101,12 @@ public partial class BitCard
 
         if (Inline)
         {
-            AddInlineClasses(cssClasses);
+            AddInlineClasses(builder);
         }
 
         if (Bordered)
         {
-            cssClasses.Add("border");
+            builder.Add("border");
         }
 
         var shadowClass = Shadow switch
@@ -117,26 +116,26 @@ public partial class BitCard
             CardShadow.Large => "shadow-lg",
             _ => string.Empty
         };
-        cssClasses.Add(shadowClass);
+        builder.Add(shadowClass);
 
         if (FullHeight)
         {
-            cssClasses.Add("it-card-height-full");
+            builder.Add("it-card-height-full");
         }
 
         if (hasImage)
         {
-            cssClasses.Add("it-card-image");
+            builder.Add("it-card-image");
         }
 
         if (!string.IsNullOrWhiteSpace(CssClass))
         {
-            cssClasses.Add(CssClass);
+            builder.Add(CssClass);
         }
 
         if (BorderTopColor.HasValue)
         {
-            cssClasses.Add("it-card-border-top");
+            builder.Add("it-card-border-top");
             var borderTopColorClass = BorderTopColor.Value switch
             {
                 Color.Primary => "it-card-border-top-primary",
@@ -147,26 +146,23 @@ public partial class BitCard
                 _ => string.Empty
             };
 
-            if (!string.IsNullOrEmpty(borderTopColorClass))
-            {
-                cssClasses.Add(borderTopColorClass);
-            }
+            builder.Add(borderTopColorClass);
         }
 
-        return string.Join(" ", cssClasses);
+        return builder.Build();
     }
 
-    private void AddInlineClasses(List<string> cssClasses)
+    private void AddInlineClasses(CssClassBuilder builder)
     {
-        cssClasses.Add("it-card-inline");
+        builder.Add("it-card-inline");
 
         if (Mini)
         {
-            cssClasses.Add("it-card-inline-mini");
+            builder.Add("it-card-inline-mini");
         }
         if (Reverse)
         {
-            cssClasses.Add("it-card-inline-reverse");
+            builder.Add("it-card-inline-reverse");
         }
     }
 }

@@ -3,7 +3,7 @@
 
 @if (!closed)
 {
-    <div class="@ComputedCssClasses" role="alert">
+    <div class="@ComputeCssClasses()" role="alert">
         @if (!string.IsNullOrWhiteSpace(Title))
         {
             <h4 class="alert-heading">@Title</h4>

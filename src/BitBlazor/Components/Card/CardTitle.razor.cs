@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
@@ -30,13 +31,13 @@ public partial class CardTitle
 
     private string ComputeCssClasses()
     {
-        List<string> cssClasses = ["it-card-title"];
+        var builder = new CssClassBuilder("it-card-title");
 
         if (HasIcon)
         {
-            cssClasses.Add("it-card-title-icon");
+            builder.Add("it-card-title-icon");
         }
 
-        return string.Join(" ", cssClasses);
+        return builder.Build();
     }
 }

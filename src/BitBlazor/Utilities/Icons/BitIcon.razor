@@ -1,6 +1,6 @@
 ﻿@namespace BitBlazor.Utilities 
 
-<svg class="@ComputedCssClasses" @attributes="attributes">
+<svg class="@ComputeCssClasses()" @attributes="attributes">
     @if (!string.IsNullOrWhiteSpace(Title))
 	{
         <title>@Title</title>

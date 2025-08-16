@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
@@ -33,22 +34,20 @@ public partial class BitBadge
     [Parameter]
     public bool Rounded { get; set; }
 
-    private string ComputedCssClasses => $"badge {ComputeCssClasses()}".Trim();
-
     private string ComputeCssClasses()
     {
-        var cssClasses = new List<string>();
-        AddColorClass(cssClasses);
+        var builder = new CssClassBuilder("badge");
+        AddColorClass(builder);
 
         if (Rounded)
         {
-            cssClasses.Add("rounded-pill");
+            builder.Add("rounded-pill");
         }
 
-        return string.Join(" ", cssClasses);
+        return builder.Build();
     }
 
-    private void AddColorClass(List<string> cssClasses)
+    private void AddColorClass(CssClassBuilder builder)
     {
         var backgroundColorCssClass = (BackgroundColor, Variant) switch
         {
@@ -65,6 +64,6 @@ public partial class BitBadge
             _ => string.Empty
         };
 
-        cssClasses.Add(backgroundColorCssClass);
+        builder.Add(backgroundColorCssClass);
     }
 }

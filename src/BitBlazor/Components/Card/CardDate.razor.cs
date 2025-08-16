@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BitBlazor.Core;
+using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
@@ -46,7 +47,7 @@ public partial class CardDate
 
     private string ComputeCssClasses()
     {
-        List<string> cssClasses = ["it-card-date"];
+        var builder = new CssClassBuilder("it-card-date");
 
         if (TextColor.HasValue)
         {
@@ -60,9 +61,9 @@ public partial class CardDate
                 _ => string.Empty
             };
 
-            cssClasses.Add(textColorClass);
+            builder.Add(textColorClass);
         }
 
-        return string.Join(" ", cssClasses);
+        return builder.Build();
     }
 }

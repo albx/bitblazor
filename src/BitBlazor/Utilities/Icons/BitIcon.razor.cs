@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Utilities;
@@ -64,8 +65,6 @@ public partial class BitIcon
 
     private string Href => $"/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}";
 
-    private string ComputedCssClasses => $"icon {ComputeCssClasses()}".Trim();
-
     private Dictionary<string, object> attributes = new();
 
     /// <inheritdoc/>
@@ -92,25 +91,25 @@ public partial class BitIcon
 
     private string ComputeCssClasses()
     {
-        var cssClasses = new List<string>();
-        AddSizeClass(cssClasses);
-        AddColorClass(cssClasses);
-        AddAlignmentClass(cssClasses);
+        var builder = new CssClassBuilder("icon");
+        AddSizeClass(builder);
+        AddColorClass(builder);
+        AddAlignmentClass(builder);
 
         if (Padded)
         {
-            cssClasses.Add("icon-padded");
+            builder.Add("icon-padded");
         }
 
         if (!string.IsNullOrWhiteSpace(CssClass))
         {
-            cssClasses.Add(CssClass);
+            builder.Add(CssClass);
         }
 
-        return string.Join(" ", cssClasses);
+        return builder.Build();
     }
 
-    private void AddAlignmentClass(List<string> cssClasses)
+    private void AddAlignmentClass(CssClassBuilder builder)
     {
         var alignmentClass = Align switch
         {
@@ -120,13 +119,10 @@ public partial class BitIcon
             _ => string.Empty
         };
 
-        if (!string.IsNullOrEmpty(alignmentClass))
-        {
-            cssClasses.Add(alignmentClass);
-        }
+        builder.Add(alignmentClass);
     }
 
-    private void AddColorClass(List<string> cssClasses)
+    private void AddColorClass(CssClassBuilder builder)
     {
         var colorClass = Color switch
         {
@@ -140,13 +136,10 @@ public partial class BitIcon
             _ => string.Empty
         };
 
-        if (!string.IsNullOrEmpty(colorClass))
-        {
-            cssClasses.Add(colorClass);
-        }
+        builder.Add(colorClass);
     }
 
-    private void AddSizeClass(List<string> cssClasses)
+    private void AddSizeClass(CssClassBuilder builder)
     {
         var sizeClass = Size switch
         {
@@ -157,9 +150,6 @@ public partial class BitIcon
             _ => string.Empty
         };
 
-        if (!string.IsNullOrEmpty(sizeClass))
-        {
-            cssClasses.Add(sizeClass);
-        }
+        builder.Add(sizeClass);
     }
 }

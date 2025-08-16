@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using BitBlazor.Utilities;
 using Microsoft.AspNetCore.Components;
 
@@ -76,8 +77,6 @@ public partial class BitButton
     [Parameter]
     public string? CssClass { get; set; }
 
-    private string ComputedCssClasses => $"btn {ComputeCssClasses()}".Trim();
-
     private Dictionary<string, object> attributes = new();
 
     private string ButtonTypeString => Type switch
@@ -108,29 +107,29 @@ public partial class BitButton
 
     private string ComputeCssClasses()
     {
-        var cssClasses = new List<string>();
-        AddColorClass(cssClasses);
-        AddSizeClass(cssClasses);
+        var builder = new CssClassBuilder("btn");
+        AddColorClass(builder);
+        AddSizeClass(builder);
 
         if (Disabled)
         {
-            cssClasses.Add("disabled");
+            builder.Add("disabled");
         }
 
         if (!string.IsNullOrWhiteSpace(Icon))
         {
-            cssClasses.Add("btn-icon");
+            builder.Add("btn-icon");
         }
 
         if (!string.IsNullOrWhiteSpace(CssClass))
         {
-            cssClasses.Add(CssClass);
+            builder.Add(CssClass);
         }
 
-        return string.Join(" ", cssClasses);
+        return builder.Build(); ;
     }
 
-    private void AddColorClass(List<string> cssClasses)
+    private void AddColorClass(CssClassBuilder builder)
     {
         var colorClass = (Color, Variant) switch
         {
@@ -147,13 +146,10 @@ public partial class BitButton
             _ => string.Empty
         };
 
-        if (!string.IsNullOrEmpty(colorClass))
-        {
-            cssClasses.Add(colorClass);
-        }
+        builder.Add(colorClass);
     }
 
-    private void AddSizeClass(List<string> cssClasses)
+    private void AddSizeClass(CssClassBuilder builder)
     {
         var sizeClass = Size switch
         {
@@ -165,7 +161,7 @@ public partial class BitButton
 
         if (!string.IsNullOrEmpty(sizeClass))
         {
-            cssClasses.Add(sizeClass);
+            builder.Add(sizeClass);
         }
     }
 
