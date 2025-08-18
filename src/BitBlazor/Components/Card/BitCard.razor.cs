@@ -12,6 +12,7 @@ public partial class BitCard
     /// Gets or sets the content of the card
     /// </summary>
     [Parameter]
+    [EditorRequired]
     public RenderFragment ChildContent { get; set; } = default!;
 
     /// <summary>
