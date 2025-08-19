@@ -1,5 +1,6 @@
 name: Build and deploy BitBlazor Stories website
 on:
+  workflow_dipatch:
   push:
     branches:
     - main

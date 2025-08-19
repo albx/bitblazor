@@ -6,16 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <PackageId>BitBlazor</PackageId>
-	<Title>BitBlazor</Title>
-	<Description>BitBlazor is a UI library project that provides accessible, reusable Blazor components styled with Bootstrap Italia</Description>
+	  <Title>BitBlazor</Title>
+	  <Description>BitBlazor is a UI library project that provides accessible, reusable Blazor components styled with Bootstrap Italia</Description>
     <Authors>Alberto Mori</Authors>
-	<Version>0.1.0</Version>
+	  <Version>0.1.0</Version>
     <RepositoryType>git</RepositoryType>
-	<RepositoryUrl>https://github.com/albx/bitblazor</RepositoryUrl>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageTags>aspnetcore;blazor;uikit;bootstrap italia;bootstrap</PackageTags>
-	<PacakgeProjectUrl>https://github.com/albx/bitblazor</PacakgeProjectUrl>
+    <RepositoryUrl>https://github.com/albx/bitblazor</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>aspnetcore;blazor;uikit;bootstrap italia;bootstrap</PackageTags>
+    <PacakgeProjectUrl>https://github.com/albx/bitblazor</PacakgeProjectUrl>
   </PropertyGroup>
 
 
