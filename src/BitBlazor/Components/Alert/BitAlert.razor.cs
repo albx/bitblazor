@@ -75,6 +75,8 @@ public partial class BitAlert : BitComponentBase
         {
             CloseButtonAriaLabel = "close this alert";
         }
+
+        base.OnParametersSet();
     }
 
     private string ComputeCssClasses()

@@ -95,6 +95,8 @@ public partial class BitButton : BitComponentBase
         {
             AdditionalAttributes.Remove("aria-disabled");
         }
+
+        base.OnParametersSet();
     }
 
     private string ComputeCssClasses()
