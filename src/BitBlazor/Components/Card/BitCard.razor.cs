@@ -6,7 +6,7 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents a card component using Bootstrap Italia styles.
 /// </summary>
-public partial class BitCard
+public partial class BitCard : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the content of the card
@@ -61,12 +61,6 @@ public partial class BitCard
     /// <remarks>This parameter works only when the property <see cref="Inline"/> is true</remarks>
     [Parameter]
     public bool Mini { get; set; }
-
-    /// <summary>
-    /// Gets or sets additional css classes
-    /// </summary>
-    [Parameter]
-    public string? CssClass { get; set; }
 
     /// <summary>
     /// Gets or sets the color of the top border of the card.
@@ -129,11 +123,6 @@ public partial class BitCard
             builder.Add("it-card-image");
         }
 
-        if (!string.IsNullOrWhiteSpace(CssClass))
-        {
-            builder.Add(CssClass);
-        }
-
         if (BorderTopColor.HasValue)
         {
             builder.Add("it-card-border-top");
@@ -149,6 +138,8 @@ public partial class BitCard
 
             builder.Add(borderTopColorClass);
         }
+
+        AddCustomCssClass(builder);
 
         return builder.Build();
     }

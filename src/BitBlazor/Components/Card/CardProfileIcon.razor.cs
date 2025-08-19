@@ -25,8 +25,12 @@ public partial class CardProfileIcon
     public IconColor IconColor { get; set; } = IconColor.Primary;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is hidden from assistive technologies.
+    /// Gets or sets additional attributes that do not match any other defined parameters.
     /// </summary>
-    [Parameter]
-    public bool AriaHidden { get; set; }
+    /// <remarks>
+    /// This property is typically used to capture arbitrary HTML attributes that are not explicitly defined by the component. 
+    /// The keys represent attribute names, and the values represent attribute values.
+    /// </remarks>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
 }

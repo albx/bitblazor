@@ -6,7 +6,7 @@ namespace BitBlazor.Utilities;
 /// <summary>
 /// Represents an icon component which displays one of the icons available in Bootstrap Italia.
 /// </summary>
-public partial class BitIcon
+public partial class BitIcon : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the name of the icon to display. This is required.
@@ -40,12 +40,6 @@ public partial class BitIcon
     public IconAlignment Align { get; set; } = IconAlignment.Default;
 
     /// <summary>
-    /// Gets or sets additional CSS classes to apply to the icon.
-    /// </summary>
-    [Parameter]
-    public string? CssClass { get; set; }
-
-    /// <summary>
     /// Gets or sets the role of the icon
     /// </summary>
     [Parameter]
@@ -57,36 +51,21 @@ public partial class BitIcon
     [Parameter]
     public string? Title { get; set; }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether the icon should be hidden from assistive technologies.
-    /// </summary>
-    [Parameter]
-    public bool AriaHidden { get; set; }
-
     private string Href => $"/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}";
-
-    private Dictionary<string, object> attributes = new();
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         if (!string.IsNullOrWhiteSpace(Role))
         {
-            attributes["role"] = Role;
+            AdditionalAttributes["role"] = Role;
         }
         else
         {
-            attributes.Remove("role");
+            AdditionalAttributes.Remove("role");
         }
 
-        if (AriaHidden)
-        {
-            attributes["aria-hidden"] = "true";
-        }
-        else
-        {
-            attributes.Remove("aria-hidden");
-        }
+        base.OnParametersSet();
     }
 
     private string ComputeCssClasses()
@@ -101,10 +80,7 @@ public partial class BitIcon
             builder.Add("icon-padded");
         }
 
-        if (!string.IsNullOrWhiteSpace(CssClass))
-        {
-            builder.Add(CssClass);
-        }
+        AddCustomCssClass(builder);
 
         return builder.Build();
     }

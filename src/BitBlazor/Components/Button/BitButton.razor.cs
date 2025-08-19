@@ -7,7 +7,7 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents a button component using Bootstrap Italia styles.
 /// </summary>
-public partial class BitButton
+public partial class BitButton : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the content of the button
@@ -71,14 +71,6 @@ public partial class BitButton
     [Parameter]
     public EventCallback OnClick { get; set; }
 
-    /// <summary>
-    /// Gets or sets additional CSS classes to apply to the button.
-    /// </summary>
-    [Parameter]
-    public string? CssClass { get; set; }
-
-    private Dictionary<string, object> attributes = new();
-
     private string ButtonTypeString => Type switch
     {
         ButtonType.Submit => "submit",
@@ -97,11 +89,11 @@ public partial class BitButton
     {
         if (Disabled)
         {
-            attributes["aria-disabled"] = "true";
+            AdditionalAttributes["aria-disabled"] = "true";
         }
         else
         {
-            attributes.Remove("aria-disabled");
+            AdditionalAttributes.Remove("aria-disabled");
         }
     }
 
@@ -121,10 +113,7 @@ public partial class BitButton
             builder.Add("btn-icon");
         }
 
-        if (!string.IsNullOrWhiteSpace(CssClass))
-        {
-            builder.Add(CssClass);
-        }
+        AddCustomCssClass(builder);
 
         return builder.Build(); ;
     }

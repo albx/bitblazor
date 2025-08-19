@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -14,7 +14,7 @@
 	<RepositoryUrl>https://github.com/albx/bitblazor</RepositoryUrl>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageTags>aspnetcore;blazor;uikit;bootstrap italia</PackageTags>
+	<PackageTags>aspnetcore;blazor;uikit;bootstrap italia;bootstrap</PackageTags>
 	<PacakgeProjectUrl>https://github.com/albx/bitblazor</PacakgeProjectUrl>
   </PropertyGroup>
 

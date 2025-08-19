@@ -18,23 +18,12 @@ public partial class CardText
     public RenderFragment ChildContent { get; set; } = default!;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is hidden from assistive technologies.
+    /// Gets or sets additional attributes that do not match any other defined parameters.
     /// </summary>
-    [Parameter]
-    public bool AriaHidden { get; set; }
-
-    private Dictionary<string, object> attributes = new();
-
-    /// <inheritdoc/>
-    protected override void OnParametersSet()
-    {
-        if (AriaHidden)
-        {
-            attributes["aria-hidden"] = "true";
-        }
-        else
-        {
-            attributes.Remove("aria-hidden");
-        }
-    }
+    /// <remarks>
+    /// This property is typically used to capture arbitrary HTML attributes for components or elements. 
+    /// The keys represent attribute names, and the values represent their corresponding values.
+    /// </remarks>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
 }

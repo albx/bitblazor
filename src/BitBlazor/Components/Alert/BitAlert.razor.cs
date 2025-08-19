@@ -6,7 +6,7 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents an alert component using Bootstrap Italia styles.
 /// </summary>
-public partial class BitAlert
+public partial class BitAlert : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the type of the alert
@@ -86,6 +86,8 @@ public partial class BitAlert
         {
             builder.AddRange([..dismissibleClasses]);
         }
+
+        AddCustomCssClass(builder);
 
         return builder.Build();
     }

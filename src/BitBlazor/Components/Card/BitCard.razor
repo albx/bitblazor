@@ -1,7 +1,9 @@
 ﻿@namespace BitBlazor.Components
 
+@inherits BitComponentBase
+
 <CascadingValue Value="this">
-    <article class="@ComputeCssClasses()">
+    <article class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
         @ChildContent
     </article>
 </CascadingValue>

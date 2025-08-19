@@ -6,7 +6,7 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents a badge component using Bootstrap Italia styles.
 /// </summary>
-public partial class BitBadge
+public partial class BitBadge : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the text content of the badge
@@ -43,6 +43,8 @@ public partial class BitBadge
         {
             builder.Add("rounded-pill");
         }
+
+        AddCustomCssClass(builder);
 
         return builder.Build();
     }

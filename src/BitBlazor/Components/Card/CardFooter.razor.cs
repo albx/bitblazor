@@ -24,31 +24,21 @@ public partial class CardFooter
     public bool CardRelated { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets the aria-label attribute
-    /// </summary>
-    [Parameter]
-    public string? AriaLabel { get; set; }
-
-    /// <summary>
     /// Gets or sets additional css classes
     /// </summary>
     [Parameter]
     public string? CssClass { get; set; }
 
-    private Dictionary<string, object> attributes = new();
+    /// <summary>
+    /// Gets or sets additional attributes that do not match any other defined parameters.
+    /// </summary>
+    /// <remarks>
+    /// This property is typically used to capture arbitrary HTML attributes for components or elements. 
+    /// The keys represent attribute names, and the values represent their corresponding values.
+    /// </remarks>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
 
-    /// <inheritdoc/>
-    protected override void OnParametersSet()
-    {
-        if (!string.IsNullOrWhiteSpace(AriaLabel))
-        {
-            attributes["aria-label"] = AriaLabel;
-        }
-        else
-        {
-            attributes.Remove("aria-label");
-        }
-    }
 
     private string ComputeCssClasses()
     {

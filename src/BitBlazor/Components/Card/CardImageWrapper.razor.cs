@@ -19,11 +19,11 @@ public partial class CardImageWrapper
     /// <summary>
     /// Notifies the Card parent component in order to add the specific class
     /// </summary>
-    protected override void OnInitialized() => Parent.NotifyHasImageChanged(true);
+    protected override void OnInitialized() => Parent.NotifyHasImageChanged(hasImage: true);
 
     void IDisposable.Dispose()
     {
-        Parent.NotifyHasImageChanged(false);
+        Parent.NotifyHasImageChanged(hasImage: false);
         GC.SuppressFinalize(this);
     }
 }

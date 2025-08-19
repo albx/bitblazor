@@ -43,11 +43,12 @@ public partial class CardTitleIcon
     public string? IconTitle { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the element is hidden from assistive technologies.
+    /// Gets or sets additional attributes that do not match any other defined parameters.
     /// </summary>
     /// <remarks>
-    /// This property sets the <see cref="Utilities.BitIcon.AriaHidden"/> value.
+    /// This property is typically used to capture arbitrary HTML attributes for components or elements. 
+    /// The keys represent attribute names, and the values represent their corresponding values.
     /// </remarks>
-    [Parameter]
-    public bool AriaHidden { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
 }
