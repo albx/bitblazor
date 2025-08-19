@@ -21,10 +21,11 @@ The Icon component displays SVG icons from the Bootstrap Italia icon set using t
 | `Padded` | `bool` | ✗ | `false` | Indicates if the icon should have padding |
 | `Color` | `IconColor` | ✗ | `IconColor.Default` | The color of the icon |
 | `Align` | `IconAlignment` | ✗ | `IconAlignment.Default` | The alignment of the icon |
-| `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply |
 | `Role` | `string?` | ✗ | `null` | The role of the icon for accessibility |
 | `Title` | `string?` | ✗ | `null` | The title of the icon for accessibility |
 | `AriaHidden` | `bool` | ✗ | `false` | Indicates if the icon should be hidden from assistive technologies |
+| `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply |
+| `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes |
 
 ## Used Enumerations
 
@@ -170,6 +171,20 @@ https://italia.github.io/bootstrap-italia/docs/utilities/icone/#lista-delle-icon
 <BitIcon IconName="@Icons.ItCircle" Color="IconColor.Danger" />
 ```
 
+## Generated HTML Structure
+
+The component generates the following HTML structure:
+
+```html
+<svg class="icon icon-{size} icon-{color} align-{alignment}">
+    <!-- Title (if provided) -->
+    <title>Icon description</title>
+    
+    <!-- Icon reference -->
+    <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}"></use>
+</svg>
+```
+
 ## Generated CSS Classes
 
 The component generates the following CSS classes based on parameters:
@@ -219,7 +234,9 @@ The component supports various accessibility options:
 - Uses the Bootstrap Italia SVG sprites system
 - Icon path is `/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{IconName}`
 - Renders as an `<svg>` element with internal `<use>` element
-- Supports custom HTML attributes through the attribute splatting system
+- Supports custom HTML attributes through the attribute splatting system (`AdditionalAttributes`)
+- The `role` attribute is automatically managed based on the `Role` parameter
+- When a `Title` is provided, it's rendered as a `<title>` element inside the SVG for accessibility
 
 ## Notes
 

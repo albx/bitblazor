@@ -56,6 +56,22 @@ Defines size options for BitBlazor components.
 **Components using Size**:
 - `BitButton`
 
+### Ratio
+
+**Namespace**: `BitBlazor`
+
+Represents common aspect ratios used in media and display settings.
+
+| Value | Description | Aspect Ratio |
+|-------|-------------|--------------|
+| `Ratio1x1` | Square ratio | 1:1 |
+| `Ratio4x3` | Traditional ratio | 4:3 |
+| `Ratio16x9` | Widescreen ratio | 16:9 |
+| `Ratio21x9` | Ultra-wide ratio | 21:9 |
+
+**Components using Ratio**:
+- `CardImage`
+
 ### Typography
 
 **Namespace**: `BitBlazor`
@@ -73,6 +89,7 @@ Represents typography levels used in structured text.
 
 **Components using Typography**:
 - `CardTitle`
+- `CardProfileHeader`
 
 ## Alert-specific Enumerations
 
@@ -222,17 +239,6 @@ var iconSize = buttonSize switch
 
 ## Combined Usage Examples
 
-### Colored alert with icon
-
-```razor
-<BitAlert Type="AlertType.Success">
-    <BitIcon IconName="@Icons.ItCheck" 
-             Color="IconColor.Success" 
-             Size="IconSize.Small" />
-    Operation completed successfully!
-</BitAlert>
-```
-
 ### Button with colored badge
 
 ```razor
@@ -252,9 +258,11 @@ var iconSize = buttonSize switch
          BorderTopColor="Color.Primary">
     <CardBody>
         <CardTitle Typography="Typography.H2" HasIcon="true">
-            <BitIcon IconName="@Icons.ItUser" 
-                     Color="IconColor.Primary" />
-            User Profile
+            <a href="#">
+                User Profile
+                <BitIcon IconName="@Icons.ItUser" 
+                         Color="IconColor.Primary" />
+            </a>
         </CardTitle>
     </CardBody>
 </BitCard>

@@ -92,6 +92,11 @@ The Alert component provides contextual feedback for user actions with a handful
 - If the alert is dismissible and no `CloseButtonAriaLabel` is provided, the value "close this alert" is automatically used to ensure accessibility.
 - The alert supports fade animations when closed (if dismissible).
 - The component uses the ARIA "alert" role to improve accessibility.
+- The close button uses the `BitIcon` component with the "it-close" icon from Bootstrap Italia.
+- When closing a dismissible alert, the component:
+  1. Invokes the `OnClose` callback
+  2. Removes the "show" class and sets `closed` to true
+  3. Invokes the `OnClosed` callback
 
 ## Generated CSS Classes
 
@@ -102,3 +107,22 @@ The component generates the following CSS classes based on parameters:
 - `alert-dismissible`: Added when `Dismissible` is `true`
 - `fade`: Added for animation when dismissible
 - `show`: Added when the alert is visible (removed during closing)
+
+## Generated HTML Structure
+
+The component generates the following HTML structure:
+
+```html
+<div class="alert alert-{type}" role="alert">
+    <!-- Title (if provided) -->
+    <h4 class="alert-heading">Alert Title</h4>
+    
+    <!-- Main content -->
+    Alert content goes here
+    
+    <!-- Close button (if dismissible) -->
+    <button type="button" class="btn-close" aria-label="close this alert">
+        <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-close"></use></svg>
+    </button>
+</div>
+```

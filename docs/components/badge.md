@@ -20,6 +20,8 @@ The Badge component provides small and adaptable labels for adding information t
 | `BackgroundColor` | `Color` | ✓ | - | The background color of the badge |
 | `Variant` | `Variant` | ✗ | `Variant.Solid` | The variant of the badge (solid or outline) |
 | `Rounded` | `bool` | ✗ | `false` | Indicates if the badge should be rounded |
+| `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply |
+| `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes |
 
 ## Used Enumerations
 
@@ -83,6 +85,16 @@ The Badge component provides small and adaptable labels for adding information t
 <BitBadge Text="Danger" BackgroundColor="Color.Danger" Variant="Variant.Outline" />
 ```
 
+## Generated HTML Structure
+
+The component generates the following HTML structure:
+
+```html
+<span class="badge bg-{color} rounded-pill">Badge text</span>
+<!-- OR for outline variant -->
+<span class="badge bg-white text-{color} rounded-pill">Badge text</span>
+```
+
 ## Generated CSS Classes
 
 The component generates the following CSS classes based on parameters:
@@ -111,3 +123,4 @@ The component generates the following CSS classes based on parameters:
 
 - The badge is an inline element that automatically adapts to surrounding content
 - The outline variant is useful when you want a more subtle appearance
+- Color classes are dynamically generated based on the combination of `BackgroundColor` and `Variant` properties

@@ -80,6 +80,15 @@ Standard sizes for components:
 - `Default`: Standard size
 - `Large`: Large size
 
+### Ratio
+Aspect ratios for media elements:
+- `Ratio1x1`: Square (1:1)
+- `Ratio4x3`: Traditional (4:3) 
+- `Ratio16x9`: Widescreen (16:9)
+- `Ratio21x9`: Ultra-wide (21:9)
+
+For a complete list of all enumerations and their usage, see [Enumerations](enumerations.md).
+
 ## Design Principles
 
 ### Accessibility

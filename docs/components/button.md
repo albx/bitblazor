@@ -27,6 +27,7 @@ The Button component provides interactive buttons with support for icons, differ
 | `IconPosition` | `IconPosition` | ✗ | `IconPosition.Start` | The position of the icon in the button |
 | `OnClick` | `EventCallback` | ✗ | - | Callback invoked when the button is clicked |
 | `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply |
+| `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes |
 
 ## Used Enumerations
 
@@ -154,11 +155,43 @@ The Button component provides interactive buttons with support for icons, differ
 ### Button with rounded icon
 
 ```razor
-<BitButton Color="Color.Info" 
+<BitButton Color="Color.Primary" 
            Icon="@Icons.ItUser" 
            IconRounded="true">
     Profile
 </BitButton>
+```
+
+### Cascading context
+
+The BitButton provides cascading values to child components like ButtonBadge:
+
+```razor
+<BitButton Color="Color.Primary">
+    Messages
+    <ButtonBadge Text="3" />
+</BitButton>
+```
+
+## Generated HTML Structure
+
+The component generates the following HTML structure:
+
+```html
+<button type="button" class="btn btn-{color}" aria-disabled="true">
+    <!-- Icon at start (if IconPosition.Start) -->
+    <svg class="icon icon-{color} me-1"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{icon-name}"></use></svg>
+    <!-- OR rounded icon -->
+    <span class="rounded-icon">
+        <svg class="icon icon-{color}"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{icon-name}"></use></svg>
+    </span>
+    
+    <!-- Button content -->
+    Button text or content
+    
+    <!-- Icon at end (if IconPosition.End) -->
+    <svg class="icon icon-{color} ms-1"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#{icon-name}"></use></svg>
+</button>
 ```
 
 ## Generated CSS Classes
@@ -196,10 +229,14 @@ The component generates the following CSS classes based on parameters:
 - The component automatically adds the `aria-disabled="true"` attribute when the button is disabled
 - Supports keyboard navigation
 - The `type` attribute is set correctly based on the `Type` parameter
+- Icon colors are automatically calculated for optimal contrast based on button variant
 
 ## Notes
 
-- The component uses `CascadingValue` to provide context to child components
-- Icons are automatically positioned with appropriate margins
+- The component uses `CascadingValue` to provide context to child components like `ButtonBadge`
+- Icons are automatically positioned with appropriate margins (`me-1` for start, `ms-1` for end)
 - Rounded icons are displayed within a container with the `rounded-icon` class
-- Icon color is automatically calculated based on the button's color and variant
+- Icon color is automatically calculated based on the button's color and variant:
+  - For rounded icons and outline variants: matches the button color
+  - For solid variants: uses white color for contrast
+- The component extends `BitComponentBase` for consistent styling and behavior

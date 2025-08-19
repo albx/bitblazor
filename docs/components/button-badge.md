@@ -128,12 +128,12 @@ This ensures optimal contrast and clear visual distinction.
 ### Color inheritance
 The badge automatically inherits the color from the parent button, ensuring visual consistency.
 
-## Generated HTML
+## Generated HTML Structure
 
 The component generates the following HTML:
 
 ```html
-<!-- Visible badge -->
+<!-- Visible badge (using BitBadge internally) -->
 <span class="badge bg-white text-primary">3</span>
 
 <!-- Additional text (if provided) -->
@@ -162,9 +162,11 @@ The `AdditionalText` parameter is crucial for accessibility:
 
 - Requires a `BitButton` as parent (via `CascadingParameter`)
 - Cannot be used as a standalone component
-- Appearance is automatically determined by parent button properties
+- Appearance is automatically determined by parent button properties through cascading parameters
 - Uses the `BitBadge` component internally for rendering
 - The `visually-hidden` class hides additional text while keeping it accessible to screen readers
+- Variant inversion logic: if parent button is `Variant.Outline`, badge will be `Variant.Solid` and vice versa
+- Color inheritance: badge automatically inherits the color from the parent button (`BadgeBackgroundColor = Parent.Color`)
 
 ## Common Use Cases
 

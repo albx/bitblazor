@@ -5,4 +5,4 @@ The goal is to offer a comprehensive set of components for .NET 9 applications, 
 
 ## Roadmap
 
-For a detailed development plan and component list, see the [ROADMAP.md](./ROADMAP.md) file.
+For a detailed development plan and component list, see the [ROADMAP.md](https://github.com/albx/bitblazor/blob/main/ROADMAP.md) file.

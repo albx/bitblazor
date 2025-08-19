@@ -71,7 +71,7 @@ This guide provides a quick overview of all BitBlazor components with basic exam
         <a href="#">Title</a>
     </CardTitle>
     <CardImageWrapper>
-        <CardImage Src="/image.jpg" Alt="Image" />
+        <CardImage ImageSrc="/image.jpg" ImageAlt="Image" />
     </CardImageWrapper>
     <CardBody>
         <CardText>Description...</CardText>

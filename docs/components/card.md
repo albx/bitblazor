@@ -26,8 +26,9 @@ The Card system provides a flexible and extensible way to display content in wel
 | `Inline` | `bool` | ✗ | `false` | Indicates if content should be displayed inline |
 | `Reverse` | `bool` | ✗ | `false` | Reverses the inline card layout |
 | `Mini` | `bool` | ✗ | `false` | Displays the inline card in mini version |
-| `CssClass` | `string?` | ✗ | `null` | Additional CSS classes |
 | `BorderTopColor` | `Color?` | ✗ | `null` | Color of the card's top border |
+| `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply |
+| `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes |
 
 ### Enumerations
 
@@ -77,8 +78,9 @@ Represents the card text.
 Manages card images.
 
 **Parameters:**
-- `ImageSrc` (`string`): Image URL
-- `ImageAlt` (`string?`): Alternative text
+- `ImageSrc` (`string`): Image URL (required)
+- `ImageAlt` (`string`): Alternative text (default: empty string)
+- `Ratio` (`Ratio`): Aspect ratio of the image (default: `Ratio.Ratio1x1`)
 
 ### CardImageWrapper
 Wrapper for card images.
@@ -96,8 +98,10 @@ Represents the card footer.
 Displays dates in the card.
 
 **Parameters:**
-- `DateTime` (`DateTime`): The date to display
-- `DateFormat` (`string?`): Custom format for the date
+- `Date` (`DateTime`): The date to display (required)
+- `DatetimeFormat` (`string`): Format for the datetime attribute (required, default: "yyyy-MM-dd")
+- `DisplayFormat` (`string`): Format for displaying the date (required)
+- `TextColor` (`Color?`): Optional color for the date text
 
 ### CardSignature
 Represents a signature in the card.
@@ -158,7 +162,9 @@ Content specific for inline cards.
 <BitCard>
     <CardTitle>Card with Image</CardTitle>
     <CardImageWrapper>
-        <CardImage ImageSrc="/images/example.jpg" ImageAlt="Example" />
+        <CardImage ImageSrc="/images/example.jpg" 
+                   ImageAlt="Example" 
+                   Ratio="Ratio.Ratio16x9" />
     </CardImageWrapper>
     <CardBody>
         <CardText>
@@ -256,7 +262,10 @@ Content specific for inline cards.
         </CardText>
     </CardBody>
     <CardFooter>
-        <CardDate DateTime="DateTime.Now" DatetimeFormat="yyyy-MM-dd" DisplayFormat="dd MMM yyyy" />
+        <CardDate Date="DateTime.Now" 
+                  DatetimeFormat="yyyy-MM-dd" 
+                  DisplayFormat="dd MMM yyyy" 
+                  TextColor="Color.Secondary" />
     </CardFooter>
 </BitCard>
 ```
@@ -272,6 +281,43 @@ Content specific for inline cards.
         </CardText>
     </CardBody>
 </BitCard>
+```
+
+## Generated HTML Structure
+
+The main `BitCard` component generates the following HTML structure:
+
+```html
+<article class="it-card rounded border shadow-sm">
+    <!-- Card content -->
+</article>
+```
+
+### Sub-component HTML structures
+
+**CardTitle:**
+```html
+<h3 class="it-card-title">
+    Title content
+</h3>
+<!-- OR with icon -->
+<h3 class="it-card-title it-card-title-icon">
+    Title content
+</h3>
+```
+
+**CardDate:**
+```html
+<time datetime="2024-01-01" class="it-card-date text-secondary">
+    01 Jan 2024
+</time>
+```
+
+**CardBody:**
+```html
+<div class="it-card-body">
+    Body content
+</div>
 ```
 
 ## Generated CSS Classes
