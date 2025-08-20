@@ -22,19 +22,21 @@ dotnet add package BitBlazor
 
 ## Documentation
 
-Comprehensive documentation can be found in the [docs](./docs/README.md) folder.
+Comprehensive documentation can be found in the [docs](https://github.com/albx/bitblazor/blob/main/docs/README.md) folder.
 
 ## Roadmap
 
 For the development plan and component list, see [ROADMAP.md](https://github.com/albx/bitblazor/blob/main/ROADMAP.md).
 
+See the [CHANGELOG.md](https://github.com/albx/bitblazor/blob/main/CHANGELOG.md) file to keep track of all the project's releases.
+
 ## Contributing
 
 Contributions are always welcome!
 
-If you have any issues, feedback, or feature requests, please see the [CONTRIBUTING](./CONTRIBUTING.md)
+If you have any issues, feedback, or feature requests, please see the [CONTRIBUTING](https://github.com/albx/bitblazor/blob/main/CONTRIBUTING.md)
 
 
 ## License
 
-The project is released under [MIT](./LICENSE) license.
+The project is released under [MIT](https://github.com/albx/bitblazor/blob/main/LICENSE) license.
