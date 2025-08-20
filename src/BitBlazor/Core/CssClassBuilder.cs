@@ -41,7 +41,7 @@ public sealed class CssClassBuilder
     /// </summary>
     /// <param name="cssClasses">The list of classes to add</param>
     /// <returns>The <see cref="CssClassBuilder"/> instance for method chaining</returns>
-    public CssClassBuilder AddRange(string[] cssClasses)
+    public CssClassBuilder AddRange(IEnumerable<string> cssClasses)
     {
         foreach (var cssClass in cssClasses)
         {

@@ -117,7 +117,7 @@ public partial class BitButton : BitComponentBase
 
         AddCustomCssClass(builder);
 
-        return builder.Build(); ;
+        return builder.Build();
     }
 
     private void AddColorClass(CssClassBuilder builder)

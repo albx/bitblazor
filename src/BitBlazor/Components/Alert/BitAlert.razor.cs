@@ -86,7 +86,7 @@ public partial class BitAlert : BitComponentBase
 
         if (Dismissible)
         {
-            builder.AddRange([..dismissibleClasses]);
+            builder.AddRange(dismissibleClasses);
         }
 
         AddCustomCssClass(builder);

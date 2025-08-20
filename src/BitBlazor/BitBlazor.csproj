@@ -15,7 +15,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>aspnetcore;blazor;uikit;bootstrap italia;bootstrap</PackageTags>
-    <PacakgeProjectUrl>https://github.com/albx/bitblazor</PacakgeProjectUrl>
+	  <PackageProjectUrl>https://github.com/albx/bitblazor</PackageProjectUrl>
   </PropertyGroup>
 
 
