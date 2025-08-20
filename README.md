@@ -24,7 +24,7 @@ dotnet add package BitBlazor
 
 Comprehensive documentation can be found in the [docs](https://github.com/albx/bitblazor/blob/main/docs/README.md) folder.
 
-A [Storybook](https://storybook.js.org/) of the library is available [here](bitblazor-stories-gwc2hdexede9cwgf.italynorth-01.azurewebsites.net).
+A [Storybook](https://storybook.js.org/) of the library is available [here](https://bitblazor-stories-gwc2hdexede9cwgf.italynorth-01.azurewebsites.net).
 
 The storybook website is made using the project [Blazing Story](https://github.com/jsakamoto/BlazingStory) by @jsakamoto.
 
