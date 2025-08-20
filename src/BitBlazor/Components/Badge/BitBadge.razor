@@ -1,3 +1,5 @@
 ﻿@namespace BitBlazor.Components
 
-<span class="@ComputedCssClasses">@Text</span>
+@inherits BitComponentBase
+
+<span class="@ComputeCssClasses()" @attributes="AdditionalAttributes">@Text</span>

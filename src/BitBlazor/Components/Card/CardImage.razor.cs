@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BitBlazor.Core;
+using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
@@ -35,6 +36,8 @@ public partial class CardImage
 
     private string ComputeRatioClass()
     {
+        var builder = new CssClassBuilder("ratio");
+
         var ratioCssClass = Ratio switch
         {
             Ratio.Ratio1x1 => "ratio-1x1",
@@ -44,6 +47,8 @@ public partial class CardImage
             _ => string.Empty
         };
 
-        return $"ratio {ratioCssClass}";
+        builder.Add(ratioCssClass);
+
+        return builder.Build();
     }
 }

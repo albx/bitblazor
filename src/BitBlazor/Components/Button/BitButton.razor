@@ -1,12 +1,13 @@
 ﻿@namespace BitBlazor.Components
-@using BitBlazor.Utilities
+
+@inherits BitComponentBase
 
 <CascadingValue Value="this">
     <button type="@ButtonTypeString"
-            class="@ComputedCssClasses"
+            class="@ComputeCssClasses()"
             @onclick="OnClick"
             disabled="@Disabled"
-            @attributes="attributes">
+            @attributes="AdditionalAttributes">
         @if (HasIcon(IconPosition.Start))
         {
             @IconFragment

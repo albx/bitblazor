@@ -1,4 +1,4 @@
-# Blazor UI Kit Roadmap – Bootstrap Italia Components
+# Blazor UI Kit Roadmap ï¿½ Bootstrap Italia Components
 
 This document outlines the development roadmap for a Blazor UI kit library implementing the official [Bootstrap Italia](https://italia.github.io/bootstrap-italia/docs) components. The project targets .NET 9.
 

@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using BitBlazor.Utilities;
 using Microsoft.AspNetCore.Components;
 
@@ -6,7 +7,7 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents a button component using Bootstrap Italia styles.
 /// </summary>
-public partial class BitButton
+public partial class BitButton : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the content of the button
@@ -70,16 +71,6 @@ public partial class BitButton
     [Parameter]
     public EventCallback OnClick { get; set; }
 
-    /// <summary>
-    /// Gets or sets additional CSS classes to apply to the button.
-    /// </summary>
-    [Parameter]
-    public string? CssClass { get; set; }
-
-    private string ComputedCssClasses => $"btn {ComputeCssClasses()}".Trim();
-
-    private Dictionary<string, object> attributes = new();
-
     private string ButtonTypeString => Type switch
     {
         ButtonType.Submit => "submit",
@@ -98,39 +89,38 @@ public partial class BitButton
     {
         if (Disabled)
         {
-            attributes["aria-disabled"] = "true";
+            AdditionalAttributes["aria-disabled"] = "true";
         }
         else
         {
-            attributes.Remove("aria-disabled");
+            AdditionalAttributes.Remove("aria-disabled");
         }
+
+        base.OnParametersSet();
     }
 
     private string ComputeCssClasses()
     {
-        var cssClasses = new List<string>();
-        AddColorClass(cssClasses);
-        AddSizeClass(cssClasses);
+        var builder = new CssClassBuilder("btn");
+        AddColorClass(builder);
+        AddSizeClass(builder);
 
         if (Disabled)
         {
-            cssClasses.Add("disabled");
+            builder.Add("disabled");
         }
 
         if (!string.IsNullOrWhiteSpace(Icon))
         {
-            cssClasses.Add("btn-icon");
+            builder.Add("btn-icon");
         }
 
-        if (!string.IsNullOrWhiteSpace(CssClass))
-        {
-            cssClasses.Add(CssClass);
-        }
+        AddCustomCssClass(builder);
 
-        return string.Join(" ", cssClasses);
+        return builder.Build();
     }
 
-    private void AddColorClass(List<string> cssClasses)
+    private void AddColorClass(CssClassBuilder builder)
     {
         var colorClass = (Color, Variant) switch
         {
@@ -147,13 +137,10 @@ public partial class BitButton
             _ => string.Empty
         };
 
-        if (!string.IsNullOrEmpty(colorClass))
-        {
-            cssClasses.Add(colorClass);
-        }
+        builder.Add(colorClass);
     }
 
-    private void AddSizeClass(List<string> cssClasses)
+    private void AddSizeClass(CssClassBuilder builder)
     {
         var sizeClass = Size switch
         {
@@ -165,7 +152,7 @@ public partial class BitButton
 
         if (!string.IsNullOrEmpty(sizeClass))
         {
-            cssClasses.Add(sizeClass);
+            builder.Add(sizeClass);
         }
     }
 

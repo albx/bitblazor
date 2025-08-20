@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
@@ -5,7 +6,7 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents an alert component using Bootstrap Italia styles.
 /// </summary>
-public partial class BitAlert
+public partial class BitAlert : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the type of the alert
@@ -51,8 +52,6 @@ public partial class BitAlert
     [Parameter]
     public EventCallback OnClosed { get; set; }
 
-    private string ComputedCssClasses => $"alert {ComputeCssClasses()}".Trim();
-
     private List<string> dismissibleClasses = [];
 
     private bool closed;
@@ -76,22 +75,26 @@ public partial class BitAlert
         {
             CloseButtonAriaLabel = "close this alert";
         }
+
+        base.OnParametersSet();
     }
 
     private string ComputeCssClasses()
     {
-        var cssClasses = new List<string>();
-        AddTypeClass(cssClasses);
+        var builder = new CssClassBuilder("alert");
+        AddTypeClass(builder);
 
         if (Dismissible)
         {
-            cssClasses.AddRange(dismissibleClasses);
+            builder.AddRange(dismissibleClasses);
         }
 
-        return string.Join(" ", cssClasses);
+        AddCustomCssClass(builder);
+
+        return builder.Build();
     }
 
-    private void AddTypeClass(List<string> cssClasses)
+    private void AddTypeClass(CssClassBuilder builder)
     {
         var typeClass = Type switch
         {
@@ -103,7 +106,7 @@ public partial class BitAlert
             _ => string.Empty
         };
 
-        cssClasses.Add(typeClass);
+        builder.Add(typeClass);
     }
 
     private async Task CloseAsync()

@@ -2,52 +2,32 @@
 $attribute: CustomPage("Welcome")
 ---
 
-# <img src="https://raw.githubusercontent.com/jsakamoto/BlazingStory/main/assets/icon.min.64x64.svg" style="vertical-align: middle;" /> Welcome to Blazing Story!
+# Welcome to BitBlazor!
 
-Blazing Story is a UI component explorer for Blazor - helping you build, document, and test your UI components in isolation.
+BitBlazor is a UI library that provides accessible, reusable Blazor components styled with [Bootstrap Italia](https://italia.github.io/bootstrap-italia/docs).  
+The goal is to offer a comprehensive set of components for .NET 9 applications, following accessibility best practices and the official Bootstrap Italia design system.
 
-## 🚀Getting Started
+## Features
 
-### 📝Adding Your First Story
+- Accessible Blazor components
+- Styled with Bootstrap Italia
+- .NET 9+ support
+- Comprehensive documentation
 
-Adding a new component story is simple:
+## Getting started
 
-1. **Create a story file** in your Stories folder with the `.stories.razor` extension
-2. **Implement your story** with the Stories component
+### Installation & Prerequisites
 
-> [!Warning]  
-> Currently, The file name of the "stories" files must end with `.stories.razor`. This is a requirement of the naming convention for available the "Show code" feature in the "Docs" pages.
+The library requires **.NET 9+** and can be installed via NuGet:
 
-### 📝Example Story File
-
-```html
-@using YourNamespace.Components
-@attribute [Stories("Components/Button")]
-<Stories TComponent="Button">
-
-  <Story Name="Primary">
-    <Template>
-      <Button Label="Button" Primary="true" @attributes="context.Args" />
-    </Template>
-  </Story>
-
-  <Story Name="Secondary">
-    <Arguments>
-      <Arg For="_ => _.Primary" Value="false" />
-    </Arguments>
-    <Template>
-      <Button Label="Button" @attributes="context.Args" />
-    </Template>
-  </Story>
-
-</Stories>
+```bash
+dotnet add package BitBlazor
 ```
 
-## 🧩Story Structure
+Additional informations can be found at the [GitHub repository of the project](https://github.com/albx/bitblazor).
 
-- Use `[Stories]` attribute to define the navigation path
-- The `<Stories>` component specifies your target component
-- Each `<Story>` represents a different state or variant
-- The `context.Args` connects user input from the Controls panel
+The repository includes all the documentation, which can be found in the [docs](https://github.com/albx/bitblazor/blob/main/docs/README.md) folder.
 
-Explore the sidebar to see documentation, controls, and more features!
+## License
+
+The project is released under [MIT](https://github.com/albx/bitblazor/blob/main/LICENSE) license.

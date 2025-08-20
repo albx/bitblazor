@@ -13,7 +13,7 @@ namespace BitBlazor.Components;
 public partial class ButtonBadge
 {
     [CascadingParameter]
-    BitButton Button { get; set; } = default!;
+    BitButton Parent { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the text to display in the badge
@@ -29,12 +29,12 @@ public partial class ButtonBadge
     [Parameter]
     public string? AdditionalText { get; set; }
 
-    private Variant BadgeVariant => Button.Variant switch
+    private Variant BadgeVariant => Parent.Variant switch
     {
         Variant.Outline => Variant.Solid,
         Variant.Solid => Variant.Outline,
         _ => Variant.Outline
     };
 
-    private Color BadgeBackgroundColor => Button.Color;
+    private Color BadgeBackgroundColor => Parent.Color;
 }
