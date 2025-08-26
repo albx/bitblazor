@@ -1,0 +1,20 @@
+﻿@namespace BitBlazor.Form
+@inherits BitFormComponentBase<string?>
+
+<div class="form-group">
+    <label for="@Id" class="@ComputeLabelCssClass()">@Label</label>
+    <InputText Value="@Value"
+               ValueChanged="ValueChanged"
+               ValueExpression="ValueExpression"
+               class="form-control"
+               type="text"
+               name="@Id"
+               @attributes="AdditionalAttributes"
+               @onchange="@(() => SetLabelAsActive(!string.IsNullOrEmpty(Value)))"
+               @onfocus="@(() => SetLabelAsActive(true))"
+               @onblur="@(() => SetLabelAsActive(!string.IsNullOrEmpty(Value)))"/>
+</div>
+
+@code {
+
+}

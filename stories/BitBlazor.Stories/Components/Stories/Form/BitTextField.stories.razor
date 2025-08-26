@@ -1,0 +1,18 @@
+﻿@attribute [Stories("Form/BitTextField")]
+
+<Stories TComponent="BitTextField">
+    <Story Name="Default">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitTextField Label="My text field"
+                              @bind-Value="value"/>
+            </div>
+        </Template>
+    </Story>
+
+
+</Stories>
+
+@code {
+    private string? value = string.Empty;
+}

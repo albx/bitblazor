@@ -1,0 +1,16 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitTextField_Should_Render_Default_Markup_Correctly()
+    {
+        string value = "value";
+        var component = Render(@<BitTextField Label="label" Id="test-textfield" @bind-Value="@value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <input type="text" class="form-control" id="test-textfield" name="test-textfield" value="value" />
+             </div>);
+    }
+}

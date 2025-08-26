@@ -17,6 +17,13 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     public EditContext? CurrentEditContext { get; set; }
 
     /// <summary>
+    /// Gets or sets the label to display
+    /// </summary>
+    [Parameter]
+    [EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the value bound to the component
     /// </summary>
     /// <remarks>
@@ -68,6 +75,8 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// </remarks>
     protected abstract Type[] SupportedTypes { get; }
 
+    private bool isLabelActive = false;
+
     /// <summary>
     /// Construct the <see cref="BitFormComponentBase{T}"/> instance
     /// </summary>
@@ -87,7 +96,20 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     {
         base.OnParametersSet();
         SetRequiredAttribute();
+        SetInitialLabelState();
     }
+
+    private void SetInitialLabelState()
+    {
+        isLabelActive = !ValueIsEmpty();
+    }
+
+    /// <summary>
+    /// Determines whether the current value is considered empty.
+    /// </summary>
+    /// <remarks>The definition of "empty" is determined by the implementing class.</remarks>
+    /// <returns><see langword="true"/> if the value is empty; otherwise, <see langword="false"/>.</returns>
+    protected abstract bool ValueIsEmpty();
 
     private void SetRequiredAttribute()
     {
@@ -112,5 +134,32 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
         }
 
         AdditionalAttributes["id"] = Id!;
+    }
+
+    /// <summary>
+    /// Sets the label's active state.
+    /// </summary>
+    /// <param name="active">
+    /// A value indicating whether the label should be marked as active.
+    /// <see langword="true"/> to mark the label as active; otherwise, <see langword="false"/>.
+    /// </param>
+    protected void SetLabelAsActive(bool active) => isLabelActive = active;
+
+    /// <summary>
+    /// Computes the CSS class string for a label based on its current state.
+    /// </summary>
+    /// <returns>
+    /// A string containing the CSS class for the label. 
+    /// Returns "active" if the label is in an active state; otherwise, returns an empty string.
+    /// </returns>
+    protected string ComputeLabelCssClass()
+    {
+        var builder = new CssClassBuilder();
+        if (isLabelActive)
+        {
+            builder.Add("active");
+        }
+
+        return builder.Build();
     }
 }
