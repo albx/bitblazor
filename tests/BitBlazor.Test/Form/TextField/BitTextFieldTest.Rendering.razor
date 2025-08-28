@@ -13,4 +13,21 @@
                 <input type="text" class="form-control" id="test-textfield" name="test-textfield" value="value" />
              </div>);
     }
+
+    [Fact]
+    public void BitTextField_Should_Render_Placeholder_Correctly()
+    {
+        string? value = null;
+        var component = Render(
+            @<BitTextField Label="label" 
+                           Id="test-textfield" 
+                           Placeholder="type here"
+                           @bind-Value="@value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <input type="text" class="form-control" id="test-textfield" name="test-textfield" placeholder="type here" />
+             </div>);
+    }
 }
