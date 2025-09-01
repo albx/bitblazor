@@ -6,13 +6,19 @@
     <InputText Value="@Value"
                ValueChanged="ValueChanged"
                ValueExpression="ValueExpression"
-               class="form-control"
+               class="@ComputeInputCssClass()"
                type="text"
                name="@Id"
+               disabled="@Disabled"
+               readonly="@(Readonly || Plaintext)"
                @attributes="AdditionalAttributes"
-               @onchange="@(() => SetLabelAsActive(!string.IsNullOrEmpty(Value)))"
-               @onfocus="@(() => SetLabelAsActive(true))"
-               @onblur="@(() => SetLabelAsActive(!string.IsNullOrEmpty(Value)))"/>
+               @onchange="@UpdateLabelActiveState"
+               @onfocus="@(() => SetLabelActiveState(true))"
+               @onblur="@UpdateLabelActiveState"/>
+    @if (For is not null)
+    {
+        <ValidationMessage For="For" class="is-invalid" />
+    }
 </div>
 
 @code {

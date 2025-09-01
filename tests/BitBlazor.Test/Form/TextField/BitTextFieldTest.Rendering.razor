@@ -30,4 +30,58 @@
                 <input type="text" class="form-control" id="test-textfield" name="test-textfield" placeholder="type here" />
              </div>);
     }
+
+    [Fact]
+    public void BitTextField_Should_Set_Disabled_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextField Label="label" 
+                           Id="test-textfield" 
+                           Disabled="true"
+                           @bind-Value="@value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <input type="text" class="form-control" id="test-textfield" name="test-textfield" disabled />
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextField_Should_Set_Readonly_Corrrectly()
+    {
+        string? value = "readonly";
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value"
+                           Readonly="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <input type="text" class="form-control" id="test-textfield" value="readonly" name="test-textfield" readonly />
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextField_Should_Render_Plaintext_Field_Correctly()
+    {
+        string? value = "readonly";
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value"
+                           Plaintext="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <input type="text" class="form-control-plaintext" id="test-textfield" value="readonly" name="test-textfield" readonly />
+             </div>);
+    }
 }

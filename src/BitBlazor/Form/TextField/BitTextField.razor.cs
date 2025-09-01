@@ -1,4 +1,5 @@
 using BitBlazor.Core;
+using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Form;
 
@@ -17,21 +18,49 @@ public partial class BitTextField : BitFormComponentBase<string?>
     /// <inheritdoc/>
     protected override Type[] SupportedTypes { get; } = [typeof(string)];
 
+    /// <summary>
+    /// Gets or sets whether the input component should be readonly
+    /// </summary>
+    [Parameter]
+    public bool Readonly { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the input should be rendered as plain-text
+    /// </summary>
+    [Parameter]
+    public bool Plaintext { get; set; }
+
     private bool isLabelActive = false;
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        SetInitialLabelState();
+        UpdateLabelActiveState();
     }
 
-    private void SetInitialLabelState()
+    private void SetLabelActiveState(bool active) => isLabelActive = active;
+
+    private void UpdateLabelActiveState()
     {
-        isLabelActive = !string.IsNullOrEmpty(Value) || !string.IsNullOrWhiteSpace(Placeholder);
+        var active = !string.IsNullOrEmpty(Value) || !string.IsNullOrWhiteSpace(Placeholder);
+        SetLabelActiveState(active);
     }
 
-    private void SetLabelAsActive(bool active) => isLabelActive = active;
+    private string ComputeInputCssClass()
+    {
+        var builder = new CssClassBuilder();
+        if (!Plaintext)
+        {
+            builder.Add("form-control");
+        }
+        else
+        {
+            builder.Add("form-control-plaintext");
+        }
+
+        return builder.Build();
+    }
 
     private string ComputeLabelCssClass()
     {
