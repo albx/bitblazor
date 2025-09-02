@@ -30,13 +30,52 @@ public partial class BitTextField : BitFormComponentBase<string?>
     [Parameter]
     public bool Plaintext { get; set; }
 
+    /// <summary>
+    /// Gets or sets the type of the text field.
+    /// </summary>
+    [Parameter]
+    public TextFieldType Type { get; set; } = TextFieldType.Text;
+
+    /// <summary>
+    /// Gets or sets an optional fragment of additional content to render.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AdditionalText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the identifier for additional text associated with the component.
+    /// </summary>
+    [Parameter]
+    public string? AdditionalTextId { get; set; }
+
     private bool isLabelActive = false;
+
+    private string FieldTypeString => Type switch
+    {
+        TextFieldType.Email => "email",
+        TextFieldType.Tel => "tel",
+        TextFieldType.Url => "url",
+        _ => "text"
+    };
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
         UpdateLabelActiveState();
+        SetAdditionalTextAttributes();
+    }
+
+    private void SetAdditionalTextAttributes()
+    {
+        if (AdditionalText is not null && !string.IsNullOrWhiteSpace(AdditionalTextId))
+        {
+            AdditionalAttributes["aria-describedby"] = AdditionalTextId;
+        }
+        else
+        {
+            AdditionalAttributes.Remove("aria-describedby");
+        }
     }
 
     private void SetLabelActiveState(bool active) => isLabelActive = active;

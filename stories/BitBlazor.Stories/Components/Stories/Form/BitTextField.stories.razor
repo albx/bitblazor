@@ -4,6 +4,7 @@
     <ArgType For="_ => _.Label" />
     <ArgType For="_ => _.Id" />
     <ArgType For="_ => _.Placeholder" />
+    <ArgType For="_ => _.Type" Control="ControlType.Select" />
     <ArgType For="_ => _.Disabled" />
     <ArgType For="_ => _.Readonly" />
     <ArgType For="_ => _.Plaintext" />
@@ -14,6 +15,7 @@
         <Arguments>
             <Arg For="_ => _.Label" Value="@("Label")" />
             <Arg For="_ => _.Placeholder" />
+            <Arg For="_ => _.Type" Value="TextFieldType.Text" />
             <Arg For="_ => _.Disabled" Value="false" />
             <Arg For="_ => _.Readonly" Value="false" />
             <Arg For="_ => _.Plaintext" Value="false" />
@@ -38,6 +40,21 @@
                                   Placeholder="Sample text"
                                   @bind-Value="model.PlaceholderStoryValue" />
                 </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Additional text">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitTextField Label="Sample label"
+                              @bind-Value="model.AdditionalTextStoryValue"
+                              Placeholder="Sample text"
+                              AdditionalTextId="helper-text">
+                    <AdditionalText>
+                        Some other text
+                    </AdditionalText>
+                </BitTextField>
             </div>
         </Template>
     </Story>
@@ -83,6 +100,8 @@
         public string? LabelStoryValue { get; set; }
 
         public string? PlaceholderStoryValue { get; set; }
+
+        public string? AdditionalTextStoryValue { get; set; }
 
         public string? DisabledStoryValue { get; set; }
 

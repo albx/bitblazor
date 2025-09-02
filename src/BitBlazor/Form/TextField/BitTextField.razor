@@ -7,7 +7,7 @@
                ValueChanged="ValueChanged"
                ValueExpression="ValueExpression"
                class="@ComputeInputCssClass()"
-               type="text"
+               type="@FieldTypeString"
                name="@Id"
                disabled="@Disabled"
                readonly="@(Readonly || Plaintext)"
@@ -18,6 +18,13 @@
     @if (For is not null)
     {
         <ValidationMessage For="For" class="is-invalid" />
+    }
+
+    @if (AdditionalText is not null)
+    {
+        <small id="@AdditionalTextId" class="form-text">
+            @AdditionalText
+        </small>
     }
 </div>
 

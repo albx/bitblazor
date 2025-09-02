@@ -84,4 +84,46 @@
                 <input type="text" class="form-control-plaintext" id="test-textfield" value="readonly" name="test-textfield" readonly />
              </div>);
     }
+
+    [Theory]
+    [InlineData(TextFieldType.Text, "text")]
+    [InlineData(TextFieldType.Email, "email")]
+    [InlineData(TextFieldType.Tel, "tel")]
+    [InlineData(TextFieldType.Url, "url")]
+    public void BitTextField_Should_Render_Specified_Type_Correctly(TextFieldType type, string expectedTypeString)
+    {
+        string? value = null;
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value"
+                           Type="type"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <input type="@expectedTypeString" class="form-control" id="test-textfield" name="test-textfield" />
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextField_Should_Render_Additional_Text_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value"
+                           AdditionalTextId="helper-text">
+                <AdditionalText>Some text</AdditionalText>
+             </BitTextField>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <input type="text" class="form-control" id="test-textfield" name="test-textfield" aria-describedby="helper-text" />
+                <small id="helper-text" class="form-text">Some text</small>
+             </div>);
+    }
 }
