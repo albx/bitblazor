@@ -59,6 +59,51 @@
         </Template>
     </Story>
 
+    <Story Name="Icons and buttons">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitTextField Label="With label"
+                              @bind-Value="model.IconsStoryValue">
+                    <PrependContent>
+                        <span class="input-group-text">
+                            <BitIcon IconName="@Icons.ItPencil"
+                                     Size="IconSize.Small"
+                                     aria-hidden="true" />
+                        </span>
+                    </PrependContent>
+                </BitTextField>
+
+                <BitTextField Label="With label and placeholder"
+                              @bind-Value="model.IconsAndPlaceholderStoryValue"
+                              Placeholder="Lorem ipsum">
+                    <PrependContent>
+                        <span class="input-group-text">
+                            <BitIcon IconName="@Icons.ItPencil"
+                                     Size="IconSize.Small"
+                                     aria-hidden="true" />
+                        </span>
+                    </PrependContent>
+                </BitTextField>
+
+                <BitTextField Label="With label and primary button"
+                              @bind-Value="model.IconsAndButtonStoryValue">
+                    <PrependContent>
+                        <span class="input-group-text">
+                            <BitIcon IconName="@Icons.ItPencil"
+                                     Size="IconSize.Small"
+                                     aria-hidden="true" />
+                        </span>
+                    </PrependContent>
+                    <AppendContent>
+                        <div class="input-group-append">
+                            <BitButton Color="Color.Primary">Send</BitButton>
+                        </div>
+                    </AppendContent>
+                </BitTextField>
+            </div>
+        </Template>
+    </Story>
+
     <Story Name="Disabled">
         <Template>
             <div class="px-2 py-2 mt-4">
@@ -108,5 +153,11 @@
         public string? ReadonlyStoryValue { get; set; } = "Read only";
 
         public string? PlaintextStoryValue { get; set; } = "Read only";
+
+        public string? IconsStoryValue { get; set; }
+
+        public string? IconsAndPlaceholderStoryValue { get; set; }
+
+        public string? IconsAndButtonStoryValue { get; set; }
     }
 }

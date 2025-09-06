@@ -126,4 +126,62 @@
                 <small id="helper-text" class="form-text">Some text</small>
              </div>);
     }
+
+    [Fact]
+    public void BitTextField_Should_Render_Correctly_Prepend_Content()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value">
+                <PrependContent>
+                    <span class="input-group-text">
+                        <BitIcon IconName="@Icons.ItPencil"
+                                 Size="@IconSize.Small"
+                                 aria-hidden="true"/>
+                    </span>
+                </PrependContent>
+             </BitTextField>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-text"><svg class="icon icon-sm" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-pencil"></use></svg></span>
+                    <label for="test-textfield" class="">label</label>
+                    <input type="text" class="form-control" id="test-textfield" name="test-textfield" />
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextField_Should_Render_Correctly_Append_Content()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value">
+                <AppendContent>
+                    <div class="input-group-append">
+                        <BitButton Color="Color.Primary">
+                            Send
+                        </BitButton>
+                    </div>
+                </AppendContent>
+             </BitTextField>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <div class="input-group">
+                    <label for="test-textfield" class="">label</label>
+                    <input type="text" class="form-control" id="test-textfield" name="test-textfield" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button">Send</button>
+                    </div>
+                </div>
+             </div>);
+    }
 }

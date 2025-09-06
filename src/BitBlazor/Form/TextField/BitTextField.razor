@@ -2,32 +2,53 @@
 @inherits BitFormComponentBase<string?>
 
 <div class="form-group">
-    <label for="@Id" class="@ComputeLabelCssClass()">@Label</label>
-    <InputText Value="@Value"
-               ValueChanged="ValueChanged"
-               ValueExpression="ValueExpression"
-               class="@ComputeInputCssClass()"
-               type="@FieldTypeString"
-               name="@Id"
-               disabled="@Disabled"
-               readonly="@(Readonly || Plaintext)"
-               @attributes="AdditionalAttributes"
-               @onchange="@UpdateLabelActiveState"
-               @onfocus="@(() => SetLabelActiveState(true))"
-               @onblur="@UpdateLabelActiveState"/>
-    @if (For is not null)
+    @if (!IsInputGroup)
     {
-        <ValidationMessage For="For" class="is-invalid" />
-    }
+        @RenderLabel()
+        @RenderInput()
+        @RenderValidationMessage()
 
-    @if (AdditionalText is not null)
+        @RenderAdditionalText()
+    }
+    else 
     {
-        <small id="@AdditionalTextId" class="form-text">
-            @AdditionalText
-        </small>
+        <div class="input-group">
+            @PrependContent
+
+            @RenderLabel()
+            @RenderInput()
+            @RenderValidationMessage()
+
+            @RenderAdditionalText()
+
+            @AppendContent
+        </div>
     }
 </div>
 
 @code {
+    private RenderFragment RenderLabel()
+        => @<label for="@Id" class="@ComputeLabelCssClass()">@Label</label>;
 
+    private RenderFragment RenderInput()
+        => @<InputText Value="@Value"
+                    ValueChanged="ValueChanged"
+                    ValueExpression="ValueExpression"
+                    class="@ComputeInputCssClass()"
+                    type="@FieldTypeString"
+                    name="@Id"
+                    disabled="@Disabled"
+                    readonly="@(Readonly || Plaintext)"
+                    @attributes="AdditionalAttributes"
+                    @onchange="@UpdateLabelActiveState"
+                    @onfocus="@(() => SetLabelActiveState(true))"
+                    @onblur="@UpdateLabelActiveState"/>;
+
+    private RenderFragment? RenderValidationMessage() => For is null 
+        ? null 
+        : @<ValidationMessage For="For" class="is-invalid" />;
+
+    private RenderFragment? RenderAdditionalText() => AdditionalText is null 
+        ? null
+        : @<small id="@AdditionalTextId" class="form-text">@AdditionalText</small>;
 }

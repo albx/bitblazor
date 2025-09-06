@@ -48,6 +48,18 @@ public partial class BitTextField : BitFormComponentBase<string?>
     [Parameter]
     public string? AdditionalTextId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content which will be displayed before the input
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PrependContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content which will be displayed after the input
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AppendContent { get; set; }
+
     private bool isLabelActive = false;
 
     private string FieldTypeString => Type switch
@@ -57,6 +69,8 @@ public partial class BitTextField : BitFormComponentBase<string?>
         TextFieldType.Url => "url",
         _ => "text"
     };
+
+    private bool IsInputGroup => PrependContent is not null || AppendContent is not null;
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
