@@ -10,6 +10,7 @@
     <ArgType For="_ => _.Plaintext" />
     <ArgType For="_ => _.CssClass" />
     <ArgType For="_ => _.Required" />
+    <ArgType For="_ => _.Size" Control="ControlType.Select" />
 
     <Story Name="Default">
         <Arguments>
@@ -19,6 +20,7 @@
             <Arg For="_ => _.Disabled" Value="false" />
             <Arg For="_ => _.Readonly" Value="false" />
             <Arg For="_ => _.Plaintext" Value="false" />
+            <Arg For="_ => _.Size" Value="Size.Default" />
         </Arguments>
         <Template>
             <div class="px-2 py-2 mt-4">
@@ -133,6 +135,28 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Sizes">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitTextField Label="Large"
+                              Placeholder="Type your name"
+                              @bind-Value="model.SizeStoryLargeValue"
+                              Size="Size.Large" />
+
+                <BitTextField Label="Default"
+                              Placeholder="Type your name"
+                              @bind-Value="model.SizeStoryDefaultValue"
+                              Size="Size.Default" />
+
+
+                <BitTextField Label="Small"
+                              Placeholder="Type your name"
+                              @bind-Value="model.SizeStorySmallValue"
+                              Size="Size.Small" />
+            </div>
+        </Template>
+    </Story>
 </Stories>
 
 @code {
@@ -159,5 +183,11 @@
         public string? IconsAndPlaceholderStoryValue { get; set; }
 
         public string? IconsAndButtonStoryValue { get; set; }
+
+        public string? SizeStoryLargeValue { get; set; }
+
+        public string? SizeStoryDefaultValue { get; set; }
+
+        public string? SizeStorySmallValue { get; set; }
     }
 }

@@ -184,4 +184,60 @@
                 </div>
              </div>);
     }
+
+    [Fact]
+    public void BitTextField_Should_Render_Custom_Css_Class_On_Input()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value"
+                           CssClass="custom-input"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <input type="text" name="test-textfield" id="test-textfield" class="form-control custom-input" />
+             </div>);
+    }
+
+    [Theory]
+    [InlineData(Size.Large, "form-control-lg")]
+    [InlineData(Size.Small, "form-control-sm")]
+    public void BitTextField_Should_Render_Size_Class_Correctly(Size size, string expectedSizeClass)
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value"
+                           Size="size"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <input type="text" name="test-textfield" id="test-textfield" class="form-control @expectedSizeClass" />
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextField_Should_Not_Set_Any_Size_Class_If_Size_Parameter_Is_Set_To_Mini()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextField Label="label"
+                           Id="test-textfield"
+                           @bind-Value="value"
+                           Size="Size.Mini"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <input type="text" name="test-textfield" id="test-textfield" class="form-control" />
+             </div>);
+    }
 }

@@ -1,5 +1,6 @@
 using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
+using System.ComponentModel.DataAnnotations;
 
 namespace BitBlazor.Form;
 
@@ -60,6 +61,18 @@ public partial class BitTextField : BitFormComponentBase<string?>
     [Parameter]
     public RenderFragment? AppendContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the size of the text field component.
+    /// </summary>
+    /// <remarks>
+    /// The <see cref="Size"/> property determines the visual size of the text field.
+    /// Supported values are <see cref="Size.Default"/>, <see cref="Size.Large"/>, and <see cref="Size.Small"/>.
+    /// The default value is <see cref="Size.Default"/>.
+    /// </remarks>
+    [Parameter]
+    [AllowedValues(Size.Default, Size.Large, Size.Small)]
+    public Size Size { get; set; } = Size.Default;
+
     private bool isLabelActive = false;
 
     private string FieldTypeString => Type switch
@@ -111,6 +124,16 @@ public partial class BitTextField : BitFormComponentBase<string?>
         {
             builder.Add("form-control-plaintext");
         }
+
+        var sizeClass = Size switch
+        {
+            Size.Large => "form-control-lg",
+            Size.Small => "form-control-sm",
+            _ => string.Empty
+        };
+        builder.Add(sizeClass);
+
+        AddCustomCssClass(builder);
 
         return builder.Build();
     }

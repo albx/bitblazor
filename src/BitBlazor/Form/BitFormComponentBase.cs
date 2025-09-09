@@ -1,8 +1,9 @@
 using System.Linq.Expressions;
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace BitBlazor.Core;
+namespace BitBlazor.Form;
 
 /// <summary>
 /// Represents the base class for the form components
