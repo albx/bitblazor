@@ -1,5 +1,5 @@
 ﻿@namespace BitBlazor.Form
-@inherits BitFormComponentBase<string?>
+@inherits BitInputFieldBase<string?>
 
 <div class="form-group">
     @if (!IsInputGroup)
@@ -43,12 +43,4 @@
                     @onchange="@UpdateLabelActiveState"
                     @onfocus="@(() => SetLabelActiveState(true))"
                     @onblur="@UpdateLabelActiveState"/>;
-
-    private RenderFragment? RenderValidationMessage() => For is null 
-        ? null 
-        : @<ValidationMessage For="For" class="is-invalid" />;
-
-    private RenderFragment? RenderAdditionalText() => AdditionalText is null 
-        ? null
-        : @<small id="@AdditionalTextId" class="form-text">@AdditionalText</small>;
 }

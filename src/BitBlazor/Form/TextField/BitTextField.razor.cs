@@ -9,9 +9,8 @@ namespace BitBlazor.Form;
 /// </summary>
 /// <remarks>
 /// The <see cref="BitTextField"/> component is designed to handle string input values and provides built-in support for form integration and validation.
-/// It is a part of the BitFormComponentBase framework, which facilitates consistent handling of form fields.
 /// </remarks>
-public partial class BitTextField : BitFormComponentBase<string?>
+public partial class BitTextField : BitInputFieldBase<string?>
 {
     /// <inheritdoc/>
     protected override string FieldIdPrefix { get; } = "text";
@@ -20,34 +19,10 @@ public partial class BitTextField : BitFormComponentBase<string?>
     protected override Type[] SupportedTypes { get; } = [typeof(string)];
 
     /// <summary>
-    /// Gets or sets whether the input component should be readonly
-    /// </summary>
-    [Parameter]
-    public bool Readonly { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the input should be rendered as plain-text
-    /// </summary>
-    [Parameter]
-    public bool Plaintext { get; set; }
-
-    /// <summary>
     /// Gets or sets the type of the text field.
     /// </summary>
     [Parameter]
     public TextFieldType Type { get; set; } = TextFieldType.Text;
-
-    /// <summary>
-    /// Gets or sets an optional fragment of additional content to render.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? AdditionalText { get; set; }
-
-    /// <summary>
-    /// Gets or sets the identifier for additional text associated with the component.
-    /// </summary>
-    [Parameter]
-    public string? AdditionalTextId { get; set; }
 
     /// <summary>
     /// Gets or sets the content which will be displayed before the input
@@ -60,20 +35,6 @@ public partial class BitTextField : BitFormComponentBase<string?>
     /// </summary>
     [Parameter]
     public RenderFragment? AppendContent { get; set; }
-
-    /// <summary>
-    /// Gets or sets the size of the text field component.
-    /// </summary>
-    /// <remarks>
-    /// The <see cref="Size"/> property determines the visual size of the text field.
-    /// Supported values are <see cref="Size.Default"/>, <see cref="Size.Large"/>, and <see cref="Size.Small"/>.
-    /// The default value is <see cref="Size.Default"/>.
-    /// </remarks>
-    [Parameter]
-    [AllowedValues(Size.Default, Size.Large, Size.Small)]
-    public Size Size { get; set; } = Size.Default;
-
-    private bool isLabelActive = false;
 
     private string FieldTypeString => Type switch
     {
@@ -90,62 +51,11 @@ public partial class BitTextField : BitFormComponentBase<string?>
     {
         base.OnParametersSet();
         UpdateLabelActiveState();
-        SetAdditionalTextAttributes();
     }
-
-    private void SetAdditionalTextAttributes()
-    {
-        if (AdditionalText is not null && !string.IsNullOrWhiteSpace(AdditionalTextId))
-        {
-            AdditionalAttributes["aria-describedby"] = AdditionalTextId;
-        }
-        else
-        {
-            AdditionalAttributes.Remove("aria-describedby");
-        }
-    }
-
-    private void SetLabelActiveState(bool active) => isLabelActive = active;
 
     private void UpdateLabelActiveState()
     {
         var active = !string.IsNullOrEmpty(Value) || !string.IsNullOrWhiteSpace(Placeholder);
         SetLabelActiveState(active);
-    }
-
-    private string ComputeInputCssClass()
-    {
-        var builder = new CssClassBuilder();
-        if (!Plaintext)
-        {
-            builder.Add("form-control");
-        }
-        else
-        {
-            builder.Add("form-control-plaintext");
-        }
-
-        var sizeClass = Size switch
-        {
-            Size.Large => "form-control-lg",
-            Size.Small => "form-control-sm",
-            _ => string.Empty
-        };
-        builder.Add(sizeClass);
-
-        AddCustomCssClass(builder);
-
-        return builder.Build();
-    }
-
-    private string ComputeLabelCssClass()
-    {
-        var builder = new CssClassBuilder();
-        if (isLabelActive)
-        {
-            builder.Add("active");
-        }
-
-        return builder.Build();
     }
 }
