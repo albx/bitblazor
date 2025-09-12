@@ -82,7 +82,7 @@ public abstract class BitInputFieldBase<T> : BitFormComponentBase<T>
     /// <returns>
     /// A <see cref="RenderFragment"/> that renders the additional text, or <see langword="null"/> if <see cref="AdditionalText"/> is <see langword="null"/>.
     /// </returns>
-    protected RenderFragment? RenderAdditionalText()
+    protected virtual RenderFragment? RenderAdditionalText()
     {
         if (AdditionalText is null)
         {
@@ -138,6 +138,25 @@ public abstract class BitInputFieldBase<T> : BitFormComponentBase<T>
     protected virtual string ComputeInputCssClass()
     {
         var builder = new CssClassBuilder();
+
+        AddDefaultCssClass(builder);
+        AddSizeCssClass(builder);
+        AddCustomCssClass(builder);
+
+        return builder.Build();
+    }
+
+    /// <summary>
+    /// Adds a default CSS class to the specified <see cref="CssClassBuilder"/> based on the current state.
+    /// </summary>
+    /// <remarks>
+    /// If the <see cref="Plaintext"/> property is <see langword="false"/>, the "form-control" class is added. Otherwise, the "form-control-plaintext" class is added.
+    /// </remarks>
+    /// <param name="builder">
+    /// The <see cref="CssClassBuilder"/> to which the CSS class will be added. Cannot be null.
+    /// </param>
+    protected void AddDefaultCssClass(CssClassBuilder builder)
+    {
         if (!Plaintext)
         {
             builder.Add("form-control");
@@ -146,7 +165,22 @@ public abstract class BitInputFieldBase<T> : BitFormComponentBase<T>
         {
             builder.Add("form-control-plaintext");
         }
+    }
 
+    /// <summary>
+    /// Adds a CSS class to the specified <see cref="CssClassBuilder"/> based on the current size setting.
+    /// </summary>
+    /// <remarks>
+    /// The CSS class added corresponds to the value of the <c>Size</c> property: 
+    /// <list type="bullet"> 
+    /// <item><description><c>"form-control-lg"</c> is added for <c>Size.Large</c>.</description></item> 
+    /// <item><description><c>"form-control-sm"</c> is added for <c>Size.Small</c>.</description></item>
+    /// <item><description>No class is added for other values.</description></item> 
+    /// </list>
+    /// </remarks>
+    /// <param name="builder">The <see cref="CssClassBuilder"/> to which the size-related CSS class will be added.</param>
+    protected void AddSizeCssClass(CssClassBuilder builder)
+    {
         var sizeClass = Size switch
         {
             Size.Large => "form-control-lg",
@@ -154,10 +188,6 @@ public abstract class BitInputFieldBase<T> : BitFormComponentBase<T>
             _ => string.Empty
         };
         builder.Add(sizeClass);
-
-        AddCustomCssClass(builder);
-
-        return builder.Build();
     }
 
     /// <summary>
