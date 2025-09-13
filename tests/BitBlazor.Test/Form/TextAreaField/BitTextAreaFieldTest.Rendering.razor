@@ -1,0 +1,172 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitTextAreaField_Should_Render_Default_Markup_Correctly()
+    {
+        string value = "value";
+        var component = Render(@<BitTextAreaField Label="label" Id="test-textfield" Rows="3" @bind-Value="@value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <textarea rows="3" class="form-control" id="test-textfield" name="test-textfield" value="value"></textarea>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Render_Placeholder_Correctly()
+    {
+        string? value = null;
+        var component = Render(
+            @<BitTextAreaField Label="label" 
+                               Id="test-textfield" 
+                               Placeholder="type here"
+                               @bind-Value="@value"
+                               Rows="3"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <textarea rows="3" class="form-control" id="test-textfield" name="test-textfield" placeholder="type here"></textarea>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Set_Disabled_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextAreaField Label="label" 
+                               Id="test-textfield" 
+                               Disabled="true"
+                               @bind-Value="@value"
+                               Rows="3"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <textarea rows="3" class="form-control" id="test-textfield" name="test-textfield" disabled></textarea>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Set_Readonly_Correctly()
+    {
+        string? value = "readonly";
+
+        var component = Render(
+            @<BitTextAreaField Label="label"
+                               Id="test-textfield"
+                               @bind-Value="value"
+                               Readonly="true"
+                               Rows="3"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <textarea rows="3" class="form-control" id="test-textfield" value="readonly" name="test-textfield" readonly></textarea>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Render_Plaintext_Field_Correctly()
+    {
+        string? value = "readonly";
+
+        var component = Render(
+            @<BitTextAreaField Label="label"
+                               Id="test-textfield"
+                               @bind-Value="value"
+                               Plaintext="true"
+                               Rows="3"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="active">label</label>
+                <textarea rows="3" class="form-control-plaintext" id="test-textfield" value="readonly" name="test-textfield" readonly></textarea>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Render_Additional_Text_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextAreaField Label="label"
+                               Id="test-textfield"
+                               @bind-Value="value"
+                               AdditionalTextId="helper-text"
+                               Rows="3">
+                <AdditionalText>Some text</AdditionalText>
+             </BitTextAreaField>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <textarea rows="3" class="form-control" id="test-textfield" name="test-textfield" aria-describedby="helper-text"></textarea>
+                <small id="helper-text" class="form-text">Some text</small>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Render_Custom_Css_Class_On_Input()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextAreaField Label="label"
+                               Id="test-textfield"
+                               @bind-Value="value"
+                               CssClass="custom-input"
+                               Rows="3"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <textarea rows="3" name="test-textfield" id="test-textfield" class="form-control custom-input"></textarea>
+             </div>);
+    }
+
+    [Theory]
+    [InlineData(Size.Large, "form-control-lg")]
+    [InlineData(Size.Small, "form-control-sm")]
+    public void BitTextAreaField_Should_Render_Size_Class_Correctly(Size size, string expectedSizeClass)
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextAreaField Label="label"
+                               Id="test-textfield"
+                               @bind-Value="value"
+                               Size="size"
+                               Rows="3"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <textarea rows="3" name="test-textfield" id="test-textfield" class="form-control @expectedSizeClass"></textarea>
+             </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Not_Set_Any_Size_Class_If_Size_Parameter_Is_Set_To_Mini()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitTextAreaField Label="label"
+                               Id="test-textfield"
+                               @bind-Value="value"
+                               Size="Size.Mini"
+                               Rows="3"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-textfield" class="">label</label>
+                <textarea rows="3" name="test-textfield" id="test-textfield" class="form-control"></textarea>
+             </div>);
+    }
+}

@@ -79,6 +79,59 @@ This guide provides a quick overview of all BitBlazor components with basic exam
 </BitCard>
 ```
 
+## Form Components
+
+### BitTextField
+```razor
+<!-- Basic text field -->
+<BitTextField Label="Full Name" @bind-Value="model.Name" />
+
+<!-- Email field -->
+<BitTextField Label="Email" 
+              Type="TextFieldType.Email" 
+              @bind-Value="model.Email" />
+
+<!-- With input group -->
+<BitTextField Label="Website" Type="TextFieldType.Url" @bind-Value="model.Website">
+    <PrependContent>
+        <span class="input-group-text">https://</span>
+    </PrependContent>
+</BitTextField>
+```
+
+### BitPasswordField
+```razor
+<!-- Basic password field -->
+<BitPasswordField Label="Password" @bind-Value="model.Password" />
+
+<!-- With validation -->
+<BitPasswordField Label="New Password" 
+                  @bind-Value="model.Password"
+                  For="@(() => model.Password)">
+    <AdditionalText>
+        Must be at least 8 characters with uppercase, lowercase, number, and special character.
+    </AdditionalText>
+</BitPasswordField>
+```
+
+### BitTextAreaField
+```razor
+<!-- Basic text area -->
+<BitTextAreaField Label="Comments" 
+                  Rows="4" 
+                  @bind-Value="model.Comments" />
+
+<!-- With character count -->
+<BitTextAreaField Label="Description" 
+                  Rows="6" 
+                  @bind-Value="model.Description"
+                  AdditionalTextId="desc-help">
+    <AdditionalText>
+        Maximum 500 characters. Currently: @(model.Description?.Length ?? 0) characters.
+    </AdditionalText>
+</BitTextAreaField>
+```
+
 ## Utilities
 
 ### Icon
@@ -171,7 +224,39 @@ Size.Large        // Large
 ### Form with validation
 ```razor
 <EditForm Model="model" OnValidSubmit="HandleSubmit">
-    <!-- Form fields -->
+    <DataAnnotationsValidator />
+    
+    <div class="row">
+        <div class="col-md-6">
+            <BitTextField Label="First Name" 
+                          @bind-Value="model.FirstName"
+                          For="@(() => model.FirstName)" />
+        </div>
+        <div class="col-md-6">
+            <BitTextField Label="Last Name" 
+                          @bind-Value="model.LastName"
+                          For="@(() => model.LastName)" />
+        </div>
+        <div class="col-12">
+            <BitTextField Label="Email" 
+                          Type="TextFieldType.Email"
+                          @bind-Value="model.Email"
+                          For="@(() => model.Email)" />
+        </div>
+        <div class="col-12">
+            <BitPasswordField Label="Password" 
+                              @bind-Value="model.Password"
+                              For="@(() => model.Password)" />
+        </div>
+        <div class="col-12">
+            <BitTextAreaField Label="Bio" 
+                              Rows="4"
+                              @bind-Value="model.Bio"
+                              Placeholder="Tell us about yourself..." />
+        </div>
+    </div>
+    
+    <ValidationSummary />
     
     <div class="d-flex gap-2">
         <BitButton Type="ButtonType.Submit" 
@@ -187,6 +272,34 @@ Size.Large        // Large
         </BitButton>
     </div>
 </EditForm>
+
+@code {
+    private UserModel model = new();
+    
+    private class UserModel
+    {
+        [Required]
+        public string FirstName { get; set; } = string.Empty;
+        
+        [Required]
+        public string LastName { get; set; } = string.Empty;
+        
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; } = string.Empty;
+        
+        [Required]
+        [StringLength(100, MinimumLength = 8)]
+        public string Password { get; set; } = string.Empty;
+        
+        public string? Bio { get; set; }
+    }
+    
+    private async Task HandleSubmit()
+    {
+        // Handle form submission
+    }
+}
 ```
 
 ## Most Used Icons

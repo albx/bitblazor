@@ -1,0 +1,46 @@
+﻿@namespace BitBlazor.Form
+@inherits BitInputFieldBase<string?>
+
+<div class="form-group">
+    @if (!IsInputGroup)
+    {
+        @RenderLabel()
+        @RenderInput()
+        @RenderValidationMessage()
+
+        @RenderAdditionalText()
+    }
+    else 
+    {
+        <div class="input-group">
+            @PrependContent
+
+            @RenderLabel()
+            @RenderInput()
+            @RenderValidationMessage()
+
+            @RenderAdditionalText()
+
+            @AppendContent
+        </div>
+    }
+</div>
+
+@code {
+    private RenderFragment RenderLabel()
+        => @<label for="@Id" class="@ComputeLabelCssClass()">@Label</label>;
+
+    private RenderFragment RenderInput()
+        => @<InputText Value="@Value"
+                    ValueChanged="ValueChanged"
+                    ValueExpression="ValueExpression"
+                    class="@ComputeInputCssClass()"
+                    type="@FieldTypeString"
+                    name="@Id"
+                    disabled="@Disabled"
+                    readonly="@(Readonly || Plaintext)"
+                    @attributes="AdditionalAttributes"
+                    @onchange="@UpdateLabelActiveState"
+                    @onfocus="@(() => SetLabelActiveState(true))"
+                    @onblur="@UpdateLabelActiveState"/>;
+}

@@ -55,6 +55,9 @@ Defines size options for BitBlazor components.
 
 **Components using Size**:
 - `BitButton`
+- `BitTextField`
+- `BitPasswordField`
+- `BitTextAreaField`
 
 ### Ratio
 
@@ -157,6 +160,24 @@ Specifies the shadow size for a card element.
 | `Small` | Small shadow | `shadow-sm` |
 | `Medium` | Medium shadow | `shadow` |
 | `Large` | Large shadow | `shadow-lg` |
+
+## Form-specific Enumerations
+
+### TextFieldType
+
+**Namespace**: `BitBlazor.Form`
+
+Specifies the type of input field for a text-based form element.
+
+| Value | Description | HTML Input Type |
+|-------|-------------|-----------------|
+| `Text` | Plain text input | `text` |
+| `Email` | Email address input | `email` |
+| `Tel` | Telephone number input | `tel` |
+| `Url` | URL input | `url` |
+
+**Components using TextFieldType**:
+- `BitTextField`
 
 ## Icon-specific Enumerations
 
