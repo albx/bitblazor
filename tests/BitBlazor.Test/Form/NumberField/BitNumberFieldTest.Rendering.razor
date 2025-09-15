@@ -1,0 +1,30 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitNumberField_Should_Render_Default_Markup_Correctly()
+    {
+        int? value = null;
+
+        var component = Render(
+            @<BitNumberField Label="label"
+                             Id="test-numberfield"
+                             @bind-Value="value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-numberfield" class="input-number-label">label</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="test-numberfield" name="test-numberfield" step="any" />
+                    <span class="input-group-text align-buttons flex-column">
+                        <button type="button" class="input-number-add">
+                            <span class="visually-hidden">Increase value</span>
+                        </button>
+                        <button type="button" class="input-number-sub">
+                            <span class="visually-hidden">Decrease value</span>
+                        </button>
+                    </span>
+                </div>
+             </div>);
+    }
+}

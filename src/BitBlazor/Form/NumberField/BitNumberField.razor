@@ -1,0 +1,34 @@
+﻿@namespace BitBlazor.Form
+
+@typeparam T
+@inherits BitInputFieldBase<T>
+
+<div class="form-group">
+    <label for="@Id" class="@ComputeLabelCssClass()">@Label</label>
+    <div class="input-group">
+        <InputNumber Value="Value"
+                     ValueChanged="ValueChanged"
+                     ValueExpression="ValueExpression!"
+                     class="@ComputeInputCssClass()"
+                     id="@Id"
+                     name="@Id"
+                     step="any"
+                     disabled="@Disabled"
+                     readonly="@(Readonly || Plaintext)"
+                     @attributes="AdditionalAttributes"
+                     @onchange="@UpdateLabelActiveState"
+                     @onfocus="@(() => SetLabelActiveState(true))"
+                     @onblur="@UpdateLabelActiveState"/>
+        <span class="input-group-text align-buttons flex-column">
+            <button type="button" class="input-number-add">
+                <span class="visually-hidden">Increase value</span>
+            </button>
+            <button type="button" class="input-number-sub">
+                <span class="visually-hidden">Decrease value</span>
+            </button>
+        </span>
+    </div>
+    @RenderValidationMessage()
+
+    @RenderAdditionalText()
+</div>
