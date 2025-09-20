@@ -1,4 +1,5 @@
 using BitBlazor.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace BitBlazor.Form;
 
@@ -44,4 +45,65 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
 
         return builder.Build();
     }
+
+    private void Increment() => ChangeValue(factor: 1);
+    private void Decrement() => ChangeValue(factor: -1);
+
+    #region Increment/Decrement helpers
+    private void ChangeValue(int factor)
+    {
+        if (!ValueChangers.TryGetValue(ComponentType, out var valueChanger))
+        {
+            throw new NotSupportedException($"Type {ComponentType} is not supported");
+        }
+
+        Value = valueChanger(Value, factor);
+    }
+
+    private readonly static Dictionary<Type, Func<T?, int, T>> ValueChangers = new()
+    {
+        [typeof(int)] = (value, factor) =>
+        {
+            int intValue = value is null ? 0 : Convert.ToInt32(value);
+            int newValue = intValue + factor * 1;
+
+            return (T)(object)newValue;
+        },
+        [typeof(long)] = (value, factor) =>
+        {
+            long longValue = value is null ? 0 : Convert.ToInt64(value);
+            long newValue = longValue + factor * 1;
+
+            return (T)(object)newValue;
+        },
+        [typeof(short)] = (value, factor) =>
+        {
+            short shortValue = value is null ? (short)0 : Convert.ToInt16(value);
+            short newValue = (short)(shortValue + factor * 1);
+
+            return (T)(object)newValue;
+        },
+        [typeof(float)] = (value, factor) =>
+        {
+            float floatValue = value is null ? 0f : Convert.ToSingle(value);
+            float newValue = floatValue + factor * 1f;
+
+            return (T)(object)newValue;
+        },
+        [typeof(double)] = (value, factor) =>
+        {
+            double doubleValue = value is null ? 0 : Convert.ToDouble(value);
+            double newValue = doubleValue + factor * 1;
+
+            return (T)(object)newValue;
+        },
+        [typeof(decimal)] = (value, factor) =>
+        {
+            decimal decimalValue = value is null ? 0 : Convert.ToDecimal(value);
+            decimal newValue = decimalValue + factor * 1;
+
+            return (T)(object)newValue;
+        }
+    };
+    #endregion
 }

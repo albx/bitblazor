@@ -20,10 +20,10 @@
                      @onfocus="@(() => SetLabelActiveState(true))"
                      @onblur="@UpdateLabelActiveState"/>
         <span class="input-group-text align-buttons flex-column">
-            <button type="button" class="input-number-add">
+            <button type="button" class="input-number-add" @onclick="Increment">
                 <span class="visually-hidden">Increase value</span>
             </button>
-            <button type="button" class="input-number-sub">
+            <button type="button" class="input-number-sub" @onclick="Decrement">
                 <span class="visually-hidden">Decrease value</span>
             </button>
         </span>
