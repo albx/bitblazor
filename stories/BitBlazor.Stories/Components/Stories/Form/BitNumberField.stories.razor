@@ -13,6 +13,9 @@
     <ArgType For="_ => _.Step" />
     <ArgType For="_ => _.Min" />
     <ArgType For="_ => _.Max" />
+    <ArgType For="_ => _.Adaptive" />
+    <ArgType For="_ => _.IncrementButtonText" />
+    <ArgType For="_ => _.DecrementButtonText" />
 
     <Story Name="Default">
         <Arguments>
@@ -25,6 +28,9 @@
             <Arg For="_ => _.Step" Value="null" />
             <Arg For="_ => _.Min" Value="null" />
             <Arg For="_ => _.Max" Value="null" />
+            <Arg For="_ => _.Adaptive" Value="false" />
+            <Arg For="_ => _.IncrementButtonText" Value="@("Increase value")" />
+            <Arg For="_ => _.DecrementButtonText" Value="@("Decrease value")" />
         </Arguments>
         <Template>
             <div class="px-2 py-2 mt-4">
@@ -56,7 +62,68 @@
                                 @bind-Value="model.MinMaxAndStepStoryValue"
                                 Min="-2000"
                                 Max="15000"
-                                Step="500"/>
+                                Step="500" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Currency">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitNumberField Label="Currency"
+                                @bind-Value="model.CurrencyStoryValue"
+                                Min="0">
+                    <SymbolContent>&euro;</SymbolContent>
+                </BitNumberField>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Percentage">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitNumberField Label="Percentage"
+                                @bind-Value="model.PercentageStoryValue"
+                                Min="0"
+                                Max="100">
+                    <SymbolContent>%</SymbolContent>
+                </BitNumberField>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Disabled">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitNumberField Label="Disabled"
+                                @bind-Value="model.DisabledStoryValue"
+                                Step="1"
+                                Min="0"
+                                Max="100"
+                                Disabled="true" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Readonly">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitNumberField Label="Read-only content"
+                                @bind-Value="model.ReadonlyStoryValue"
+                                Step="1"
+                                Min="0"
+                                Max="100"
+                                Readonly="true" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Adaptive">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitNumberField Label="Adaptive"
+                                @bind-Value="model.AdaptiveStoryValue"
+                                Adaptive="true" />
             </div>
         </Template>
     </Story>
@@ -74,5 +141,15 @@
         public decimal? HalfWidthStoryValue { get; set; } = 100;
 
         public decimal? MinMaxAndStepStoryValue { get; set; } = 100;
+
+        public decimal? CurrencyStoryValue { get; set; } = (decimal)3.50;
+
+        public decimal? PercentageStoryValue { get; set; } = 50;
+
+        public decimal? DisabledStoryValue { get; set; } = 50;
+
+        public decimal? ReadonlyStoryValue { get; set; } = 50;
+
+        public decimal? AdaptiveStoryValue { get; set; } = 99999;
     }
 }

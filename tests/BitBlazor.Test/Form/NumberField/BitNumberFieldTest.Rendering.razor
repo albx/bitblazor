@@ -115,4 +115,174 @@
                 </div>
              </div>);
     }
+
+    [Fact]
+    public void BitNumberField_Should_Render_Correctly_Disabled_Field()
+    {
+        int? value = null;
+
+        var component = Render(
+            @<BitNumberField Label="label"
+                             Id="test-numberfield"
+                             @bind-Value="value"
+                             Disabled="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-numberfield" class="input-number-label">label</label>
+                <div class="input-group input-number">
+                    <input type="number" class="form-control" id="test-numberfield" name="test-numberfield" step="any" disabled />
+                    <span class="input-group-text align-buttons flex-column">
+                        <button type="button" class="input-number-add" disabled>
+                            <span class="visually-hidden">Increase value</span>
+                        </button>
+                        <button type="button" class="input-number-sub" disabled>
+                            <span class="visually-hidden">Decrease value</span>
+                        </button>
+                    </span>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Render_Correctly_Readonly_Field()
+    {
+        int? value = null;
+
+        var component = Render(
+            @<BitNumberField Label="label"
+                             Id="test-numberfield"
+                             @bind-Value="value"
+                             Readonly="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-numberfield" class="input-number-label">label</label>
+                <div class="input-group input-number">
+                    <input type="number" class="form-control" id="test-numberfield" name="test-numberfield" step="any" readonly />
+                    <span class="input-group-text align-buttons flex-column">
+                        <button type="button" class="input-number-add" disabled>
+                            <span class="visually-hidden">Increase value</span>
+                        </button>
+                        <button type="button" class="input-number-sub" disabled>
+                            <span class="visually-hidden">Decrease value</span>
+                        </button>
+                    </span>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Render_Adaptive_Field_Correctly()
+    {
+        int? value = null;
+
+        var component = Render(
+            @<BitNumberField Label="label"
+                             Id="test-numberfield"
+                             @bind-Value="value"
+                             Adaptive="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-numberfield" class="input-number-label">label</label>
+                <div class="input-group input-number input-number-adaptive">
+                    <input type="number" class="form-control" id="test-numberfield" name="test-numberfield" step="any" />
+                    <span class="input-group-text align-buttons flex-column">
+                        <button type="button" class="input-number-add">
+                            <span class="visually-hidden">Increase value</span>
+                        </button>
+                        <button type="button" class="input-number-sub">
+                            <span class="visually-hidden">Decrease value</span>
+                        </button>
+                    </span>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Render_Symbol_Correctly()
+    {
+        int? value = null;
+
+        var component = Render(
+            @<BitNumberField Label="label"
+                             Id="test-numberfield"
+                             @bind-Value="value">
+                <SymbolContent>%</SymbolContent>
+             </BitNumberField>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-numberfield" class="input-symbol-label">label</label>
+                <div class="input-group input-number">
+                    <span class="input-group-text fw-semibold">%</span>
+                    <input type="number" class="form-control" id="test-numberfield" name="test-numberfield" step="any" />
+                    <span class="input-group-text align-buttons flex-column">
+                        <button type="button" class="input-number-add">
+                            <span class="visually-hidden">Increase value</span>
+                        </button>
+                        <button type="button" class="input-number-sub">
+                            <span class="visually-hidden">Decrease value</span>
+                        </button>
+                    </span>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Set_Increment_Button_Text_Correctly()
+    {
+        int? value = null;
+
+        var component = Render(
+            @<BitNumberField Label="label"
+                             Id="test-numberfield"
+                             @bind-Value="value"
+                             IncrementButtonText="Increment field value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-numberfield" class="input-number-label">label</label>
+                <div class="input-group input-number">
+                    <input type="number" class="form-control" id="test-numberfield" name="test-numberfield" step="any" />
+                    <span class="input-group-text align-buttons flex-column">
+                        <button type="button" class="input-number-add">
+                            <span class="visually-hidden">Increment field value</span>
+                        </button>
+                        <button type="button" class="input-number-sub">
+                            <span class="visually-hidden">Decrease value</span>
+                        </button>
+                    </span>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Set_Decrement_Button_Text_Correctly()
+    {
+        int? value = null;
+
+        var component = Render(
+            @<BitNumberField Label="label"
+                             Id="test-numberfield"
+                             @bind-Value="value"
+                             DecrementButtonText="Decrement field value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label for="test-numberfield" class="input-number-label">label</label>
+                <div class="input-group input-number">
+                    <input type="number" class="form-control" id="test-numberfield" name="test-numberfield" step="any" />
+                    <span class="input-group-text align-buttons flex-column">
+                        <button type="button" class="input-number-add">
+                            <span class="visually-hidden">Increase value</span>
+                        </button>
+                        <button type="button" class="input-number-sub">
+                            <span class="visually-hidden">Decrement field value</span>
+                        </button>
+                    </span>
+                </div>
+             </div>);
+    }
 }

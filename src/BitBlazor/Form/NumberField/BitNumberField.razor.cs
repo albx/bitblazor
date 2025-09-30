@@ -1,6 +1,5 @@
 using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
-using System.Globalization;
 
 namespace BitBlazor.Form;
 
@@ -57,6 +56,34 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
     [Parameter]
     public T? Max { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the component should adapt its size depending on the value
+    /// </summary>
+    [Parameter]
+    public bool Adaptive { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to render as the symbol within the component.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to provide custom markup or components that represent the symbol. 
+    /// If not set, no symbol content will be rendered.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment? SymbolContent { get; set; }
+
+    /// <summary>
+    /// Gets or sets the text displayed on the increment button.
+    /// </summary>
+    [Parameter]
+    public string IncrementButtonText { get; set; } = "Increase value";
+
+    /// <summary>
+    /// Gets or sets the text displayed on the decrement button.
+    /// </summary>
+    [Parameter]
+    public string DecrementButtonText { get; set; } = "Decrease value";
+
     private string StepString => NumericHelpers<T>.FormatValue(Step) ?? StepDefaultValue;
 
     /// <inheritdoc/>
@@ -98,7 +125,20 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
     protected override string ComputeLabelCssClass()
     {
         var builder = new CssClassBuilder(base.ComputeLabelCssClass());
-        builder.Add("input-number-label");
+
+        var labelClass = SymbolContent is null ? "input-number-label" : "input-symbol-label";
+        builder.Add(labelClass);
+
+        return builder.Build();
+    }
+
+    private string ComputeInputGroupClasses()
+    {
+        var builder = new CssClassBuilder("input-group input-number");
+        if (Adaptive)
+        {
+            builder.Add("input-number-adaptive");
+        }
 
         return builder.Build();
     }

@@ -5,7 +5,12 @@
 
 <div class="form-group">
     <label for="@Id" class="@ComputeLabelCssClass()">@Label</label>
-    <div class="input-group input-number">
+    <div class="@ComputeInputGroupClasses()">
+        @if (SymbolContent is not null)
+        {
+            <span class="input-group-text fw-semibold">@SymbolContent</span>
+        }
+
         <InputNumber Value="Value"
                      ValueChanged="ValueChanged"
                      ValueExpression="ValueExpression!"
@@ -18,13 +23,13 @@
                      @attributes="AdditionalAttributes"
                      @onchange="@UpdateLabelActiveState"
                      @onfocus="@(() => SetLabelActiveState(true))"
-                     @onblur="@UpdateLabelActiveState"/>
+                     @onblur="@UpdateLabelActiveState" />
         <span class="input-group-text align-buttons flex-column">
-            <button type="button" class="input-number-add" @onclick="Increment">
-                <span class="visually-hidden">Increase value</span>
+            <button type="button" class="input-number-add" @onclick="Increment" disabled="@(Disabled || Readonly)">
+                <span class="visually-hidden">@IncrementButtonText</span>
             </button>
-            <button type="button" class="input-number-sub" @onclick="Decrement">
-                <span class="visually-hidden">Decrease value</span>
+            <button type="button" class="input-number-sub" @onclick="Decrement" disabled="@(Disabled || Readonly)">
+                <span class="visually-hidden">@DecrementButtonText</span>
             </button>
         </span>
     </div>

@@ -6,7 +6,7 @@ internal static class NumericHelpers<T>
 {
     internal static T ChangeValue(T? value, T? min, T? max, T? step, int factor)
     {
-        var valueType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T); ;
+        var valueType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
         if (!ValueChangers.TryGetValue(valueType, out var valueChanger))
         {
