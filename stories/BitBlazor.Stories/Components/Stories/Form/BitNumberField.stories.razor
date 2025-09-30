@@ -1,6 +1,6 @@
 ﻿@attribute [Stories("Form/BitNumberField")]
 
-<Stories TComponent="BitNumberField<decimal>">
+<Stories TComponent="BitNumberField<decimal?>">
     <ArgType For="_ => _.Label" />
     <ArgType For="_ => _.Id" />
     <ArgType For="_ => _.Placeholder" />
@@ -10,6 +10,9 @@
     <ArgType For="_ => _.CssClass" />
     <ArgType For="_ => _.Required" />
     <ArgType For="_ => _.Size" Control="ControlType.Select" />
+    <ArgType For="_ => _.Step" />
+    <ArgType For="_ => _.Min" />
+    <ArgType For="_ => _.Max" />
 
     <Story Name="Default">
         <Arguments>
@@ -19,11 +22,14 @@
             <Arg For="_ => _.Readonly" Value="false" />
             <Arg For="_ => _.Plaintext" Value="false" />
             <Arg For="_ => _.Size" Value="Size.Default" />
+            <Arg For="_ => _.Step" Value="null" />
+            <Arg For="_ => _.Min" Value="null" />
+            <Arg For="_ => _.Max" Value="null" />
         </Arguments>
         <Template>
             <div class="px-2 py-2 mt-4">
                 <BitNumberField @attributes="context.Args"
-                                @bind-Value="model.DefaultStoryValue"/>
+                                @bind-Value="model.DefaultStoryValue" />
             </div>
         </Template>
     </Story>
@@ -33,12 +39,24 @@
             <div class="px-2 py-2 mt-4">
                 <div class="w-100">
                     <BitNumberField Label="Input number in a full width column"
-                                    @bind-Value="model.FullWitdhStoryValue"/>
+                                    @bind-Value="model.FullWitdhStoryValue" />
                 </div>
                 <div class="w-50 mt-5">
                     <BitNumberField Label="Input number in a 50% width column"
-                                    @bind-Value="model.HalfWidthStoryValue"/>
+                                    @bind-Value="model.HalfWidthStoryValue" />
                 </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Min, Max & Step">
+        <Template>
+            <div class="px-2 py-2 mt-4">
+                <BitNumberField Label="Min, Max & Step"
+                                @bind-Value="model.MinMaxAndStepStoryValue"
+                                Min="-2000"
+                                Max="15000"
+                                Step="500"/>
             </div>
         </Template>
     </Story>
@@ -54,5 +72,7 @@
         public decimal? FullWitdhStoryValue { get; set; } = 100;
 
         public decimal? HalfWidthStoryValue { get; set; } = 100;
+
+        public decimal? MinMaxAndStepStoryValue { get; set; } = 100;
     }
 }

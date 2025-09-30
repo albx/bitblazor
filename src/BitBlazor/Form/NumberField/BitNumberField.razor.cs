@@ -1,5 +1,6 @@
 using BitBlazor.Core;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Components;
+using System.Globalization;
 
 namespace BitBlazor.Form;
 
@@ -16,6 +17,8 @@ namespace BitBlazor.Form;
 /// </typeparam>
 public partial class BitNumberField<T> : BitInputFieldBase<T>
 {
+    private const string StepDefaultValue = "any";
+
     /// <inheritdoc/>
     protected override string FieldIdPrefix { get; } = "number";
 
@@ -24,11 +27,65 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
         typeof(int), typeof(long), typeof(short), typeof(float), typeof(double), typeof(decimal),
     ];
 
+    /// <summary>
+    /// Gets or sets the increment value used when changing the parameter.
+    /// </summary>
+    /// <remarks>
+    /// The value determines the amount by which the associated parameter increases or decreases with each step. 
+    /// The type and meaning of the increment depend on the generic type <typeparamref name="T"/> and the context in which the parameter is used.
+    /// </remarks>
+    [Parameter]
+    public T? Step { get; set; }
+
+    /// <summary>
+    /// Gets or sets the minimum allowable value for the parameter.
+    /// </summary>
+    /// <remarks>
+    /// If set, input values less than <see cref="Min"/> may be considered invalid or rejected, depending on the component's validation logic. 
+    /// The type parameter <typeparamref name="T"/> must support comparison operations for this property to be meaningful.
+    /// </remarks>
+    [Parameter]
+    public T? Min { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum allowable value for the parameter.
+    /// </summary>
+    /// <remarks>
+    /// If set, input values greater than <see cref="Max"/> may be considered invalid or rejected, depending on the component's validation logic.
+    /// The type parameter <typeparamref name="T"/> must support comparison operations for this property to be meaningful.
+    /// </remarks>
+    [Parameter]
+    public T? Max { get; set; }
+
+    private string StepString => NumericHelpers<T>.FormatValue(Step) ?? StepDefaultValue;
+
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+        SetMinAndMaxAttributes();
         UpdateLabelActiveState();
+    }
+
+    private void SetMinAndMaxAttributes()
+    {
+        if (Min is not null)
+        {
+            AdditionalAttributes["min"] = Min;
+        }
+        else
+        {
+            AdditionalAttributes.Remove("min");
+        }
+
+        if (Max is not null)
+        {
+            AdditionalAttributes["max"] = Max;
+        }
+        else
+        {
+            AdditionalAttributes.Remove("max");
+        }
     }
 
     private void UpdateLabelActiveState()
@@ -46,64 +103,13 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
         return builder.Build();
     }
 
-    private void Increment() => ChangeValue(factor: 1);
-    private void Decrement() => ChangeValue(factor: -1);
-
-    #region Increment/Decrement helpers
-    private void ChangeValue(int factor)
+    private void Increment()
     {
-        if (!ValueChangers.TryGetValue(ComponentType, out var valueChanger))
-        {
-            throw new NotSupportedException($"Type {ComponentType} is not supported");
-        }
-
-        Value = valueChanger(Value, factor);
+        Value = NumericHelpers<T>.ChangeValue(Value, Min, Max, Step, factor: 1);
     }
 
-    private readonly static Dictionary<Type, Func<T?, int, T>> ValueChangers = new()
+    private void Decrement()
     {
-        [typeof(int)] = (value, factor) =>
-        {
-            int intValue = value is null ? 0 : Convert.ToInt32(value);
-            int newValue = intValue + factor * 1;
-
-            return (T)(object)newValue;
-        },
-        [typeof(long)] = (value, factor) =>
-        {
-            long longValue = value is null ? 0 : Convert.ToInt64(value);
-            long newValue = longValue + factor * 1;
-
-            return (T)(object)newValue;
-        },
-        [typeof(short)] = (value, factor) =>
-        {
-            short shortValue = value is null ? (short)0 : Convert.ToInt16(value);
-            short newValue = (short)(shortValue + factor * 1);
-
-            return (T)(object)newValue;
-        },
-        [typeof(float)] = (value, factor) =>
-        {
-            float floatValue = value is null ? 0f : Convert.ToSingle(value);
-            float newValue = floatValue + factor * 1f;
-
-            return (T)(object)newValue;
-        },
-        [typeof(double)] = (value, factor) =>
-        {
-            double doubleValue = value is null ? 0 : Convert.ToDouble(value);
-            double newValue = doubleValue + factor * 1;
-
-            return (T)(object)newValue;
-        },
-        [typeof(decimal)] = (value, factor) =>
-        {
-            decimal decimalValue = value is null ? 0 : Convert.ToDecimal(value);
-            decimal newValue = decimalValue + factor * 1;
-
-            return (T)(object)newValue;
-        }
-    };
-    #endregion
+        Value = NumericHelpers<T>.ChangeValue(Value, Min, Max, Step, factor: -1);
+    }
 }
