@@ -10,6 +10,14 @@ public enum Size
     /// </summary>
     Default,
     /// <summary>
+    /// The extra extra large size.
+    /// </summary>
+    ExtraExtraLarge,
+    /// <summary>
+    /// The extra large size.
+    /// </summary>
+    ExtraLarge,
+    /// <summary>
     /// The large size.
     /// </summary>
     Large,

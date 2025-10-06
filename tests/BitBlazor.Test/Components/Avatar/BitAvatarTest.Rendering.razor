@@ -1,0 +1,175 @@
+﻿@inherits TestContext
+
+@code {
+    [Theory]
+    [InlineData(Color.Primary, "avatar-primary")]
+    [InlineData(Color.Secondary, "avatar-secondary")]
+    [InlineData(Color.Success, "avatar-green")]
+    [InlineData(Color.Warning, "avatar-orange")]
+    [InlineData(Color.Danger, "avatar-red")]
+    public void BitAvatar_Should_Render_Background_Color_Correctly(Color color, string backgroundCssClass)
+    {
+        var component = Render(@<BitAvatar Text="Mario Rossi" BackgroundColor="color" />);
+
+        component.MarkupMatches(
+            @<div class="avatar @backgroundCssClass size-md"><p aria-hidden="true">MR</p><span class="visually-hidden">Mario Rossi</span></div>);
+    }
+
+    [Theory]
+    [InlineData(Size.Mini, "size-xs")]
+    [InlineData(Size.Small, "size-sm")]
+    public void Small_BitAvatar_Should_Render_Size_Correctly(Size size, string cssClass)
+    {
+        var component = Render(@<BitAvatar Text="Mario Rossi" Size="size" />);
+
+        component.MarkupMatches(
+            @<div class="avatar @cssClass "><p aria-hidden="true">M</p><span class="visually-hidden">Mario Rossi</span></div>);
+    }
+
+    
+    [Theory]
+    [InlineData(Size.Default, "size-md")]
+    [InlineData(Size.Large, "size-lg")]
+    [InlineData(Size.ExtraLarge, "size-xl")]
+    [InlineData(Size.ExtraExtraLarge, "size-xxl")]
+    public void Default_BitAvatar_Should_Render_Size_Correctly(Size size, string cssClass)
+    {
+        var component = Render(@<BitAvatar Text="Mario Rossi" Size="size" />);
+
+        component.MarkupMatches(
+            @<div class="avatar @cssClass "><p aria-hidden="true">MR</p><span class="visually-hidden">Mario Rossi</span></div>);
+    }
+
+    [Theory]
+    [InlineData(Size.Mini, "size-xs")]
+    [InlineData(Size.Small, "size-sm")]
+    [InlineData(Size.Default, "size-md")]
+    [InlineData(Size.Large, "size-lg")]
+    [InlineData(Size.ExtraLarge, "size-xl")]
+    [InlineData(Size.ExtraExtraLarge, "size-xxl")]
+    public void BitAvatar_Should_Render_Image_Correctly(Size size, string cssClass)
+    {
+        var component = Render(@<BitAvatar Text="Giovanna Ferrero" Size="size" Image="https://randomuser.me/api/portraits/women/24.jpg" />);
+
+        component.MarkupMatches(
+            @<div class="avatar @cssClass">
+                <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Giovanna Ferrero">
+            </div>);
+    }
+
+    [Theory]
+    [InlineData(Size.Mini, "size-xs", IconColor.Primary, "icon-primary")]
+    [InlineData(Size.Small, "size-sm", IconColor.Secondary, "icon-secondary")]
+    [InlineData(Size.Default, "size-md", IconColor.Success, "icon-success")]
+    [InlineData(Size.Large, "size-lg", IconColor.Danger, "icon-danger")]
+    [InlineData(Size.ExtraLarge, "size-xl", IconColor.Primary, "icon-primary")]
+    [InlineData(Size.ExtraExtraLarge, "size-xxl", IconColor.Warning, "icon-warning")]
+    public void BitAvatar_Should_Render_Icon_Correctly(Size size, string cssClass, IconColor iconColor, string iconColorClass)
+    {
+        var component = Render(@<BitAvatar Text="Search" Size="size" Icon="@Icons.ItSearch" IconColor="iconColor"/>);
+
+        component.MarkupMatches(
+            @<div class="avatar @cssClass">
+                <svg class="icon @iconColorClass"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-search"></use></svg>
+                <span class="visually-hidden">Search</span>
+            </div>);
+    }
+
+    [Fact]
+    public void BitAvatar_Should_Render_Link_Correctly()
+    {
+        var componentText = Render(@<BitAvatar Text="Mario Rossi" Link="#" />);
+        var componentImage = Render(@<BitAvatar Text="Giovanna Ferrero" Link="#" Image="https://randomuser.me/api/portraits/women/24.jpg"/>);
+        var componentIcon = Render(@<BitAvatar Text="Search" Icon="@Icons.ItSearch" Link="#" />);
+
+        componentText.MarkupMatches(
+            @<a href="#" class="avatar size-md"><p aria-hidden="true">MR</p><span class="visually-hidden">Mario Rossi</span></a>);
+
+        componentImage.MarkupMatches(
+            @<a href="#" class="avatar size-md">
+                <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Giovanna Ferrero">
+            </a>);
+
+        componentIcon.MarkupMatches(
+            @<a href="#" class="avatar size-md">
+                <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-search"></use></svg>
+                <span class="visually-hidden">Search</span>
+            </a>);
+    }
+
+    [Theory]
+    [InlineData(PresenceStatus.Active, "active", "Status: active")]
+    [InlineData(PresenceStatus.Busy, "busy", "Status: busy")]
+    [InlineData(PresenceStatus.Hidden, "hidden", "Status: hidden")]
+    public void BitAvatar_Should_Render_Presence_Status_Correctly(PresenceStatus status, string cssClass, string description)
+    {
+        var component = Render(@<BitAvatar Text="Giovanna Ferrero" PresenceStatus="@status" PresenceStatusDescription="@description" Image="https://randomuser.me/api/portraits/women/24.jpg"/>);
+
+        component.MarkupMatches(
+            @<div class="avatar-wrapper">
+                <div class="avatar size-md">
+            <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Giovanna Ferrero">
+                    <div class="avatar-presence @cssClass">
+                        <span class="visually-hidden">@description</span>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Theory]
+    [InlineData(Icons.ItCheck, "/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check", IconColor.White, "icon-white")]
+    [InlineData(Icons.ItMinus, "/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-minus", IconColor.Primary, "icon-primary")]
+    public void BitAvatar_Should_Render_Presence_Status_Icon_Correctly(string statusIcon, string svg, IconColor statusIconColor, string svgColor)
+    {
+        var component = Render(@<BitAvatar Text="Giovanna Ferrero" PresenceStatus="PresenceStatus.Busy" PresenceStatusDescription="-" PresenceStatusIcon="@statusIcon" PresenceStatusIconColor="@statusIconColor" Image="https://randomuser.me/api/portraits/women/24.jpg"/>);
+
+        component.MarkupMatches(
+            @<div class="avatar-wrapper">
+                <div class="avatar size-md">
+                    <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Giovanna Ferrero">
+                    <div class="avatar-presence busy">
+                        <svg class="icon @svgColor"><use href="@svg"></use></svg>
+                        <span class="visually-hidden">-</span>
+                    </div>
+                </div>
+            </div>);
+    }
+    
+    [Theory]
+    [InlineData(UserStatus.Approved, "approved", "User: approved")]
+    [InlineData(UserStatus.Declined, "declined", "User: declined")]
+    [InlineData(UserStatus.Notified, "notify", "User: notified")]
+    public void BitAvatar_Should_Render_User_Status_Correctly(UserStatus status, string cssClass, string description)
+    {
+        var component = Render(@<BitAvatar Text="Giovanna Ferrero" UserStatus="@status" UserStatusDescription="@description" Image="https://randomuser.me/api/portraits/women/24.jpg"/>);
+
+        component.MarkupMatches(
+            @<div class="avatar-wrapper">
+                <div class="avatar size-md">
+                    <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Giovanna Ferrero">
+                    <div class="avatar-status @cssClass">
+                        <span class="visually-hidden">@description</span>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Theory]
+    [InlineData(Icons.ItCheck, "/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-check", IconColor.White, "icon-white")]
+    [InlineData(Icons.ItMinus, "/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-minus", IconColor.Primary, "icon-primary")]
+    public void BitAvatar_Should_Render_User_Status_Icon_Correctly(string statusIcon, string svg, IconColor statusIconColor, string svgColor)
+    {
+        var component = Render(@<BitAvatar Text="Giovanna Ferrero" UserStatus="UserStatus.Declined" UserStatusDescription="-" UserStatusIcon="@statusIcon" UserStatusIconColor="@statusIconColor" Image="https://randomuser.me/api/portraits/women/24.jpg"/>);
+
+        component.MarkupMatches(
+            @<div class="avatar-wrapper">
+                <div class="avatar size-md">
+                    <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="Giovanna Ferrero">
+                    <div class="avatar-status declined">
+                        <svg class="icon @svgColor"><use href="@svg"></use></svg>
+                        <span class="visually-hidden">-</span>
+                    </div>
+                </div>
+            </div>);
+    }
+}

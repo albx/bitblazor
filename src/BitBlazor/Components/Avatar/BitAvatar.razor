@@ -1,0 +1,105 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitAvatarBase
+
+@if (IsWrapperRequired())
+{
+    <div class="@ComputeWrapperCssClass()">
+        @AvatarFragment
+        @if (HasExtraText())
+        {
+            @AvatarExtraTextFragment
+        }
+    </div>
+}
+else
+{
+    @AvatarFragment
+}
+
+@code {
+
+    private RenderFragment AvatarFragment => __builder =>
+    {
+        @if (HasLink() && !HasExtraText())
+        {
+            <a href="@Link" class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
+                @AvatarContentFragment
+            </a>
+        }
+        else
+        {
+            <div class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
+                @AvatarContentFragment
+            </div>
+        }
+    };
+
+    private RenderFragment AvatarContentFragment => __builder =>
+    {
+        @if (HasIcon())
+        {
+            <BitIcon IconName="@Icon" Color="@IconColor" aria-hidden="@HasExtraText()"></BitIcon>
+            @if (!HasExtraText())
+            {
+                <span class="visually-hidden">@Text</span>
+            }
+        }
+        else
+        {
+            @if (HasImage())
+            {
+                <img src="@Image" alt="@Text" aria-hidden="@HasExtraText()">
+            }
+            else
+            {
+                <p aria-hidden="true">@GetShortName()</p>
+
+                @if (!HasExtraText())
+                {
+                    <span class="visually-hidden">@Text</span>
+                }
+            }
+
+            @if (HasUserStatus())
+            {
+                <div class="avatar-status @GetUserStatusClass()">
+                    @if (HasUserStatusIcon())
+                    {
+                        <BitIcon IconName="@UserStatusIcon" Color="@UserStatusIconColor"></BitIcon>
+                    }
+                    <span class="visually-hidden">@UserStatusDescription</span>
+                </div>
+            }
+
+            @if (HasPresenceStatus())
+            {
+                <div class="avatar-presence @GetPresenceStatusClass()">
+                    @if (HasPresenceStatusIcon())
+                    {
+                        <BitIcon IconName="@PresenceStatusIcon" Color="@PresenceStatusIconColor"></BitIcon>
+                    }
+                    <span class="visually-hidden">@PresenceStatusDescription</span>
+                </div>
+            }
+        }
+    };
+
+    private RenderFragment AvatarExtraTextFragment => __builder =>
+    {
+        <div class="extra-text">
+            <h4>
+                @if (HasLink())
+                {
+                    <a href="@Link">@Text</a>
+                }
+                else
+                {
+                    @Text
+                }
+            </h4>
+            <p>@ExtraText</p>
+        </div>
+    };
+
+}

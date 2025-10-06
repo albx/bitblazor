@@ -1,0 +1,145 @@
+﻿@attribute [Stories("Components/BitAvatar")]
+
+<Stories TComponent="BitAvatar">
+    <ArgType For="_ => _.Text" DefaultValue="@("Mario Rossi")" />
+    <ArgType For="_ => _.Size" Control="ControlType.Select" DefaultValue="Size.Default" />
+    <ArgType For="_ => _.BackgroundColor" Control="ControlType.Select" DefaultValue="Color.Default" />
+    <ArgType For="_ => _.IconColor" Control="ControlType.Select" DefaultValue="IconColor.Default" />
+    <ArgType For="_ => _.PresenceStatus" Control="ControlType.Select" DefaultValue="PresenceStatus.Active" />
+    <ArgType For="_ => _.PresenceStatusIconColor" Control="ControlType.Select" DefaultValue="IconColor.White" />
+    <ArgType For="_ => _.UserStatus" Control="ControlType.Select" DefaultValue="UserStatus.None" />
+    <ArgType For="_ => _.UserStatusIconColor" Control="ControlType.Select" DefaultValue="IconColor.White" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Text" Value="@("Mario Rossi")" />
+            <Arg For="_ => _.Size" Value="Size.Default" />
+            <Arg For="_ => _.BackgroundColor" Value="Color.Default" />
+            <ArgType For="_ => _.PresenceStatus" Control="ControlType.Select" DefaultValue="PresenceStatus.Active" />
+            <ArgType For="_ => _.PresenceStatusIcon" Control="ControlType.Select" DefaultValue="@Icons.ItCheck" />
+
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar @attributes="context.Args" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Avatar with images">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.Mini" Image="https://randomuser.me/api/portraits/men/46.jpg" Text="Mario Rossi" />
+                <BitAvatar Size="Size.Small" Image="https://randomuser.me/api/portraits/women/44.jpg" Text="Luisa Neri" />
+                <BitAvatar Size="Size.Default" Image="https://randomuser.me/api/portraits/men/43.jpg" Text="Gioacchino Romani" />
+                <BitAvatar Size="Size.Large" Image="https://randomuser.me/api/portraits/women/41.jpg" Text="Anna Barbieri" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/men/33.jpg" Text="Carlo Poli" />
+                <BitAvatar Size="Size.ExtraExtraLarge" Image="https://randomuser.me/api/portraits/women/24.jpg" Text="Giovanna Ferrero" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Avatar with text">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.Mini" Text="Mario Rossi" />
+                <BitAvatar Size="Size.Small" BackgroundColor="Color.Primary" Text="Luisa Neri" />
+                <BitAvatar Size="Size.Default" BackgroundColor="Color.Secondary" Text="Gioacchino Romani" />
+                <BitAvatar Size="Size.Large" BackgroundColor="Color.Success" Text="Anna Barbieri" />
+                <BitAvatar Size="Size.ExtraLarge" BackgroundColor="Color.Warning" Text="Carlo Poli" />
+                <BitAvatar Size="Size.ExtraExtraLarge" BackgroundColor="Color.Danger" Text="Giovanna Ferrero" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Avatar with icon">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.Mini" Icon="@Icons.ItSearch" IconColor="IconColor.Primary" Text="Search" />
+                <BitAvatar Size="Size.Default" Icon="@Icons.ItSearch" IconColor="IconColor.Secondary" Text="Search" />
+                <BitAvatar Size="Size.Large" Icon="@Icons.ItSearch" IconColor="IconColor.Success" Text="Search" />
+                <BitAvatar Size="Size.ExtraLarge" Icon="@Icons.ItSearch" IconColor="IconColor.Warning" Text="Search" />
+                <BitAvatar Size="Size.ExtraExtraLarge" Icon="@Icons.ItSearch" IconColor="IconColor.Default" Text="Search" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Avatar with link">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/women/41.jpg" Link="#" Text="Anna Barbieri" />
+                <BitAvatar Size="Size.ExtraLarge" Link="#" Text="Mario Rossi" />
+                <BitAvatar Size="Size.ExtraLarge" Icon="@Icons.ItSearch" IconColor="IconColor.Primary" Text="Search" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Avatar with presence status">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/men/43.jpg" Text="Mario Rossi" PresenceStatus="PresenceStatus.Active" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/women/41.jpg" Text="Anna Barbieri" PresenceStatus="PresenceStatus.Busy" PresenceStatusIcon="@Icons.ItMinus" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/men/33.jpg" Text="Gioacchino Romani" PresenceStatus="PresenceStatus.Hidden" />
+            </div>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.Small" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" PresenceStatus="PresenceStatus.Busy" PresenceStatusIcon="@Icons.ItMinus" PresenceStatusDescription="Presenza: non disponibile" />
+                <BitAvatar Size="Size.Default" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" PresenceStatus="PresenceStatus.Busy" PresenceStatusIcon="@Icons.ItMinus" PresenceStatusDescription="Presenza: non disponibile" />
+                <BitAvatar Size="Size.Large" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" PresenceStatus="PresenceStatus.Busy" PresenceStatusIcon="@Icons.ItMinus" PresenceStatusDescription="Presenza: non disponibile" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" PresenceStatus="PresenceStatus.Busy" PresenceStatusIcon="@Icons.ItMinus" PresenceStatusDescription="Presenza: non disponibile" />
+                <BitAvatar Size="Size.ExtraExtraLarge" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" PresenceStatus="PresenceStatus.Busy" PresenceStatusIcon="@Icons.ItMinus" PresenceStatusDescription="Presenza: non disponibile" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Avatar with user status">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/men/43.jpg" Text="Mario Rossi" UserStatus="UserStatus.Approved" UserStatusIcon="@Icons.ItCheck" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/women/41.jpg" Text="Anna Barbieri" UserStatus="UserStatus.Declined" UserStatusIcon="@Icons.ItClose" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/men/33.jpg" Text="Gioacchino Romani" UserStatus="UserStatus.Notified" UserStatusIcon="@Icons.ItClock" />
+            </div>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.Default" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" UserStatus="UserStatus.Approved" UserStatusIcon="@Icons.ItCheck" UserStatusDescription="Stato: approvato" />
+                <BitAvatar Size="Size.Large" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" UserStatus="UserStatus.Declined" UserStatusIcon="@Icons.ItClose" UserStatusDescription="Stato: respinto" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" UserStatus="UserStatus.Approved" UserStatusIcon="@Icons.ItCheck" UserStatusDescription="Stato: approvato" />
+                <BitAvatar Size="Size.ExtraExtraLarge" Image="https://randomuser.me/api/portraits/women/32.jpg" Text="Ludovica Galli" UserStatus="UserStatus.Declined" UserStatusIcon="@Icons.ItClose" UserStatusDescription="Stato: respinto" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Avatar group - small">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatarGroup>
+                    <BitAvatarGroupItem Size="Size.Small" Image="https://randomuser.me/api/portraits/men/43.jpg" Text="Mario Rossi" Link="#" />
+                    <BitAvatarGroupItem Size="Size.Small" Text="Arianna Gallo" Link="#" CssClass="complementary-3-bg" />
+                    <BitAvatarGroupItem Size="Size.Small" Text="Sara Ghione" CssClass="avatar-red" />
+                    <BitAvatarGroupItem Size="Size.Small" Text="Antonio Esposito" Icon="@Icons.ItUser" />
+                </BitAvatarGroup>
+            </div>
+        </Template>
+    </Story>
+    
+    <Story Name="Avatar group - medium">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatarGroup>
+                    <BitAvatarGroupItem Size="Size.Default" Image="https://randomuser.me/api/portraits/men/43.jpg" Text="Mario Rossi" Link="#" />
+                    <BitAvatarGroupItem Size="Size.Default" Text="Arianna Gallo" Link="#" CssClass="complementary-3-bg" />
+                    <BitAvatarGroupItem Size="Size.Default" Text="Sara Ghione" CssClass="avatar-red" />
+                    <BitAvatarGroupItem Size="Size.Default" Text="Antonio Esposito" Icon="@Icons.ItUser" />
+                </BitAvatarGroup>
+            </div>
+        </Template>
+    </Story>
+    
+    <Story Name="Avatar with extra text">
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/men/33.jpg" Link="#" Text="Mario Rossi" ExtraText="15 set 2025" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/women/33.jpg" Text="Giulia Neri" ExtraText="Lorem ipsum dolor" />
+                <BitAvatar Size="Size.ExtraLarge" Image="https://randomuser.me/api/portraits/men/15.jpg" Link="#" Text="Michele Dotti" ExtraText="12 mag 2025" />
+            </div>
+        </Template>
+    </Story>
+</Stories>

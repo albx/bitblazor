@@ -1,0 +1,55 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitAvatarGroup_Should_Render_Correctly()
+    {
+        var component = Render(
+            @<BitAvatarGroup>
+                <BitAvatarGroupItem Text="Mario Rossi" />
+                <BitAvatarGroupItem Text="Giovanna Ferrero" Image="https://randomuser.me/api/portraits/women/24.jpg" />
+                <BitAvatarGroupItem Text="Alfredo Verdi" Link="#"/>
+                <BitAvatarGroupItem Text="Paola Neri" Link="#" Icon="@Icons.ItUser"/>
+            </BitAvatarGroup>);
+
+        component.MarkupMatches(
+            @<div class="link-list-wrapper">
+                <ul class="link-list avatar-group">
+                    <li>
+                        <div class="list-item">
+                            <div class="avatar size-md">
+                                <p aria-hidden="true">MR</p>
+                            </div>
+                            <span>Mario Rossi</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="list-item">
+                            <div class="avatar size-md">
+                                <img src="https://randomuser.me/api/portraits/women/24.jpg" alt="" aria-hidden="true">
+                            </div>
+                            <span>Giovanna Ferrero</span>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="#" class="list-item">
+                            <div class="avatar size-md">
+                                <p aria-hidden="true">AV</p>
+                            </div>
+                            <span>Alfredo Verdi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="list-item">
+                            <div class="avatar size-md">
+                                <svg class="icon">
+                                    <use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-user"></use>
+                                </svg>
+                            </div>
+                            <span>Paola Neri</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>);
+    }
+}
