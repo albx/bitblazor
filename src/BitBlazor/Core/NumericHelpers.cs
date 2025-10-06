@@ -26,6 +26,84 @@ internal static class NumericHelpers<T>
         return null;
     }
 
+    internal static T? GetDefaultMaxValue()
+    {
+        var currentType = typeof(T);
+        if (Nullable.GetUnderlyingType(currentType) is not null)
+        {
+            return (T?)(object?)null;
+        }
+
+        if (!MaxValueGetters.TryGetValue(currentType, out var maxValueGetter))
+        {
+            throw new NotSupportedException($"Type {currentType} is not supported");
+        }
+
+        return maxValueGetter.Invoke();
+    }
+
+    internal static T? GetDefaultMinValue()
+    {
+        var currentType = typeof(T);
+        if (Nullable.GetUnderlyingType(currentType) is not null)
+        {
+            return (T?)(object?)null;
+        }
+
+        if (!MinValueGetters.TryGetValue(currentType, out var minValueGetter))
+        {
+            throw new NotSupportedException($"Type {currentType} is not supported");
+        }
+
+        return minValueGetter.Invoke();
+    }
+
+    internal static T? GetDefaultStepValue()
+    {
+        var currentType = typeof(T);
+        if (Nullable.GetUnderlyingType(currentType) is not null)
+        {
+            return (T?)(object?)null;
+        }
+
+        if (!StepValueGetters.TryGetValue(currentType, out var stepValueGetter))
+        {
+            throw new NotSupportedException($"Type {currentType} is not supported");
+        }
+
+        return stepValueGetter.Invoke();
+    }
+
+    private readonly static Dictionary<Type, Func<T?>> MaxValueGetters = new()
+    {
+        [typeof(int)] = () => (T?)(object)int.MaxValue,
+        [typeof(long)] = () => (T?)(object)long.MaxValue,
+        [typeof(short)] = () => (T?)(object)short.MaxValue,
+        [typeof(float)] = () => (T?)(object)float.MaxValue,
+        [typeof(double)] = () => (T?)(object)double.MaxValue,
+        [typeof(decimal)] = () => (T?)(object)decimal.MaxValue,
+    };
+
+    private readonly static Dictionary<Type, Func<T?>> MinValueGetters = new()
+    {
+        [typeof(int)] = () => (T?)(object)int.MinValue,
+        [typeof(long)] = () => (T?)(object)long.MinValue,
+        [typeof(short)] = () => (T?)(object)short.MinValue,
+        [typeof(float)] = () => (T?)(object)float.MinValue,
+        [typeof(double)] = () => (T?)(object)double.MinValue,
+        [typeof(decimal)] = () => (T?)(object)decimal.MinValue,
+    };
+
+    private readonly static Dictionary<Type, Func<T?>> StepValueGetters = new()
+    {
+        [typeof(int)] = () => (T?)(object)1,
+        [typeof(long)] = () => (T?)(object)(long)1,
+        [typeof(short)] = () => (T?)(object)(short)1,
+        [typeof(float)] = () => (T?)(object)1f,
+        [typeof(double)] = () => (T?)(object)(double)1,
+        [typeof(decimal)] = () => (T?)(object)(decimal)1,
+    };
+
     private readonly static Dictionary<Type, Func<T?, T?, T?, T?, int, T>> ValueChangers = new()
     {
         [typeof(int)] = (value, min, max, step, factor) =>

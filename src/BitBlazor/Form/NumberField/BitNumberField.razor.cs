@@ -1,5 +1,7 @@
 using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
+using System.Collections;
+using System.Globalization;
 
 namespace BitBlazor.Form;
 
@@ -18,6 +20,12 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
 {
     private const string StepDefaultValue = "any";
 
+    private static readonly T? minDefaultValue = NumericHelpers<T>.GetDefaultMinValue();
+    private static readonly T? maxDefaultValue = NumericHelpers<T>.GetDefaultMaxValue();
+    private static readonly T? stepDefaultValue = NumericHelpers<T>.GetDefaultStepValue();
+
+    private readonly Comparer comparer = new(CultureInfo.InvariantCulture);
+
     /// <inheritdoc/>
     protected override string FieldIdPrefix { get; } = "number";
 
@@ -34,7 +42,7 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
     /// The type and meaning of the increment depend on the generic type <typeparamref name="T"/> and the context in which the parameter is used.
     /// </remarks>
     [Parameter]
-    public T? Step { get; set; }
+    public T? Step { get; set; } = stepDefaultValue;
 
     /// <summary>
     /// Gets or sets the minimum allowable value for the parameter.
@@ -44,7 +52,7 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
     /// The type parameter <typeparamref name="T"/> must support comparison operations for this property to be meaningful.
     /// </remarks>
     [Parameter]
-    public T? Min { get; set; }
+    public T? Min { get; set; } = minDefaultValue;
 
     /// <summary>
     /// Gets or sets the maximum allowable value for the parameter.
@@ -54,7 +62,7 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
     /// The type parameter <typeparamref name="T"/> must support comparison operations for this property to be meaningful.
     /// </remarks>
     [Parameter]
-    public T? Max { get; set; }
+    public T? Max { get; set; } = maxDefaultValue;
 
     /// <summary>
     /// Gets or sets a value indicating whether the component should adapt its size depending on the value
@@ -96,18 +104,18 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
 
     private void SetMinAndMaxAttributes()
     {
-        if (Min is not null)
+        if (comparer.Compare(Min, minDefaultValue) != 0)
         {
-            AdditionalAttributes["min"] = Min;
+            AdditionalAttributes["min"] = Min!;
         }
         else
         {
             AdditionalAttributes.Remove("min");
         }
 
-        if (Max is not null)
+        if (comparer.Compare(Max, maxDefaultValue) != 0)
         {
-            AdditionalAttributes["max"] = Max;
+            AdditionalAttributes["max"] = Max!;
         }
         else
         {
