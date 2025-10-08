@@ -1,5 +1,8 @@
 # BitBlazor
 
+[![Tests](https://github.com/albx/bitblazor/actions/workflows/bitblazor-testrunner.yml/badge.svg)](https://github.com/albx/bitblazor/actions/workflows/bitblazor-testrunner.yml) [![CodeQL](https://github.com/albx/bitblazor/actions/workflows/bitblazor-codeql.yml/badge.svg)](https://github.com/albx/bitblazor/actions/workflows/bitblazor-codeql.yml)
+
+
 BitBlazor is a UI library that provides accessible, reusable Blazor components styled with [Bootstrap Italia](https://italia.github.io/bootstrap-italia/docs).  
 The goal is to offer a comprehensive set of components for .NET 9 applications, following accessibility best practices and the official Bootstrap Italia design system.
 
