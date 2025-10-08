@@ -2,19 +2,38 @@
 
 @inherits BitAvatarBase
 
-@if (IsWrapperRequired())
+@if (IsGrouped)
 {
-    <div class="@ComputeWrapperCssClass()">
-        @AvatarFragment
-        @if (HasExtraText())
-        {
-            @AvatarExtraTextFragment
-        }
-    </div>
+    <BitAvatarGroupItem 
+        AdditionalAttributes="@AdditionalAttributes"
+        BackgroundColor="@BackgroundColor"
+        CssClass="@CssClass"
+        Icon="@Icon"
+        IconColor="@IconColor"
+        Id="@Id"
+        Image="@Image"
+        Link="@Link"
+        Size="@Size"
+        Text="@Text"
+        TextShort="@TextShort"
+    />
 }
 else
 {
-    @AvatarFragment
+    @if (IsWrapperRequired())
+    {
+        <div class="@ComputeWrapperCssClass()">
+            @AvatarFragment
+            @if (HasExtraText())
+            {
+                @AvatarExtraTextFragment
+            }
+        </div>
+    }
+    else
+    {
+        @AvatarFragment
+    }
 }
 
 @code {
@@ -101,5 +120,4 @@ else
             <p>@ExtraText</p>
         </div>
     };
-
 }

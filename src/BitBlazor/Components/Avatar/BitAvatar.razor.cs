@@ -60,6 +60,9 @@ public partial class BitAvatar : BitAvatarBase
     [Parameter]
     public string? ExtraText { get; set; }
     
+    [CascadingParameter]
+    private object? ParentComponent { get; set; }
+
     private string GetUserStatusClass()
     {
         var statusClass = UserStatus switch
@@ -122,6 +125,8 @@ public partial class BitAvatar : BitAvatarBase
     {
         return !string.IsNullOrEmpty(ExtraText);
     }
+
+    private bool IsGrouped => ParentComponent is BitAvatarGroup;
 
     private bool IsWrapperRequired()
     {
