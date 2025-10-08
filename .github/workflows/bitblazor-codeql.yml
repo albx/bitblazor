@@ -1,0 +1,52 @@
+name: CodeQL
+
+on:
+  push:
+    branches-ignore: [ main ]
+    paths: [ 'src/**' ]
+  pull_request:
+    branches: [ main ]
+    paths: [ 'src/**' ]
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 1,15 * *'
+    
+env:
+  NET_VERSION: '9.x'
+    
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'csharp' ]
+  
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0 # avoid shallow clone so nbgv can do its work.
+        
+    - name: Setup .NET SDK ${{ env.NET_VERSION }}
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.NET_VERSION }}
+        dotnet-quality: 'ga'
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
