@@ -132,6 +132,28 @@ This guide provides a quick overview of all BitBlazor components with basic exam
 </BitTextAreaField>
 ```
 
+### BitNumberField
+```razor
+<!-- Basic number field -->
+<BitNumberField Label="Age" @bind-Value="model.Age" />
+
+<!-- With min/max and step -->
+<BitNumberField Label="Price" 
+                @bind-Value="model.Price"
+                Min="0"
+                Max="999.99m"
+                Step="0.01m">
+    <SymbolContent>€</SymbolContent>
+</BitNumberField>
+
+<!-- Adaptive sizing -->
+<BitNumberField Label="Quantity" 
+                @bind-Value="model.Quantity"
+                Adaptive="true"
+                Min="1"
+                Step="1" />
+```
+
 ## Utilities
 
 ### Icon
@@ -248,6 +270,19 @@ Size.Large        // Large
                               @bind-Value="model.Password"
                               For="@(() => model.Password)" />
         </div>
+        <div class="col-md-6">
+            <BitNumberField Label="Age" 
+                            @bind-Value="model.Age"
+                            For="@(() => model.Age)"
+                            Min="13"
+                            Max="120" />
+        </div>
+        <div class="col-md-6">
+            <BitTextField Label="Phone" 
+                          Type="TextFieldType.Tel"
+                          @bind-Value="model.Phone"
+                          For="@(() => model.Phone)" />
+        </div>
         <div class="col-12">
             <BitTextAreaField Label="Bio" 
                               Rows="4"
@@ -291,6 +326,13 @@ Size.Large        // Large
         [Required]
         [StringLength(100, MinimumLength = 8)]
         public string Password { get; set; } = string.Empty;
+        
+        [Required]
+        [Range(13, 120)]
+        public int Age { get; set; }
+        
+        [Phone]
+        public string? Phone { get; set; }
         
         public string? Bio { get; set; }
     }

@@ -154,10 +154,12 @@ public partial class BitNumberField<T> : BitInputFieldBase<T>
     private void Increment()
     {
         Value = NumericHelpers<T>.ChangeValue(Value, Min, Max, Step, factor: 1);
+        UpdateLabelActiveState();
     }
 
     private void Decrement()
     {
         Value = NumericHelpers<T>.ChangeValue(Value, Min, Max, Step, factor: -1);
+        UpdateLabelActiveState();
     }
 }
