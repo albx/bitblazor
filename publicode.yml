@@ -1,0 +1,53 @@
+publiccodeYmlVersion: 0.4.0
+name: BitBlazor
+url: "https://github.com/albx/bitblazor"
+softwareVersion: "0.1"
+releaseDate: 2025-08-20
+roadmap: "https://github.com/albx/bitblazor/issues"
+platforms:
+  - web
+categories:
+  - website-builder
+developmentStatus: development
+softwareType: library
+isBasedOn:
+  - Bootstrap Italia
+description:
+  en:
+    localisedName: BitBlazor
+    shortDescription: Blazor UI components based on Bootstrap Italia framework
+    longDescription: >-
+      The **BitBlazor**  library It’s the simplest and safest way to build **modern**, **inclusive** and **easy to maintain** web interfaces using the Blazor framework.
+
+      It’s completely **open-source**, and based on [Bootstrap Italia](https://github.com/italia/bootstrap-italia "Bootstrap Italia GitHub Repository") from which it derives all the functionalities, components, grids and utilities.
+    documentation: "https://github.com/albx/bitblazor/tree/main/docs"
+    features:
+      - responsive
+      - accessibility
+      - inclusion
+      - web development
+      - .NET
+  it:
+    localisedName: BitBlazor
+    shortDescription: Libreria di componenti Blazor basati sul framework Bootstrap Italia
+    longDescription: >-
+      La libreria **BitBlazor** è il modo più semplice e sicuro per costruire interfacce web **moderne**, **inclusive** e **semplici da mantenere** utilizzando il framework Blazor.
+
+      Completamente **open-source**, costruita sulle fondamenta di [Bootstrap Italia](https://github.com/italia/bootstrap-italia "Repository GitHub di Bootstrap Italia") di cui eredita tutte le funzionalità, componenti, griglie e classi di utilità.
+    features:
+      - responsive
+      - accessibility
+      - inclusion
+      - web development
+      - .NET
+legal:
+  authorsFile: "https://github.com/albx/bitblazor/AUTHORS"
+  license: MIT
+maintenance:
+  type: community
+  contacts:
+    - name: Alberto Mori
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - en
