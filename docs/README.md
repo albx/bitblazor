@@ -53,29 +53,36 @@ Complete card system for organizing content.
 
 BitBlazor provides a comprehensive set of form components that integrate seamlessly with ASP.NET Core Blazor's form system and Bootstrap Italia styling.
 
-#### [Form Components Overview](components/form-components.md)
+#### [Form Components Overview](form/form-components.md)
 Complete guide to form components, including validation, accessibility, and best practices.
 
-#### [BitTextField](components/text-field.md)
+#### [BitTextField](form/text-field.md)
 Single-line text input field component.
 - Support for different input types (text, email, tel, url)
 - Input groups with prepend/append content
 - Multiple sizes and states
 - Built-in validation support
 
-#### [BitPasswordField](components/password-field.md)
+#### [BitPasswordField](form/password-field.md)
 Password input field with show/hide functionality.
 - Toggle password visibility
 - Secure input handling
 - Accessibility-compliant design
 - Validation integration
 
-#### [BitTextAreaField](components/text-area-field.md)
+#### [BitTextAreaField](form/text-area-field.md)
 Multi-line text input field component.
 - Configurable row height
 - Auto-sizing capabilities
 - Character count guidance
 - Form validation support
+
+#### [BitNumberField](form/number-field.md)
+Numeric input field component with increment/decrement controls.
+- Support for multiple numeric types (int, long, short, float, double, decimal)
+- Built-in increment/decrement buttons
+- Min/max value constraints
+- Custom step values and symbol content
 
 ### Utilities
 
