@@ -17,7 +17,7 @@ description:
     localisedName: BitBlazor
     shortDescription: Blazor UI components based on Bootstrap Italia framework
     longDescription: >-
-      The **BitBlazor**  library It’s the simplest and safest way to build **modern**, **inclusive** and **easy to maintain** web interfaces using the Blazor framework.
+      The **BitBlazor** library is the simplest and safest way to build **modern**, **inclusive** and **easy to maintain** web interfaces using the Blazor framework.
 
       It’s completely **open-source**, and based on [Bootstrap Italia](https://github.com/italia/bootstrap-italia "Bootstrap Italia GitHub Repository") from which it derives all the functionalities, components, grids and utilities.
     documentation: "https://github.com/albx/bitblazor/tree/main/docs"
