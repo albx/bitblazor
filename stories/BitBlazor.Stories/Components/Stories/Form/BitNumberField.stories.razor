@@ -45,7 +45,7 @@
             <div class="px-2 py-2 mt-4">
                 <div class="w-100">
                     <BitNumberField Label="Input number in a full width column"
-                                    @bind-Value="model.FullWitdhStoryValue" />
+                                    @bind-Value="model.FullWidthStoryValue" />
                 </div>
                 <div class="w-50 mt-5">
                     <BitNumberField Label="Input number in a 50% width column"
@@ -136,7 +136,7 @@
     {
         public decimal? DefaultStoryValue { get; set; }
 
-        public decimal? FullWitdhStoryValue { get; set; } = 100;
+        public decimal? FullWidthStoryValue { get; set; } = 100;
 
         public decimal? HalfWidthStoryValue { get; set; } = 100;
 
