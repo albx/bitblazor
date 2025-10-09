@@ -41,7 +41,7 @@ description:
       - web development
       - .NET
 legal:
-  authorsFile: "https://github.com/albx/bitblazor/AUTHORS"
+  authorsFile: "https://github.com/albx/bitblazor/blob/main/AUTHORS"
   license: MIT
 maintenance:
   type: community
