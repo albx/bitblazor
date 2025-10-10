@@ -90,11 +90,22 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// </exception>
     protected BitFormComponentBase()
     {
-        if (!SupportedTypes.Contains(typeof(T)))
+        var targetType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+        if (!SupportedTypes.Contains(targetType))
         {
             throw new NotSupportedException("Type not supported");
         }
     }
+
+    /// <summary>
+    /// Gets the underlying non-nullable type of the generic parameter T, or T itself if it is not nullable.
+    /// </summary>
+    /// <remarks>
+    /// This property is useful when working with generic types that may be nullable value types. 
+    /// If T is a nullable value type (for example, int?), the property returns the underlying type (int). Otherwise, it returns T. 
+    /// This can help ensure type consistency when performing reflection or type-based operations.
+    /// </remarks>
+    protected Type ComponentType => Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
     /// <inheritdoc/>
     protected override void OnParametersSet()

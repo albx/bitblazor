@@ -1,0 +1,39 @@
+﻿@namespace BitBlazor.Form
+
+@typeparam T
+@inherits BitInputFieldBase<T>
+
+<div class="form-group">
+    <label for="@Id" class="@ComputeLabelCssClass()">@Label</label>
+    <div class="@ComputeInputGroupClasses()">
+        @if (SymbolContent is not null)
+        {
+            <span class="input-group-text fw-semibold">@SymbolContent</span>
+        }
+
+        <InputNumber Value="Value"
+                     ValueChanged="ValueChanged"
+                     ValueExpression="ValueExpression!"
+                     class="@ComputeInputCssClass()"
+                     id="@Id"
+                     name="@Id"
+                     step="@StepString"
+                     disabled="@Disabled"
+                     readonly="@(Readonly || Plaintext)"
+                     @attributes="AdditionalAttributes"
+                     @onchange="@UpdateLabelActiveState"
+                     @onfocus="@(() => SetLabelActiveState(true))"
+                     @onblur="@UpdateLabelActiveState" />
+        <span class="input-group-text align-buttons flex-column">
+            <button type="button" class="input-number-add" @onclick="Increment" disabled="@(Disabled || Readonly)">
+                <span class="visually-hidden">@IncrementButtonText</span>
+            </button>
+            <button type="button" class="input-number-sub" @onclick="Decrement" disabled="@(Disabled || Readonly)">
+                <span class="visually-hidden">@DecrementButtonText</span>
+            </button>
+        </span>
+    </div>
+    @RenderValidationMessage()
+
+    @RenderAdditionalText()
+</div>

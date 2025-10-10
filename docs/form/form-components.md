@@ -20,6 +20,7 @@ BitBlazor provides a comprehensive set of form components that integrate with:
 | [`BitTextField`](text-field.md) | Single-line text input | Email/Tel/URL types, input groups, sizes |
 | [`BitPasswordField`](password-field.md) | Password input with toggle | Show/hide functionality, secure input |
 | [`BitTextAreaField`](text-area-field.md) | Multi-line text input | Configurable rows, auto-sizing |
+| [`BitNumberField`](number-field.md) | Numeric input with controls | Increment/decrement buttons, type safety, min/max |
 
 ### Base Classes
 
@@ -129,6 +130,23 @@ All input components support three sizes:
                               @bind-Value="registrationModel.ConfirmPassword"
                               For="@(() => registrationModel.ConfirmPassword)" />
         </div>
+        <div class="col-md-6">
+            <BitNumberField Label="Age" 
+                            @bind-Value="registrationModel.Age"
+                            For="@(() => registrationModel.Age)"
+                            Min="13"
+                            Max="120">
+                <AdditionalText>
+                    You must be at least 13 years old to create an account.
+                </AdditionalText>
+            </BitNumberField>
+        </div>
+        <div class="col-md-6">
+            <BitTextField Label="Phone" 
+                          Type="TextFieldType.Tel"
+                          @bind-Value="registrationModel.Phone"
+                          For="@(() => registrationModel.Phone)" />
+        </div>
         <div class="col-12">
             <BitTextAreaField Label="Bio (Optional)" 
                               Rows="4"
@@ -177,6 +195,13 @@ All input components support three sizes:
         [Required]
         [Compare(nameof(Password))]
         public string ConfirmPassword { get; set; } = string.Empty;
+        
+        [Required]
+        [Range(13, 120, ErrorMessage = "Age must be between 13 and 120")]
+        public int Age { get; set; }
+        
+        [Phone]
+        public string? Phone { get; set; }
         
         [StringLength(500)]
         public string? Bio { get; set; }
