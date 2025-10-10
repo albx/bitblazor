@@ -2,6 +2,12 @@
 
 @inherits BitAvatarBase
 
+<!--
+    BitAvatar component renders a user avatar with support for icons, images, text, user status, and presence status.
+    It can be rendered as a grouped avatar or standalone, with optional extra text and link support.
+    The component adapts its rendering based on provided parameters and state.
+    -->
+
 @if (IsGrouped)
 {
     <BitAvatarGroupItem 
@@ -38,6 +44,9 @@ else
 
 @code {
 
+    /// <summary>
+    /// Gets the main avatar fragment, which renders either an anchor or a div based on link and extra text presence.
+    /// </summary>
     private RenderFragment AvatarFragment => __builder =>
     {
         @if (HasLink() && !HasExtraText())
@@ -54,6 +63,9 @@ else
         }
     };
 
+    /// <summary>
+    /// Gets the avatar content fragment, which renders icon, image, or text, and optionally user/presence status.
+    /// </summary>
     private RenderFragment AvatarContentFragment => __builder =>
     {
         @if (HasIcon())
@@ -104,6 +116,10 @@ else
         }
     };
 
+    /// <summary>
+    /// Gets the extra text fragment, which renders additional information below the avatar.
+    /// If a link is present, the text is rendered as a clickable anchor.
+    /// </summary>
     private RenderFragment AvatarExtraTextFragment => __builder =>
     {
         <div class="extra-text">

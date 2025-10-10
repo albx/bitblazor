@@ -2,6 +2,20 @@
 
 @code {
     [Theory]
+    [InlineData("Mario Rossi", "", "MR")]
+    [InlineData("Mario Rossi", "P1", "P1")]
+    [InlineData("", "", "")]
+    [InlineData(null, null, "")]
+    [InlineData("Don Diego de la Vega", "", "DD")]
+    public void Small_BitAvatar_Should_Render_Text_Correctly(string text, string shortText, string expectedShortText)
+    {
+        var component = Render(@<BitAvatar Text="@text" TextShort="@shortText" />);
+
+        component.MarkupMatches(
+    @<div class="avatar size-md"><p aria-hidden="true">@expectedShortText</p><span class="visually-hidden">@text</span></div>);
+    }
+    
+    [Theory]
     [InlineData(Color.Primary, "avatar-primary")]
     [InlineData(Color.Secondary, "avatar-secondary")]
     [InlineData(Color.Success, "avatar-green")]
