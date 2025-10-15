@@ -113,6 +113,31 @@ Specifies the type of an alert component.
 | `Warning` | Warning alert | `alert-warning` |
 | `Danger` | Danger alert | `alert-danger` |
 
+## Avatar-specific Enumerations
+
+### PresenceStatus Enumeration
+
+The `PresenceStatus` enumeration in `BitBlazor.Components` defines the possible presence status values that can be displayed within a BitAvatar component. This status is typically shown as a badge or indicator on the avatar, helping to visually communicate the user's current availability or activity.
+
+| Value    | Description                                              |
+|----------|----------------------------------------------------------|
+| `None`   | No presence status provided.                             |
+| `Active` | The user is active.                                      |
+| `Busy`   | The user is busy.                                        |
+| `Hidden` | The presence status of the user is hidden or private.    |
+
+### UserStatus
+
+The `UserStatus` enumeration in `BitBlazor.Components` defines the possible user status values that can be displayed within a BitAvatar component. This status is typically shown as a badge or indicator on the avatar, helping to visually communicate the user's current state.
+
+| Value      | Description                                 |
+|------------|---------------------------------------------|
+| `None`     | No user status provided.                    |
+| `Approved` | The user has been approved.                 |
+| `Declined` | The user has been declined.                 |
+| `Notified` | The user has been notified.                 |
+
+
 ## Button-specific Enumerations
 
 ### ButtonType
