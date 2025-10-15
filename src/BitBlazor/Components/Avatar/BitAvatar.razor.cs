@@ -4,6 +4,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
+/// <summary>
+/// BitAvatar component renders a user avatar with support for icons, images, text, user status, and presence status.
+/// It can be rendered as a grouped avatar or standalone, with optional extra text and link support.
+/// The component adapts its rendering based on provided parameters and state.
+/// </summary>
 public partial class BitAvatar : BitAvatarBase
 {
     /// <summary>
@@ -61,10 +66,12 @@ public partial class BitAvatar : BitAvatarBase
     public string? ExtraText { get; set; }
     
     [CascadingParameter]
-    private object? ParentComponent { get; set; }
+    private BitComponentBase? ParentComponent { get; set; }
 
-    private string GetUserStatusClass()
+    private string ComputeUserStatusClass()
     {
+        var builder = new CssClassBuilder("avatar-status");
+
         var statusClass = UserStatus switch
         {
             UserStatus.Approved => "approved",
@@ -73,11 +80,15 @@ public partial class BitAvatar : BitAvatarBase
             _ => string.Empty
         };
 
-        return statusClass;
+        builder.Add(statusClass);
+
+        return builder.Build();
     }
 
-    private string GetPresenceStatusClass()
+    private string ComputePresenceStatusClass()
     {
+        var builder = new CssClassBuilder("avatar-presence");
+
         var statusClass = PresenceStatus switch
         {
             PresenceStatus.Active => "active",
@@ -86,7 +97,9 @@ public partial class BitAvatar : BitAvatarBase
             _ => string.Empty
         };
 
-        return statusClass;
+        builder.Add(statusClass);
+
+        return builder.Build();
     }
 
     private string ComputeWrapperCssClass()

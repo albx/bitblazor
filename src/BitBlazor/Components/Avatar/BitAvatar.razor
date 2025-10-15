@@ -94,7 +94,7 @@ else
 
             @if (HasUserStatus())
             {
-                <div class="avatar-status @GetUserStatusClass()">
+                <div class="@ComputeUserStatusClass()">
                     @if (HasUserStatusIcon())
                     {
                         <BitIcon IconName="@UserStatusIcon" Color="@UserStatusIconColor"></BitIcon>
@@ -105,7 +105,7 @@ else
 
             @if (HasPresenceStatus())
             {
-                <div class="avatar-presence @GetPresenceStatusClass()">
+                <div class="@ComputePresenceStatusClass()">
                     @if (HasPresenceStatusIcon())
                     {
                         <BitIcon IconName="@PresenceStatusIcon" Color="@PresenceStatusIconColor"></BitIcon>

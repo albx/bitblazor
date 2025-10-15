@@ -7,7 +7,7 @@
     [InlineData("", "", "")]
     [InlineData(null, null, "")]
     [InlineData("Don Diego de la Vega", "", "DD")]
-    public void Small_BitAvatar_Should_Render_Text_Correctly(string text, string shortText, string expectedShortText)
+    public void Small_BitAvatar_Should_Render_Text_Correctly(string? text, string? shortText, string expectedShortText)
     {
         var component = Render(@<BitAvatar Text="@text" TextShort="@shortText" />);
 

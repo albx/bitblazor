@@ -12,6 +12,7 @@ Defines color options for BitBlazor components.
 
 | Value | Description | Usage |
 |-------|-------------|-------|
+| `Default` | Deafult color | Default component color, basic semantic content |
 | `Primary` | Primary color | Main actions, important elements |
 | `Secondary` | Secondary color | Secondary actions, support elements |
 | `Success` | Success color | Confirmations, successful operations |
@@ -48,7 +49,9 @@ Defines size options for BitBlazor components.
 
 | Value | Description | Typical CSS Class |
 |-------|-------------|-------------------|
-| `Default` | Default size | - |
+| `Default` | Default size | -, `*-md` |
+| `ExtraExtraLarge` | Extra extra large size | `*-xxl` |
+| `ExtraLarge` | Extra large size | `*-xl` |
 | `Large` | Large size | `*-lg` |
 | `Small` | Small size | `*-sm` |
 | `Mini` | Very small size | `*-xs` |
