@@ -6,6 +6,10 @@
 public enum Color
 {
     /// <summary>
+    /// The default color.
+    /// </summary>
+    Default,
+    /// <summary>
     /// The primary color.
     /// </summary>
     Primary,

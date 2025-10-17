@@ -34,6 +34,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", "{06530751-809C-4345-9E87-E218FC5B1A03}"
 	ProjectSection(SolutionItems) = preProject
 		docs\components\alert.md = docs\components\alert.md
+		docs\components\avatar.md = docs\components\avatar.md
 		docs\components\badge.md = docs\components\badge.md
 		docs\components\button-badge.md = docs\components\button-badge.md
 		docs\components\button.md = docs\components\button.md
