@@ -1,0 +1,39 @@
+﻿@namespace BitBlazor.Components
+
+@using BitBlazor.Components.Breadcrumb
+@inherits BitComponentBase
+
+<nav class="breadcrumb-container" aria-label="@Label">
+    <ol class="@ComputeCssClasses()">
+        @foreach (var item in Items)
+        {
+            @if (IsLeaf(item))
+            {
+                <li class="breadcrumb-item active" aria-current="page">
+                    @BreadcrumbIconFragment(item)
+                    @item.Text
+                </li>
+            }
+            else
+            {
+                <li class="breadcrumb-item"><a href="@item.Link">@item.Text</a><span class="separator">@Separator</span></li>
+            }
+        }
+    </ol>
+</nav>
+
+
+@code {
+
+    /// <summary>
+    /// Gets the item icon fragment, if specified.
+    /// </summary>
+    private RenderFragment BreadcrumbIconFragment(BitBreadcrumbItem item) => __builder =>
+    {
+        @if (item.HasIcon())
+        {
+            <BitIcon IconName="@item.Icon" aria-hidden="true"/>
+        }
+    };
+
+}
