@@ -25,7 +25,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapBlazingStoryMcp();
+app.MapBlazingStoryMcp(pattern: "mcp");
 app.MapStaticAssets();
 app.UseRouting();
 app.UseAntiforgery();
