@@ -17,17 +17,28 @@ The goal is to offer a comprehensive set of components for .NET 9 applications, 
 
 Requires **.NET 9+**.
 
-Install via NuGet:
+Install via [NuGet](https://www.nuget.org/packages/BitBlazor):
 
 ```bash
 dotnet add package BitBlazor
+```
+
+## Getting started
+
+Once the package is installed, simply add the reference to the Bootstrap Italia CSS included in the head section of your project:
+
+```html
+<head>
+    <!-- other css imports -->
+    <link rel="stylesheet" href="_content/BitBlazor/bootstrap-italia/css/bootstrap-italia.min.css" />
+</head>
 ```
 
 ## Documentation
 
 Comprehensive documentation can be found in the [docs](https://github.com/albx/bitblazor/blob/main/docs/README.md) folder.
 
-A [Storybook](https://storybook.js.org/) of the library is available [here](https://bitblazor-stories-gwc2hdexede9cwgf.italynorth-01.azurewebsites.net).
+A [Storybook](https://storybook.js.org/) for the library is available [here](https://bitblazor-stories-gwc2hdexede9cwgf.italynorth-01.azurewebsites.net).
 
 The storybook website is made using the project [Blazing Story](https://github.com/jsakamoto/BlazingStory) by @jsakamoto.
 
@@ -41,7 +52,7 @@ See the [CHANGELOG.md](https://github.com/albx/bitblazor/blob/main/CHANGELOG.md)
 
 Contributions are always welcome!
 
-If you have any issues, feedback, or feature requests, please see the [CONTRIBUTING](https://github.com/albx/bitblazor/blob/main/CONTRIBUTING.md)
+If you have any issues, feedback, or feature requests, please see the [CONTRIBUTING](https://github.com/albx/bitblazor/blob/main/CONTRIBUTING.md) file.
 
 
 ## License

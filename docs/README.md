@@ -23,6 +23,13 @@ Alert system for contextual user feedback.
 - Support for dismissible alerts
 - Event handling callbacks
 
+#### [Avatar](components/avatar.md)
+User avatar component for displaying profile images, icons, or initials.
+- Support for images, icons, or text initials
+- User status and presence indicators
+- Clickable links and extra descriptive text
+- Can be used standalone or within avatar groups
+
 #### [Badge](components/badge.md)
 Small and adaptable labels for adding information.
 - Solid and outline variants
