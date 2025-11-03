@@ -1,0 +1,20 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitDatepicker_Should_Render_Default_Markup_Correctly()
+    {
+        DateOnly? value = null;
+
+        var component = Render(
+            @<BitDatepicker Label="date"
+                            Id="test-datepicker"
+                            @bind-Value="value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label class="active" for="test-datepicker">date</label>
+                <input class="form-control" type="date" id="test-datepicker" name="test-datepicker" value="" />
+             </div>);
+    }
+}

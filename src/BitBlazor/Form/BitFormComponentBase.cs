@@ -90,8 +90,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// </exception>
     protected BitFormComponentBase()
     {
-        var targetType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
-        if (!SupportedTypes.Contains(targetType))
+        if (!SupportedTypes.Contains(ComponentType))
         {
             throw new NotSupportedException("Type not supported");
         }
