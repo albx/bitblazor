@@ -91,6 +91,13 @@ Numeric input field component with increment/decrement controls.
 - Min/max value constraints
 - Custom step values and symbol content
 
+#### [BitDatepicker](form/datepicker.md)
+Date input field component for selecting dates.
+- Support for DateTime and DateOnly types
+- Native browser date picker UI
+- Form validation integration
+- Accessible and responsive
+
 ### Utilities
 
 #### [Icon](utilities/icon.md)
