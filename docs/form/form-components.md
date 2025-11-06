@@ -21,6 +21,7 @@ BitBlazor provides a comprehensive set of form components that integrate with:
 | [`BitPasswordField`](password-field.md) | Password input with toggle | Show/hide functionality, secure input |
 | [`BitTextAreaField`](text-area-field.md) | Multi-line text input | Configurable rows, auto-sizing |
 | [`BitNumberField`](number-field.md) | Numeric input with controls | Increment/decrement buttons, type safety, min/max |
+| [`BitDatepicker`](datepicker.md) | Date input with picker | DateTime/DateOnly support, native browser UI, validation |
 
 ### Base Classes
 

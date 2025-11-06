@@ -78,7 +78,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// Gets the list of supported types
     /// </summary>
     /// <remarks>
-    /// This property will validate the <typeparamref name="T"/> type in the costructor.
+    /// This property will validate the <typeparamref name="T"/> type in the constructor.
     /// </remarks>
     protected abstract Type[] SupportedTypes { get; }
 
@@ -90,8 +90,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// </exception>
     protected BitFormComponentBase()
     {
-        var targetType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
-        if (!SupportedTypes.Contains(targetType))
+        if (!SupportedTypes.Contains(ComponentType))
         {
             throw new NotSupportedException("Type not supported");
         }
