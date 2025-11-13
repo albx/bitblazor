@@ -1,0 +1,22 @@
+﻿@namespace BitBlazor.Form
+
+@typeparam T
+@inherits BitInputFieldBase<T>
+
+<div class="form-group">
+    <label class="active" for="@Id">@Label</label>
+    <InputDate Value="Value"
+               ValueChanged="ValueChanged"
+               ValueExpression="ValueExpression!"
+               Type="InputDateType.Time"
+               class="@ComputeInputCssClass()"
+               id="@Id"
+               name="@Id"
+               disabled="@Disabled"
+               readonly="@(Readonly || Plaintext)"
+               @attributes="AdditionalAttributes" />
+
+    @RenderValidationMessage()
+
+    @RenderAdditionalText()
+</div>

@@ -1,0 +1,41 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitDatepicker_Should_Render_Default_Markup_Correctly()
+    {
+        TimeOnly? value = null;
+
+        var component = Render(
+            @<BitTimepicker Label="time"
+                            Id="test-timepicker"
+                            @bind-Value="value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label class="active" for="test-timepicker">time</label>
+                <input class="form-control" type="time" id="test-timepicker" name="test-timepicker" value="" />
+             </div>);
+    }
+
+    [Fact]
+    public void BitDatepicker_Should_Render_Additional_Text_As_Expected()
+    {
+        TimeOnly? value = null;
+
+        var component = Render(
+            @<BitTimepicker Label="time"
+                            Id="test-timepicker"
+                            @bind-Value="value"
+                            AdditionalTextId="additionalTextId">
+                <AdditionalText>Additional text</AdditionalText>
+             </BitTimepicker>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label class="active" for="test-timepicker">time</label>
+                <input class="form-control" type="time" id="test-timepicker" name="test-timepicker" value="" aria-describedby="additionalTextId" />
+                <small id="additionalTextId" class="form-text">Additional text</small>
+             </div>);
+    }
+}
