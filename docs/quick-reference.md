@@ -154,6 +154,28 @@ This guide provides a quick overview of all BitBlazor components with basic exam
                 Step="1" />
 ```
 
+### BitTimepicker
+```razor
+<!-- Basic time picker -->
+<BitTimepicker Label="Meeting Time" @bind-Value="model.MeetingTime" />
+
+<!-- With validation -->
+<BitTimepicker Label="Appointment Time" 
+               @bind-Value="model.AppointmentTime"
+               For="@(() => model.AppointmentTime)" />
+```
+
+### BitDatepicker
+```razor
+<!-- Basic date picker -->
+<BitDatepicker Label="Birth Date" @bind-Value="model.BirthDate" />
+
+<!-- With validation -->
+<BitDatepicker Label="Event Date" 
+               @bind-Value="model.EventDate"
+               For="@(() => model.EventDate)" />
+```
+
 ## Utilities
 
 ### Icon
@@ -283,6 +305,16 @@ Size.Large        // Large
                           @bind-Value="model.Phone"
                           For="@(() => model.Phone)" />
         </div>
+        <div class="col-md-6">
+            <BitDatepicker Label="Birth Date" 
+                           @bind-Value="model.BirthDate"
+                           For="@(() => model.BirthDate)" />
+        </div>
+        <div class="col-md-6">
+            <BitTimepicker Label="Preferred Contact Time" 
+                           @bind-Value="model.PreferredTime"
+                           For="@(() => model.PreferredTime)" />
+        </div>
         <div class="col-12">
             <BitTextAreaField Label="Bio" 
                               Rows="4"
@@ -333,6 +365,11 @@ Size.Large        // Large
         
         [Phone]
         public string? Phone { get; set; }
+        
+        [Required]
+        public DateOnly BirthDate { get; set; }
+        
+        public TimeOnly? PreferredTime { get; set; }
         
         public string? Bio { get; set; }
     }

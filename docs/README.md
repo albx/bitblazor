@@ -98,6 +98,13 @@ Date input field component for selecting dates.
 - Form validation integration
 - Accessible and responsive
 
+#### [BitTimepicker](form/timepicker.md)
+Time input field component for selecting times.
+- Support for TimeOnly type
+- Native browser time picker UI
+- Form validation integration
+- Accessible and responsive
+
 ### Utilities
 
 #### [Icon](utilities/icon.md)
