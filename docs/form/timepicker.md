@@ -10,7 +10,7 @@ BitBlazor.Form
 
 ## Description
 
-The `BitTimepicker` component is designed to handle time selection and provides built-in support for form integration and validation. It is a generic component that supports the `TimeOnly` type, ensuring type safety and providing a consistent time input experience.
+The `BitTimepicker` component is designed to handle time selection and provides built-in support for form integration and validation. It supports the `TimeOnly` type, ensuring type safety and providing a consistent time input experience.
 
 ## Parameters
 
@@ -27,7 +27,7 @@ The `BitTimepicker` component is designed to handle time selection and provides 
 
 ## Supported Types
 
-The `BitTimepicker<T>` component supports the following time type:
+The `BitTimepicker` component supports the following time type:
 
 - `TimeOnly` - Time-only values (available in .NET 6+)
 
