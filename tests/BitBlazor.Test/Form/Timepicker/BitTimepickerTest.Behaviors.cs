@@ -18,7 +18,7 @@ public class BitTimepickerTest
             TimeOnly? value = null;
 
             using var ctx = new TestContext();
-            var component = ctx.RenderComponent<BitTimepicker<TimeOnly?>>(parameters => parameters
+            var component = ctx.RenderComponent<BitTimepicker>(parameters => parameters
                 .Add(p => p.Label, "Label")
                 .Add(p => p.Id, "test-timepicker")
                 .Bind(p => p.Value, value, v => value = v));
@@ -34,23 +34,5 @@ public class BitTimepickerTest
         {
             CultureInfo.CurrentCulture = originalCulture;
         }
-    }
-
-    [Fact]
-    public void BitTimepicker_Should_Throw_NotSupportedException_If_Specified_Type_Is_Not_Supported()
-    {
-        TimeSpan? value = null;
-
-        using var ctx = new TestContext();
-
-        var ex = Assert.Throws<NotSupportedException>(() =>
-        {
-            ctx.RenderComponent<BitTimepicker<TimeSpan?>>(parameters => parameters
-                .Add(p => p.Label, "Label")
-                .Add(p => p.Id, "test-timepicker")
-                .Bind(p => p.Value, value, v => value = v));
-        });
-
-        Assert.Equal("Type not supported", ex.Message);
     }
 }
