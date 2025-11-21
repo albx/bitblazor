@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] - 2025-11-21
+
+### Added
+
+#### Form Components
+- [x] **Datepicker** - BitDatepicker component for date selection
+- [x] **Timepicker** - BitTimepicker component for time selection
+
+#### Documentation
+- [x] Datepicker documentation
+- [x] Timepicker documentation
+
 ## [0.2.0] - 2025-10-24
 
 ### Added
