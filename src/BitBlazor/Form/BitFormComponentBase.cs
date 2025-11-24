@@ -150,4 +150,30 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
 
         AdditionalAttributes["id"] = Id!;
     }
+
+    /// <summary>
+    /// Renders a validation message for the specified field.
+    /// </summary>
+    /// <remarks>
+    /// This method generates a <see cref="ValidationMessage{T}"/> component for the field specified by the <see cref="BitFormComponentBase{T}.For"/> property. 
+    /// The rendered validation message will include the CSS class "is-invalid" to indicate an invalid state.
+    /// </remarks>
+    /// <returns>
+    /// A <see cref="RenderFragment"/> that renders the validation message, or <see langword="null"/> if the <see cref="BitFormComponentBase{T}.For"/> property is not set.
+    /// </returns>
+    protected RenderFragment? RenderValidationMessage()
+    {
+        if (For is null)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            builder.OpenComponent<ValidationMessage<T>>(0);
+            builder.AddComponentParameter(1, nameof(ValidationMessage<T>.For), For);
+            builder.AddAttribute(2, "class", "is-invalid");
+            builder.CloseComponent();
+        };
+    }
 }

@@ -1,0 +1,38 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitCheckbox_Should_Render_Default_Markup_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value" />);
+
+        component.MarkupMatches(
+            @<div class="form-check">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
+                <label for="test-checkbox">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Inline_Class_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value"
+                          Inline="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-inline">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
+                <label for="test-checkbox">label</label>
+             </div>);
+    }
+}
