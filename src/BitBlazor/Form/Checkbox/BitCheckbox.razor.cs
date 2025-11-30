@@ -31,6 +31,8 @@ public partial class BitCheckbox : BitFormComponentBase<bool>
             builder.Add("form-check-inline");
         }
 
+        AddCustomCssClass(builder);
+
         return builder.Build();
     }
 }
