@@ -14,7 +14,7 @@
         component.MarkupMatches(
             @<div class="form-check">
                 <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
-                <label for="test-checkbox">label</label>
+                <label for="test-checkbox" class="">label</label>
              </div>);
     }
 
@@ -32,7 +32,42 @@
         component.MarkupMatches(
             @<div class="form-check form-check-inline">
                 <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
-                <label for="test-checkbox">label</label>
+                <label for="test-checkbox" class="">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Add_Checked_Attribute_If_Bind_Value_Is_True()
+    {
+        bool value = true;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value" />);
+
+        component.MarkupMatches(
+            @<div class="form-check">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" checked value="True" />
+                <label for="test-checkbox" class="">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Correctly_Disabled_Attribute_And_Add_Disabled_Class_To_Label_When_Disabled()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value"
+                          Disabled="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" disabled value="True" />
+                <label for="test-checkbox" class="disabled">label</label>
              </div>);
     }
 }

@@ -35,4 +35,15 @@ public partial class BitCheckbox : BitFormComponentBase<bool>
 
         return builder.Build();
     }
+
+    private string ComputeLabelCssClass()
+    {
+        var builder = new CssClassBuilder();
+        if (Disabled)
+        {
+            builder.Add("disabled");
+        }
+
+        return builder.Build();
+    }
 }

@@ -20,6 +20,40 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Inline checkbox">
+        <Template>
+            <div class="px-2 py-2">
+                <fieldset>
+                    <legend>Checkbox group</legend>
+
+                    <BitCheckbox Label="Unchecked checkbox"
+                                 @bind-Value="model.InlineCheckboxStoryUnchecked"
+                                 Inline="true" />
+                    <BitCheckbox Label="Checked checkbox"
+                                 @bind-Value="model.InlineCheckboxStoryChecked"
+                                 Inline="true" />
+                </fieldset>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Disabled">
+        <Template>
+            <div class="px-2 py-2">
+                <fieldset>
+                    <legend>Checkbox group</legend>
+
+                    <BitCheckbox Label="Unchecked disabled checkbox"
+                                 @bind-Value="model.DisabledCheckboxStoryUnchecked"
+                                 Disabled="true" />
+                    <BitCheckbox Label="Checked disabled checkbox"
+                                 @bind-Value="model.DisabledCheckboxStoryChecked"
+                                 Disabled="true" />
+                </fieldset>
+            </div>
+        </Template>
+    </Story>
 </Stories>
 
 @code {
@@ -28,5 +62,13 @@
     class ViewModel
     {
         public bool DefaultStoryValue { get; set; }
+
+        public bool InlineCheckboxStoryUnchecked { get; set; }
+
+        public bool InlineCheckboxStoryChecked { get; set; } = true;
+
+        public bool DisabledCheckboxStoryUnchecked { get; set; }
+
+        public bool DisabledCheckboxStoryChecked { get; set; } = true;
     }
 }

@@ -7,7 +7,8 @@
                    ValueChanged="ValueChanged"
                    ValueExpression="ValueExpression"
                    name="@Id"
+                   disabled="@Disabled"
                    @attributes="AdditionalAttributes"/>
 
-    <label for="@Id">@Label</label>
+    <label for="@Id" class="@ComputeLabelCssClass()">@Label</label>
 </div>
