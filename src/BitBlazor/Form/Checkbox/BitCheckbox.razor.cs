@@ -23,12 +23,26 @@ public partial class BitCheckbox : BitFormComponentBase<bool>
     [Parameter]
     public bool Inline { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the checkbox is grouped.
+    /// </summary>
+    /// <remarks>
+    /// Setting this value to true will align the checkbox to the right of the text content
+    /// </remarks>
+    [Parameter]
+    public bool Grouped { get; set; }
+
     private string ComputeContainerCssClasses()
     {
         var builder = new CssClassBuilder("form-check");
         if (Inline)
         {
             builder.Add("form-check-inline");
+        }
+
+        if (Grouped)
+        {
+            builder.Add("form-check-group");
         }
 
         AddCustomCssClass(builder);

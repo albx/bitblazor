@@ -54,6 +54,62 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Grouped">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <fieldset class="col-12 col-md-6">
+                        <legend>Checkbox group</legend>
+
+                        <BitCheckbox Label="Selected checkbox"
+                                     @bind-Value="model.GroupedCheckboxStoryChecked"
+                                     Grouped="true" />
+
+                        <BitCheckbox Label="Unchecked checkbox"
+                                     @bind-Value="model.GroupedCheckboxStoryUnchecked"
+                                     Grouped="true" />
+
+                        <BitCheckbox Label="Disabled checkbox"
+                                     @bind-Value="model.GroupedCheckboxStoryDisabled"
+                                     Grouped="true"
+                                     Disabled="true" />
+                    </fieldset>
+                    <fieldset class="col-12 col-md-6">
+                        <legend>Checkbox group</legend>
+
+                        <BitCheckbox Label="Selected checkbox"
+                                     @bind-Value="model.GroupedCheckboxStoryChecked"
+                                     Grouped="true"
+                                     AdditionalTextId="checkbox-help1">
+                            <AdditionalText>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas molestie libero
+                            </AdditionalText>
+                        </BitCheckbox>
+
+                        <BitCheckbox Label="Unchecked checkbox"
+                                     @bind-Value="model.GroupedCheckboxStoryUnchecked"
+                                     Grouped="true"
+                                     AdditionalTextId="checkbox-help2">
+                            <AdditionalText>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas molestie libero
+                            </AdditionalText>
+                        </BitCheckbox>
+
+                        <BitCheckbox Label="Disabled checkbox"
+                                     @bind-Value="model.GroupedCheckboxStoryDisabled"
+                                     Grouped="true"
+                                     Disabled="true"
+                                     AdditionalTextId="checkbox-help3">
+                            <AdditionalText>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas molestie libero
+                            </AdditionalText>
+                        </BitCheckbox>
+                    </fieldset>
+                </div>
+            </div>
+        </Template>
+    </Story>
 </Stories>
 
 @code {
@@ -70,5 +126,17 @@
         public bool DisabledCheckboxStoryUnchecked { get; set; }
 
         public bool DisabledCheckboxStoryChecked { get; set; } = true;
+
+        public bool GroupedCheckboxStoryChecked { get; set; } = true;
+
+        public bool GroupedCheckboxStoryUnchecked { get; set; }
+
+        public bool GroupedCheckboxStoryDisabled { get; set; }
+
+        public bool GroupedCheckboxWithAdditionalTextStoryChecked { get; set; } = true;
+
+        public bool GroupedCheckboxWithAdditionalTextStoryUnchecked { get; set; }
+
+        public bool GroupedCheckboxWithAdditionalTextStoryDisabled { get; set; }
     }
 }

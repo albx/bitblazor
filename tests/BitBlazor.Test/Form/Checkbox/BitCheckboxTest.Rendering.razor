@@ -70,4 +70,22 @@
                 <label for="test-checkbox" class="disabled">label</label>
              </div>);
     }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Group_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value"
+                          Grouped="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-group">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
+                <label for="test-checkbox" class="">label</label>
+             </div>);
+    }
 }

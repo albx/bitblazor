@@ -70,6 +70,18 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets an optional fragment of additional content to render.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AdditionalText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the identifier for additional text associated with the component.
+    /// </summary>
+    [Parameter]
+    public string? AdditionalTextId { get; set; }
+
+    /// <summary>
     /// Gets the prefix used to generate the unique Id of the component
     /// </summary>
     protected abstract string FieldIdPrefix { get; }
@@ -112,6 +124,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
         base.OnParametersSet();
         SetRequiredAttribute();
         SetPlaceholderAttribute();
+        SetAdditionalTextAttributes();
     }
 
     private void SetPlaceholderAttribute()
@@ -151,6 +164,18 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
         AdditionalAttributes["id"] = Id!;
     }
 
+    private void SetAdditionalTextAttributes()
+    {
+        if (AdditionalText is not null && !string.IsNullOrWhiteSpace(AdditionalTextId))
+        {
+            AdditionalAttributes["aria-describedby"] = AdditionalTextId;
+        }
+        else
+        {
+            AdditionalAttributes.Remove("aria-describedby");
+        }
+    }
+
     /// <summary>
     /// Renders a validation message for the specified field.
     /// </summary>
@@ -174,6 +199,33 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
             builder.AddComponentParameter(1, nameof(ValidationMessage<T>.For), For);
             builder.AddAttribute(2, "class", "is-invalid");
             builder.CloseComponent();
+        };
+    }
+
+    /// <summary>
+    /// Creates a render fragment that displays additional text within a <c>small</c> HTML element.
+    /// </summary>
+    /// <remarks>
+    /// If the <see cref="AdditionalText"/> property is <see langword="null"/>, this method returns <see langword="null"/>. 
+    /// Otherwise, it generates a render fragment that includes the additional text and assigns an optional attribute with the value of <see cref="AdditionalTextId"/>.
+    /// </remarks>
+    /// <returns>
+    /// A <see cref="RenderFragment"/> that renders the additional text, or <see langword="null"/> if <see cref="AdditionalText"/> is <see langword="null"/>.
+    /// </returns>
+    protected virtual RenderFragment? RenderAdditionalText()
+    {
+        if (AdditionalText is null)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            builder.OpenElement(0, "small");
+            builder.AddAttribute(1, "id", AdditionalTextId);
+            builder.AddAttribute(2, "class", "form-text");
+            builder.AddContent(3, AdditionalText);
+            builder.CloseElement();
         };
     }
 }
