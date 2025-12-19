@@ -27,7 +27,7 @@ public partial class BitCheckbox : BitFormComponentBase<bool>
     /// Gets or sets a value indicating whether the checkbox is grouped.
     /// </summary>
     /// <remarks>
-    /// Setting this value to true will align the checkbox to the right of the text content
+    /// Setting this value to true will align the checkbox to the right of the text content.
     /// </remarks>
     [Parameter]
     public bool Grouped { get; set; }

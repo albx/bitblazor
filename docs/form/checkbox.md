@@ -127,6 +127,7 @@ The `BitCheckbox` component is designed to capture binary choices, such as yes/n
 
 ```razor
 <BitCheckbox Label="Subscribe to newsletter"
+             @bind-Value="subscribeNewsletter"
              AdditionalTextId="helper-text">
     <AdditionalText>
         You will receive weekly updates about new features

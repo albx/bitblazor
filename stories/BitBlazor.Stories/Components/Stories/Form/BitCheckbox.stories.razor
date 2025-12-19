@@ -79,7 +79,7 @@
                         <legend>Checkbox group</legend>
 
                         <BitCheckbox Label="Selected checkbox"
-                                     @bind-Value="model.GroupedCheckboxStoryChecked"
+                                     @bind-Value="model.GroupedCheckboxWithAdditionalTextStoryChecked"
                                      Grouped="true"
                                      AdditionalTextId="checkbox-help1">
                             <AdditionalText>
@@ -88,7 +88,7 @@
                         </BitCheckbox>
 
                         <BitCheckbox Label="Unchecked checkbox"
-                                     @bind-Value="model.GroupedCheckboxStoryUnchecked"
+                                     @bind-Value="model.GroupedCheckboxWithAdditionalTextStoryUnchecked"
                                      Grouped="true"
                                      AdditionalTextId="checkbox-help2">
                             <AdditionalText>
@@ -97,7 +97,7 @@
                         </BitCheckbox>
 
                         <BitCheckbox Label="Disabled checkbox"
-                                     @bind-Value="model.GroupedCheckboxStoryDisabled"
+                                     @bind-Value="model.GroupedCheckboxWithAdditionalTextStoryDisabled"
                                      Grouped="true"
                                      Disabled="true"
                                      AdditionalTextId="checkbox-help3">
