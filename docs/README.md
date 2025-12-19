@@ -91,6 +91,13 @@ Numeric input field component with increment/decrement controls.
 - Min/max value constraints
 - Custom step values and symbol content
 
+#### [BitCheckbox](form/checkbox.md)
+Checkbox component for binary choices.
+- Boolean value selection
+- Inline and grouped layouts
+- Form validation support
+- Disabled states and accessibility
+
 #### [BitDatepicker](form/datepicker.md)
 Date input field component for selecting dates.
 - Support for DateTime and DateOnly types

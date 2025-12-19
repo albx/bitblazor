@@ -154,6 +154,24 @@ This guide provides a quick overview of all BitBlazor components with basic exam
                 Step="1" />
 ```
 
+### BitCheckbox
+```razor
+<!-- Basic checkbox -->
+<BitCheckbox Label="I agree to the terms" @bind-Value="model.AcceptedTerms" />
+
+<!-- Inline checkboxes -->
+<BitCheckbox Label="Option 1" Inline="true" @bind-Value="option1" />
+<BitCheckbox Label="Option 2" Inline="true" @bind-Value="option2" />
+
+<!-- Grouped checkbox -->
+<BitCheckbox Label="Right aligned" Grouped="true" @bind-Value="grouped" />
+
+<!-- With validation -->
+<BitCheckbox Label="I accept the privacy policy" 
+             @bind-Value="model.AcceptedPrivacy"
+             For="@(() => model.AcceptedPrivacy)" />
+```
+
 ### BitTimepicker
 ```razor
 <!-- Basic time picker -->
@@ -321,6 +339,11 @@ Size.Large        // Large
                               @bind-Value="model.Bio"
                               Placeholder="Tell us about yourself..." />
         </div>
+        <div class="col-12">
+            <BitCheckbox Label="I agree to the terms and conditions" 
+                         @bind-Value="model.AcceptedTerms"
+                         For="@(() => model.AcceptedTerms)" />
+        </div>
     </div>
     
     <ValidationSummary />
@@ -372,6 +395,8 @@ Size.Large        // Large
         public TimeOnly? PreferredTime { get; set; }
         
         public string? Bio { get; set; }
+        
+        public bool AcceptedTerms { get; set; }
     }
     
     private async Task HandleSubmit()
