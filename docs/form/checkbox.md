@@ -24,6 +24,7 @@ The `BitCheckbox` component is designed to capture binary choices, such as yes/n
 | `Inline` | `bool` | ✗ | `false` | Whether the component's content should be rendered inline |
 | `Grouped` | `bool` | ✗ | `false` | Whether the checkbox is grouped (aligns checkbox to the right of text) |
 | `AdditionalText` | `RenderFragment?` | ✗ | `null` | Additional descriptive text displayed below the checkbox |
+| `AdditionalTextId` | `string?` | ✗ | `null` | The identifier for additional text, used for aria-describedby accessibility |
 | `AdditionalAttributes` | `Dictionary<string, object>` | ✗ | `{}` | Additional HTML attributes |
 
 ## Usage Examples
