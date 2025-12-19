@@ -99,14 +99,14 @@
                           Id="test-checkbox"
                           @bind-Value="value"
                           AdditionalTextId="helper-text">
-                <AdditionalText>this is an help text</AdditionalText>
+                <AdditionalText>this is a help text</AdditionalText>
             </BitCheckbox>);
 
         component.MarkupMatches(
             @<div class="form-check">
                 <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" aria-describedby="helper-text" />
                 <label for="test-checkbox" class="">label</label>
-                <small id="helper-text" class="form-text">this is an help text</small>
+                <small id="helper-text" class="form-text">this is a help text</small>
              </div>);
     }
 }
