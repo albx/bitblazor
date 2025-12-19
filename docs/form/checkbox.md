@@ -51,7 +51,8 @@ The `BitCheckbox` component is designed to capture binary choices, such as yes/n
     <DataAnnotationsValidator />
     
     <BitCheckbox Label="I agree to the privacy policy" 
-                 @bind-Value="model.AcceptedPrivacy" />
+                 @bind-Value="model.AcceptedPrivacy"
+                 For="@(() => model.AcceptedPrivacy)" />
                  
     <ValidationSummary />
     
