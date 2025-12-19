@@ -19,6 +19,7 @@ The `BitCheckbox` component is designed to capture binary choices, such as yes/n
 | `Value` | `bool` | ✗ | `false` | The current value of the checkbox |
 | `ValueChanged` | `EventCallback<bool>` | ✗ | - | Callback fired when the value changes |
 | `ValueExpression` | `Expression<Func<bool>>` | ✗ | - | Expression for model binding and validation |
+| `For` | `Expression<Func<bool>>?` | ✗ | - | Expression that triggers validation for the field |
 | `Label` | `string` | ✓ | - | The label text for the checkbox |
 | `Disabled` | `bool` | ✗ | `false` | Whether the checkbox is disabled |
 | `Inline` | `bool` | ✗ | `false` | Whether the component's content should be rendered inline |
