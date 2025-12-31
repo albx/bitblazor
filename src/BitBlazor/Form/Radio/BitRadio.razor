@@ -1,0 +1,14 @@
+﻿@namespace BitBlazor.Form
+
+@inherits BitComponentBase
+@typeparam T
+
+<div class="form-check">
+    <InputRadio TValue="T"
+                Value="Value"
+                Name="@Parent.Id"
+                id="@Id"/>
+    <label for="@Id">@Label</label>
+</div>
+
+

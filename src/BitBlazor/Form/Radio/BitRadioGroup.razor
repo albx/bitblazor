@@ -1,0 +1,15 @@
+﻿@namespace BitBlazor.Form
+
+@inherits BitComponentBase
+@typeparam T
+
+<InputRadioGroup TValue="T"
+                 Value="Value"
+                 ValueChanged="ValueChanged"
+                 ValueExpression="ValueExpression"
+                 Name="@Id"
+                 id="@Id">
+    <CascadingValue Value="this">
+        @ChildContent
+    </CascadingValue>
+</InputRadioGroup>

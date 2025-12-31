@@ -1,0 +1,31 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitRadioGroup_Should_Render_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<fieldset>
+                <legend>radio group</legend>
+                <BitRadioGroup @bind-Value="value" Id="group1">
+                    <BitRadio Id="radio1" Value="@("test1")" Label="label 1" />
+                    <BitRadio Id="radio2" Value="@("test2")" Label="label 2" />
+                </BitRadioGroup>
+             </fieldset>);
+
+        component.MarkupMatches(
+            @<fieldset>
+                <legend>radio group</legend>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio1" value="test1" />
+                    <label for="radio1">label 1</label>
+                </div>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio2" value="test2" />
+                    <label for="radio2">label 2</label>
+                </div>
+             </fieldset>);
+    }
+}
