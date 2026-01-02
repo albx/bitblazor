@@ -5,6 +5,15 @@ using System.Linq.Expressions;
 
 namespace BitBlazor.Form;
 
+/// <summary>
+/// Provides a group of radio buttons for selecting a single value from a set of options. 
+/// Supports data binding, validation, and integration with forms in Blazor applications.
+/// </summary>
+/// <remarks>
+/// Use <see cref="BitRadioGroup{T}"/> within an <see cref="EditForm"/> to enable form validation and model binding. 
+/// The component supports inline and grouped layouts, and can be customized with child content representing individual radio items.
+/// </remarks>
+/// <typeparam name="T">The type of the value represented by the radio group. Typically corresponds to the type of the bound property.</typeparam>
 public partial class BitRadioGroup<T> : BitComponentBase
 {
     /// <summary>
@@ -43,6 +52,21 @@ public partial class BitRadioGroup<T> : BitComponentBase
     [Parameter]
     [EditorRequired]
     public RenderFragment ChildContent { get; set; } = default!;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the component's content should be rendered inline.
+    /// </summary>
+    [Parameter]
+    public bool Inline { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the radio items are grouped.
+    /// </summary>
+    /// <remarks>
+    /// Setting this value to true will align the radio items to the right of the text content.
+    /// </remarks>
+    [Parameter]
+    public bool Grouped { get; set; }
 
     /// <summary>
     /// Gets the prefix used to generate the unique Id of the component

@@ -3,12 +3,15 @@
 @inherits BitComponentBase
 @typeparam T
 
-<div class="form-check">
+<div class="@ComputeContainerCssClasses()">
     <InputRadio TValue="T"
                 Value="Value"
                 Name="@Parent.Id"
-                id="@Id"/>
-    <label for="@Id">@Label</label>
+                disabled="@Disabled"
+                @attributes="AdditionalAttributes"/>
+    <label class="@ComputeLabelCssClasses()" for="@Id">@Label</label>
+
+    @RenderAdditionalText()
 </div>
 
 
