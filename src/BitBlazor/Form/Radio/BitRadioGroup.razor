@@ -8,8 +8,11 @@
                  ValueChanged="ValueChanged"
                  ValueExpression="ValueExpression"
                  Name="@Id"
-                 id="@Id">
+                 id="@Id"
+                 @attributes="AdditionalAttributes">
     <CascadingValue Value="this">
         @ChildContent
     </CascadingValue>
 </InputRadioGroup>
+
+@RenderValidationMessage()

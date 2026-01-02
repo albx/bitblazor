@@ -1,6 +1,6 @@
 ﻿@attribute [Stories("Form/BitRadioGroup")]
 
-<Stories TComponent="BitRadioGroup<string?>">
+<Stories TComponent="BitRadioGroup<string>">
     <ArgType For="_ => _.Id" />
     <ArgType For="_ => _.Grouped" />
     <ArgType For="_ => _.Inline" />
@@ -11,7 +11,7 @@
                 <fieldset>
                     <legend>Radio group</legend>
 
-                    <BitRadioGroup @bind-Value="model.DefaultStoryValue" Id="default-group1">
+                    <BitRadioGroup @bind-Value="model.DefaultStoryValue" Id="default-group1" @attributes="context.Args">
                         <BitRadio Id="default-radio1" Value="@("value 1")" Label="Option 1" />
                         <BitRadio Id="default-radio2" Value="@("value 2")" Label="Option 2" />
                     </BitRadioGroup>
@@ -85,14 +85,14 @@
 
     class ViewModel
     {
-        public string? DefaultStoryValue { get; set; } = "value 1";
+        public string DefaultStoryValue { get; set; } = "value 1";
 
-        public string? InlineStoryValue { get; set; } = "value 1";
+        public string InlineStoryValue { get; set; } = "value 1";
 
-        public string? DisabledStoryValue { get; set; } = "value 1";
+        public string DisabledStoryValue { get; set; } = "value 1";
 
-        public string? GroupedStoryValue { get; set; } = "value 1";
+        public string GroupedStoryValue { get; set; } = "value 1";
 
-        public string? GroupedWithAddionalTextStoryValue { get; set; } = "value 1";
+        public string GroupedWithAddionalTextStoryValue { get; set; } = "value 1";
     }
 }

@@ -49,6 +49,12 @@ public partial class BitRadioGroup<T> : BitComponentBase
     [Parameter]
     public Expression<Func<T>>? For { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    /// <remarks>
+    /// Use this parameter to specify the child elements or markup that will be rendered within the component. 
+    /// </remarks>
     [Parameter]
     [EditorRequired]
     public RenderFragment ChildContent { get; set; } = default!;
@@ -82,5 +88,21 @@ public partial class BitRadioGroup<T> : BitComponentBase
         }
 
         AdditionalAttributes["id"] = Id!;
+    }
+
+    private RenderFragment? RenderValidationMessage()
+    {
+        if (For is null)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            builder.OpenComponent<ValidationMessage<T>>(0);
+            builder.AddComponentParameter(1, nameof(ValidationMessage<T>.For), For);
+            builder.AddAttribute(2, "class", "is-invalid");
+            builder.CloseComponent();
+        };
     }
 }

@@ -95,6 +95,8 @@ public partial class BitRadio<T> : BitComponentBase
             builder.Add("form-check-group");
         }
 
+        AddCustomCssClass(builder);
+
         return builder.Build();
     }
 
