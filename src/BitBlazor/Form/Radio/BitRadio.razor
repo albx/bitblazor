@@ -1,0 +1,17 @@
+﻿@namespace BitBlazor.Form
+
+@inherits BitComponentBase
+@typeparam T
+
+<div class="@ComputeContainerCssClasses()">
+    <InputRadio TValue="T"
+                Value="Value"
+                Name="@Parent.Id"
+                disabled="@Disabled"
+                @attributes="AdditionalAttributes"/>
+    <label class="@ComputeLabelCssClasses()" for="@Id">@Label</label>
+
+    @RenderAdditionalText()
+</div>
+
+
