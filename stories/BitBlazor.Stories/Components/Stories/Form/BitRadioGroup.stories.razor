@@ -41,7 +41,7 @@
                 <fieldset>
                     <legend>Radio group</legend>
 
-                    <BitRadioGroup @bind-Value="model.DefaultStoryValue" Id="disabled-group1">
+                    <BitRadioGroup @bind-Value="model.DisabledStoryValue" Id="disabled-group1">
                         <BitRadio Id="disabled-radio1" Value="@("value 1")" Label="Option 1" Disabled="true" />
                         <BitRadio Id="disabled-radio2" Value="@("value 2")" Label="Option 2" />
                     </BitRadioGroup>
@@ -81,7 +81,7 @@
 </Stories>
 
 @code {
-    private ViewModel model = new();
+    private readonly ViewModel model = new();
 
     class ViewModel
     {
@@ -93,6 +93,6 @@
 
         public string GroupedStoryValue { get; set; } = "value 1";
 
-        public string GroupedWithAddionalTextStoryValue { get; set; } = "value 1";
+        public string GroupedWithAdditionalTextStoryValue { get; set; } = "value 1";
     }
 }
