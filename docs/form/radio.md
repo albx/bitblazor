@@ -189,10 +189,10 @@ The `BitRadioGroup` component provides a container for managing a group of radio
 
 ```razor
 <BitRadioGroup @bind-Value="model.Country">
-    <BitRadio Label="United States" Value="US" />
-    <BitRadio Label="Canada" Value="CA" />
-    <BitRadio Label="United Kingdom" Value="UK" />
-    <BitRadio Label="Other" Value="OTHER" />
+    <BitRadio Label="United States" Value="@("US")" />
+    <BitRadio Label="Canada" Value="@("CA")" />
+    <BitRadio Label="United Kingdom" Value="@("UK")" />
+    <BitRadio Label="Other" Value="@("OTHER")" />
 </BitRadioGroup>
 
 @code {
