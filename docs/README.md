@@ -98,6 +98,14 @@ Checkbox component for binary choices.
 - Form validation support
 - Disabled states and accessibility
 
+#### [BitRadio](form/radio.md)
+Radio button component for single-choice selection from a set of options.
+- Group-based value selection
+- Support for any data type
+- Inline and grouped layouts
+- Form validation support
+- Disabled states and accessibility
+
 #### [BitDatepicker](form/datepicker.md)
 Date input field component for selecting dates.
 - Support for DateTime and DateOnly types

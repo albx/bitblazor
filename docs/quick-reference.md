@@ -172,6 +172,37 @@ This guide provides a quick overview of all BitBlazor components with basic exam
              For="@(() => model.AcceptedPrivacy)" />
 ```
 
+### BitRadio
+```razor
+<!-- Basic radio group -->
+<BitRadioGroup @bind-Value="model.SelectedOption">
+    <BitRadio Label="Option 1" Value="1" />
+    <BitRadio Label="Option 2" Value="2" />
+    <BitRadio Label="Option 3" Value="3" />
+</BitRadioGroup>
+
+<!-- Inline radio buttons -->
+<BitRadioGroup @bind-Value="model.Size" Inline="true">
+    <BitRadio Label="Small" Value="Size.Small" />
+    <BitRadio Label="Medium" Value="Size.Medium" />
+    <BitRadio Label="Large" Value="Size.Large" />
+</BitRadioGroup>
+
+<!-- With validation -->
+<BitRadioGroup @bind-Value="model.PreferredContact"
+               For="@(() => model.PreferredContact)">
+    <BitRadio Label="Email" Value="ContactMethod.Email" />
+    <BitRadio Label="Phone" Value="ContactMethod.Phone" />
+    <BitRadio Label="SMS" Value="ContactMethod.SMS" />
+</BitRadioGroup>
+
+<!-- Grouped radio buttons -->
+<BitRadioGroup @bind-Value="model.Agreement" Grouped="true">
+    <BitRadio Label="I agree" Value="true" />
+    <BitRadio Label="I do not agree" Value="false" />
+</BitRadioGroup>
+```
+
 ### BitTimepicker
 ```razor
 <!-- Basic time picker -->
@@ -344,6 +375,13 @@ Size.Large        // Large
                          @bind-Value="model.AcceptedTerms"
                          For="@(() => model.AcceptedTerms)" />
         </div>
+        <div class="col-12">
+            <BitRadioGroup @bind-Value="model.PreferredContact"
+                           For="@(() => model.PreferredContact)">
+                <BitRadio Label="Contact me by email" Value="ContactMethod.Email" />
+                <BitRadio Label="Contact me by phone" Value="ContactMethod.Phone" />
+            </BitRadioGroup>
+        </div>
     </div>
     
     <ValidationSummary />
@@ -397,6 +435,15 @@ Size.Large        // Large
         public string? Bio { get; set; }
         
         public bool AcceptedTerms { get; set; }
+        
+        [Required]
+        public ContactMethod PreferredContact { get; set; }
+    }
+    
+    private enum ContactMethod
+    {
+        Email,
+        Phone
     }
     
     private async Task HandleSubmit()
