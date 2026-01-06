@@ -17,12 +17,6 @@ namespace BitBlazor.Form;
 public partial class BitRadioGroup<T> : BitComponentBase
 {
     /// <summary>
-    /// Gets or sets the <see cref="EditContext"/> instance in case of use of an <see cref="EditForm"/>
-    /// </summary>
-    [CascadingParameter]
-    public EditContext? CurrentEditContext { get; set; }
-
-    /// <summary>
     /// Gets or sets the value bound to the component
     /// </summary>
     /// <remarks>
