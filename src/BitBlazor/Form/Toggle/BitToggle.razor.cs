@@ -41,6 +41,8 @@ public partial class BitToggle : BitFormComponentBase<bool>
 
         builder.Add(viewModeClass);
 
+        AddCustomCssClass(builder);
+
         return builder.Build();
     }
 }
