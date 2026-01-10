@@ -1,5 +1,7 @@
 ﻿@inherits TestContext
 
+@using BitBlazor.Form.Toggle
+
 @code {
     [Fact]
     public void BitToggle_Should_Render_Default_Markup_Correctly()
@@ -43,6 +45,78 @@
                         <span class="lever"></span>
                     </label>
                 </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Render_Inline_Toggle_If_ViewMode_Is_Specified_As_Inline()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitToggle Label="label"
+                        Id="test-toggle"
+                        ViewMode="ToggleViewMode.Inline"
+                        @bind-Value="value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-inline">
+                <div class="toggles">
+                    <label for="test-toggle">
+                        label
+                        <input id="test-toggle" name="test-toggle" class="" type="checkbox" value="True" />
+                        <span class="lever"></span>
+                    </label>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Render_Grouped_Toggle_If_ViewMode_Is_Specified_As_Grouped()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitToggle Label="label"
+                        Id="test-toggle"
+                        ViewMode="ToggleViewMode.Grouped"
+                        @bind-Value="value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-group">
+                <div class="toggles">
+                    <label for="test-toggle">
+                        label
+                        <input id="test-toggle" name="test-toggle" class="" type="checkbox" value="True" />
+                        <span class="lever"></span>
+                    </label>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Render_Additional_Text_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitToggle Label="label"
+                        Id="test-toggle"
+                        @bind-Value="value"
+                        AdditionalTextId="helper-text">
+                <AdditionalText>this is a help text</AdditionalText>
+            </BitToggle>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-inline">
+                <div class="toggles">
+                    <label for="test-toggle">
+                        label
+                        <input id="test-toggle" name="test-toggle" class="" type="checkbox" value="True" aria-describedby="helper-text" />
+                        <span class="lever"></span>
+                    </label>
+                </div>
+                <small id="helper-text" class="form-text">this is a help text</small>
              </div>);
     }
 }

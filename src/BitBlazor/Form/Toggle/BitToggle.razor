@@ -2,7 +2,7 @@
 
 @inherits BitFormComponentBase<bool>
 
-<div class="form-check form-check-inline">
+<div class="@ComputeContainerCssClass()">
     <div class="toggles">
         <label for="@Id">
             @Label
@@ -15,4 +15,8 @@
             <span class="lever"></span>
         </label>
     </div>
+
+    @RenderValidationMessage()
+
+    @RenderAdditionalText()
 </div>

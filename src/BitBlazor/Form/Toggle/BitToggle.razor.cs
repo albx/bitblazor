@@ -1,3 +1,7 @@
+using BitBlazor.Core;
+using BitBlazor.Form.Toggle;
+using Microsoft.AspNetCore.Components;
+
 namespace BitBlazor.Form;
 
 /// <summary>
@@ -14,4 +18,29 @@ public partial class BitToggle : BitFormComponentBase<bool>
 
     /// <inheritdoc/>
     protected override Type[] SupportedTypes { get; } = [typeof(bool)];
+
+    /// <summary>
+    /// Gets or sets the display mode used to render the toggle component.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to control whether the toggle is rendered inline or grouped, with the control aligned to the right of the label. 
+    /// The default value is <see cref="ToggleViewMode.Inline"/>
+    /// .</remarks>
+    [Parameter]
+    public ToggleViewMode ViewMode { get; set; } = ToggleViewMode.Inline;
+
+    private string ComputeContainerCssClass()
+    {
+        var builder = new CssClassBuilder("form-check");
+        
+        var viewModeClass = ViewMode switch
+        {
+            ToggleViewMode.Grouped => "form-check-group",
+            _ => "form-check-inline"
+        };
+
+        builder.Add(viewModeClass);
+
+        return builder.Build();
+    }
 }
