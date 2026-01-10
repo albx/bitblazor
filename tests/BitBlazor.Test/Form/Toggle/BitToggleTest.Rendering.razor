@@ -1,0 +1,48 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitToggle_Should_Render_Default_Markup_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitToggle Label="label"
+                        Id="test-toggle"
+                        @bind-Value="value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-inline">
+                <div class="toggles">
+                    <label for="test-toggle">
+                        label
+                        <input id="test-toggle" name="test-toggle" class="" type="checkbox" value="True" />
+                        <span class="lever"></span>
+                    </label>
+                </div>
+             </div>);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Render_Disabled_Toggle_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitToggle Label="label"
+                        Id="test-toggle"
+                        @bind-Value="value"
+                        Disabled="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-inline">
+                <div class="toggles">
+                    <label for="test-toggle">
+                        label
+                        <input id="test-toggle" name="test-toggle" class="" type="checkbox" value="True" disabled />
+                        <span class="lever"></span>
+                    </label>
+                </div>
+             </div>);
+    }
+}

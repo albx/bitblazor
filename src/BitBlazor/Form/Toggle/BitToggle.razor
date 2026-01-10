@@ -1,0 +1,18 @@
+﻿@namespace BitBlazor.Form
+
+@inherits BitFormComponentBase<bool>
+
+<div class="form-check form-check-inline">
+    <div class="toggles">
+        <label for="@Id">
+            @Label
+            <InputCheckbox Value="Value"
+                           ValueChanged="ValueChanged"
+                           ValueExpression="ValueExpression"
+                           name="@Id"
+                           disabled="@Disabled"
+                           @attributes="AdditionalAttributes" />
+            <span class="lever"></span>
+        </label>
+    </div>
+</div>
