@@ -24,8 +24,8 @@ public partial class BitToggle : BitFormComponentBase<bool>
     /// </summary>
     /// <remarks>
     /// Use this property to control whether the toggle is rendered inline or grouped, with the control aligned to the right of the label. 
-    /// The default value is <see cref="ToggleViewMode.Inline"/>
-    /// .</remarks>
+    /// The default value is <see cref="ToggleViewMode.Inline"/>.
+    /// </remarks>
     [Parameter]
     public ToggleViewMode ViewMode { get; set; } = ToggleViewMode.Inline;
 
