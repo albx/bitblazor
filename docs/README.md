@@ -120,6 +120,13 @@ Time input field component for selecting times.
 - Form validation integration
 - Accessible and responsive
 
+#### [BitToggle](form/toggle.md)
+Toggle switch component for binary on/off selection.
+- Visual indicator for on/off state
+- Inline and grouped layouts
+- Form validation support
+- Modern alternative to checkboxes
+
 ### Utilities
 
 #### [Icon](utilities/icon.md)

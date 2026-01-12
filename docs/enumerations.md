@@ -207,6 +207,20 @@ Specifies the type of input field for a text-based form element.
 **Components using TextFieldType**:
 - `BitTextField`
 
+### ToggleViewMode
+
+**Namespace**: `BitBlazor.Form.Toggle`
+
+Specifies the available display modes for the toggle component.
+
+| Value | Description | CSS Class |
+|-------|-------------|-----------|
+| `Inline` | Toggle content is rendered inline | `form-check-inline` |
+| `Grouped` | Toggle is grouped (aligned to the right of text) | `form-check-group` |
+
+**Components using ToggleViewMode**:
+- `BitToggle`
+
 ## Icon-specific Enumerations
 
 ### IconSize

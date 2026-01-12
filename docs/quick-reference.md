@@ -172,6 +172,31 @@ This guide provides a quick overview of all BitBlazor components with basic exam
              For="@(() => model.AcceptedPrivacy)" />
 ```
 
+### BitToggle
+```razor
+<!-- Basic toggle -->
+<BitToggle Label="Enable notifications" @bind-Value="model.NotificationsEnabled" />
+
+<!-- Grouped toggle (right aligned) -->
+<BitToggle Label="Dark mode" 
+           ViewMode="ToggleViewMode.Grouped" 
+           @bind-Value="darkMode" />
+
+<!-- With validation -->
+<BitToggle Label="Accept terms of service" 
+           @bind-Value="model.AcceptedTerms"
+           For="@(() => model.AcceptedTerms)" />
+
+<!-- With additional text -->
+<BitToggle Label="Enable analytics"
+           @bind-Value="model.AnalyticsEnabled"
+           AdditionalTextId="helper-text">
+    <AdditionalText>
+        Help us improve by sharing anonymous usage data
+    </AdditionalText>
+</BitToggle>
+```
+
 ### BitRadio
 ```razor
 <!-- Basic radio group -->

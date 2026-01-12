@@ -24,6 +24,8 @@ BitBlazor provides a comprehensive set of form components that integrate with:
 | [`BitDatepicker`](datepicker.md) | Date input with picker | DateTime/DateOnly support, native browser UI, validation |
 | [`BitTimepicker`](timepicker.md) | Time input with picker | TimeOnly support, native browser UI, validation |
 | [`BitCheckbox`](checkbox.md) | Boolean checkbox input | Inline/grouped layouts, form validation |
+| [`BitRadioGroup`](radio.md) | Radio group components | Inline/grouped layouts, form validation |
+| [`BitToggle`](toggle.md) | Toggle switch input | Visual on/off switch, inline/grouped layouts, form validation |
 
 ### Base Classes
 
