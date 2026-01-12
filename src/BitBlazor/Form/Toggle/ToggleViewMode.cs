@@ -1,17 +1,17 @@
 ﻿namespace BitBlazor.Form.Toggle;
 
 /// <summary>
-/// Specifies the available display modes for toggling between inline and grouped views.
+/// Specifies the display mode for the toggle component.
 /// </summary>
 public enum ToggleViewMode
 {
     /// <summary>
-    /// Represents a span of content that is rendered inline.
+    /// The toggle is rendered inline with the control next to the label.
     /// </summary>
     Inline,
 
     /// <summary>
-    /// Represents a value indicating whether items are grouped.
+    /// The toggle is grouped with the control aligned to the right of the label text.
     /// </summary>
     Grouped
 }
