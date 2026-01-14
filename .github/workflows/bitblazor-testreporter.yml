@@ -1,0 +1,25 @@
+name: 'BitBlazor - Test reporter'
+
+on:
+  workflow_run:
+    workflows: ['BitBlazor - Test runner']
+    types:
+      - completed
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+    
+jobs:
+  report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Test Report
+      uses: dorny/test-reporter@v2
+      with:
+        artifact: dotnet-test-results     # artifact name
+        name: DotNET Tests                # Name of the check run which will be created
+        path: '*.trx'                     # Path to test results (inside artifact .zip)
+        reporter: dotnet-trx              # Format of test results
