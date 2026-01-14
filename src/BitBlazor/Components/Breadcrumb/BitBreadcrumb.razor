@@ -1,7 +1,9 @@
 ﻿@namespace BitBlazor.Components
 
-@using BitBlazor.Components.Breadcrumb
 @inherits BitComponentBase
+
+<!-- BitBreadcrumb renders a breadcrumb navigation component to display the current location within a hierarchy.
+     The component supports customization of items, separators, and accessibility features. -->
 
 <nav class="breadcrumb-container" aria-label="@Label">
     <ol class="@ComputeCssClasses()">
@@ -16,7 +18,11 @@
             }
             else
             {
-                <li class="breadcrumb-item"><a href="@item.Link">@item.Text</a><span class="separator">@Separator</span></li>
+                <li class="breadcrumb-item">
+                    @BreadcrumbIconFragment(item)
+                    <a href="@item.Link">@item.Text</a>
+                    <span class="separator">@Separator</span>
+                </li>
             }
         }
     </ol>
@@ -32,7 +38,14 @@
     {
         @if (item.HasIcon())
         {
-            <BitIcon IconName="@item.Icon" aria-hidden="true"/>
+            if (!Dark)
+            {
+                <BitIcon IconName="@item.Icon" Size="IconSize.ExtraSmall" aria-hidden="true" />
+            }
+            else
+            {
+                <BitIcon IconName="@item.Icon" Size="IconSize.ExtraSmall" Color="IconColor.White" aria-hidden="true" />
+            }
         }
     };
 

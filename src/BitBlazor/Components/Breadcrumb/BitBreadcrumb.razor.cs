@@ -1,9 +1,12 @@
-﻿using BitBlazor.Components.Breadcrumb;
-using BitBlazor.Core;
+﻿using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
+/// <summary> 
+/// BitBreadcrumb renders a breadcrumb navigation component to display the current location within a hierarchy.
+/// The component supports customization of items, separators, and accessibility features.
+/// </summary>
 public partial class BitBreadcrumb : BitComponentBase
 {
     /// <summary>
@@ -16,7 +19,7 @@ public partial class BitBreadcrumb : BitComponentBase
     /// Gets or sets the items shown on the breadcrumb.
     /// </summary>
     [Parameter]
-    public IEnumerable<BitBreadcrumbItem>? Items { get; set; }
+    public IReadOnlyList<BitBreadcrumbItem>? Items { get; set; }
 
     /// <summary>
     /// Gets or sets the separator to show between breadcrumb components.
@@ -37,6 +40,7 @@ public partial class BitBreadcrumb : BitComponentBase
         if (Dark)
         {
             builder.Add("dark");
+            builder.Add("px-3");
         }
 
         return builder.Build();

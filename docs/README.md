@@ -36,6 +36,11 @@ Small and adaptable labels for adding information.
 - Support for rounded shapes
 - Various colors available
 
+#### [Breadcrumb](components/breadcrumb.md)
+Breadcrumb navigation component to display the current location within a hierarchy.
+- Support for the customization of items and the separator
+- Accessibility support
+
 #### [Button](components/button.md)
 Interactive buttons with support for icons and different styles.
 - Solid and outline variants

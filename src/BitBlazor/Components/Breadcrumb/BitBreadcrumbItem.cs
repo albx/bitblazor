@@ -1,4 +1,4 @@
-﻿namespace BitBlazor.Components.Breadcrumb;
+﻿namespace BitBlazor.Components;
 
 /// <summary>
 /// Represents an item in a <see cref="BitBreadcrumb"/> navigation component.
