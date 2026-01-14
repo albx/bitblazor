@@ -154,6 +154,102 @@ This guide provides a quick overview of all BitBlazor components with basic exam
                 Step="1" />
 ```
 
+### BitCheckbox
+```razor
+<!-- Basic checkbox -->
+<BitCheckbox Label="I agree to the terms" @bind-Value="model.AcceptedTerms" />
+
+<!-- Inline checkboxes -->
+<BitCheckbox Label="Option 1" Inline="true" @bind-Value="option1" />
+<BitCheckbox Label="Option 2" Inline="true" @bind-Value="option2" />
+
+<!-- Grouped checkbox -->
+<BitCheckbox Label="Right aligned" Grouped="true" @bind-Value="grouped" />
+
+<!-- With validation -->
+<BitCheckbox Label="I accept the privacy policy" 
+             @bind-Value="model.AcceptedPrivacy"
+             For="@(() => model.AcceptedPrivacy)" />
+```
+
+### BitToggle
+```razor
+<!-- Basic toggle -->
+<BitToggle Label="Enable notifications" @bind-Value="model.NotificationsEnabled" />
+
+<!-- Grouped toggle (right aligned) -->
+<BitToggle Label="Dark mode" 
+           ViewMode="ToggleViewMode.Grouped" 
+           @bind-Value="darkMode" />
+
+<!-- With validation -->
+<BitToggle Label="Accept terms of service" 
+           @bind-Value="model.AcceptedTerms"
+           For="@(() => model.AcceptedTerms)" />
+
+<!-- With additional text -->
+<BitToggle Label="Enable analytics"
+           @bind-Value="model.AnalyticsEnabled"
+           AdditionalTextId="helper-text">
+    <AdditionalText>
+        Help us improve by sharing anonymous usage data
+    </AdditionalText>
+</BitToggle>
+```
+
+### BitRadio
+```razor
+<!-- Basic radio group -->
+<BitRadioGroup @bind-Value="model.SelectedOption">
+    <BitRadio Label="Option 1" Value="1" />
+    <BitRadio Label="Option 2" Value="2" />
+    <BitRadio Label="Option 3" Value="3" />
+</BitRadioGroup>
+
+<!-- Inline radio buttons -->
+<BitRadioGroup @bind-Value="model.Size" Inline="true">
+    <BitRadio Label="Small" Value="Size.Small" />
+    <BitRadio Label="Medium" Value="Size.Medium" />
+    <BitRadio Label="Large" Value="Size.Large" />
+</BitRadioGroup>
+
+<!-- With validation -->
+<BitRadioGroup @bind-Value="model.PreferredContact"
+               For="@(() => model.PreferredContact)">
+    <BitRadio Label="Email" Value="ContactMethod.Email" />
+    <BitRadio Label="Phone" Value="ContactMethod.Phone" />
+    <BitRadio Label="SMS" Value="ContactMethod.SMS" />
+</BitRadioGroup>
+
+<!-- Grouped radio buttons -->
+<BitRadioGroup @bind-Value="model.Agreement" Grouped="true">
+    <BitRadio Label="I agree" Value="true" />
+    <BitRadio Label="I do not agree" Value="false" />
+</BitRadioGroup>
+```
+
+### BitTimepicker
+```razor
+<!-- Basic time picker -->
+<BitTimepicker Label="Meeting Time" @bind-Value="model.MeetingTime" />
+
+<!-- With validation -->
+<BitTimepicker Label="Appointment Time" 
+               @bind-Value="model.AppointmentTime"
+               For="@(() => model.AppointmentTime)" />
+```
+
+### BitDatepicker
+```razor
+<!-- Basic date picker -->
+<BitDatepicker Label="Birth Date" @bind-Value="model.BirthDate" />
+
+<!-- With validation -->
+<BitDatepicker Label="Event Date" 
+               @bind-Value="model.EventDate"
+               For="@(() => model.EventDate)" />
+```
+
 ## Utilities
 
 ### Icon
@@ -283,11 +379,33 @@ Size.Large        // Large
                           @bind-Value="model.Phone"
                           For="@(() => model.Phone)" />
         </div>
+        <div class="col-md-6">
+            <BitDatepicker Label="Birth Date" 
+                           @bind-Value="model.BirthDate"
+                           For="@(() => model.BirthDate)" />
+        </div>
+        <div class="col-md-6">
+            <BitTimepicker Label="Preferred Contact Time" 
+                           @bind-Value="model.PreferredTime"
+                           For="@(() => model.PreferredTime)" />
+        </div>
         <div class="col-12">
             <BitTextAreaField Label="Bio" 
                               Rows="4"
                               @bind-Value="model.Bio"
                               Placeholder="Tell us about yourself..." />
+        </div>
+        <div class="col-12">
+            <BitCheckbox Label="I agree to the terms and conditions" 
+                         @bind-Value="model.AcceptedTerms"
+                         For="@(() => model.AcceptedTerms)" />
+        </div>
+        <div class="col-12">
+            <BitRadioGroup @bind-Value="model.PreferredContact"
+                           For="@(() => model.PreferredContact)">
+                <BitRadio Label="Contact me by email" Value="ContactMethod.Email" />
+                <BitRadio Label="Contact me by phone" Value="ContactMethod.Phone" />
+            </BitRadioGroup>
         </div>
     </div>
     
@@ -334,7 +452,23 @@ Size.Large        // Large
         [Phone]
         public string? Phone { get; set; }
         
+        [Required]
+        public DateOnly BirthDate { get; set; }
+        
+        public TimeOnly? PreferredTime { get; set; }
+        
         public string? Bio { get; set; }
+        
+        public bool AcceptedTerms { get; set; }
+        
+        [Required]
+        public ContactMethod PreferredContact { get; set; }
+    }
+    
+    private enum ContactMethod
+    {
+        Email,
+        Phone
     }
     
     private async Task HandleSubmit()

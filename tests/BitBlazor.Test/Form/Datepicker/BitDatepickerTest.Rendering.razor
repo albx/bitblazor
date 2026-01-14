@@ -1,0 +1,41 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitDatepicker_Should_Render_Default_Markup_Correctly()
+    {
+        DateOnly? value = null;
+
+        var component = Render(
+            @<BitDatepicker Label="date"
+                            Id="test-datepicker"
+                            @bind-Value="value"/>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label class="active" for="test-datepicker">date</label>
+                <input class="form-control" type="date" id="test-datepicker" name="test-datepicker" value="" />
+             </div>);
+    }
+
+    [Fact]
+    public void BitDatepicker_Should_Render_Additional_Text_As_Expected()
+    {
+        DateOnly? value = null;
+
+        var component = Render(
+            @<BitDatepicker Label="date"
+                            Id="test-datepicker"
+                            @bind-Value="value"
+                            AdditionalTextId="additionalTextId">
+                <AdditionalText>Additional text</AdditionalText>
+             </BitDatepicker>);
+
+        component.MarkupMatches(
+            @<div class="form-group">
+                <label class="active" for="test-datepicker">date</label>
+                <input class="form-control" type="date" id="test-datepicker" name="test-datepicker" value="" aria-describedby="additionalTextId" />
+                <small id="additionalTextId" class="form-text">Additional text</small>
+             </div>);
+    }
+}

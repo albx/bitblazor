@@ -1,0 +1,139 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitAvatarBase
+
+<!--
+    BitAvatar component renders a user avatar with support for icons, images, text, user status, and presence status.
+    It can be rendered as a grouped avatar or standalone, with optional extra text and link support.
+    The component adapts its rendering based on provided parameters and state.
+    -->
+
+@if (IsGrouped)
+{
+    <BitAvatarGroupItem 
+        AdditionalAttributes="@AdditionalAttributes"
+        BackgroundColor="@BackgroundColor"
+        CssClass="@CssClass"
+        Icon="@Icon"
+        IconColor="@IconColor"
+        Id="@Id"
+        Image="@Image"
+        Link="@Link"
+        Size="@Size"
+        Text="@Text"
+        TextShort="@TextShort"
+    />
+}
+else
+{
+    @if (IsWrapperRequired())
+    {
+        <div class="@ComputeWrapperCssClass()">
+            @AvatarFragment
+            @if (HasExtraText())
+            {
+                @AvatarExtraTextFragment
+            }
+        </div>
+    }
+    else
+    {
+        @AvatarFragment
+    }
+}
+
+@code {
+
+    /// <summary>
+    /// Gets the main avatar fragment, which renders either an anchor or a div based on link and extra text presence.
+    /// </summary>
+    private RenderFragment AvatarFragment => __builder =>
+    {
+        @if (HasLink() && !HasExtraText())
+        {
+            <a href="@Link" class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
+                @AvatarContentFragment
+            </a>
+        }
+        else
+        {
+            <div class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
+                @AvatarContentFragment
+            </div>
+        }
+    };
+
+    /// <summary>
+    /// Gets the avatar content fragment, which renders icon, image, or text, and optionally user/presence status.
+    /// </summary>
+    private RenderFragment AvatarContentFragment => __builder =>
+    {
+        @if (HasIcon())
+        {
+            <BitIcon IconName="@Icon" Color="@IconColor" aria-hidden="@HasExtraText()"></BitIcon>
+            @if (!HasExtraText())
+            {
+                <span class="visually-hidden">@Text</span>
+            }
+        }
+        else
+        {
+            @if (HasImage())
+            {
+                <img src="@Image" alt="@Text" aria-hidden="@HasExtraText()">
+            }
+            else
+            {
+                <p aria-hidden="true">@GetShortName()</p>
+
+                @if (!HasExtraText())
+                {
+                    <span class="visually-hidden">@Text</span>
+                }
+            }
+
+            @if (HasUserStatus())
+            {
+                <div class="@ComputeUserStatusClass()">
+                    @if (HasUserStatusIcon())
+                    {
+                        <BitIcon IconName="@UserStatusIcon" Color="@UserStatusIconColor"></BitIcon>
+                    }
+                    <span class="visually-hidden">@UserStatusDescription</span>
+                </div>
+            }
+
+            @if (HasPresenceStatus())
+            {
+                <div class="@ComputePresenceStatusClass()">
+                    @if (HasPresenceStatusIcon())
+                    {
+                        <BitIcon IconName="@PresenceStatusIcon" Color="@PresenceStatusIconColor"></BitIcon>
+                    }
+                    <span class="visually-hidden">@PresenceStatusDescription</span>
+                </div>
+            }
+        }
+    };
+
+    /// <summary>
+    /// Gets the extra text fragment, which renders additional information below the avatar.
+    /// If a link is present, the text is rendered as a clickable anchor.
+    /// </summary>
+    private RenderFragment AvatarExtraTextFragment => __builder =>
+    {
+        <div class="extra-text">
+            <h4>
+                @if (HasLink())
+                {
+                    <a href="@Link">@Text</a>
+                }
+                else
+                {
+                    @Text
+                }
+            </h4>
+            <p>@ExtraText</p>
+        </div>
+    };
+}

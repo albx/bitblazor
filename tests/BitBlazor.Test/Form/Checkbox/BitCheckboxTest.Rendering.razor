@@ -1,0 +1,112 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitCheckbox_Should_Render_Default_Markup_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value" />);
+
+        component.MarkupMatches(
+            @<div class="form-check">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
+                <label for="test-checkbox" class="">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Inline_Class_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value"
+                          Inline="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-inline">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
+                <label for="test-checkbox" class="">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Add_Checked_Attribute_If_Bind_Value_Is_True()
+    {
+        bool value = true;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value" />);
+
+        component.MarkupMatches(
+            @<div class="form-check">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" checked value="True" />
+                <label for="test-checkbox" class="">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Disabled_Attribute_Correctly_And_Add_Disabled_Class_To_Label_When_Disabled()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value"
+                          Disabled="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" disabled value="True" />
+                <label for="test-checkbox" class="disabled">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Group_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value"
+                          Grouped="true"/>);
+
+        component.MarkupMatches(
+            @<div class="form-check form-check-group">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" />
+                <label for="test-checkbox" class="">label</label>
+             </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Additional_Text_Correctly()
+    {
+        bool value = false;
+
+        var component = Render(
+            @<BitCheckbox Label="label"
+                          Id="test-checkbox"
+                          @bind-Value="value"
+                          AdditionalTextId="helper-text">
+                <AdditionalText>this is a help text</AdditionalText>
+            </BitCheckbox>);
+
+        component.MarkupMatches(
+            @<div class="form-check">
+                <input id="test-checkbox" name="test-checkbox" class="" type="checkbox" value="True" aria-describedby="helper-text" />
+                <label for="test-checkbox" class="">label</label>
+                <small id="helper-text" class="form-text">this is a help text</small>
+             </div>);
+    }
+}

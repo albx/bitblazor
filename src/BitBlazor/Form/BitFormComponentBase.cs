@@ -70,6 +70,18 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     public string? Placeholder { get; set; }
 
     /// <summary>
+    /// Gets or sets an optional fragment of additional content to render.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AdditionalText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the identifier for additional text associated with the component.
+    /// </summary>
+    [Parameter]
+    public string? AdditionalTextId { get; set; }
+
+    /// <summary>
     /// Gets the prefix used to generate the unique Id of the component
     /// </summary>
     protected abstract string FieldIdPrefix { get; }
@@ -78,7 +90,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// Gets the list of supported types
     /// </summary>
     /// <remarks>
-    /// This property will validate the <typeparamref name="T"/> type in the costructor.
+    /// This property will validate the <typeparamref name="T"/> type in the constructor.
     /// </remarks>
     protected abstract Type[] SupportedTypes { get; }
 
@@ -90,8 +102,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// </exception>
     protected BitFormComponentBase()
     {
-        var targetType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
-        if (!SupportedTypes.Contains(targetType))
+        if (!SupportedTypes.Contains(ComponentType))
         {
             throw new NotSupportedException("Type not supported");
         }
@@ -113,6 +124,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
         base.OnParametersSet();
         SetRequiredAttribute();
         SetPlaceholderAttribute();
+        SetAdditionalTextAttributes();
     }
 
     private void SetPlaceholderAttribute()
@@ -150,5 +162,70 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
         }
 
         AdditionalAttributes["id"] = Id!;
+    }
+
+    private void SetAdditionalTextAttributes()
+    {
+        if (AdditionalText is not null && !string.IsNullOrWhiteSpace(AdditionalTextId))
+        {
+            AdditionalAttributes["aria-describedby"] = AdditionalTextId;
+        }
+        else
+        {
+            AdditionalAttributes.Remove("aria-describedby");
+        }
+    }
+
+    /// <summary>
+    /// Renders a validation message for the specified field.
+    /// </summary>
+    /// <remarks>
+    /// This method generates a <see cref="ValidationMessage{T}"/> component for the field specified by the <see cref="BitFormComponentBase{T}.For"/> property. 
+    /// The rendered validation message will include the CSS class "is-invalid" to indicate an invalid state.
+    /// </remarks>
+    /// <returns>
+    /// A <see cref="RenderFragment"/> that renders the validation message, or <see langword="null"/> if the <see cref="BitFormComponentBase{T}.For"/> property is not set.
+    /// </returns>
+    protected RenderFragment? RenderValidationMessage()
+    {
+        if (For is null)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            builder.OpenComponent<ValidationMessage<T>>(0);
+            builder.AddComponentParameter(1, nameof(ValidationMessage<T>.For), For);
+            builder.AddAttribute(2, "class", "is-invalid");
+            builder.CloseComponent();
+        };
+    }
+
+    /// <summary>
+    /// Creates a render fragment that displays additional text within a <c>small</c> HTML element.
+    /// </summary>
+    /// <remarks>
+    /// If the <see cref="AdditionalText"/> property is <see langword="null"/>, this method returns <see langword="null"/>. 
+    /// Otherwise, it generates a render fragment that includes the additional text and assigns an optional attribute with the value of <see cref="AdditionalTextId"/>.
+    /// </remarks>
+    /// <returns>
+    /// A <see cref="RenderFragment"/> that renders the additional text, or <see langword="null"/> if <see cref="AdditionalText"/> is <see langword="null"/>.
+    /// </returns>
+    protected virtual RenderFragment? RenderAdditionalText()
+    {
+        if (AdditionalText is null)
+        {
+            return null;
+        }
+
+        return builder =>
+        {
+            builder.OpenElement(0, "small");
+            builder.AddAttribute(1, "id", AdditionalTextId);
+            builder.AddAttribute(2, "class", "form-text");
+            builder.AddContent(3, AdditionalText);
+            builder.CloseElement();
+        };
     }
 }

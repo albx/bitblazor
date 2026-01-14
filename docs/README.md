@@ -23,6 +23,13 @@ Alert system for contextual user feedback.
 - Support for dismissible alerts
 - Event handling callbacks
 
+#### [Avatar](components/avatar.md)
+User avatar component for displaying profile images, icons, or initials.
+- Support for images, icons, or text initials
+- User status and presence indicators
+- Clickable links and extra descriptive text
+- Can be used standalone or within avatar groups
+
 #### [Badge](components/badge.md)
 Small and adaptable labels for adding information.
 - Solid and outline variants
@@ -83,6 +90,42 @@ Numeric input field component with increment/decrement controls.
 - Built-in increment/decrement buttons
 - Min/max value constraints
 - Custom step values and symbol content
+
+#### [BitCheckbox](form/checkbox.md)
+Checkbox component for binary choices.
+- Boolean value selection
+- Inline and grouped layouts
+- Form validation support
+- Disabled states and accessibility
+
+#### [BitRadio](form/radio.md)
+Radio button component for single-choice selection from a set of options.
+- Group-based value selection
+- Support for any data type
+- Inline and grouped layouts
+- Form validation support
+- Disabled states and accessibility
+
+#### [BitDatepicker](form/datepicker.md)
+Date input field component for selecting dates.
+- Support for DateTime and DateOnly types
+- Native browser date picker UI
+- Form validation integration
+- Accessible and responsive
+
+#### [BitTimepicker](form/timepicker.md)
+Time input field component for selecting times.
+- Support for TimeOnly type
+- Native browser time picker UI
+- Form validation integration
+- Accessible and responsive
+
+#### [BitToggle](form/toggle.md)
+Toggle switch component for binary on/off selection.
+- Visual indicator for on/off state
+- Inline and grouped layouts
+- Form validation support
+- Modern alternative to checkboxes
 
 ### Utilities
 

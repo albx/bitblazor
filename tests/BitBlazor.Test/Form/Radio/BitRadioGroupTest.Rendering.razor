@@ -1,0 +1,149 @@
+﻿@inherits TestContext
+
+@code {
+    [Fact]
+    public void BitRadioGroup_Should_Render_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<fieldset>
+                <legend>radio group</legend>
+                <BitRadioGroup @bind-Value="value" Id="group1">
+                    <BitRadio Id="radio1" Value="@("test1")" Label="label 1" />
+                    <BitRadio Id="radio2" Value="@("test2")" Label="label 2" />
+                </BitRadioGroup>
+             </fieldset>);
+
+        component.MarkupMatches(
+            @<fieldset>
+                <legend>radio group</legend>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio1" value="test1" />
+                    <label class="" for="radio1">label 1</label>
+                </div>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio2" value="test2" />
+                    <label class="" for="radio2">label 2</label>
+                </div>
+             </fieldset>);
+    }
+
+    [Fact]
+    public void BitRadioGroup_Should_Render_Inline_Items_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<fieldset>
+                <legend>radio group</legend>
+                <BitRadioGroup @bind-Value="value" Id="group1" Inline="true">
+                    <BitRadio Id="radio1" Value="@("test1")" Label="label 1" />
+                    <BitRadio Id="radio2" Value="@("test2")" Label="label 2" />
+                </BitRadioGroup>
+             </fieldset>);
+
+        component.MarkupMatches(
+            @<fieldset>
+                <legend>radio group</legend>
+                <div class="form-check form-check-inline">
+                    <input name="group1" type="radio" id="radio1" value="test1" />
+                    <label class="" for="radio1">label 1</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input name="group1" type="radio" id="radio2" value="test2" />
+                    <label class="" for="radio2">label 2</label>
+                </div>
+             </fieldset>);
+    }
+
+    [Fact]
+    public void BitRadioGroup_Should_Render_Disabled_Radio_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<fieldset>
+                <legend>radio group</legend>
+                <BitRadioGroup @bind-Value="value" Id="group1">
+                    <BitRadio Id="radio1" Value="@("test1")" Label="label 1" Disabled="true" />
+                    <BitRadio Id="radio2" Value="@("test2")" Label="label 2" />
+                </BitRadioGroup>
+             </fieldset>);
+
+        component.MarkupMatches(
+            @<fieldset>
+                <legend>radio group</legend>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio1" value="test1" disabled />
+                    <label for="radio1" class="disabled">label 1</label>
+                </div>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio2" value="test2" />
+                    <label class="" for="radio2">label 2</label>
+                </div>
+             </fieldset>);
+    }
+
+    [Fact]
+    public void BitRadioGroup_Should_Render_Grouped_Items_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<fieldset>
+                <legend>radio group</legend>
+                <BitRadioGroup @bind-Value="value" Id="group1" Grouped="true">
+                    <BitRadio Id="radio1" Value="@("test1")" Label="label 1" />
+                    <BitRadio Id="radio2" Value="@("test2")" Label="label 2" />
+                </BitRadioGroup>
+             </fieldset>);
+
+        component.MarkupMatches(
+            @<fieldset>
+                <legend>radio group</legend>
+                <div class="form-check form-check-group">
+                    <input name="group1" type="radio" id="radio1" value="test1" />
+                    <label class="" for="radio1">label 1</label>
+                </div>
+                <div class="form-check form-check-group">
+                    <input name="group1" type="radio" id="radio2" value="test2" />
+                    <label class="" for="radio2">label 2</label>
+                </div>
+             </fieldset>);
+    }
+
+    [Fact]
+    public void BitRadioGroup_Should_Render_Radio_Additional_Text_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<fieldset>
+                <legend>radio group</legend>
+                <BitRadioGroup @bind-Value="value" Id="group1">
+                    <BitRadio Id="radio1" Value="@("test1")" Label="label 1" AdditionalTextId="radio1-help">
+                        <AdditionalText>Help text for radio 1</AdditionalText>
+                    </BitRadio>
+                    <BitRadio Id="radio2" Value="@("test2")" Label="label 2" AdditionalTextId="radio2-help">
+                        <AdditionalText>Help text for radio 2</AdditionalText>
+                    </BitRadio>
+                </BitRadioGroup>
+             </fieldset>);
+
+        component.MarkupMatches(
+            @<fieldset>
+                <legend>radio group</legend>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio1" value="test1" aria-describedby="radio1-help" />
+                    <label class="" for="radio1">label 1</label>
+                    <small id="radio1-help" class="form-text">Help text for radio 1</small>
+                </div>
+                <div class="form-check">
+                    <input name="group1" type="radio" id="radio2" value="test2" aria-describedby="radio2-help" />
+                    <label class="" for="radio2">label 2</label>
+                    <small id="radio2-help" class="form-text">Help text for radio 2</small>
+                </div>
+             </fieldset>);
+    }
+}

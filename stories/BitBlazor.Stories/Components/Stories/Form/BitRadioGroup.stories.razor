@@ -1,0 +1,98 @@
+﻿@attribute [Stories("Form/BitRadioGroup")]
+
+<Stories TComponent="BitRadioGroup<string>">
+    <ArgType For="_ => _.Id" />
+    <ArgType For="_ => _.Grouped" />
+    <ArgType For="_ => _.Inline" />
+
+    <Story Name="Default">
+        <Template>
+            <div class="px-2 py-2">
+                <fieldset>
+                    <legend>Radio group</legend>
+
+                    <BitRadioGroup @bind-Value="model.DefaultStoryValue" Id="default-group1" @attributes="context.Args">
+                        <BitRadio Id="default-radio1" Value="@("value 1")" Label="Option 1" />
+                        <BitRadio Id="default-radio2" Value="@("value 2")" Label="Option 2" />
+                    </BitRadioGroup>
+                </fieldset>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Inline">
+        <Template>
+            <div class="px-2 py-2">
+                <fieldset>
+                    <legend>Radio group</legend>
+
+                    <BitRadioGroup @bind-Value="model.InlineStoryValue" Id="inline-group1" Inline="true">
+                        <BitRadio Id="inline-radio1" Value="@("value 1")" Label="Option 1" />
+                        <BitRadio Id="inline-radio2" Value="@("value 2")" Label="Option 2" />
+                    </BitRadioGroup>
+                </fieldset>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Disabled">
+        <Template>
+            <div class="px-2 py-2">
+                <fieldset>
+                    <legend>Radio group</legend>
+
+                    <BitRadioGroup @bind-Value="model.DisabledStoryValue" Id="disabled-group1">
+                        <BitRadio Id="disabled-radio1" Value="@("value 1")" Label="Option 1" Disabled="true" />
+                        <BitRadio Id="disabled-radio2" Value="@("value 2")" Label="Option 2" />
+                    </BitRadioGroup>
+                </fieldset>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Grouped">
+        <Template>
+            <div class="px-2 py-2">
+                <div class="row">
+                    <fieldset class="col-12 col-md-6">
+                        <legend>Radio group</legend>
+
+                        <BitRadioGroup @bind-Value="model.GroupedStoryValue" Id="grouped-group1" Grouped="true">
+                            <BitRadio Id="grouped-radio1" Value="@("value 1")" Label="Option 1" />
+                            <BitRadio Id="grouped-radio2" Value="@("value 2")" Label="Option 2" />
+                        </BitRadioGroup>
+                    </fieldset>
+                    <fieldset class="col-12 col-md-6">
+                        <legend>Radio group</legend>
+
+                        <BitRadioGroup @bind-Value="model.GroupedWithAdditionalTextStoryValue" Id="grouped-additionaltext-group1" Grouped="true">
+                            <BitRadio Id="grouped-additionaltext-radio1" Value="@("value 1")" Label="Option 1" AdditionalTextId="grouped-additionaltext-radio1-help">
+                                <AdditionalText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas molestie libero</AdditionalText>
+                            </BitRadio>
+                            <BitRadio Id="grouped-additionaltext-radio2" Value="@("value 2")" Label="Option 2" AdditionalTextId="grouped-additionaltext-radio2-help">
+                                <AdditionalText>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas molestie libero</AdditionalText>
+                            </BitRadio>
+                        </BitRadioGroup>
+                    </fieldset>
+                </div>
+            </div>
+        </Template>
+    </Story>
+</Stories>
+
+@code {
+    private readonly ViewModel model = new();
+
+    class ViewModel
+    {
+        public string DefaultStoryValue { get; set; } = "value 1";
+
+        public string InlineStoryValue { get; set; } = "value 1";
+
+        public string DisabledStoryValue { get; set; } = "value 1";
+
+        public string GroupedStoryValue { get; set; } = "value 1";
+
+        public string GroupedWithAdditionalTextStoryValue { get; set; } = "value 1";
+    }
+}

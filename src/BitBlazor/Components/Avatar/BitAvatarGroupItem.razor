@@ -1,0 +1,51 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitAvatarBase
+
+<li>
+    @AvatarFragment
+</li>
+
+@code {
+
+    private RenderFragment AvatarFragment => __builder =>
+    {
+        @if (HasLink())
+        {
+            <a href="@Link" class="list-item">
+                <div class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
+                    @AvatarContentFragment
+                </div>
+                <span>@Text</span>
+            </a>
+        }
+        else
+        {
+            <div class="list-item">
+                <div class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
+                    @AvatarContentFragment
+                </div>
+                <span>@Text</span>
+            </div>
+        }
+    };
+
+    private RenderFragment AvatarContentFragment => __builder =>
+    {
+        @if (HasIcon())
+        {
+            <BitIcon IconName="@Icon" Color="@IconColor"></BitIcon>
+        }
+        else
+        {
+            @if (HasImage())
+            {
+                <img src="@Image" alt="" aria-hidden="true">
+            }
+            else
+            {
+                <p aria-hidden="true">@GetShortName()</p>
+            }
+        }
+    };
+}
