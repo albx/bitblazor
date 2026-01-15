@@ -8,14 +8,14 @@ public class BitButtonTest
     [Fact]
     public void BitButton_Should_Call_OnClick_When_Clicked()
     {
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
         // Arrange
         var clicked = false;
         Action onClickHandler = () => clicked = true;
 
         // Act
-        var component = ctx.RenderComponent<BitButton>(
+        var component = ctx.Render<BitButton>(
             parameters => parameters
                 .Add(p => p.ChildContent, "Click Me")
                 .Add(p => p.Color, Color.Primary)
