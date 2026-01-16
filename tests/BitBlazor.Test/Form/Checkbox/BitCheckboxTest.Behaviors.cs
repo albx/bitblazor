@@ -10,9 +10,9 @@ public class BitCheckboxTest
     {
         bool value = false;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitCheckbox>(parameters => parameters
+        var component = ctx.Render<BitCheckbox>(parameters => parameters
             .Add(p => p.Label, "label")
             .Add(p => p.Id, "test-checkbox")
             .Bind(p => p.Value, value, v => value = v));
@@ -28,9 +28,9 @@ public class BitCheckboxTest
     {
         bool value = false;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitCheckbox>(parameters => parameters
+        var component = ctx.Render<BitCheckbox>(parameters => parameters
             .Add(p => p.Label, "label")
             .Add(p => p.Id, "test-checkbox")
             .Bind(p => p.Value, value, v => value = v));
@@ -46,9 +46,9 @@ public class BitCheckboxTest
     {
         bool value = true;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitCheckbox>(parameters => parameters
+        var component = ctx.Render<BitCheckbox>(parameters => parameters
             .Add(p => p.Label, "label")
             .Add(p => p.Id, "test-checkbox")
             .Bind(p => p.Value, value, v => value = v));

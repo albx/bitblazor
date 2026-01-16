@@ -17,8 +17,8 @@ public class BitTimepickerTest
         {
             TimeOnly? value = null;
 
-            using var ctx = new TestContext();
-            var component = ctx.RenderComponent<BitTimepicker>(parameters => parameters
+            using var ctx = new BunitContext();
+            var component = ctx.Render<BitTimepicker>(parameters => parameters
                 .Add(p => p.Label, "Label")
                 .Add(p => p.Id, "test-timepicker")
                 .Bind(p => p.Value, value, v => value = v));

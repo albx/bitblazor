@@ -8,9 +8,10 @@ BitBlazor provides a comprehensive set of ready-to-use UI components that follow
 
 ## Library Structure
 
-The library is organized into two main namespaces:
+The library is organized into these namespaces:
 
 - **`BitBlazor.Components`**: Core UI components
+- **`BitBlazor.Form`**: Form components with validation support
 - **`BitBlazor.Utilities`**: Utilities and support components
 
 ## Available Components

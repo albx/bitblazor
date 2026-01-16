@@ -16,9 +16,9 @@ public class BitRadioGroupTest
     {
         RadioItemValues? value = RadioItemValues.Value1;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitRadioGroup<RadioItemValues?>>(parameters => parameters
+        var component = ctx.Render<BitRadioGroup<RadioItemValues?>>(parameters => parameters
             .Add(p => p.Id, "radiogroup1")
             .Bind(p => p.Value, value, v => value = v)
             .AddChildContent<BitRadio<RadioItemValues?>>(child => child
@@ -41,9 +41,9 @@ public class BitRadioGroupTest
     {
         RadioItemValues? value = null;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitRadioGroup<RadioItemValues?>>(parameters => parameters
+        var component = ctx.Render<BitRadioGroup<RadioItemValues?>>(parameters => parameters
             .Add(p => p.Id, "radiogroup1")
             .Bind(p => p.Value, value, v => value = v)
             .AddChildContent<BitRadio<RadioItemValues?>>(child => child
@@ -66,9 +66,9 @@ public class BitRadioGroupTest
     {
         RadioItemValues? value = RadioItemValues.Value1;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitRadioGroup<RadioItemValues?>>(parameters => parameters
+        var component = ctx.Render<BitRadioGroup<RadioItemValues?>>(parameters => parameters
             .Add(p => p.Id, "radiogroup1")
             .Bind(p => p.Value, value, v => value = v)
             .AddChildContent<BitRadio<RadioItemValues?>>(child => child
