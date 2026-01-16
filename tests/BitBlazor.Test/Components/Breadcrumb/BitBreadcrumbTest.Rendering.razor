@@ -1,0 +1,122 @@
+﻿@inherits TestContext
+
+@code {
+    [Theory]
+    [InlineData("/")]
+    [InlineData(">")]
+    public void BitBreadcrumb_Should_Render_Correctly(string separator)
+    {
+        List<BitBreadcrumbItem> items =
+        [
+            new BitBreadcrumbItem { Text = "Home", Link = "#" },
+            new BitBreadcrumbItem { Text = "Category", Link = "#" },
+            new BitBreadcrumbItem { Text = "Subcategory", Link = "#" },
+            new BitBreadcrumbItem { Text = "Item" }
+        ];
+
+        var component = Render(@<BitBreadcrumb Items="@items" Separator="@separator" />);
+
+        component.MarkupMatches(
+    @<nav class="breadcrumb-container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Home</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">Category</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">Subcategory</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Item
+            </li>
+        </ol>
+    </nav>);
+    }
+
+    [Theory]
+    [InlineData("/")]
+    [InlineData(">")]
+    public void BitBreadcrumbWithIcons_Should_Render_Correctly(string separator)
+    {
+        List<BitBreadcrumbItem> items =
+        [
+            new BitBreadcrumbItem { Text = "Home", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+            new BitBreadcrumbItem { Text = "Category", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+            new BitBreadcrumbItem { Text = "Subcategory", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+            new BitBreadcrumbItem { Text = "Item", Icon= BitBlazor.Utilities.Icons.ItLink }
+        ];
+
+        var component = Render(@<BitBreadcrumb Items="@items" Separator="@separator" />);
+
+        component.MarkupMatches(
+    @<nav class="breadcrumb-container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <svg class="icon icon-xs" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                <a href="#">Home</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item">
+                <svg class="icon icon-xs" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                <a href="#">Category</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item">
+                <svg class="icon icon-xs" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                <a href="#">Subcategory</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <svg class="icon icon-xs" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                Item
+            </li>
+        </ol>
+    </nav>);
+    }
+
+    [Theory]
+    [InlineData("/")]
+    [InlineData(">")]
+    public void BitBreadcrumbWithDarkBackground_Should_Render_Correctly(string separator)
+    {
+        List<BitBreadcrumbItem> items =
+        [
+            new BitBreadcrumbItem { Text = "Home", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+            new BitBreadcrumbItem { Text = "Category", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+            new BitBreadcrumbItem { Text = "Subcategory", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+            new BitBreadcrumbItem { Text = "Item", Icon= BitBlazor.Utilities.Icons.ItLink }
+        ];
+
+        var component = Render(@<BitBreadcrumb Items="@items" Separator="@separator" Dark="true" />);
+
+        component.MarkupMatches(
+    @<nav class="breadcrumb-container">
+        <ol class="breadcrumb dark px-3">
+            <li class="breadcrumb-item">
+                <svg class="icon icon-xs icon-white" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                <a href="#">Home</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item">
+                <svg class="icon icon-xs icon-white" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                <a href="#">Category</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item">
+                <svg class="icon icon-xs icon-white" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                <a href="#">Subcategory</a>
+                <span class="separator">@separator</span>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <svg class="icon icon-xs icon-white" aria-hidden="true"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-link"></use></svg>
+                Item
+            </li>
+        </ol>
+    </nav>);
+    }
+}

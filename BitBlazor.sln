@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 18
-VisualStudioVersion = 18.0.11123.170
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
@@ -36,6 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", 
 		docs\components\alert.md = docs\components\alert.md
 		docs\components\avatar.md = docs\components\avatar.md
 		docs\components\badge.md = docs\components\badge.md
+		docs\components\breadcrumb.md = docs\components\breadcrumb.md
 		docs\components\button-badge.md = docs\components\button-badge.md
 		docs\components\button.md = docs\components\button.md
 		docs\components\card.md = docs\components\card.md

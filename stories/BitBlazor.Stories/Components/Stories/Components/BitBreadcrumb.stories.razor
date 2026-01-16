@@ -1,0 +1,77 @@
+﻿@attribute [Stories("Components/BitBreadcrumb")]
+
+<Stories TComponent="BitBreadcrumb">
+    <ArgType For="_ => _.Dark" DefaultValue="false" />
+    <ArgType For="_ => _.Separator" DefaultValue="@("/")" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Dark" Value="false" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitBreadcrumb @attributes="context.Args" Items="@_items" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Breadcrumb with custom separator">
+        <Arguments>
+            <Arg For="_ => _.Dark" Value="false" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitBreadcrumb @attributes="context.Args" Items="@_items" Separator=">" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Breadcrumb with icons">
+        <Arguments>
+            <Arg For="_ => _.Dark" Value="false" />
+            <ArgType For="_ => _.Separator" DefaultValue="@("/")" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitBreadcrumb @attributes="context.Args" Items="@_itemsWithIcons" />
+            </div>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitBreadcrumb @attributes="context.Args" Items="@_itemsWithIcons" Separator="@(">")" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Breadcrumb with dark background">
+        <Arguments>
+            <Arg For="_ => _.Dark" Value="true" />
+            <ArgType For="_ => _.Separator" DefaultValue="@("/")" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitBreadcrumb @attributes="context.Args" Items="@_itemsWithIcons" Dark="true" />
+            </div>
+            <div class="px-2 py-2 d-flex align-items-center justify-content-around flex-wrap flex-sm-nowrap">
+                <BitBreadcrumb @attributes="context.Args" Items="@_itemsWithIcons" Separator="@(">")" Dark="true" />
+            </div>
+        </Template>
+    </Story>
+</Stories>
+
+@code
+{
+    private List<BitBreadcrumbItem> _items = new()
+    {
+        new BitBreadcrumbItem { Text = "Home", Link = "#" },
+        new BitBreadcrumbItem { Text = "Category", Link = "#" },
+        new BitBreadcrumbItem { Text = "Subcategory", Link = "#" },
+        new BitBreadcrumbItem { Text = "Item"}
+    };
+
+    private List<BitBreadcrumbItem> _itemsWithIcons = new()
+    {
+        new BitBreadcrumbItem { Text = "Home", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+        new BitBreadcrumbItem { Text = "Category", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+        new BitBreadcrumbItem { Text = "Subcategory", Link = "#", Icon= BitBlazor.Utilities.Icons.ItLink },
+        new BitBreadcrumbItem { Text = "Item", Icon= BitBlazor.Utilities.Icons.ItLink }
+    };
+}
