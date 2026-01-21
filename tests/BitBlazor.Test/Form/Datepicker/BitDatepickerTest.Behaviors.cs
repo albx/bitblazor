@@ -17,8 +17,8 @@ public class BitDatepickerTest
         {
             DateTime? value = null;
 
-            using var ctx = new TestContext();
-            var component = ctx.RenderComponent<BitDatepicker<DateTime?>>(parameters => parameters
+            using var ctx = new BunitContext();
+            var component = ctx.Render<BitDatepicker<DateTime?>>(parameters => parameters
                 .Add(p => p.Label, "Label")
                 .Add(p => p.Id, "test-datepicker")
                 .Bind(p => p.Value, value, v => value = v));
@@ -47,8 +47,8 @@ public class BitDatepickerTest
         {
             DateOnly? value = null;
 
-            using var ctx = new TestContext();
-            var component = ctx.RenderComponent<BitDatepicker<DateOnly?>>(parameters => parameters
+            using var ctx = new BunitContext();
+            var component = ctx.Render<BitDatepicker<DateOnly?>>(parameters => parameters
                 .Add(p => p.Label, "Label")
                 .Add(p => p.Id, "test-datepicker")
                 .Bind(p => p.Value, value, v => value = v));
@@ -71,11 +71,11 @@ public class BitDatepickerTest
     {
         string? value = null;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
         var ex = Assert.Throws<NotSupportedException>(() =>
         {
-            ctx.RenderComponent<BitDatepicker<string?>>(parameters => parameters
+            ctx.Render<BitDatepicker<string?>>(parameters => parameters
                 .Add(p => p.Label, "Label")
                 .Add(p => p.Id, "test-datepicker")
                 .Bind(p => p.Value, value, v => value = v));

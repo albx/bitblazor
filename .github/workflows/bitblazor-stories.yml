@@ -10,7 +10,7 @@ env:
   AZURE_WEBAPP_NAME: bitblazor-stories
   AZURE_WEBAPP_PACKAGE_PATH: stories/BitBlazor.Stories/published
   CONFIGURATION: Release
-  DOTNET_CORE_VERSION: 9.0.x
+  DOTNET_CORE_VERSION: 10.x
   WORKING_DIRECTORY: stories/BitBlazor.Stories
 jobs:
   build:

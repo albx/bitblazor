@@ -8,12 +8,12 @@ public class BitAlertTest
     [Fact]
     public void BitAlert_Should_Call_OnClose_Event_When_Close_Button_Is_Clicked()
     {
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
         bool closingAlert = false;
         Action onAlertClose = () => closingAlert = true;
 
-        var component = ctx.RenderComponent<BitAlert>(
+        var component = ctx.Render<BitAlert>(
             parameters => parameters
                 .Add(a => a.Type, AlertType.Primary)
                 .Add(a => a.ChildContent, "Dismissible alert")
@@ -29,12 +29,12 @@ public class BitAlertTest
     [Fact]
     public void BitAlert_Should_Call_OnClosed_Event_When_Close_Button_Is_Clicked()
     {
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
         bool closedAlert = false;
         Action onAlertClosed = () => closedAlert = true;
 
-        var component = ctx.RenderComponent<BitAlert>(
+        var component = ctx.Render<BitAlert>(
             parameters => parameters
                 .Add(a => a.Type, AlertType.Primary)
                 .Add(a => a.ChildContent, "Dismissible alert")

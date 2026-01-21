@@ -10,9 +10,9 @@ public class BitToggleTest
     {
         bool value = false;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitToggle>(parameters => parameters
+        var component = ctx.Render<BitToggle>(parameters => parameters
             .Add(p => p.Label, "label")
             .Add(p => p.Id, "test-toggle")
             .Bind(p => p.Value, value, v => value = v));
@@ -28,9 +28,9 @@ public class BitToggleTest
     {
         bool value = false;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitToggle>(parameters => parameters
+        var component = ctx.Render<BitToggle>(parameters => parameters
             .Add(p => p.Label, "label")
             .Add(p => p.Id, "test-toggle")
             .Bind(p => p.Value, value, v => value = v));
@@ -46,9 +46,9 @@ public class BitToggleTest
     {
         bool value = true;
 
-        using var ctx = new TestContext();
+        using var ctx = new BunitContext();
 
-        var component = ctx.RenderComponent<BitToggle>(parameters => parameters
+        var component = ctx.Render<BitToggle>(parameters => parameters
             .Add(p => p.Label, "label")
             .Add(p => p.Id, "test-toggle")
             .Bind(p => p.Value, value, v => value = v));
