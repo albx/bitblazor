@@ -55,4 +55,4 @@ jobs:
       if: ${{ !cancelled() }}           # run this step even if previous step failed
       with:
         name: dotnet-test-results
-        path: test-runner-results.trx
+        path: "**/test-runner-results.trx"
