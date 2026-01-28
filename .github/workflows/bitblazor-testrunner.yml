@@ -51,8 +51,10 @@ jobs:
     #    reporter: dotnet-trx
     #    fail-on-error: true
 
-    - uses: actions/upload-artifact@v4  # upload test results
+    - name: Upload test results
+      uses: actions/upload-artifact@v4  # upload test results
       if: ${{ !cancelled() }}           # run this step even if previous step failed
       with:
         name: dotnet-test-results
         path: "**/test-runner-results.trx"
+        retention-days: 7
