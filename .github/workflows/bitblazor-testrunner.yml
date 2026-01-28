@@ -1,4 +1,4 @@
-name: BitBlazor - Test runner
+name: 'BitBlazor - Test runner'
 
 on:
   push:
@@ -9,8 +9,8 @@ on:
     - main
   workflow_dispatch:
 
-permissions:
-  checks: write
+#permissions:
+#  checks: write
     
 jobs:
   build_and_test:
@@ -40,12 +40,21 @@ jobs:
       
     - name: Test
       run: dotnet test $SOLUTION --configuration $BUILD_CONFIG --logger "trx;LogFileName=test-runner-results.trx" || true
-      
-    - name: Test Report
-      uses: dorny/test-reporter@v1
-      if: always()
+
+    # DEPRECATED - see #70
+    #- name: Test Report
+    #  uses: dorny/test-reporter@v1
+    #  if: always()
+    #  with:
+    #    name: DotNET Tests
+    #    path: "**/test-runner-results.trx"                            
+    #    reporter: dotnet-trx
+    #    fail-on-error: true
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v4  # upload test results
+      if: ${{ !cancelled() }}           # run this step even if previous step failed
       with:
-        name: DotNET Tests
-        path: "**/test-runner-results.trx"                            
-        reporter: dotnet-trx
-        fail-on-error: true
+        name: dotnet-test-results
+        path: "**/test-runner-results.trx"
+        retention-days: 7
