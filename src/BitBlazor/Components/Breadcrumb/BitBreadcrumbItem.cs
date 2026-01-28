@@ -8,7 +8,7 @@ public class BitBreadcrumbItem
     /// <summary>
     /// Gets or sets the text to display for the item.
     /// </summary>
-    public string Text { get; set; }
+    public string Text { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the icon name to display before the item.

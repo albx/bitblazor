@@ -19,7 +19,7 @@ public partial class BitBreadcrumb : BitComponentBase
     /// Gets or sets the items shown on the breadcrumb.
     /// </summary>
     [Parameter]
-    public IReadOnlyList<BitBreadcrumbItem>? Items { get; set; }
+    public IReadOnlyList<BitBreadcrumbItem> Items { get; set; } = Enumerable.Empty<BitBreadcrumbItem>().ToList();
 
     /// <summary>
     /// Gets or sets the separator to show between breadcrumb components.
@@ -39,8 +39,7 @@ public partial class BitBreadcrumb : BitComponentBase
 
         if (Dark)
         {
-            builder.Add("dark");
-            builder.Add("px-3");
+            builder.AddRange(new[] { "dark", "px-3" });
         }
 
         return builder.Build();

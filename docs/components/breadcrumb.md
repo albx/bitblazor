@@ -17,7 +17,7 @@ The Breadcrumb component provides a navigational aid that helps users understand
 | Name      | Type                                 | Required | Default | Description                                                                 |
 |-----------|--------------------------------------|----------|---------|-----------------------------------------------------------------------------|
 | `Label`   | `string?`                            | ✗       | `null`  | The ARIA label for the breadcrumb component, improving accessibility.       |
-| `Items`   | `IReadOnlyList<BitBreadcrumbItem>?`  | ✓        | -       | The collection of breadcrumb items to display.                              |
+| `Items`   | `IReadOnlyList<BitBreadcrumbItem>`   | ✓        | empty list       | The collection of breadcrumb items to display.                              |
 | `Separator` | `string?`                          | ✗       | `"/"`   | The separator string shown between breadcrumb items.                        |
 | `Dark`    | `bool`                               | ✗       | `false` | Indicates if the breadcrumb is rendered on a dark background.               |
 
@@ -27,8 +27,8 @@ Each breadcrumb item is represented by a `BitBreadcrumbItem` object. Typically, 
 
 | Property   | Type     | Description                                 |
 |------------|----------|---------------------------------------------|
-| `Text`     | `string` | The display text for the breadcrumb item.   |
-| `Href`     | `string` | The URL to navigate to when the item is clicked. (Optional for the last item) |
+| `Text`     | `string` | The display text for the breadcrumb item. (Default empty string)   |
+| `Href`     | `string` | The URL to navigate to when the item is clicked. (Default `"#"`, optional for the last item) |
 | `Icon`     | `string?` | The icon to show before the item (Optional) |
 
 > **Note:** The last item in the `Items` list is considered the current page and is not rendered as a link.

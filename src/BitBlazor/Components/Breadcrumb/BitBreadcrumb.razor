@@ -20,7 +20,7 @@
             {
                 <li class="breadcrumb-item">
                     @BreadcrumbIconFragment(item)
-                    <a href="@item.Link">@item.Text</a>
+                    <a href="@(string.IsNullOrWhiteSpace(item.Link) ? "#" : item.Link)">@item.Text</a>
                     <span class="separator">@Separator</span>
                 </li>
             }
