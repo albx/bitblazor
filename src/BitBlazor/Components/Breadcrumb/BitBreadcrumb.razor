@@ -1,0 +1,52 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<!-- BitBreadcrumb renders a breadcrumb navigation component to display the current location within a hierarchy.
+     The component supports customization of items, separators, and accessibility features. -->
+
+<nav class="breadcrumb-container" aria-label="@Label">
+    <ol class="@ComputeCssClasses()">
+        @foreach (var item in Items)
+        {
+            @if (IsLeaf(item))
+            {
+                <li class="breadcrumb-item active" aria-current="page">
+                    @BreadcrumbIconFragment(item)
+                    @item.Text
+                </li>
+            }
+            else
+            {
+                <li class="breadcrumb-item">
+                    @BreadcrumbIconFragment(item)
+                    <a href="@(string.IsNullOrWhiteSpace(item.Link) ? "#" : item.Link)">@item.Text</a>
+                    <span class="separator">@Separator</span>
+                </li>
+            }
+        }
+    </ol>
+</nav>
+
+
+@code {
+
+    /// <summary>
+    /// Gets the item icon fragment, if specified.
+    /// </summary>
+    private RenderFragment BreadcrumbIconFragment(BitBreadcrumbItem item) => __builder =>
+    {
+        @if (item.HasIcon())
+        {
+            if (!Dark)
+            {
+                <BitIcon IconName="@item.Icon" Size="IconSize.ExtraSmall" aria-hidden="true" />
+            }
+            else
+            {
+                <BitIcon IconName="@item.Icon" Size="IconSize.ExtraSmall" Color="IconColor.White" aria-hidden="true" />
+            }
+        }
+    };
+
+}
