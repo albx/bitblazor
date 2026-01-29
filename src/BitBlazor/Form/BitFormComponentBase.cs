@@ -102,7 +102,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// </exception>
     protected BitFormComponentBase()
     {
-        if (!SupportedTypes.Contains(ComponentType))
+        if (SupportedTypes.Length > 0 && !SupportedTypes.Contains(ComponentType))
         {
             throw new NotSupportedException("Type not supported");
         }

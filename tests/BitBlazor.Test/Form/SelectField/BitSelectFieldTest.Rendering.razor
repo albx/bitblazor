@@ -1,0 +1,24 @@
+﻿@inherits BunitContext
+
+@code {
+    [Fact]
+    public void BitSelectField_Should_Render_Default_Markup_Correctly()
+    {
+        string? value = null;
+
+        var component = Render(
+            @<BitSelectField Label="label" 
+                             Id="test-selectfield"
+                             @bind-Value="value"></BitSelectField>);
+
+        component.MarkupMatches(
+            @<div class="select-wrapper">
+                <label for="test-selectfield">label</label>
+                <select id="test-selectfield" name="test-selectfield">
+                    <option selected value="">Choose your option</option>
+                    <option value="value 1">value 1</option>
+                    <option value="value 2"> value 2</option>
+                </select>
+             </div>);
+    }
+}

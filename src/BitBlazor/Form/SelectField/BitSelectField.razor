@@ -1,0 +1,16 @@
+﻿@namespace BitBlazor.Form
+
+@typeparam T
+@inherits BitFormComponentBase<T>
+
+<div class="select-wrapper">
+    <label for="@Id">@Label</label>
+    <InputSelect TValue="T" 
+                 Value="Value"
+                 ValueChanged="ValueChanged"
+                 ValueExpression="ValueExpression"
+                 name="@Id"
+                 @attributes="AdditionalAttributes">
+
+    </InputSelect>
+</div>
