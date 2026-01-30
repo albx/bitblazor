@@ -10,7 +10,10 @@
                  ValueChanged="ValueChanged"
                  ValueExpression="ValueExpression"
                  name="@Id"
+                 disabled="@Disabled"
                  @attributes="AdditionalAttributes">
-
+        <CascadingValue Value="this">
+            @ChildContent
+        </CascadingValue>
     </InputSelect>
 </div>

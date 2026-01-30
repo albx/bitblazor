@@ -4,20 +4,88 @@
     [Fact]
     public void BitSelectField_Should_Render_Default_Markup_Correctly()
     {
-        string? value = null;
+        string value = string.Empty;
 
         var component = Render(
             @<BitSelectField Label="label" 
                              Id="test-selectfield"
-                             @bind-Value="value"></BitSelectField>);
+                             @bind-Value="value">
+                <BitSelectItem TValue="string" Value="@string.Empty">Choose your option</BitSelectItem>
+                <BitSelectItem TValue="string" Value="@("value 1")">value 1</BitSelectItem>
+                <BitSelectItem TValue="string" Value="@("value 2")">value 2</BitSelectItem>
+             </BitSelectField>);
 
         component.MarkupMatches(
             @<div class="select-wrapper">
                 <label for="test-selectfield">label</label>
-                <select id="test-selectfield" name="test-selectfield">
+                <select id="test-selectfield" name="test-selectfield" value="">
                     <option selected value="">Choose your option</option>
                     <option value="value 1">value 1</option>
                     <option value="value 2"> value 2</option>
+                </select>
+             </div>);
+    }
+
+    [Fact]
+    public void BitSelectField_Should_Render_Disabled_Select_Correctly()
+    {
+        string value = string.Empty;
+
+        var component = Render(
+            @<BitSelectField Label="label" 
+                             Id="test-selectfield"
+                             @bind-Value="value"
+                             Disabled="true">
+                <BitSelectItem TValue="string" Value="@string.Empty">Choose your option</BitSelectItem>
+                <BitSelectItem TValue="string" Value="@("value 1")">value 1</BitSelectItem>
+                <BitSelectItem TValue="string" Value="@("value 2")">value 2</BitSelectItem>
+             </BitSelectField>);
+
+        component.MarkupMatches(
+            @<div class="select-wrapper">
+                <label for="test-selectfield">label</label>
+                <select id="test-selectfield" name="test-selectfield" value="" disabled>
+                    <option selected value="">Choose your option</option>
+                    <option value="value 1">value 1</option>
+                    <option value="value 2"> value 2</option>
+                </select>
+             </div>);
+    }
+
+    [Fact]
+    public void BitSelectField_Should_Render_Option_Group_Correctly()
+    {
+        string value = string.Empty;
+
+        var component = Render(
+            @<BitSelectField Label="label" 
+                             Id="test-selectfield"
+                             @bind-Value="value"
+                             Disabled="true">
+                <BitSelectItem TValue="string" Value="@string.Empty">Choose your option</BitSelectItem>
+                <BitSelectItemGroup Label="Group 1">
+                    <BitSelectItem TValue="string" Value="@("value 1")">value 1</BitSelectItem>
+                    <BitSelectItem TValue="string" Value="@("value 2")">value 2</BitSelectItem>
+                </BitSelectItemGroup>
+                <BitSelectItemGroup Label="Group 2">
+                    <BitSelectItem TValue="string" Value="@("value 3")">value 3</BitSelectItem>
+                    <BitSelectItem TValue="string" Value="@("value 4")">value 4</BitSelectItem>
+                </BitSelectItemGroup>
+             </BitSelectField>);
+
+        component.MarkupMatches(
+            @<div class="select-wrapper">
+                <label for="test-selectfield">label</label>
+                <select id="test-selectfield" name="test-selectfield" value="" disabled>
+                    <option selected value="">Choose your option</option>
+                    <optgroup label="Group 1">
+                        <option value="value 1">value 1</option>
+                        <option value="value 2"> value 2</option>
+                    </optgroup>
+                    <optgroup label="Group 2">
+                        <option value="value 3">value 3</option>
+                        <option value="value 4"> value 4</option>
+                    </optgroup>
                 </select>
              </div>);
     }
