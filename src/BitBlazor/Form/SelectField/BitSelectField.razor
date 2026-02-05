@@ -3,7 +3,7 @@
 @typeparam T
 @inherits BitFormComponentBase<T>
 
-<div class="select-wrapper">
+<div class="@ComputeContainerCssClass()">
     <label for="@Id">@Label</label>
     <InputSelect TValue="T" 
                  Value="Value"
@@ -16,4 +16,8 @@
             @ChildContent
         </CascadingValue>
     </InputSelect>
+
+    @RenderValidationMessage()
+
+    @RenderAdditionalText()
 </div>

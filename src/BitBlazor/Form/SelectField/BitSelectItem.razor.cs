@@ -28,11 +28,11 @@ public partial class BitSelectItem<TValue>
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Gets or sets a collection of additional attributes to be applied to the component's rendered HTML element.
+    /// Gets or sets additional attributes that do not match any of the explicitly defined parameters.
     /// </summary>
     /// <remarks>
-    /// Attributes in this dictionary are rendered as HTML attributes on the component's root element. 
-    /// This allows you to specify custom attributes such as data-* or aria-* values that are not explicitly defined by the component.
+    /// This property is typically used to capture arbitrary HTML attributes or other key-value pairs that are not explicitly defined in the component's parameters. 
+    /// The keys represent attribute names, and the values represent their corresponding values.
     /// </remarks>
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();

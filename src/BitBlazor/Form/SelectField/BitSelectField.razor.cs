@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Form;
@@ -9,7 +10,7 @@ namespace BitBlazor.Form;
 /// Use <see cref="ChildContent"/> to define the selectable options for the field. 
 /// This component is intended for use within Bit form layouts and supports custom rendering of option content.</remarks>
 /// <typeparam name="T">The type of the value represented and selected by the field.</typeparam>
-public partial class BitSelectField<T> : BitFormComponentBase<T>
+public partial class BitSelectField<T> : BitFormComponentBase<T>, IBitSelectField
 {
     /// <inheritdoc/>
     protected override string FieldIdPrefix { get; } = "select";
@@ -23,4 +24,12 @@ public partial class BitSelectField<T> : BitFormComponentBase<T>
     [Parameter]
     [EditorRequired]
     public RenderFragment ChildContent { get; set; }
+
+    private string ComputeContainerCssClass()
+    {
+        var builder = new CssClassBuilder("select-wrapper");
+        AddCustomCssClass(builder);
+
+        return builder.Build();
+    }
 }

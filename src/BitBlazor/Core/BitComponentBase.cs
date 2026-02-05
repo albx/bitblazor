@@ -23,9 +23,8 @@ public abstract class BitComponentBase : ComponentBase
     /// Gets or sets additional attributes that do not match any of the explicitly defined parameters.
     /// </summary>
     /// <remarks>
-    /// This property is typically used to capture arbitrary HTML attributes or other key-value pairs
-    /// that are not explicitly defined in the component's parameters. The keys represent attribute names, and the
-    /// values represent their corresponding values.
+    /// This property is typically used to capture arbitrary HTML attributes or other key-value pairs that are not explicitly defined in the component's parameters. 
+    /// The keys represent attribute names, and the values represent their corresponding values.
     /// </remarks>
     [Parameter(CaptureUnmatchedValues = true)]
     public IDictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
