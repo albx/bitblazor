@@ -154,6 +154,34 @@ This guide provides a quick overview of all BitBlazor components with basic exam
                 Step="1" />
 ```
 
+### BitSelectField
+```razor
+<!-- Basic select field -->
+<BitSelectField Label="Country" @bind-Value="model.Country">
+    <BitSelectItem Value="@string.Empty">Select a country...</BitSelectItem>
+    <BitSelectItem Value="@("IT")">Italy</BitSelectItem>
+    <BitSelectItem Value="@("US")">United States</BitSelectItem>
+    <BitSelectItem Value="@("UK")">United Kingdom</BitSelectItem>
+</BitSelectField>
+
+<!-- Select with grouped options -->
+<BitSelectField Label="Browser" @bind-Value="model.Browser">
+    <BitSelectItem Value="@string.Empty">Choose a browser...</BitSelectItem>
+    <BitSelectItemGroup Label="Modern Browsers">
+        <BitSelectItem Value="@("chrome")">Google Chrome</BitSelectItem>
+        <BitSelectItem Value="@("firefox")">Mozilla Firefox</BitSelectItem>
+        <BitSelectItem Value="@("edge")">Microsoft Edge</BitSelectItem>
+    </BitSelectItemGroup>
+</BitSelectField>
+
+<!-- Select with enum values -->
+<BitSelectField Label="Status" @bind-Value="model.Status">
+    <BitSelectItem Value="@OrderStatus.Pending">Pending</BitSelectItem>
+    <BitSelectItem Value="@OrderStatus.Processing">Processing</BitSelectItem>
+    <BitSelectItem Value="@OrderStatus.Shipped">Shipped</BitSelectItem>
+</BitSelectField>
+```
+
 ### BitCheckbox
 ```razor
 <!-- Basic checkbox -->
@@ -380,6 +408,18 @@ Size.Large        // Large
                           For="@(() => model.Phone)" />
         </div>
         <div class="col-md-6">
+            <BitSelectField Label="Country" 
+                            @bind-Value="model.Country"
+                            For="@(() => model.Country)">
+                <BitSelectItem Value="@string.Empty">Select a country...</BitSelectItem>
+                <BitSelectItem Value="@("IT")">Italy</BitSelectItem>
+                <BitSelectItem Value="@("US")">United States</BitSelectItem>
+                <BitSelectItem Value="@("UK")">United Kingdom</BitSelectItem>
+                <BitSelectItem Value="@("FR")">France</BitSelectItem>
+                <BitSelectItem Value="@("DE")">Germany</BitSelectItem>
+            </BitSelectField>
+        </div>
+        <div class="col-md-6">
             <BitDatepicker Label="Birth Date" 
                            @bind-Value="model.BirthDate"
                            For="@(() => model.BirthDate)" />
@@ -451,6 +491,9 @@ Size.Large        // Large
         
         [Phone]
         public string? Phone { get; set; }
+        
+        [Required]
+        public string Country { get; set; } = string.Empty;
         
         [Required]
         public DateOnly BirthDate { get; set; }

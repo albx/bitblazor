@@ -97,6 +97,14 @@ Numeric input field component with increment/decrement controls.
 - Min/max value constraints
 - Custom step values and symbol content
 
+#### [BitSelectField](form/select-field.md)
+Dropdown select input field component.
+- Generic type support for any value type
+- Support for option grouping
+- Disabled options and groups
+- Form validation integration
+- Accessible and responsive
+
 #### [BitCheckbox](form/checkbox.md)
 Checkbox component for binary choices.
 - Boolean value selection
