@@ -30,6 +30,12 @@ public partial class BitSelectItemGroup
     public RenderFragment ChildContent { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the option group is disabled
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>
     /// Gets or sets additional attributes that do not match any of the explicitly defined parameters.
     /// </summary>
     /// <remarks>
