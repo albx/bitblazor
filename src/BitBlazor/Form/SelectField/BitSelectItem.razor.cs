@@ -6,7 +6,7 @@ namespace BitBlazor.Form;
 /// Represents an individual selectable option within a BitSelectField component.
 /// </summary>
 /// <remarks>
-/// Use BitSelectItem as a child of BitSelectFieldto define selectable options. 
+/// Use BitSelectItem as a child of BitSelectField to define selectable options. 
 /// The Value property specifies the underlying value for the option, and ChildContent defines the display content shown to the user.
 /// </remarks>
 /// <typeparam name="TValue">The type of the value associated with the select item.</typeparam>

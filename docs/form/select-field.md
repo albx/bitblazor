@@ -10,7 +10,7 @@ BitBlazor.Form
 
 ## Description
 
-The `BitSelectField<T>` component is designed to handle selection from a list of options and provides built-in support for form integration and validation. It is a generic component that can work with any data type and supports option grouping, disabled options, and accessibility attributes.
+The `BitSelectField<T>` component is designed to handle selection from a list of options and provides built-in support for form integration and validation. It is a generic component that can work with any data type supported by Blazor's value converters (or with an appropriate custom converter) and supports option grouping, disabled options, and accessibility attributes.
 
 ## Parameters
 

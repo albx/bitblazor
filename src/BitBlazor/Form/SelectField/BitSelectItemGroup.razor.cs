@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Components;
 namespace BitBlazor.Form;
 
 /// <summary>
-/// Represents a group of selectable items within a BitSelect component.
+/// Represents a group of selectable items within a BitSelectField component.
 /// </summary>
 /// <remarks>
-/// Use BitSelectItemGroup to organize related BitSelectItem components under a common label within a BitSelect field. 
+/// Use BitSelectItemGroup to organize related BitSelectItem components under a common label within a BitSelectField component. 
 /// This enhances accessibility and user experience by grouping options logically. 
 /// The group label is typically rendered as an optgroup label in the resulting markup.
 /// </remarks>

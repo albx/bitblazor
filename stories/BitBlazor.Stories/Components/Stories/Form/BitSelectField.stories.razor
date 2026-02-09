@@ -31,7 +31,7 @@
             <div class="px-2 py-4">
                 <BitSelectField Label="Label"
                                 Disabled="true"
-                                @bind-Value="model.DefaultStoryValue">
+                                @bind-Value="model.DisabledStoryValue">
                     <BitSelectItem Value="@string.Empty">Choose an option</BitSelectItem>
                     <BitSelectItem Value="@("Value 1")">Option 1</BitSelectItem>
                     <BitSelectItem Value="@("Value 2")">Option 2</BitSelectItem>
@@ -64,7 +64,7 @@
 </Stories>
 
 @code {
-    private ViewModel model = new();
+    private readonly ViewModel model = new();
 
     class ViewModel
     {
