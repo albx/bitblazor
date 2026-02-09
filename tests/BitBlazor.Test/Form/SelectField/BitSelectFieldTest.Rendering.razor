@@ -168,7 +168,7 @@
                              Id="test-selectfield"
                              @bind-Value="value">
                 <BitSelectItem TValue="string" Value="@string.Empty">Choose your option</BitSelectItem>
-                <BitSelectItemGroup Label="Group 1">
+                <BitSelectItemGroup Label="Group 1" Disabled="true">
                     <BitSelectItem TValue="string" Value="@("value 1")">value 1</BitSelectItem>
                     <BitSelectItem TValue="string" Value="@("value 2")">value 2</BitSelectItem>
                 </BitSelectItemGroup>
@@ -183,7 +183,7 @@
                 <label for="test-selectfield">label</label>
                 <select id="test-selectfield" name="test-selectfield" value="">
                     <option selected value="">Choose your option</option>
-                    <optgroup label="Group 1">
+                    <optgroup label="Group 1" disabled>
                         <option value="value 1">value 1</option>
                         <option value="value 2"> value 2</option>
                     </optgroup>
