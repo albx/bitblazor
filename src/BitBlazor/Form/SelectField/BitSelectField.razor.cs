@@ -23,7 +23,7 @@ public partial class BitSelectField<T> : BitFormComponentBase<T>, IBitSelectFiel
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment ChildContent { get; set; } = default!;
 
     private string ComputeContainerCssClass()
     {

@@ -64,12 +64,6 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// Gets or sets the placeholder to show in the component
-    /// </summary>
-    [Parameter]
-    public string? Placeholder { get; set; }
-
-    /// <summary>
     /// Gets or sets an optional fragment of additional content to render.
     /// </summary>
     [Parameter]
@@ -123,20 +117,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     {
         base.OnParametersSet();
         SetRequiredAttribute();
-        SetPlaceholderAttribute();
         SetAdditionalTextAttributes();
-    }
-
-    private void SetPlaceholderAttribute()
-    {
-        if (!string.IsNullOrWhiteSpace(Placeholder))
-        {
-            AdditionalAttributes["placeholder"] = Placeholder;
-        }
-        else
-        {
-            AdditionalAttributes.Remove("placeholder");
-        }
     }
 
     private void SetRequiredAttribute()

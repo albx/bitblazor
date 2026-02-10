@@ -21,7 +21,6 @@ The `BitSelectField<T>` component is designed to handle selection from a list of
 | `ValueExpression` | `Expression<Func<T?>>` | ✗ | - | Expression for model binding and validation |
 | `Label` | `string` | ✓ | - | The label text for the select field |
 | `Disabled` | `bool` | ✗ | `false` | Whether the select field is disabled |
-| `Placeholder` | `string?` | ✗ | `null` | Placeholder text displayed when no option is selected |
 | `ChildContent` | `RenderFragment` | ✓ | - | Content defining the selectable options (BitSelectItem or BitSelectItemGroup) |
 | `AdditionalText` | `RenderFragment?` | ✗ | `null` | Additional descriptive text displayed below the select |
 | `AdditionalTextId` | `string?` | ✗ | `null` | ID for the additional text (used for aria-describedby) |

@@ -27,7 +27,7 @@ public partial class BitSelectItemGroup
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment ChildContent { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets whether the option group is disabled
