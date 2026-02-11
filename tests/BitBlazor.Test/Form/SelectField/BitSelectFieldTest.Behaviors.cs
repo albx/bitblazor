@@ -5,7 +5,7 @@ namespace BitBlazor.Test.Form.SelectField;
 
 public class BitSelectFieldTest
 {
-    enum TestEnum
+    private enum TestEnum
     {
         Option1,
         Option2,
@@ -22,7 +22,7 @@ public class BitSelectFieldTest
         var component = ctx.Render<BitSelectField<string>>(parameters => parameters
             .Add(p => p.Label, "Select a value")
             .Add(p => p.Id, "test-select")
-            .Bind(p => p.Value, value!, v => value = v)
+            .Bind(p => p.Value, value, v => value = v)
             .AddChildContent<BitSelectItem<string>>(child => child
                 .Add(p => p.Value, string.Empty)
                 .AddChildContent("Choose an option"))
@@ -106,7 +106,7 @@ public class BitSelectFieldTest
         var component = ctx.Render<BitSelectField<string>>(parameters => parameters
             .Add(p => p.Label, "Select a value")
             .Add(p => p.Id, "test-select")
-            .Bind(p => p.Value, value!, v => value = v)
+            .Bind(p => p.Value, value, v => value = v)
             .AddChildContent<BitSelectItem<string>>(child => child
                 .Add(p => p.Value, "initial")
                 .AddChildContent("Initial Value"))
@@ -132,7 +132,7 @@ public class BitSelectFieldTest
         var component = ctx.Render<BitSelectField<string>>(parameters => parameters
             .Add(p => p.Label, "Select a value")
             .Add(p => p.Id, "test-select")
-            .Bind(p => p.Value, value!, v => value = v)
+            .Bind(p => p.Value, value, v => value = v)
             .AddChildContent<BitSelectItem<string>>(child => child
                 .Add(p => p.Value, "value1")
                 .AddChildContent("Value 1"))
