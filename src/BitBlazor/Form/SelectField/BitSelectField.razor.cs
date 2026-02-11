@@ -7,8 +7,9 @@ namespace BitBlazor.Form;
 /// Represents a select field component.
 /// </summary>
 /// <remarks>
-/// Use <see cref="ChildContent"/> to define the selectable options for the field. 
-/// This component is intended for use within Bit form layouts and supports custom rendering of option content.</remarks>
+/// Use <see cref="ChildContent"/> to define the selectable options for the field.
+/// This component is intended for use within Bit form layouts and renders options using the native HTML &lt;select&gt; element,
+/// so <c>BitSelectItem</c> option content should be plain text only (nested markup inside options is not supported).</remarks>
 /// <typeparam name="T">The type of the value represented and selected by the field.</typeparam>
 public partial class BitSelectField<T> : BitFormComponentBase<T>, IBitSelectField
 {
