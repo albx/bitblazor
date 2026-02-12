@@ -28,6 +28,12 @@ public abstract class BitInputFieldBase<T> : BitFormComponentBase<T>
     public bool Plaintext { get; set; }
 
     /// <summary>
+    /// Gets or sets the placeholder to show in the component
+    /// </summary>
+    [Parameter]
+    public string? Placeholder { get; set; }
+
+    /// <summary>
     /// Gets or sets the size of the text field component.
     /// </summary>
     /// <remarks>
@@ -40,6 +46,25 @@ public abstract class BitInputFieldBase<T> : BitFormComponentBase<T>
     public Size Size { get; set; } = Size.Default;
 
     private bool isLabelActive = false;
+
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        SetPlaceholderAttribute();
+    }
+
+    private void SetPlaceholderAttribute()
+    {
+        if (!string.IsNullOrWhiteSpace(Placeholder))
+        {
+            AdditionalAttributes["placeholder"] = Placeholder;
+        }
+        else
+        {
+            AdditionalAttributes.Remove("placeholder");
+        }
+    }
 
     /// <summary>
     /// Sets the active state of the label.
