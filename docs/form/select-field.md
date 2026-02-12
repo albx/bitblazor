@@ -18,7 +18,7 @@ The `BitSelectField<T>` component is designed to handle selection from a list of
 |------|------|----------|---------|-------------|
 | `Value` | `T?` | ✗ | `null` | The current value of the select field |
 | `ValueChanged` | `EventCallback<T>` | ✗ | - | Callback fired when the value changes |
-| `ValueExpression` | `Expression<Func<T?>>` | ✗ | - | Expression for model binding and validation |
+| `ValueExpression` | `Expression<Func<T>>?` | ✗ | - | Expression for model binding and validation |
 | `Label` | `string` | ✓ | - | The label text for the select field |
 | `Disabled` | `bool` | ✗ | `false` | Whether the select field is disabled |
 | `ChildContent` | `RenderFragment` | ✓ | - | Content defining the selectable options (BitSelectItem or BitSelectItemGroup) |
