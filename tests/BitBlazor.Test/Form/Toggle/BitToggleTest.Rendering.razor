@@ -1,6 +1,7 @@
 ﻿@inherits BunitContext
 
 @using BitBlazor.Form.Toggle
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -140,5 +141,113 @@
                     </label>
                 </div>
              </div>);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new ToggleValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitToggle Label="Enable Option"
+                           Id="test-enabled"
+                           @bind-Value="@model.IsEnabled"
+                           For="@(() => model.IsEnabled)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-enabled");
+        Assert.Contains("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+        Assert.False(submitted);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new ToggleValidationModel { IsEnabled = true };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitToggle Label="Enable Option"
+                           Id="test-enabled"
+                           @bind-Value="@model.IsEnabled"
+                           For="@(() => model.IsEnabled)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-enabled");
+        Assert.Contains("just-validate-success-field", input.ClassList);
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.True(submitted);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new ToggleValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitToggle Label="Enable Option"
+                           Id="test-enabled"
+                           @bind-Value="@model.IsEnabled"
+                           For="@(() => model.IsEnabled)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("You must enable this option", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitToggle_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new ToggleValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitToggle Label="Enable Option"
+                           Id="test-enabled"
+                           @bind-Value="@model.IsEnabled"
+                           For="@(() => model.IsEnabled)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var input = component.Find("input#test-enabled");
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class ToggleValidationModel
+    {
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You must enable this option")]
+        public bool IsEnabled { get; set; }
     }
 }

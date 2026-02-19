@@ -1,4 +1,5 @@
 ﻿@inherits BunitContext
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -37,5 +38,113 @@
                 <input class="form-control" type="time" id="test-timepicker" name="test-timepicker" value="" aria-describedby="additionalTextId" />
                 <small id="additionalTextId" class="form-text">Additional text</small>
              </div>);
+    }
+
+    [Fact]
+    public void BitTimepicker_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new TimepickerValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitTimepicker Label="Appointment Time"
+                               Id="test-time"
+                               @bind-Value="@model.AppointmentTime"
+                               For="@(() => model.AppointmentTime)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-time");
+        Assert.Contains("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+        Assert.False(submitted);
+    }
+
+    [Fact]
+    public void BitTimepicker_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new TimepickerValidationModel { AppointmentTime = new TimeOnly(14, 30) };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitTimepicker Label="Appointment Time"
+                               Id="test-time"
+                               @bind-Value="@model.AppointmentTime"
+                               For="@(() => model.AppointmentTime)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-time");
+        Assert.Contains("just-validate-success-field", input.ClassList);
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.True(submitted);
+    }
+
+    [Fact]
+    public void BitTimepicker_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new TimepickerValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitTimepicker Label="Appointment Time"
+                               Id="test-time"
+                               @bind-Value="@model.AppointmentTime"
+                               For="@(() => model.AppointmentTime)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("Appointment time is required", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitTimepicker_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new TimepickerValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitTimepicker Label="Appointment Time"
+                               Id="test-time"
+                               @bind-Value="@model.AppointmentTime"
+                               For="@(() => model.AppointmentTime)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var input = component.Find("input#test-time");
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class TimepickerValidationModel
+    {
+        [Required(ErrorMessage = "Appointment time is required")]
+        public TimeOnly? AppointmentTime { get; set; }
     }
 }

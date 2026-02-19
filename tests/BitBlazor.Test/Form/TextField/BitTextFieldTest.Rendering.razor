@@ -1,4 +1,5 @@
 ﻿@inherits BunitContext
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -239,5 +240,114 @@
                 <label for="test-textfield" class="">label</label>
                 <input type="text" name="test-textfield" id="test-textfield" class="form-control" />
              </div>);
+    }
+
+    [Fact]
+    public void BitTextField_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new StringValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitTextField Label="Name"
+                              Id="test-name"
+                              @bind-Value="@model.Name"
+                              For="@(() => model.Name)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-name");
+        Assert.Contains("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+        Assert.False(submitted); // Form should not submit due to validation error
+    }
+
+    [Fact]
+    public void BitTextField_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new StringValidationModel { Name = "Valid Name" };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitTextField Label="Name"
+                              Id="test-name"
+                              @bind-Value="@model.Name"
+                              For="@(() => model.Name)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-name");
+        Assert.Contains("just-validate-success-field", input.ClassList);
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.True(submitted); // Form should submit successfully
+    }
+
+    [Fact]
+    public void BitTextField_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new StringValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitTextField Label="Name"
+                              Id="test-name"
+                              @bind-Value="@model.Name"
+                              For="@(() => model.Name)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("Name is required", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitTextField_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new StringValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitTextField Label="Name"
+                              Id="test-name"
+                              @bind-Value="@model.Name"
+                              For="@(() => model.Name)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var input = component.Find("input#test-name");
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class StringValidationModel
+    {
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name must be between 3 and 50 characters")]
+        public string? Name { get; set; }
     }
 }

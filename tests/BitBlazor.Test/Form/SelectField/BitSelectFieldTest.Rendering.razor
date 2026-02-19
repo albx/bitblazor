@@ -1,4 +1,5 @@
 ﻿@inherits BunitContext
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -193,5 +194,129 @@
                     </optgroup>
                 </select>
              </div>);
+    }
+
+    [Fact]
+    public void BitSelectField_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new SelectValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitSelectField Label="Country"
+                                Id="test-country"
+                                @bind-Value="@model.Country"
+                                For="@(() => model.Country)">
+                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                </BitSelectField>
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var select = component.Find("select#test-country");
+        Assert.Contains("is-invalid", select.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", select.ClassList);
+        Assert.False(submitted);
+    }
+
+    [Fact]
+    public void BitSelectField_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new SelectValidationModel { Country = "USA" };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitSelectField Label="Country"
+                                Id="test-country"
+                                @bind-Value="@model.Country"
+                                For="@(() => model.Country)">
+                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                </BitSelectField>
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var select = component.Find("select#test-country");
+        Assert.Contains("just-validate-success-field", select.ClassList);
+        Assert.DoesNotContain("is-invalid", select.ClassList);
+        Assert.True(submitted);
+    }
+
+    [Fact]
+    public void BitSelectField_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new SelectValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitSelectField Label="Country"
+                                Id="test-country"
+                                @bind-Value="@model.Country"
+                                For="@(() => model.Country)">
+                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                </BitSelectField>
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("Country is required", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitSelectField_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new SelectValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitSelectField Label="Country"
+                                Id="test-country"
+                                @bind-Value="@model.Country"
+                                For="@(() => model.Country)">
+                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                </BitSelectField>
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var select = component.Find("select#test-country");
+        Assert.DoesNotContain("is-invalid", select.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", select.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class SelectValidationModel
+    {
+        [Required(ErrorMessage = "Country is required")]
+        public string? Country { get; set; }
     }
 }

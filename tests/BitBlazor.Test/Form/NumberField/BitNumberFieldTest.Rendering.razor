@@ -1,4 +1,5 @@
 ﻿@inherits BunitContext
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -447,5 +448,114 @@
                     </span>
                 </div>
             </div>);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new NumericValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitNumberField Label="Age"
+                                Id="test-age"
+                                @bind-Value="@model.Age"
+                                For="@(() => model.Age)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-age");
+        Assert.Contains("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+        Assert.False(submitted);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new NumericValidationModel { Age = 25 };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitNumberField Label="Age"
+                                Id="test-age"
+                                @bind-Value="@model.Age"
+                                For="@(() => model.Age)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var input = component.Find("input#test-age");
+        Assert.Contains("just-validate-success-field", input.ClassList);
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.True(submitted);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new NumericValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitNumberField Label="Age"
+                                Id="test-age"
+                                @bind-Value="@model.Age"
+                                For="@(() => model.Age)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var submitButton = component.Find("#submit-btn");
+        submitButton.Click();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("Age is required", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitNumberField_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new NumericValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitNumberField Label="Age"
+                                Id="test-age"
+                                @bind-Value="@model.Age"
+                                For="@(() => model.Age)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var input = component.Find("input#test-age");
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class NumericValidationModel
+    {
+        [Required(ErrorMessage = "Age is required")]
+        [Range(18, 120, ErrorMessage = "Age must be between 18 and 120")]
+        public int? Age { get; set; }
     }
 }
