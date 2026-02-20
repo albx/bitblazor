@@ -115,6 +115,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase, IDisposable
     /// </remarks>
     protected Type ComponentType => Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
+    /// <inheritdoc/>
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -275,6 +276,15 @@ public abstract class BitFormComponentBase<T> : BitComponentBase, IDisposable
         };
     }
 
+    #region IDisposable implementation
+    /// <summary>
+    /// Releases the unmanaged resources used by the component and, optionally, releases the managed resources.
+    /// </summary>
+    /// <remarks>
+    /// This method is called by the public Dispose method and can be overridden in a derived class to provide custom disposal logic. 
+    /// When disposing is true, managed resources can be disposed; when false, only unmanaged resources should be released.
+    /// </remarks>
+    /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)
@@ -297,4 +307,5 @@ public abstract class BitFormComponentBase<T> : BitComponentBase, IDisposable
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
+    #endregion
 }
