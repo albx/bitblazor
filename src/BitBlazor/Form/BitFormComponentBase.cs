@@ -9,8 +9,11 @@ namespace BitBlazor.Form;
 /// Represents the base class for the form components
 /// </summary>
 /// <typeparam name="T">The data type supported by the component</typeparam>
-public abstract class BitFormComponentBase<T> : BitComponentBase
+public abstract class BitFormComponentBase<T> : BitComponentBase, IDisposable
 {
+    private string validationCssClass = string.Empty;
+    private bool disposedValue;
+
     /// <summary>
     /// Gets or sets the <see cref="EditContext"/> instance in case of use of an <see cref="EditForm"/>
     /// </summary>
@@ -112,6 +115,30 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
     /// </remarks>
     protected Type ComponentType => Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (CurrentEditContext is not null)
+        {
+            CurrentEditContext.OnValidationStateChanged += OnFieldValidationStateChanged;
+        }
+    }
+
+    private void OnFieldValidationStateChanged(object? sender, ValidationStateChangedEventArgs e)
+    {
+        if (ValueExpression is not null)
+        {
+            var fieldIdentifier = FieldIdentifier.Create(ValueExpression);
+            var fieldValidationCssClass = CurrentEditContext!.IsValid(fieldIdentifier) ? "just-validate-success-field" : "is-invalid";
+
+            if (fieldValidationCssClass != validationCssClass)
+            {
+                validationCssClass = fieldValidationCssClass;
+                InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
@@ -155,6 +182,44 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
         {
             AdditionalAttributes.Remove("aria-describedby");
         }
+    }
+
+    /// <summary>
+    /// Updates the validation CSS class based on the current validation state of the field.
+    /// </summary>
+    /// <remarks>
+    /// This method checks the EditContext for validation state and applies the appropriate CSS class:
+    /// <list type="bullet">
+    /// <item><description>"is-invalid" - field has validation errors (shown immediately when validation runs)</description></item>
+    /// <item><description>"just-validate-success-field" - field is modified and is valid</description></item>
+    /// <item><description>Empty string - field is valid and has not been modified</description></item>
+    /// </list>
+    /// </remarks>
+    private void UpdateValidationCssClass()
+    {
+        if (CurrentEditContext is null || ValueExpression is null)
+        {
+            validationCssClass = string.Empty;
+            return;
+        }
+
+        var fieldIdentifier = FieldIdentifier.Create(ValueExpression);
+        
+        validationCssClass = CurrentEditContext.IsValid(fieldIdentifier) ? "just-validate-success-field" : "is-invalid";
+    }
+
+    /// <summary>
+    /// Adds the Bootstrap Italia validation CSS class to the provided <see cref="CssClassBuilder"/>.
+    /// </summary>
+    /// <param name="builder">The CSS class builder to add the validation class to.</param>
+    /// <remarks>
+    /// Adds "is-invalid" for invalid fields, "just-validate-success-field" for valid modified fields,
+    /// or nothing for unmodified fields. This method should be called when building the CSS classes
+    /// for form input elements.
+    /// </remarks>
+    protected void AddValidationCssClass(CssClassBuilder builder)
+    {
+        builder.Add(validationCssClass);
     }
 
     /// <summary>
@@ -208,5 +273,28 @@ public abstract class BitFormComponentBase<T> : BitComponentBase
             builder.AddContent(3, AdditionalText);
             builder.CloseElement();
         };
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                if (CurrentEditContext is not null)
+                {
+                    CurrentEditContext.OnValidationStateChanged -= OnFieldValidationStateChanged;
+                }
+            }
+
+            disposedValue = true;
+        }
+    }
+
+    void IDisposable.Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -33,4 +33,11 @@ public partial class BitSelectField<T> : BitFormComponentBase<T>, IBitSelectFiel
 
         return builder.Build();
     }
+
+    private string ComputeInputCssClass()
+    {
+        var builder = new CssClassBuilder();
+        AddValidationCssClass(builder);
+        return builder.Build();
+    }
 }

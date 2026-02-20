@@ -32,7 +32,7 @@ public partial class BitToggle : BitFormComponentBase<bool>
     private string ComputeContainerCssClass()
     {
         var builder = new CssClassBuilder("form-check");
-        
+
         var viewModeClass = ViewMode switch
         {
             ToggleViewMode.Grouped => "form-check-group",
@@ -43,6 +43,13 @@ public partial class BitToggle : BitFormComponentBase<bool>
 
         AddCustomCssClass(builder);
 
+        return builder.Build();
+    }
+
+    private string ComputeInputCssClass()
+    {
+        var builder = new CssClassBuilder();
+        AddValidationCssClass(builder);
         return builder.Build();
     }
 }

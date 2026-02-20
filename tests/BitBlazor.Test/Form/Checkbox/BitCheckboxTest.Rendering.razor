@@ -129,8 +129,8 @@
              </EditForm>);
 
         // Trigger validation by submitting the form
-        var submitButton = component.Find("#submit-btn");
-        submitButton.Click();
+        var form = component.Find("form");
+        form.Submit();
 
         var input = component.Find("input#test-accept");
         Assert.Contains("is-invalid", input.ClassList);
@@ -156,8 +156,8 @@
              </EditForm>);
 
         // Trigger validation by submitting the form
-        var submitButton = component.Find("#submit-btn");
-        submitButton.Click();
+        var form = component.Find("form");
+        form.Submit();
 
         var input = component.Find("input#test-accept");
         Assert.Contains("just-validate-success-field", input.ClassList);
@@ -182,8 +182,8 @@
              </EditForm>);
 
         // Trigger validation by submitting the form
-        var submitButton = component.Find("#submit-btn");
-        submitButton.Click();
+        var form = component.Find("form");
+        form.Submit();
 
         var validationMessage = component.Find(".just-validate-error-label");
         Assert.NotNull(validationMessage);
