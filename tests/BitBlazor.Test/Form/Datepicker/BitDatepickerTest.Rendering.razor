@@ -1,4 +1,5 @@
 ﻿@inherits BunitContext
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -37,5 +38,117 @@
                 <input class="form-control" type="date" id="test-datepicker" name="test-datepicker" value="" aria-describedby="additionalTextId" />
                 <small id="additionalTextId" class="form-text">Additional text</small>
              </div>);
+    }
+
+    [Fact]
+    public void BitDatepicker_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new DatepickerValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitDatepicker T="DateTime?"
+                               Label="Birth Date"
+                               Id="test-birthdate"
+                               @bind-Value="@model.BirthDate"
+                               For="@(() => model.BirthDate)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var input = component.Find("input#test-birthdate");
+        Assert.Contains("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+        Assert.False(submitted);
+    }
+
+    [Fact]
+    public void BitDatepicker_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new DatepickerValidationModel { BirthDate = DateTime.Now.AddYears(-25) };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitDatepicker T="DateTime?"
+                               Label="Birth Date"
+                               Id="test-birthdate"
+                               @bind-Value="@model.BirthDate"
+                               For="@(() => model.BirthDate)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var input = component.Find("input#test-birthdate");
+        Assert.Contains("just-validate-success-field", input.ClassList);
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.True(submitted);
+    }
+
+    [Fact]
+    public void BitDatepicker_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new DatepickerValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitDatepicker T="DateTime?"
+                               Label="Birth Date"
+                               Id="test-birthdate"
+                               @bind-Value="@model.BirthDate"
+                               For="@(() => model.BirthDate)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("Birth date is required", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitDatepicker_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new DatepickerValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitDatepicker T="DateTime?"
+                               Label="Birth Date"
+                               Id="test-birthdate"
+                               @bind-Value="@model.BirthDate"
+                               For="@(() => model.BirthDate)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var input = component.Find("input#test-birthdate");
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class DatepickerValidationModel
+    {
+        [Required(ErrorMessage = "Birth date is required")]
+        public DateTime? BirthDate { get; set; }
     }
 }

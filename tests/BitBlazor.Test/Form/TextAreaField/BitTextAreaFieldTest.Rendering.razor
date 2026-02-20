@@ -1,4 +1,5 @@
 ﻿@inherits BunitContext
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -168,5 +169,118 @@
                 <label for="test-textfield" class="">label</label>
                 <textarea rows="3" name="test-textfield" id="test-textfield" class="form-control"></textarea>
              </div>);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new TextAreaValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitTextAreaField Label="Description"
+                                  Id="test-description"
+                                  Rows="3"
+                                  @bind-Value="@model.Description"
+                                  For="@(() => model.Description)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var textarea = component.Find("textarea#test-description");
+        Assert.Contains("is-invalid", textarea.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", textarea.ClassList);
+        Assert.False(submitted);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new TextAreaValidationModel { Description = "This is a valid description with enough characters" };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitTextAreaField Label="Description"
+                                  Id="test-description"
+                                  Rows="3"
+                                  @bind-Value="@model.Description"
+                                  For="@(() => model.Description)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var textarea = component.Find("textarea#test-description");
+        Assert.Contains("just-validate-success-field", textarea.ClassList);
+        Assert.DoesNotContain("is-invalid", textarea.ClassList);
+        Assert.True(submitted);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new TextAreaValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitTextAreaField Label="Description"
+                                  Id="test-description"
+                                  Rows="3"
+                                  @bind-Value="@model.Description"
+                                  For="@(() => model.Description)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("Description is required", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitTextAreaField_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new TextAreaValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitTextAreaField Label="Description"
+                                  Id="test-description"
+                                  Rows="3"
+                                  @bind-Value="@model.Description"
+                                  For="@(() => model.Description)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var textarea = component.Find("textarea#test-description");
+        Assert.DoesNotContain("is-invalid", textarea.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", textarea.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class TextAreaValidationModel
+    {
+        [Required(ErrorMessage = "Description is required")]
+        [MinLength(10, ErrorMessage = "Description must be at least 10 characters")]
+        public string? Description { get; set; }
     }
 }

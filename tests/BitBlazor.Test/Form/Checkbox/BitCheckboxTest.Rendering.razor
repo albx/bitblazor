@@ -1,4 +1,5 @@
 ﻿@inherits BunitContext
+@using System.ComponentModel.DataAnnotations
 
 @code {
     [Fact]
@@ -108,5 +109,113 @@
                 <label for="test-checkbox" class="">label</label>
                 <small id="helper-text" class="form-text">this is a help text</small>
              </div>);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Show_Invalid_Class_When_Field_Has_Validation_Error()
+    {
+        var model = new CheckboxValidationModel();
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitCheckbox Label="Accept Terms"
+                             Id="test-accept"
+                             @bind-Value="@model.AcceptTerms"
+                             For="@(() => model.AcceptTerms)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var input = component.Find("input#test-accept");
+        Assert.Contains("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+        Assert.False(submitted);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Show_Success_Class_When_Valid_Field_Is_Modified()
+    {
+        var model = new CheckboxValidationModel { AcceptTerms = true };
+        var editContext = new EditContext(model);
+        var submitted = false;
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => submitted = true">
+                <DataAnnotationsValidator />
+                <BitCheckbox Label="Accept Terms"
+                             Id="test-accept"
+                             @bind-Value="@model.AcceptTerms"
+                             For="@(() => model.AcceptTerms)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var input = component.Find("input#test-accept");
+        Assert.Contains("just-validate-success-field", input.ClassList);
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.True(submitted);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Render_Validation_Message_With_Correct_Class()
+    {
+        var model = new CheckboxValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitCheckbox Label="Accept Terms"
+                             Id="test-accept"
+                             @bind-Value="@model.AcceptTerms"
+                             For="@(() => model.AcceptTerms)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Trigger validation by submitting the form
+        var form = component.Find("form");
+        form.Submit();
+
+        var validationMessage = component.Find(".just-validate-error-label");
+        Assert.NotNull(validationMessage);
+        Assert.Contains("You must accept the terms", validationMessage.TextContent);
+    }
+
+    [Fact]
+    public void BitCheckbox_Should_Not_Show_Validation_Classes_When_Field_Not_Modified()
+    {
+        var model = new CheckboxValidationModel();
+        var editContext = new EditContext(model);
+
+        var component = Render(
+            @<EditForm EditContext="@editContext" OnValidSubmit="() => {}">
+                <DataAnnotationsValidator />
+                <BitCheckbox Label="Accept Terms"
+                             Id="test-accept"
+                             @bind-Value="@model.AcceptTerms"
+                             For="@(() => model.AcceptTerms)" />
+                <button type="submit" id="submit-btn">Submit</button>
+             </EditForm>);
+
+        // Do NOT submit the form - field is pristine
+        var input = component.Find("input#test-accept");
+        Assert.DoesNotContain("is-invalid", input.ClassList);
+        Assert.DoesNotContain("just-validate-success-field", input.ClassList);
+    }
+
+    // Nested test model for validation tests
+    public class CheckboxValidationModel
+    {
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms")]
+        public bool AcceptTerms { get; set; }
     }
 }
