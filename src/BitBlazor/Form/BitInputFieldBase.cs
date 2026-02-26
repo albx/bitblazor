@@ -82,6 +82,7 @@ public abstract class BitInputFieldBase<T> : BitFormComponentBase<T>
 
         AddDefaultCssClass(builder);
         AddSizeCssClass(builder);
+        AddValidationCssClass(builder);
         AddCustomCssClass(builder);
 
         return builder.Build();

@@ -95,7 +95,7 @@ public partial class BitRadioGroup<T> : BitComponentBase
         {
             builder.OpenComponent<ValidationMessage<T>>(0);
             builder.AddComponentParameter(1, nameof(ValidationMessage<T>.For), For);
-            builder.AddAttribute(2, "class", "is-invalid");
+            builder.AddAttribute(2, "class", "just-validate-error-label");
             builder.CloseComponent();
         };
     }

@@ -50,6 +50,13 @@ public partial class BitCheckbox : BitFormComponentBase<bool>
         return builder.Build();
     }
 
+    private string ComputeInputCssClass()
+    {
+        var builder = new CssClassBuilder();
+        AddValidationCssClass(builder);
+        return builder.Build();
+    }
+
     private string ComputeLabelCssClass()
     {
         var builder = new CssClassBuilder();
