@@ -33,7 +33,6 @@
                           Placeholder="name@example.com" 
                           Type="TextFieldType.Email"
                           For="() => Input.Email"
-                          Required="true"
                           autocomplete="username" />
 
             <BitPasswordField @bind-Value="Input.Password" 
@@ -41,7 +40,6 @@
                               Id="Input.Password" 
                               Placeholder="password"
                               For="() => Input.Password"
-                              Required="true"
                               autocomplete="new-password" />
 
             <BitPasswordField @bind-Value="Input.ConfirmPassword" 
@@ -49,7 +47,6 @@
                               Id="Input.ConfirmPassword" 
                               Placeholder="password"
                               For="() => Input.ConfirmPassword"
-                              Required="true"
                               autocomplete="new-password" />
 
             <BitButton Type="ButtonType.Submit" Color="Color.Primary" Size="Size.Large" CssClass="w-100">Register</BitButton>

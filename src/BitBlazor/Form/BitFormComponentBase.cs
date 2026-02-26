@@ -186,30 +186,6 @@ public abstract class BitFormComponentBase<T> : BitComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Updates the validation CSS class based on the current validation state of the field.
-    /// </summary>
-    /// <remarks>
-    /// This method checks the EditContext for validation state and applies the appropriate CSS class:
-    /// <list type="bullet">
-    /// <item><description>"is-invalid" - field has validation errors (shown immediately when validation runs)</description></item>
-    /// <item><description>"just-validate-success-field" - field is modified and is valid</description></item>
-    /// <item><description>Empty string - field is valid and has not been modified</description></item>
-    /// </list>
-    /// </remarks>
-    private void UpdateValidationCssClass()
-    {
-        if (CurrentEditContext is null || ValueExpression is null)
-        {
-            validationCssClass = string.Empty;
-            return;
-        }
-
-        var fieldIdentifier = FieldIdentifier.Create(ValueExpression);
-        
-        validationCssClass = CurrentEditContext.IsValid(fieldIdentifier) ? "just-validate-success-field" : "is-invalid";
-    }
-
-    /// <summary>
     /// Adds the Bootstrap Italia validation CSS class to the provided <see cref="CssClassBuilder"/>.
     /// </summary>
     /// <param name="builder">The CSS class builder to add the validation class to.</param>
@@ -244,7 +220,7 @@ public abstract class BitFormComponentBase<T> : BitComponentBase, IDisposable
         {
             builder.OpenComponent<ValidationMessage<T>>(0);
             builder.AddComponentParameter(1, nameof(ValidationMessage<T>.For), For);
-            builder.AddAttribute(2, "class", "just-validate-error-label");
+            builder.AddAttribute(2, "class", "form-feedback just-validate-error-label");
             builder.CloseComponent();
         };
     }
