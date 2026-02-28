@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] Breadcrumb documentation
 
 ### Changed
+- [x] Updated Bootstrap Italia to version 2.17.5
 - [x] Updated Bootstrap Italia to version 2.17.1 (#73)
 
 ### Fixed
