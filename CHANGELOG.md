@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.3] - 2026-02-28
+
+### Added
+
+#### Components
+- [x] **Select** - BitSelect component for dropdown selection (#38)
+- [x] **Breadcrumb** - BitBreadcrumb component for navigation breadcrumbs (#7)
+
+#### Documentation
+- [x] Select documentation
+- [x] Breadcrumb documentation
+
+### Changed
+- [x] Updated Bootstrap Italia to version 2.17.5
+- [x] Updated Bootstrap Italia to version 2.17.1 (#73)
+
+### Fixed
+- [x] Fixed validation classes in form components (#59)
+- [x] CI/CD pipeline now correctly skips bitblazor-stories GHA in forked repositories (#75)
+
 ## [0.2.2] - 2026-01-16
 
 ### Added

@@ -210,9 +210,9 @@
                                 Id="test-country"
                                 @bind-Value="@model.Country"
                                 For="@(() => model.Country)">
-                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                    <BitSelectItem Value="@string.Empty">Choose a country</BitSelectItem>
+                    <BitSelectItem Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem Value="@("UK")">UK</BitSelectItem>
                 </BitSelectField>
                 <button type="submit" id="submit-btn">Submit</button>
              </EditForm>);
@@ -241,9 +241,9 @@
                                 Id="test-country"
                                 @bind-Value="@model.Country"
                                 For="@(() => model.Country)">
-                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                    <BitSelectItem Value="@string.Empty">Choose a country</BitSelectItem>
+                    <BitSelectItem Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem Value="@("UK")">UK</BitSelectItem>
                 </BitSelectField>
                 <button type="submit" id="submit-btn">Submit</button>
              </EditForm>);
@@ -271,9 +271,9 @@
                                 Id="test-country"
                                 @bind-Value="@model.Country"
                                 For="@(() => model.Country)">
-                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                    <BitSelectItem Value="@string.Empty">Choose a country</BitSelectItem>
+                    <BitSelectItem Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem Value="@("UK")">UK</BitSelectItem>
                 </BitSelectField>
                 <button type="submit" id="submit-btn">Submit</button>
              </EditForm>);
@@ -300,9 +300,9 @@
                                 Id="test-country"
                                 @bind-Value="@model.Country"
                                 For="@(() => model.Country)">
-                    <BitSelectItem TValue="string?" Value="@((string?)null)">Choose a country</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("USA")">USA</BitSelectItem>
-                    <BitSelectItem TValue="string?" Value="@("UK")">UK</BitSelectItem>
+                    <BitSelectItem Value="@string.Empty">Choose a country</BitSelectItem>
+                    <BitSelectItem Value="@("USA")">USA</BitSelectItem>
+                    <BitSelectItem Value="@("UK")">UK</BitSelectItem>
                 </BitSelectField>
                 <button type="submit" id="submit-btn">Submit</button>
              </EditForm>);
@@ -317,6 +317,6 @@
     public class SelectValidationModel
     {
         [Required(ErrorMessage = "Country is required")]
-        public string? Country { get; set; }
+        public string Country { get; set; } = string.Empty;
     }
 }
