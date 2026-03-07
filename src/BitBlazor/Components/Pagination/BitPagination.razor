@@ -1,0 +1,28 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<nav class="pagination-wrapper" aria-label="@Description" @attributes="AdditionalAttributes">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link" href="#">
+                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
+                <span class="visually-hidden">@PreviousPageLabel</span>
+            </a>
+        </li>
+
+        <CascadingValue Value="this">
+            @for (int currentPage = 1; currentPage <= NumberOfPages; currentPage++)
+            {
+                <BitPageItem Page="currentPage"/>
+            }
+        </CascadingValue>
+
+        <li class="page-item">
+            <a class="page-link" href="#">
+                <span class="visually-hidden">@NextPageLabel</span>
+                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
+            </a>
+        </li>
+    </ul>
+</nav>
