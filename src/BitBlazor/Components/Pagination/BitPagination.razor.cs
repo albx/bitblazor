@@ -22,9 +22,22 @@ public partial class BitPagination : BitComponentBase
     [EditorRequired]
     public int NumberOfPages { get; set; } = 1;
 
+    /// <summary>
+    /// Gets or sets the current page number. The default value is 1.
+    /// </summary>
+    /// <remarks>
+    /// The value must be greater than or equal to 1; specifying a value less than 1 may result in unexpected behavior.
+    /// </remarks>
     [Parameter]
     public int Page { get; set; } = 1;
 
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the current page changes.
+    /// </summary>
+    /// <remarks>
+    /// Use this parameter to handle page change events in the parent component. 
+    /// The callback receives the new page number as an integer argument, allowing the parent to update its state or perform additional actions in response to pagination.
+    /// </remarks>
     [Parameter]
     public EventCallback<int> PageChanged { get; set; }
 
@@ -54,4 +67,29 @@ public partial class BitPagination : BitComponentBase
     /// </remarks>
     [Parameter]
     public string NextPageLabel { get; set; } = "next page";
+
+    /// <summary>
+    /// Gets or sets the alignment of the pagination controls within their container.
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="PaginationAlignment.Left"/>, which aligns the pagination controls to the left. 
+    /// Other options, such as center or right alignment, can be used to adjust the visual positioning of the pagination elements as needed.
+    /// </remarks>
+    [Parameter]
+    public PaginationAlignment Alignment { get; set; } = PaginationAlignment.Left;
+
+    private string ComputeContainerCssClass()
+    {
+        var builder = new CssClassBuilder("pagination-wrapper");
+
+        var alignmentClass = Alignment switch
+        {
+            PaginationAlignment.Center => "justify-content-center",
+            PaginationAlignment.Right => "justify-content-end",
+            _ => string.Empty
+        };
+        builder.Add(alignmentClass);
+
+        return builder.Build();
+    }
 }
