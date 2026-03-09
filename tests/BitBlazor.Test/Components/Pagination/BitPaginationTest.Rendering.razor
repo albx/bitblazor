@@ -32,4 +32,40 @@
                 </ul>
             </nav>);
     }
+
+    [Theory]
+    [InlineData(PaginationAlignment.Left, "")]
+    [InlineData(PaginationAlignment.Center, "justify-content-center")]
+    [InlineData(PaginationAlignment.Right, "justify-content-end")]
+    public void BitPagination_Should_Apply_Alignment_As_Expected(PaginationAlignment alignment, string expectedAlignmentClass)
+    {
+        int currentPage = 1;
+
+        var component = Render(
+            @<BitPagination NumberOfPages="3"
+                            @bind-Page="@currentPage"
+                            Description="Page navigation"
+                            Alignment="alignment"/>);
+
+        component.MarkupMatches(
+            @<nav class="pagination-wrapper @expectedAlignmentClass" aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left"/></svg>
+                            <span class="visually-hidden">previous page</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <span class="visually-hidden">next page</span>
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right"/></svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
 }
