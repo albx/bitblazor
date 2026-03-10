@@ -1,0 +1,33 @@
+﻿@attribute [Stories("Components/BitPagination")]
+
+<Stories TComponent="BitPagination">
+
+    <ArgType For="_ => _.Page" DefaultValue="1" />
+    <ArgType For="_ => _.NumberOfPages" DefaultValue="3" />
+    <ArgType For="_ => _.Description" />
+    <ArgType For="_ => _.Alignment" />
+    <ArgType For="_ => _.PreviousPageLabel" />
+    <ArgType For="_ => _.NextPageLabel" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Page" Value="1" />
+            <Arg For="_ => _.NumberOfPages" Value="3" />
+            <Arg For="_ => _.Description" Value="@("Page navigation")" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination @attributes="context.Args" />
+            </div>
+        </Template>
+    </Story>
+</Stories>
+
+@code {
+    private ViewModel model = new();
+
+    class ViewModel
+    {
+        public int DefaultStoryPage { get; set; } = 1;
+    }
+}
