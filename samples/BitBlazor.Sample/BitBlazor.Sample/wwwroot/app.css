@@ -50,6 +50,16 @@ h1:focus {
     border-color: #929292;
 }
 
+/*
+ * Bootstrap Italia sets .form-group { margin-top: 0 } but its labels are
+ * absolutely positioned and shift upward via transform: translateY(-85%),
+ * making them visually overlap the element above. Adding margin-top gives
+ * the label room to float without covering the preceding element.
+ */
+.form-group {
+    margin-top: 1.5rem;
+}
+
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
     color: var(--bs-secondary-color);
     text-align: end;
