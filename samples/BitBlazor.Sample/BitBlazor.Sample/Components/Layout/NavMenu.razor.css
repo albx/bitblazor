@@ -1,62 +1,20 @@
 /* =========================================
-   Sidebar navigation
+   Sidebar — Bootstrap Italia overrides
    ========================================= */
-.sidebar-nav {
-    padding: 1.25rem 0;
+
+/* Il sidebar-wrapper deve riempire il contenitore laterale */
+.sidebar-wrapper {
+    height: 100%;
+    overflow-y: auto;
 }
 
-.sidebar-section-title {
-    padding: 0.5rem 1.25rem 0.3rem;
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #9e9e9e;
-}
-
-.sidebar-nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.6rem 1.25rem;
-    color: #404040;
-    text-decoration: none;
-    font-size: 0.88rem;
-    font-weight: 500;
-    transition: background-color 0.15s ease, color 0.15s ease, border-left-color 0.15s ease;
-    border-left: 3px solid transparent;
-    cursor: pointer;
+/* Bottone logout: resetta lo stile <button> per sembrare un list-item */
+.list-item[type=submit] {
     background: none;
-    border-top: none;
-    border-right: none;
-    border-bottom: none;
+    border: none;
     width: 100%;
     text-align: left;
-    line-height: 1.4;
-}
-
-    .sidebar-nav-link:hover {
-        background-color: #eaf1fb;
-        color: #06c;
-        border-left-color: rgba(0, 102, 204, 0.3);
-    }
-
-    .sidebar-nav-link.active {
-        background-color: #eaf1fb;
-        color: #06c;
-        font-weight: 600;
-        border-left-color: #06c;
-    }
-
-.sidebar-divider {
-    height: 1px;
-    background-color: #e8e8e8;
-    margin: 0.75rem 1rem;
-}
-
-
-.navbar-toggler:checked {
-    background-color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
 }
 
 .top-row {
