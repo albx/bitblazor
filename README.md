@@ -31,6 +31,8 @@ Once the package is installed, simply add the reference to the Bootstrap Italia 
 <head>
     <!-- other css imports -->
     <link rel="stylesheet" href="_content/BitBlazor/bootstrap-italia/css/bootstrap-italia.min.css" />
+    <!-- optional: include Bootstrap Italia default fonts (Titillium Web, Lora, Roboto Mono) -->
+    <link rel="stylesheet" href="_content/BitBlazor/css/fonts.css" />
 </head>
 ```
 

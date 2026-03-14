@@ -1,0 +1,477 @@
+@page "/sportello"
+@rendermode InteractiveAuto
+
+@using BitBlazor.Components
+@using BitBlazor.Utilities
+
+<PageTitle>Sportello Digitale — Comune di Bitopoli</PageTitle>
+
+<BitBreadcrumb Items="@breadcrumbItems" />
+
+<div class="mt-3 mb-4">
+    <h1 class="h3 fw-bold mb-1">Sportello Digitale</h1>
+    <p class="text-muted mb-0">
+        Prenota un appuntamento, avvia una pratica urgente o contatta direttamente
+        un operatore. I nostri sportelli digitali sono disponibili 24 ore su 24.
+    </p>
+</div>
+
+<!-- KPI sportello -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <CardText>
+                    <div class="text-center py-2">
+                        <div class="fs-2 fw-bold text-primary">@ticketNumber</div>
+                        <div class="small text-muted">Il tuo numero</div>
+                    </div>
+                </CardText>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-6 col-lg-3">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <CardText>
+                    <div class="text-center py-2">
+                        <div class="fs-2 fw-bold text-success">@calledNumber</div>
+                        <div class="small text-muted">Numero chiamato</div>
+                    </div>
+                </CardText>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-6 col-lg-3">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <CardText>
+                    <div class="text-center py-2">
+                        <div class="fs-2 fw-bold @(waitCount > 5 ? "text-danger" : "text-warning")">@waitCount</div>
+                        <div class="small text-muted">In attesa</div>
+                    </div>
+                </CardText>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-6 col-lg-3">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <CardText>
+                    <div class="text-center py-2">
+                        <div class="fs-2 fw-bold text-info">~@waitMinutes min</div>
+                        <div class="small text-muted">Attesa stimata</div>
+                    </div>
+                </CardText>
+            </CardBody>
+        </BitCard>
+    </div>
+</div>
+
+<!-- Azioni principali -->
+<div class="row g-3 mb-5">
+    <div class="col-12 col-md-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <CardTitle>Prenota Sportello</CardTitle>
+                <CardText>
+                    <p class="text-muted small">
+                        Salta la fila! Prenota il tuo slot in uno degli sportelli fisici e
+                        arriva puntuale senza attese.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <BitButton Color="Color.Primary" OnClick="@(() => OpenModal("prenota"))">
+                        <BitIcon IconName="@Icons.ItCalendar" />
+                        Prenota ora
+                    </BitButton>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <CardTitle>Pratica Urgente</CardTitle>
+                <CardText>
+                    <p class="text-muted small">
+                        Hai bisogno di un documento con urgenza? Invia una richiesta di
+                        trattazione prioritaria motivata.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <BitButton Color="Color.Danger" Variant="Variant.Outline" OnClick="@(() => OpenModal("urgente"))">
+                        <BitIcon IconName="@Icons.ItError" />
+                        Richiesta urgente
+                    </BitButton>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <CardTitle>Contatta Operatore</CardTitle>
+                <CardText>
+                    <p class="text-muted small">
+                        Parla direttamente con un operatore per chiarimenti su pratiche in
+                        corso o per ricevere assistenza.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => OpenModal("contatta"))">
+                        <BitIcon IconName="@Icons.ItMail" />
+                        Contatta ora
+                    </BitButton>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+</div>
+
+<!-- Showcase modale: varianti -->
+<h2 class="h5 fw-bold mb-3">Varianti BitModal</h2>
+<div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Primary" Variant="Variant.Outline" OnClick="@(() => OpenModal("default"))">
+            Modale Base
+        </BitButton>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Primary" Variant="Variant.Outline" OnClick="@(() => OpenModal("centered"))">
+            Verticalmente centrata
+        </BitButton>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Warning" Variant="Variant.Outline" OnClick="@(() => OpenModal("alert"))">
+            Modale Alert
+        </BitButton>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => OpenModal("popconfirm"))">
+            Popconfirm
+        </BitButton>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small" OnClick="@(() => OpenModal("small"))">
+            Piccola
+        </BitButton>
+        <BitButton Color="Color.Primary" Variant="Variant.Outline" CssClass="ms-2" OnClick="@(() => OpenModal("large"))">
+            Grande
+        </BitButton>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => OpenModal("left"))">
+            ← Sinistra
+        </BitButton>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" CssClass="ms-2" OnClick="@(() => OpenModal("right"))">
+            Destra →
+        </BitButton>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Primary" Variant="Variant.Outline" OnClick="@(() => OpenModal("scrollable"))">
+            Contenuto lungo
+        </BitButton>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3">
+        <BitButton Color="Color.Danger" Variant="Variant.Outline" OnClick="@(() => OpenModal("static"))">
+            Backdrop statico
+        </BitButton>
+    </div>
+</div>
+
+<!-- ===== MODALI ===== -->
+
+<!-- Prenota Sportello -->
+<BitModal @bind-IsVisible="showPrenota" Title="Prenota uno Sportello" Size="ModalSize.Large">
+    <BodyContent>
+        <p>Seleziona il giorno e lo sportello di tua preferenza per prenotare un appuntamento.</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <label class="form-label fw-semibold small">Sportello</label>
+                <select class="form-select">
+                    <option>Anagrafe — Piano terra</option>
+                    <option>Tributi — Primo piano</option>
+                    <option>Edilizia — Secondo piano</option>
+                    <option>SUAP — Via Garibaldi 5</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-6">
+                <label class="form-label fw-semibold small">Motivo visita</label>
+                <select class="form-select">
+                    <option>Rilascio certificato</option>
+                    <option>Variazione dati anagrafici</option>
+                    <option>Pagamento tributi</option>
+                    <option>Consulenza pratica edilizia</option>
+                </select>
+            </div>
+        </div>
+        <div class="row g-3 mt-1">
+            <div class="col-12 col-sm-4">
+                <label class="form-label fw-semibold small">Data</label>
+                <input type="date" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-12 col-sm-4">
+                <label class="form-label fw-semibold small">Orario</label>
+                <select class="form-select">
+                    <option>09:00</option><option>09:30</option><option>10:00</option>
+                    <option>10:30</option><option>11:00</option><option>11:30</option>
+                    <option>14:00</option><option>14:30</option><option>15:00</option>
+                </select>
+            </div>
+            <div class="col-12 col-sm-4">
+                <label class="form-label fw-semibold small">Persone</label>
+                <input type="number" class="form-control" value="1" min="1" max="3" />
+            </div>
+        </div>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" OnClick="ConfirmPrenotazione">Conferma prenotazione</BitButton>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => showPrenota = false)">Annulla</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Pratica Urgente -->
+<BitModal @bind-IsVisible="showUrgente" Title="Richiesta Pratica Urgente" Type="ModalType.Alert">
+    <BodyContent>
+        <div class="d-flex align-items-start gap-3">
+            <BitIcon IconName="@Icons.ItError" Color="IconColor.Danger" Size="IconSize.Large" />
+            <div>
+                <p class="mb-2">
+                    Le pratiche urgenti sono soggette a valutazione da parte dell'ufficio competente.
+                    La tua richiesta verrà presa in carico entro <strong>24 ore</strong>.
+                </p>
+                <p class="mb-0 text-muted small">
+                    Inserisci la motivazione dell'urgenza. La richiesta priva di valida motivazione
+                    verrà respinta automaticamente.
+                </p>
+            </div>
+        </div>
+        <div class="mt-3">
+            <label class="form-label fw-semibold small">Motivazione urgenza <span class="text-danger">*</span></label>
+            <textarea class="form-control" rows="3" placeholder="Descrivi il motivo dell'urgenza..."></textarea>
+        </div>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Danger" OnClick="@(() => { showUrgente = false; showConfirmAlert = true; })">
+            Invia richiesta urgente
+        </BitButton>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => showUrgente = false)">Annulla</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Contatta Operatore -->
+<BitModal @bind-IsVisible="showContatta" Title="Contatta un Operatore">
+    <BodyContent>
+        <p class="text-muted small mb-3">
+            Scrivi il tuo messaggio. Un operatore ti risponderà all'indirizzo email indicato
+            entro il prossimo giorno lavorativo.
+        </p>
+        <div class="mb-3">
+            <label class="form-label fw-semibold small">Oggetto</label>
+            <input type="text" class="form-control" placeholder="Es. Chiarimenti pratica #BIT-20260310-1234" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold small">Messaggio</label>
+            <textarea class="form-control" rows="4" placeholder="Descrivi dettagliatamente la tua richiesta..."></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold small">La tua email</label>
+            <input type="email" class="form-control" placeholder="nome@esempio.it" />
+        </div>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" OnClick="@(() => showContatta = false)">Invia messaggio</BitButton>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => showContatta = false)">Chiudi</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Conferma dopo pratica urgente -->
+<BitModal @bind-IsVisible="showConfirmAlert" Title="Richiesta inviata" Type="ModalType.Popconfirm" Size="ModalSize.Small">
+    <BodyContent>
+        <div class="d-flex align-items-center gap-2">
+            <BitIcon IconName="@Icons.ItCheckCircle" Color="IconColor.Success" />
+            <span>Richiesta urgente registrata con successo!</span>
+        </div>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" Size="Size.Small" OnClick="@(() => showConfirmAlert = false)">OK</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale base -->
+<BitModal @bind-IsVisible="showDefault" Title="Modale Base" Size="ModalSize.Default">
+    <BodyContent>
+        <p>Questa è una modale base con titolo, corpo e footer. Supporta header/body/footer customizzabili tramite <code>RenderFragment</code>.</p>
+        <p class="mb-0">Clicca fuori o sul pulsante Chiudi per chiuderla.</p>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" Variant="Variant.Outline" OnClick="@(() => showDefault = false)">Chiudi</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale centrata -->
+<BitModal @bind-IsVisible="showCentered" Title="Centratura Verticale" Position="ModalPosition.Centered">
+    <BodyContent>
+        <p>Questa modale è centrata verticalmente nella viewport grazie a <code>Position="ModalPosition.Centered"</code>.</p>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" OnClick="@(() => showCentered = false)">Chiudi</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale alert -->
+<BitModal @bind-IsVisible="showAlert" Title="Avviso di sistema" Type="ModalType.Alert">
+    <BodyContent>
+        <p>Variante <code>Type="ModalType.Alert"</code> — usata per messaggi importanti che richiedono attenzione dell'utente come avvisi critici del sistema.</p>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Warning" OnClick="@(() => showAlert = false)">Ho capito</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Popconfirm -->
+<BitModal @bind-IsVisible="showPopconfirm" Title="Conferma azione" Type="ModalType.Popconfirm" Size="ModalSize.Small">
+    <BodyContent>
+        <p class="mb-0">Vuoi davvero annullare la pratica #BIT-2026-0042?</p>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Danger" Size="Size.Small" OnClick="@(() => showPopconfirm = false)">Sì, annulla</BitButton>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" Size="Size.Small" OnClick="@(() => showPopconfirm = false)">No</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale piccola -->
+<BitModal @bind-IsVisible="showSmall" Title="Modale piccola" Size="ModalSize.Small">
+    <BodyContent><p>Variante <code>ModalSize.Small</code>.</p></BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" Size="Size.Small" OnClick="@(() => showSmall = false)">OK</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale grande -->
+<BitModal @bind-IsVisible="showLarge" Title="Modale grande" Size="ModalSize.Large">
+    <BodyContent><p>Variante <code>ModalSize.Large</code> — adatta per contenuti più articolati come tabelle, form complessi o dettagli documento.</p></BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" Variant="Variant.Outline" OnClick="@(() => showLarge = false)">Chiudi</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale sinistra -->
+<BitModal @bind-IsVisible="showLeft" Title="Pannello laterale sinistro" Position="ModalPosition.Left" ScrollableContent="true">
+    <BodyContent>
+        <p>Pannello che si apre da sinistra a destra (<code>ModalPosition.Left</code>). Utile per menu contestuali e drawer di navigazione.</p>
+        <ul>
+            <li>Dettagli pratica</li>
+            <li>Documenti allegati</li>
+            <li>Storico modifiche</li>
+            <li>Note operatore</li>
+        </ul>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => showLeft = false)">Chiudi</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale destra -->
+<BitModal @bind-IsVisible="showRight" Title="Pannello laterale destro" Position="ModalPosition.Right" ScrollableContent="true">
+    <BodyContent>
+        <p>Pannello che si apre da destra a sinistra (<code>ModalPosition.Right</code>). Adatto per pannelli di dettaglio e configurazione.</p>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => showRight = false)">Chiudi</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale contenuto lungo -->
+<BitModal @bind-IsVisible="showScrollable" Title="Documento — Regolamento Edilizio" Size="ModalSize.Large" ScrollableContent="true" FooterShadow="true">
+    <BodyContent>
+        <p><strong>Art. 1 — Oggetto e finalità</strong><br />
+        Il presente regolamento disciplina le modalità di presentazione, istruttoria e conclusione dei procedimenti edilizi nel territorio del Comune di Bitopoli, ai sensi del D.P.R. 380/2001 e s.m.i.</p>
+        <p><strong>Art. 2 — Definizioni</strong><br />
+        Ai fini del presente regolamento si intende per "intervento edilizio" qualsiasi trasformazione fisica o funzionale del territorio...</p>
+        <p><strong>Art. 3 — Permesso di costruire</strong><br />
+        Sono subordinati a permesso di costruire gli interventi di nuova costruzione, gli interventi di ristrutturazione urbanistica e gli interventi di ristrutturazione edilizia che portino ad un organismo edilizio in tutto o in parte diverso dal precedente...</p>
+        <p><strong>Art. 4 — CILA e SCIA</strong><br />
+        La Comunicazione di Inizio Lavori Asseverata (CILA) è richiesta per interventi di manutenzione straordinaria ove non riguardino parti strutturali...</p>
+        <p><strong>Art. 5 — Contributi di costruzione</strong><br />
+        Il rilascio del permesso di costruire comporta la corresponsione di un contributo commisurato all'incidenza degli oneri di urbanizzazione nonché al costo di costruzione...</p>
+        <p><strong>Art. 6 — Procedimento</strong><br />
+        Il procedimento per il rilascio del permesso di costruire si svolge secondo le disposizioni di cui all'art. 20 del D.P.R. 380/2001...</p>
+        <p class="mb-0"><strong>Art. 7 — Sanzioni</strong><br />
+        Chiunque esegua interventi edilizi in assenza del prescritto titolo abilitativo è soggetto alle sanzioni di cui agli artt. 31 e seguenti del D.P.R. 380/2001.</p>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" OnClick="@(() => showScrollable = false)">
+            <BitIcon IconName="@Icons.ItDownload" /> Scarica PDF
+        </BitButton>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" OnClick="@(() => showScrollable = false)">Chiudi</BitButton>
+    </FooterContent>
+</BitModal>
+
+<!-- Modale backdrop statico -->
+<BitModal @bind-IsVisible="showStatic" Title="Sessione protetta" Backdrop="ModalBackdrop.Static">
+    <BodyContent>
+        <p>Questo dialogo ha <code>Backdrop="ModalBackdrop.Static"</code>: cliccando fuori non si chiude. Devi usare il pulsante per procedere.</p>
+        <BitAlert Type="AlertType.Warning">
+            <p class="mb-0">La sessione scadrà tra <strong>4:58</strong>. Salva il tuo lavoro.</p>
+        </BitAlert>
+    </BodyContent>
+    <FooterContent>
+        <BitButton Color="Color.Primary" OnClick="@(() => showStatic = false)">Rinnova sessione</BitButton>
+        <BitButton Color="Color.Danger" Variant="Variant.Outline" OnClick="@(() => showStatic = false)">Esci</BitButton>
+    </FooterContent>
+</BitModal>
+
+@code {
+    // Dati sportello
+    private int ticketNumber = 47;
+    private int calledNumber = 38;
+    private int waitCount = 9;
+    private int waitMinutes => waitCount * 5;
+
+    // Visibilità modali
+    private bool showPrenota;
+    private bool showUrgente;
+    private bool showContatta;
+    private bool showConfirmAlert;
+    private bool showDefault;
+    private bool showCentered;
+    private bool showAlert;
+    private bool showPopconfirm;
+    private bool showSmall;
+    private bool showLarge;
+    private bool showLeft;
+    private bool showRight;
+    private bool showScrollable;
+    private bool showStatic;
+
+    private void OpenModal(string type)
+    {
+        showPrenota = type == "prenota";
+        showUrgente = type == "urgente";
+        showContatta = type == "contatta";
+        showDefault = type == "default";
+        showCentered = type == "centered";
+        showAlert = type == "alert";
+        showPopconfirm = type == "popconfirm";
+        showSmall = type == "small";
+        showLarge = type == "large";
+        showLeft = type == "left";
+        showRight = type == "right";
+        showScrollable = type == "scrollable";
+        showStatic = type == "static";
+    }
+
+    private void ConfirmPrenotazione()
+    {
+        ticketNumber++;
+        showPrenota = false;
+    }
+
+    private IReadOnlyList<BitBreadcrumbItem> breadcrumbItems = new List<BitBreadcrumbItem>
+    {
+        new BitBreadcrumbItem { Text = "Home", Link = "/" },
+        new BitBreadcrumbItem { Text = "Sportello Digitale" }
+    };
+}

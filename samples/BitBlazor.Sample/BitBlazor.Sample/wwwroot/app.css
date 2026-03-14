@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Titillium Web', sans-serif;
 }
 
 a, .btn-link {
@@ -48,6 +48,16 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+/*
+ * Bootstrap Italia sets .form-group { margin-top: 0 } but its labels are
+ * absolutely positioned and shift upward via transform: translateY(-85%),
+ * making them visually overlap the element above. Adding margin-top gives
+ * the label room to float without covering the preceding element.
+ */
+.form-group {
+    margin-top: 1.5rem;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
