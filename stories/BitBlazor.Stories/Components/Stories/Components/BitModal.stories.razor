@@ -1,0 +1,276 @@
+@attribute [Stories("Components/BitModal")]
+
+@using BitBlazor.Components
+
+<Stories TComponent="BitModal">
+    <ArgType For="_ => _.Size" Control="ControlType.Select" DefaultValue="ModalSize.Default" />
+    <ArgType For="_ => _.Position" Control="ControlType.Select" DefaultValue="ModalPosition.Default" />
+    <ArgType For="_ => _.Type" Control="ControlType.Select" DefaultValue="ModalType.Default" />
+    <ArgType For="_ => _.Backdrop" Control="ControlType.Select" DefaultValue="ModalBackdrop.Default" />
+
+    <Story Name="Default">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Id="story-modal-default"
+                          Title="Intestazione modale"
+                          AriaDescribedById="story-modal-default-desc"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p id="story-modal-default-desc">Descrizione scopo della modale.</p>
+                        <p>Font Titillium 16px. Leading 24px. omnis iste natus error sit voluptatem accusantium.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-outline-primary btn-sm" type="button">Azione 2</button>
+                        <button class="btn btn-primary btn-sm" type="button">Azione 1</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="With close button">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Id="story-modal-closeable"
+                          Title="Intestazione modale"
+                          CloseButtonAriaLabel="Chiudi questa finestra">
+                    <BodyContent>
+                        <p>La modale può essere chiusa facendo clic sul pulsante X nell'intestazione.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-outline-primary btn-sm" type="button">Azione 2</button>
+                        <button class="btn btn-primary btn-sm" type="button">Azione 1</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Sizes - Small">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Size="ModalSize.Small"
+                          Title="Modale piccola"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>Questo è un esempio di modale di dimensione ridotta.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-primary btn-sm" type="button">OK</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Sizes - Large">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Size="ModalSize.Large"
+                          Title="Modale grande"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>Questo è un esempio di modale di dimensione grande.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-primary btn-sm" type="button">OK</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Sizes - Extra Large">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Size="ModalSize.ExtraLarge"
+                          Title="Modale molto grande"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>Questo è un esempio di modale di dimensione molto grande.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-primary btn-sm" type="button">OK</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Position - Centered">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Position="ModalPosition.Centered"
+                          Title="Modale centrata"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>La modale è centrata verticalmente nella viewport.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-primary btn-sm" type="button">OK</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Position - Left">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Position="ModalPosition.Left"
+                          Title="Modale a sinistra"
+                          ShowCloseButton="true"
+                          CloseButtonAriaLabel="Chiudi">
+                    <BodyContent>
+                        <p>La modale si apre da sinistra e occupa tutta l'altezza disponibile.</p>
+                    </BodyContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Position - Right">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Position="ModalPosition.Right"
+                          Title="Modale a destra"
+                          ShowCloseButton="true"
+                          CloseButtonAriaLabel="Chiudi">
+                    <BodyContent>
+                        <p>La modale si apre da destra e occupa tutta l'altezza disponibile.</p>
+                    </BodyContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Type - Alert (with icon)">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Type="ModalType.Alert"
+                          AriaLabel="Messaggio di notifica"
+                          ShowCloseButton="false">
+                    <HeaderContent>
+                        <div class="d-flex align-items-center">
+                            <BitIcon IconName="@Icons.ItWarningCircle" CssClass="me-2" />
+                            <h2 class="modal-title h5 mb-0">Questo è un messaggio di notifica</h2>
+                        </div>
+                    </HeaderContent>
+                    <BodyContent>
+                        <p>In questo caso vengono forniti un pulsante di conferma e uno di chiusura della modale.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-primary btn-sm" type="button">Ok</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Type - Popconfirm (basic)">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Type="ModalType.Popconfirm"
+                          AriaLabel="Conferma azione"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>Font Titillium 14px. Leading 21px. Sei sicuro di voler procedere?</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-outline-primary btn-sm" type="button">Azione 2</button>
+                        <button class="btn btn-primary btn-sm" type="button">Azione 1</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Type - Popconfirm (with header)">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Type="ModalType.Popconfirm"
+                          Title="Intestazione Popconfirm"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>Font Titillium 14px. Leading 21px. Sei sicuro di voler procedere?</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-outline-primary btn-sm" type="button">Azione 2</button>
+                        <button class="btn btn-primary btn-sm" type="button">Azione 1</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="No header">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          AriaLabel="Finestra senza intestazione"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>Questa modale non ha intestazione. Usare <code>ShowCloseButton="false"</code> e non impostare <code>Title</code> o <code>HeaderContent</code>.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-primary btn-sm" type="button">Chiudi</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Scrollable content">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          ScrollableContent="true"
+                          Title="Modale con contenuto scorrevole"
+                          ShowCloseButton="true"
+                          CloseButtonAriaLabel="Chiudi"
+                          FooterShadow="true">
+                    <BodyContent>
+                        <p>Testo molto lungo che causa lo scroll interno della modale.</p>
+                        @for (int i = 1; i <= 15; i++)
+                        {
+                            <p>Paragrafo @i: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        }
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-outline-primary btn-sm" type="button">Annulla</button>
+                        <button class="btn btn-primary btn-sm" type="button">Conferma</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="No animation (fade disabled)">
+        <Template>
+            <div class="it-example-modal">
+                <BitModal IsVisible="true"
+                          Fade="false"
+                          Title="Modale senza animazione"
+                          ShowCloseButton="false">
+                    <BodyContent>
+                        <p>La classe <code>fade</code> non viene applicata, quindi non c'è animazione di dissolvenza.</p>
+                    </BodyContent>
+                    <FooterContent>
+                        <button class="btn btn-primary btn-sm" type="button">OK</button>
+                    </FooterContent>
+                </BitModal>
+            </div>
+        </Template>
+    </Story>
+</Stories>

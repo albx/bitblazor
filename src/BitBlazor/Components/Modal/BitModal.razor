@@ -1,0 +1,62 @@
+@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+@if (IsVisible)
+{
+    @if (Backdrop != ModalBackdrop.None)
+    {
+        <div class="modal-backdrop fade show" @onclick="HandleBackdropClickAsync"></div>
+    }
+
+    <div class="@ComputeModalCssClasses()"
+         tabindex="-1"
+         role="dialog"
+         aria-modal="true"
+         aria-label="@(string.IsNullOrWhiteSpace(Title) ? AriaLabel : null)"
+         aria-labelledby="@(!string.IsNullOrWhiteSpace(Title) ? _titleId : null)"
+         aria-describedby="@AriaDescribedById"
+         style="display:block;"
+         @attributes="AdditionalAttributes">
+        <div class="@ComputeDialogCssClasses()" role="document" @onclick:stopPropagation="true">
+            <div class="modal-content">
+
+                @if (HasHeader)
+                {
+                    <div class="modal-header">
+                        @if (HeaderContent is not null)
+                        {
+                            @HeaderContent
+                        }
+                        else
+                        {
+                            @if (!string.IsNullOrWhiteSpace(Title))
+                            {
+                                <h2 class="modal-title h5" id="@_titleId">@Title</h2>
+                            }
+                        }
+
+                        @if (ShowCloseButton)
+                        {
+                            <button type="button" class="btn-close" aria-label="@CloseButtonAriaLabel" @onclick="CloseAsync">
+                                <BitIcon IconName="@Icons.ItClose" />
+                            </button>
+                        }
+                    </div>
+                }
+
+                <div class="modal-body">
+                    @BodyContent
+                </div>
+
+                @if (FooterContent is not null)
+                {
+                    <div class="@ComputeFooterCssClasses()">
+                        @FooterContent
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+}

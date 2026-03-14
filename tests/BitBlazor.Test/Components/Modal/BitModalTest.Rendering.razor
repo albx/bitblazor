@@ -1,0 +1,327 @@
+@inherits BunitContext
+
+@code {
+    [Fact]
+    public void BitModal_Should_Not_Render_When_IsVisible_Is_False()
+    {
+        var component = Render(
+            @<BitModal IsVisible="false">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.Empty(component.Markup.Trim());
+    }
+
+    [Fact]
+    public void BitModal_Should_Render_When_IsVisible_Is_True()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.NotNull(component.Find(".modal"));
+        Assert.NotNull(component.Find(".modal-dialog"));
+        Assert.NotNull(component.Find(".modal-content"));
+        Assert.NotNull(component.Find(".modal-body"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Apply_Fade_Class_By_Default()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Contains("fade", modal.ClassList);
+    }
+
+    [Fact]
+    public void BitModal_Should_Not_Apply_Fade_Class_When_Fade_Is_False()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Fade="false">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.DoesNotContain("fade", modal.ClassList);
+    }
+
+    [Fact]
+    public void BitModal_Should_Apply_Show_Class_When_IsVisible_Is_True()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Contains("show", modal.ClassList);
+    }
+
+    [Theory]
+    [InlineData(ModalSize.Small, "modal-sm")]
+    [InlineData(ModalSize.Large, "modal-lg")]
+    [InlineData(ModalSize.ExtraLarge, "modal-xl")]
+    public void BitModal_Should_Apply_Size_Class_To_Dialog_Correctly(ModalSize size, string expectedClass)
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Size="@size">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var dialog = component.Find(".modal-dialog");
+        Assert.Contains(expectedClass, dialog.ClassList);
+    }
+
+    [Fact]
+    public void BitModal_Should_Apply_Centered_Position_Class_To_Dialog()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Position="ModalPosition.Centered">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var dialog = component.Find(".modal-dialog");
+        Assert.Contains("modal-dialog-centered", dialog.ClassList);
+    }
+
+    [Theory]
+    [InlineData(ModalPosition.Left, "modal-dialog-left")]
+    [InlineData(ModalPosition.Right, "modal-dialog-right")]
+    public void BitModal_Should_Apply_Left_Right_Position_Classes_And_Scrollable(ModalPosition position, string expectedDialogClass)
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Position="@position">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        var dialog = component.Find(".modal-dialog");
+
+        Assert.Contains(expectedDialogClass, dialog.ClassList);
+        Assert.Contains("it-dialog-scrollable", modal.ClassList);
+    }
+
+    [Theory]
+    [InlineData(ModalType.Alert, "alert-modal")]
+    [InlineData(ModalType.LinkList, "it-dialog-link-list")]
+    [InlineData(ModalType.Popconfirm, "popconfirm-modal")]
+    public void BitModal_Should_Apply_Type_Class_To_Modal_Correctly(ModalType type, string expectedClass)
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Type="@type">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Contains(expectedClass, modal.ClassList);
+    }
+
+    [Fact]
+    public void BitModal_Should_Render_Title_In_Header_H2()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Title="My Modal Title">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var title = component.Find("h2.modal-title");
+        Assert.Equal("My Modal Title", title.TextContent.Trim());
+    }
+
+    [Fact]
+    public void BitModal_Should_Set_Aria_LabelledBy_Pointing_To_Title_Element()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Id="test-modal" Title="My Title">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Equal("test-modal-title", modal.GetAttribute("aria-labelledby"));
+
+        var titleEl = component.Find("h2.modal-title");
+        Assert.Equal("test-modal-title", titleEl.Id);
+    }
+
+    [Fact]
+    public void BitModal_Should_Set_Aria_Label_When_Provided_And_No_Title()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" AriaLabel="Accessible label">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Equal("Accessible label", modal.GetAttribute("aria-label"));
+        Assert.Null(modal.GetAttribute("aria-labelledby"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Set_Aria_DescribedBy_When_Provided()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" AriaDescribedById="modal-desc">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Equal("modal-desc", modal.GetAttribute("aria-describedby"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Render_Close_Button_By_Default()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var closeButton = component.Find("button.btn-close");
+        Assert.Equal("Chiudi", closeButton.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Not_Render_Close_Button_When_ShowCloseButton_Is_False()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" ShowCloseButton="false">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.Throws<ElementNotFoundException>(() => component.Find("button.btn-close"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Use_Custom_Close_Button_Aria_Label()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" CloseButtonAriaLabel="Close dialog">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var closeButton = component.Find("button.btn-close");
+        Assert.Equal("Close dialog", closeButton.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Not_Render_Header_When_ShowCloseButton_False_And_No_Title()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" ShowCloseButton="false">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.Throws<ElementNotFoundException>(() => component.Find(".modal-header"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Render_Custom_Header_Content_When_Provided()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" ShowCloseButton="false">
+                <HeaderContent><h3 id="custom-heading">Custom Header</h3></HeaderContent>
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.NotNull(component.Find(".modal-header"));
+        Assert.Equal("Custom Header", component.Find("h3").TextContent.Trim());
+    }
+
+    [Fact]
+    public void BitModal_Should_Render_Footer_When_FooterContent_Is_Set()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true">
+                <BodyContent>Content</BodyContent>
+                <FooterContent><button type="button">OK</button></FooterContent>
+            </BitModal>);
+
+        Assert.NotNull(component.Find(".modal-footer"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Not_Render_Footer_When_FooterContent_Is_Not_Set()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.Throws<ElementNotFoundException>(() => component.Find(".modal-footer"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Apply_Footer_Shadow_Class_When_FooterShadow_Is_True()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" FooterShadow="true">
+                <BodyContent>Content</BodyContent>
+                <FooterContent>Footer</FooterContent>
+            </BitModal>);
+
+        var footer = component.Find(".modal-footer");
+        Assert.Contains("modal-footer-shadow", footer.ClassList);
+    }
+
+    [Fact]
+    public void BitModal_Should_Render_Backdrop_When_Backdrop_Is_Default()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Backdrop="ModalBackdrop.Default">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.NotNull(component.Find(".modal-backdrop"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Render_Backdrop_When_Backdrop_Is_Static()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Backdrop="ModalBackdrop.Static">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.NotNull(component.Find(".modal-backdrop"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Not_Render_Backdrop_When_Backdrop_Is_None()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" Backdrop="ModalBackdrop.None">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        Assert.Throws<ElementNotFoundException>(() => component.Find(".modal-backdrop"));
+    }
+
+    [Fact]
+    public void BitModal_Should_Apply_Scrollable_Class_When_ScrollableContent_Is_True()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" ScrollableContent="true">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Contains("it-dialog-scrollable", modal.ClassList);
+    }
+
+    [Fact]
+    public void BitModal_Should_Apply_Custom_Css_Class_To_Modal_Element()
+    {
+        var component = Render(
+            @<BitModal IsVisible="true" CssClass="my-custom-class">
+                <BodyContent>Content</BodyContent>
+            </BitModal>);
+
+        var modal = component.Find(".modal");
+        Assert.Contains("my-custom-class", modal.ClassList);
+    }
+}
