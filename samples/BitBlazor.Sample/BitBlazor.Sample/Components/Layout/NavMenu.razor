@@ -2,71 +2,64 @@
 
 @inject NavigationManager NavigationManager
 
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BitBlazor.Sample</a>
-    </div>
-</div>
+<div class="sidebar-nav">
+    <div class="sidebar-section-title">Servizi al Cittadino</div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
+    <NavLink class="sidebar-nav-link" href="" Match="NavLinkMatch.All">
+        <BitIcon IconName="@Icons.ItPa" />
+        <span>Dashboard</span>
+    </NavLink>
 
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="nav flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+    <NavLink class="sidebar-nav-link" href="servizi">
+        <BitIcon IconName="@Icons.ItFolder" />
+        <span>Servizi</span>
+    </NavLink>
+
+    <NavLink class="sidebar-nav-link" href="modulistica">
+        <BitIcon IconName="@Icons.ItNote" />
+        <span>Modulistica</span>
+    </NavLink>
+
+    <NavLink class="sidebar-nav-link" href="comunicazioni">
+        <BitIcon IconName="@Icons.ItMail" />
+        <span>Comunicazioni</span>
+        <BitBadge Text="3" BackgroundColor="Color.Danger" Rounded="true" CssClass="ms-auto" />
+    </NavLink>
+
+    <NavLink class="sidebar-nav-link" href="sportello">
+        <BitIcon IconName="@Icons.ItCard" />
+        <span>Sportello Digitale</span>
+    </NavLink>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-title">Account</div>
+
+    <AuthorizeView>
+        <Authorized>
+            <NavLink class="sidebar-nav-link" href="Account/Manage">
+                <BitIcon IconName="@Icons.ItUser" />
+                <span>@context.User.Identity?.Name</span>
             </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            <form action="Account/Logout" method="post">
+                <AntiforgeryToken />
+                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                <button type="submit" class="sidebar-nav-link">
+                    <BitIcon IconName="@Icons.ItClose" />
+                    <span>Disconnetti</span>
+                </button>
+            </form>
+        </Authorized>
+        <NotAuthorized>
+            <NavLink class="sidebar-nav-link" href="Account/Register">
+                <BitIcon IconName="@Icons.ItUser" />
+                <span>Registrati</span>
             </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            <NavLink class="sidebar-nav-link" href="Account/Login">
+                <BitIcon IconName="@Icons.ItSettings" />
+                <span>Accedi</span>
             </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="auth">
-                <span class="bi bi-lock-nav-menu" aria-hidden="true"></span> Auth Required
-            </NavLink>
-        </div>
-
-        <AuthorizeView>
-            <Authorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Manage">
-                        <span class="bi bi-person-fill-nav-menu" aria-hidden="true"></span> @context.User.Identity?.Name
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <form action="Account/Logout" method="post">
-                        <AntiforgeryToken />
-                        <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                        <BitButton Type="ButtonType.Submit" Color="Color.Primary" Variant="Variant.Outline" CssClass="nav-link">
-                            <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
-                        </BitButton>
-                    </form>
-                </div>
-            </Authorized>
-            <NotAuthorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Register">
-                        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
-                    </NavLink>
-                </div>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/Login">
-                        <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
-                    </NavLink>
-                </div>
-            </NotAuthorized>
-        </AuthorizeView>
-    </nav>
+        </NotAuthorized>
+    </AuthorizeView>
 </div>
 
 @code {

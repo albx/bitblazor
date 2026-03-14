@@ -1,16 +1,138 @@
-.page {
-    position: relative;
+/* =========================================
+   Portal wrapper & layout
+   ========================================= */
+.portal-wrapper {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
-main {
+/* =========================================
+   Header
+   ========================================= */
+.portal-header {
+    background-color: #06c;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 3px solid #004d99;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.portal-brand-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.2;
+}
+
+.portal-brand-subtitle {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.3;
+}
+
+.portal-logo {
+    width: 2.6rem;
+    height: 2.6rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.portal-username {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: white;
+    line-height: 1.2;
+}
+
+.portal-userstatus {
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* =========================================
+   Body: sidebar + main
+   ========================================= */
+.portal-body {
+    display: flex;
     flex: 1;
 }
 
-.sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+.portal-sidebar {
+    width: 256px;
+    min-width: 256px;
+    background-color: #fff;
+    border-right: 1px solid #e0e0e0;
+    min-height: calc(100vh - 64px);
+    flex-shrink: 0;
 }
+
+.portal-main {
+    flex: 1;
+    background-color: #f4f5f6;
+    min-width: 0;
+}
+
+.portal-content {
+    max-width: 1200px;
+    padding: 2rem 1.5rem;
+}
+
+/* =========================================
+   Utility overrides
+   ========================================= */
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* =========================================
+   Error UI
+   ========================================= */
+#blazor-error-ui {
+    color-scheme: light only;
+    background: #fff3f3;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    color: #b20000;
+    border-top: 2px solid #e00;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+
+/* =========================================
+   Responsive
+   ========================================= */
+@media (max-width: 991.98px) {
+    .portal-sidebar {
+        display: none;
+    }
+
+    .portal-content {
+        padding: 1rem;
+    }
+}
+
 
 .top-row {
     background-color: #f7f7f7;

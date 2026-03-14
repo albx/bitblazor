@@ -1,0 +1,160 @@
+@page "/comunicazioni"
+@rendermode InteractiveAuto
+
+@using BitBlazor.Components
+@using BitBlazor.Utilities
+
+<PageTitle>Comunicazioni — Comune di Bitopoli</PageTitle>
+
+<BitBreadcrumb Items="@breadcrumbItems" />
+
+<div class="mt-3 mb-4">
+    <h1 class="h3 fw-bold mb-1">Comunicazioni e Avvisi</h1>
+    <p class="text-muted mb-0">
+        Tutte le comunicazioni istituzionali, avvisi urgenti e notifiche del Comune di Bitopoli.
+    </p>
+</div>
+
+<!-- Filtri per categoria -->
+<div class="d-flex flex-wrap gap-2 mb-4 align-items-center">
+    <span class="small fw-semibold text-muted me-1">Filtra per:</span>
+    <BitBadge Text="@($"Tutti ({visibleCount})")" BackgroundColor="Color.Primary" Rounded="true" />
+    <BitBadge Text="Urgenti" BackgroundColor="Color.Danger" Rounded="true" />
+    <BitBadge Text="Informativi" BackgroundColor="Color.Primary" Rounded="true" />
+    <BitBadge Text="Successo" BackgroundColor="Color.Success" Rounded="true" />
+</div>
+
+<!-- Notifiche interattive (dismissibili) -->
+<div class="d-flex flex-column gap-3 mb-5">
+
+    @foreach (var item in visibleItems)
+    {
+        <BitCard Bordered="true" Shadow="CardShadow.Small">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start gap-3 mb-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <BitBadge Text="@item.Category" BackgroundColor="@item.BadgeColor" Rounded="true" />
+                        <span class="text-muted small">@item.Date.ToString("dd MMMM yyyy")</span>
+                    </div>
+                    <BitAvatar Text="@item.AvatarText" Size="Size.Small" BackgroundColor="@item.AvatarColor" />
+                </div>
+                <BitAlert Type="@item.AlertType" Title="@item.Title" Dismissible="true"
+                          CloseButtonAriaLabel="Chiudi avviso"
+                          OnClosed="@(() => DismissItem(item.Id))">
+                    <p class="mb-0">@item.Body</p>
+                </BitAlert>
+            </CardBody>
+        </BitCard>
+    }
+
+    @if (!visibleItems.Any())
+    {
+        <BitCard Bordered="true" Shadow="CardShadow.Small">
+            <CardBody>
+                <CardText>
+                    <div class="text-center py-4 text-muted">
+                        <BitIcon IconName="@Icons.ItCheckCircle" Size="IconSize.ExtraLarge" Color="IconColor.Success" />
+                        <p class="mt-3 mb-0">Nessuna comunicazione da visualizzare.<br />Hai chiuso tutti gli avvisi attivi.</p>
+                    </div>
+                </CardText>
+            </CardBody>
+        </BitCard>
+    }
+</div>
+
+@if (dismissed.Any())
+{
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <span class="text-muted small">@dismissed.Count avvisi chiusi</span>
+        <BitButton Color="Color.Secondary" Variant="Variant.Outline" Size="Size.Small" OnClick="RestoreAll">
+            Ripristina tutti
+        </BitButton>
+    </div>
+}
+
+<!-- Storico comunicazioni (statiche) -->
+<h2 class="h5 fw-bold mb-3">Archivio comunicazioni</h2>
+<div class="row g-3">
+    @foreach (var arch in archive)
+    {
+        <div class="col-12 col-md-6">
+            <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+                <CardBody>
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <BitBadge Text="@arch.Category" BackgroundColor="Color.Secondary" Rounded="true" />
+                        <span class="text-muted small">@arch.Date.ToString("dd/MM/yyyy")</span>
+                    </div>
+                    <CardTitle>@arch.Title</CardTitle>
+                    <CardText>
+                        <p class="text-muted small mb-2">@arch.Summary</p>
+                    </CardText>
+                    <CardFooter>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">
+                            Leggi tutto
+                        </BitButton>
+                    </CardFooter>
+                </CardBody>
+            </BitCard>
+        </div>
+    }
+</div>
+
+@code {
+    private List<int> dismissed = new();
+
+    private int visibleCount => visibleItems.Count;
+
+    private List<ComunicazioneItem> allItems = new()
+    {
+        new(1, "Urgente",     AlertType.Danger,  "Allerta meteo — Codice Arancione",
+            "La Protezione Civile ha emesso un'allerta meteo arancione per il comune di Bitopoli valida dalle 18:00 di oggi alle 06:00 di domani. Si raccomanda la massima prudenza.",
+            new DateOnly(2026, 3, 14), "PC", Color.Danger, Color.Danger),
+        new(2, "Lavori",      AlertType.Warning, "Interruzione acqua in Via Mazzini",
+            "Giovedì 19 marzo dalle 08:00 alle 16:00 sarà sospesa l'erogazione idrica in Via Mazzini, Via Garibaldi e vie limitrofe per interventi di manutenzione straordinaria.",
+            new DateOnly(2026, 3, 13), "AM", Color.Warning, Color.Warning),
+        new(3, "Informativo", AlertType.Info,    "Apertura sportello PagoPA",
+            "A partire dal 17 marzo 2026 sarà attivo il nuovo sportello PagoPA per il pagamento online di tutti i tributi e le sanzioni comunali, incluse IMU, TARI e infrazioni stradali.",
+            new DateOnly(2026, 3, 12), "PA", Color.Primary, Color.Primary),
+        new(4, "Avviso",      AlertType.Info,    "Consultazione pubblica PNRR",
+            "È aperta fino al 31 marzo 2026 la consultazione pubblica sul Piano Nazionale di Ripresa e Resilienza — progetti del Comune di Bitopoli. Tutti i cittadini possono partecipare.",
+            new DateOnly(2026, 3, 10), "PN", Color.Secondary, Color.Secondary),
+        new(5, "Servizi",     AlertType.Success, "Nuovo CIE Point operativo",
+            "Da oggi è operativo il nuovo punto di rilascio CIE (Carta d'Identità Elettronica) presso la sede municipale. Tempi di attesa ridotti e prenotazione online disponibile.",
+            new DateOnly(2026, 3, 8),  "CI", Color.Success, Color.Success),
+    };
+
+    private List<ComunicazioneItem> visibleItems =>
+        allItems.Where(i => !dismissed.Contains(i.Id)).ToList();
+
+    private List<ArchivioItem> archive = new()
+    {
+        new("Notizie",  "Approvato il bilancio preventivo 2026",
+            "Il Consiglio Comunale ha approvato il bilancio preventivo per l'anno 2026 con 14 voti favorevoli.",
+            new DateOnly(2026, 2, 28)),
+        new("Turismo",  "Calendario eventi primaverili 2026",
+            "Pubblicato il programma completo degli eventi culturali e turistici del Comune per la stagione primaverile.",
+            new DateOnly(2026, 2, 20)),
+        new("Sociale",  "Bando contributi affitto 2026",
+            "Aperto il bando per la concessione di contributi a fondo perduto per il sostegno al pagamento dei canoni di locazione.",
+            new DateOnly(2026, 2, 15)),
+        new("Ambiente", "Piano rifiuti: nuovi orari raccolta",
+            "A partire dal 1° marzo 2026 variano gli orari e i giorni della raccolta differenziata porta a porta. Consulta il nuovo calendario.",
+            new DateOnly(2026, 2, 10)),
+    };
+
+    private void DismissItem(int id) => dismissed.Add(id);
+
+    private void RestoreAll() => dismissed.Clear();
+
+    private IReadOnlyList<BitBreadcrumbItem> breadcrumbItems = new List<BitBreadcrumbItem>
+    {
+        new BitBreadcrumbItem { Text = "Home", Link = "/" },
+        new BitBreadcrumbItem { Text = "Comunicazioni" }
+    };
+
+    private record ComunicazioneItem(
+        int Id, string Category, AlertType AlertType, string Title, string Body,
+        DateOnly Date, string AvatarText, Color AvatarColor, Color BadgeColor);
+
+    private record ArchivioItem(string Category, string Title, string Summary, DateOnly Date);
+}
