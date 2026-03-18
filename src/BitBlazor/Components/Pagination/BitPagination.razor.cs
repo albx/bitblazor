@@ -78,6 +78,28 @@ public partial class BitPagination : BitComponentBase
     [Parameter]
     public PaginationAlignment Alignment { get; set; } = PaginationAlignment.Left;
 
+    internal int CurrentPage { get; private set; }
+
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        CurrentPage = Page;
+    }
+
+    internal async Task ChangePageAsync(int page)
+    {
+        if (CurrentPage == page)
+        {
+            return;
+        }
+
+        CurrentPage = page;
+        await PageChanged.InvokeAsync(page);
+
+        StateHasChanged();
+    }
+
     private string ComputeContainerCssClass()
     {
         var builder = new CssClassBuilder("pagination-wrapper");
