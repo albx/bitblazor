@@ -18,9 +18,8 @@ public class BitModalTest
         bool isVisibleChangedCalled = false;
 
         var component = ctx.Render<BitModal>(parameters => parameters
-            .Add(p => p.IsVisible, true)
-            .Add(p => p.BodyContent, SimpleBody)
-            .Add(p => p.IsVisibleChanged, (v) => { isVisibleChangedCalled = true; newVisibility = v; }));
+            .Bind(p => p.IsVisible, newVisibility, v => { isVisibleChangedCalled = true; newVisibility = v; })
+            .Add(p => p.BodyContent, SimpleBody));
 
         component.Find("button.btn-close").Click();
 
@@ -36,7 +35,7 @@ public class BitModalTest
         bool onCloseCalled = false;
 
         var component = ctx.Render<BitModal>(parameters => parameters
-            .Add(p => p.IsVisible, true)
+            .Bind(p => p.IsVisible, true, v => { })
             .Add(p => p.BodyContent, SimpleBody)
             .Add(p => p.OnClose, () => onCloseCalled = true));
 
@@ -53,10 +52,9 @@ public class BitModalTest
         bool newVisibility = true;
 
         var component = ctx.Render<BitModal>(parameters => parameters
-            .Add(p => p.IsVisible, true)
+            .Bind(p => p.IsVisible, newVisibility, v => newVisibility = v)
             .Add(p => p.Backdrop, ModalBackdrop.Default)
-            .Add(p => p.BodyContent, SimpleBody)
-            .Add(p => p.IsVisibleChanged, (v) => newVisibility = v));
+            .Add(p => p.BodyContent, SimpleBody));
 
         component.Find(".modal-backdrop").Click();
 
@@ -71,10 +69,9 @@ public class BitModalTest
         bool isVisibleChangedCalled = false;
 
         var component = ctx.Render<BitModal>(parameters => parameters
-            .Add(p => p.IsVisible, true)
+            .Bind(p => p.IsVisible, true, v => isVisibleChangedCalled = true)
             .Add(p => p.Backdrop, ModalBackdrop.Static)
-            .Add(p => p.BodyContent, SimpleBody)
-            .Add(p => p.IsVisibleChanged, (v) => isVisibleChangedCalled = true));
+            .Add(p => p.BodyContent, SimpleBody));
 
         component.Find(".modal-backdrop").Click();
 

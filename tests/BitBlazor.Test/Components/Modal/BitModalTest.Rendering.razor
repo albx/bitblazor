@@ -1,11 +1,14 @@
-@inherits BunitContext
+﻿@inherits BunitContext
 
 @code {
+    private bool _isVisible = true;
+
     [Fact]
     public void BitModal_Should_Not_Render_When_IsVisible_Is_False()
     {
+        _isVisible = false;
         var component = Render(
-            @<BitModal IsVisible="false">
+            @<BitModal @bind-IsVisible="@_isVisible">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -16,7 +19,7 @@
     public void BitModal_Should_Render_When_IsVisible_Is_True()
     {
         var component = Render(
-            @<BitModal IsVisible="true">
+            @<BitModal @bind-IsVisible="@_isVisible">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -30,7 +33,7 @@
     public void BitModal_Should_Apply_Fade_Class_By_Default()
     {
         var component = Render(
-            @<BitModal IsVisible="true">
+            @<BitModal @bind-IsVisible="@_isVisible">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -42,7 +45,7 @@
     public void BitModal_Should_Not_Apply_Fade_Class_When_Fade_Is_False()
     {
         var component = Render(
-            @<BitModal IsVisible="true" Fade="false">
+            @<BitModal @bind-IsVisible="@_isVisible" Fade="false">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -54,7 +57,7 @@
     public void BitModal_Should_Apply_Show_Class_When_IsVisible_Is_True()
     {
         var component = Render(
-            @<BitModal IsVisible="true">
+            @<BitModal @bind-IsVisible="@_isVisible">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -69,7 +72,7 @@
     public void BitModal_Should_Apply_Size_Class_To_Dialog_Correctly(ModalSize size, string expectedClass)
     {
         var component = Render(
-            @<BitModal IsVisible="true" Size="@size">
+            @<BitModal @bind-IsVisible="@_isVisible" Size="@size">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -81,7 +84,7 @@
     public void BitModal_Should_Apply_Centered_Position_Class_To_Dialog()
     {
         var component = Render(
-            @<BitModal IsVisible="true" Position="ModalPosition.Centered">
+            @<BitModal @bind-IsVisible="@_isVisible" Position="ModalPosition.Centered">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -95,7 +98,7 @@
     public void BitModal_Should_Apply_Left_Right_Position_Classes_And_Scrollable(ModalPosition position, string expectedDialogClass)
     {
         var component = Render(
-            @<BitModal IsVisible="true" Position="@position">
+            @<BitModal @bind-IsVisible="@_isVisible" Position="@position">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -113,7 +116,7 @@
     public void BitModal_Should_Apply_Type_Class_To_Modal_Correctly(ModalType type, string expectedClass)
     {
         var component = Render(
-            @<BitModal IsVisible="true" Type="@type">
+            @<BitModal @bind-IsVisible="@_isVisible" Type="@type">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -125,7 +128,7 @@
     public void BitModal_Should_Render_Title_In_Header_H2()
     {
         var component = Render(
-            @<BitModal IsVisible="true" Title="My Modal Title">
+            @<BitModal @bind-IsVisible="@_isVisible" Title="My Modal Title">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -137,7 +140,7 @@
     public void BitModal_Should_Set_Aria_LabelledBy_Pointing_To_Title_Element()
     {
         var component = Render(
-            @<BitModal IsVisible="true" Id="test-modal" Title="My Title">
+            @<BitModal @bind-IsVisible="@_isVisible" Id="test-modal" Title="My Title">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -152,7 +155,7 @@
     public void BitModal_Should_Set_Aria_Label_When_Provided_And_No_Title()
     {
         var component = Render(
-            @<BitModal IsVisible="true" AriaLabel="Accessible label">
+            @<BitModal @bind-IsVisible="@_isVisible" AriaLabel="Accessible label">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -165,7 +168,7 @@
     public void BitModal_Should_Set_Aria_DescribedBy_When_Provided()
     {
         var component = Render(
-            @<BitModal IsVisible="true" AriaDescribedById="modal-desc">
+            @<BitModal @bind-IsVisible="@_isVisible" AriaDescribedById="modal-desc">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -177,7 +180,7 @@
     public void BitModal_Should_Render_Close_Button_By_Default()
     {
         var component = Render(
-            @<BitModal IsVisible="true">
+            @<BitModal @bind-IsVisible="@_isVisible">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -189,7 +192,7 @@
     public void BitModal_Should_Not_Render_Close_Button_When_ShowCloseButton_Is_False()
     {
         var component = Render(
-            @<BitModal IsVisible="true" ShowCloseButton="false">
+            @<BitModal @bind-IsVisible="@_isVisible" ShowCloseButton="false">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -200,7 +203,7 @@
     public void BitModal_Should_Use_Custom_Close_Button_Aria_Label()
     {
         var component = Render(
-            @<BitModal IsVisible="true" CloseButtonAriaLabel="Close dialog">
+            @<BitModal @bind-IsVisible="@_isVisible" CloseButtonAriaLabel="Close dialog">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -212,7 +215,7 @@
     public void BitModal_Should_Not_Render_Header_When_ShowCloseButton_False_And_No_Title()
     {
         var component = Render(
-            @<BitModal IsVisible="true" ShowCloseButton="false">
+            @<BitModal @bind-IsVisible="@_isVisible" ShowCloseButton="false">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -223,7 +226,7 @@
     public void BitModal_Should_Render_Custom_Header_Content_When_Provided()
     {
         var component = Render(
-            @<BitModal IsVisible="true" ShowCloseButton="false">
+            @<BitModal @bind-IsVisible="@_isVisible" ShowCloseButton="false">
                 <HeaderContent><h3 id="custom-heading">Custom Header</h3></HeaderContent>
                 <BodyContent>Content</BodyContent>
             </BitModal>);
@@ -236,7 +239,7 @@
     public void BitModal_Should_Render_Footer_When_FooterContent_Is_Set()
     {
         var component = Render(
-            @<BitModal IsVisible="true">
+            @<BitModal @bind-IsVisible="@_isVisible">
                 <BodyContent>Content</BodyContent>
                 <FooterContent><button type="button">OK</button></FooterContent>
             </BitModal>);
@@ -248,7 +251,7 @@
     public void BitModal_Should_Not_Render_Footer_When_FooterContent_Is_Not_Set()
     {
         var component = Render(
-            @<BitModal IsVisible="true">
+            @<BitModal @bind-IsVisible="@_isVisible">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -259,7 +262,7 @@
     public void BitModal_Should_Apply_Footer_Shadow_Class_When_FooterShadow_Is_True()
     {
         var component = Render(
-            @<BitModal IsVisible="true" FooterShadow="true">
+            @<BitModal @bind-IsVisible="@_isVisible" FooterShadow="true">
                 <BodyContent>Content</BodyContent>
                 <FooterContent>Footer</FooterContent>
             </BitModal>);
@@ -272,7 +275,7 @@
     public void BitModal_Should_Render_Backdrop_When_Backdrop_Is_Default()
     {
         var component = Render(
-            @<BitModal IsVisible="true" Backdrop="ModalBackdrop.Default">
+            @<BitModal @bind-IsVisible="@_isVisible" Backdrop="ModalBackdrop.Default">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -283,7 +286,7 @@
     public void BitModal_Should_Render_Backdrop_When_Backdrop_Is_Static()
     {
         var component = Render(
-            @<BitModal IsVisible="true" Backdrop="ModalBackdrop.Static">
+            @<BitModal @bind-IsVisible="@_isVisible" Backdrop="ModalBackdrop.Static">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -294,7 +297,7 @@
     public void BitModal_Should_Not_Render_Backdrop_When_Backdrop_Is_None()
     {
         var component = Render(
-            @<BitModal IsVisible="true" Backdrop="ModalBackdrop.None">
+            @<BitModal @bind-IsVisible="@_isVisible" Backdrop="ModalBackdrop.None">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -305,7 +308,7 @@
     public void BitModal_Should_Apply_Scrollable_Class_When_ScrollableContent_Is_True()
     {
         var component = Render(
-            @<BitModal IsVisible="true" ScrollableContent="true">
+            @<BitModal @bind-IsVisible="@_isVisible" ScrollableContent="true">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
@@ -317,7 +320,7 @@
     public void BitModal_Should_Apply_Custom_Css_Class_To_Modal_Element()
     {
         var component = Render(
-            @<BitModal IsVisible="true" CssClass="my-custom-class">
+            @<BitModal @bind-IsVisible="@_isVisible" CssClass="my-custom-class">
                 <BodyContent>Content</BodyContent>
             </BitModal>);
 
