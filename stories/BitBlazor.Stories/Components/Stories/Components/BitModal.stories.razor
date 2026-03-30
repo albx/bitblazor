@@ -15,7 +15,7 @@
 
     <Story Name="Default">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Intestazione modale")" />
+            <Arg For="_ => _.Title" Value="@("Modal header")" />
             <Arg For="_ => _.Size" Value="ModalSize.Default" />
             <Arg For="_ => _.Position" Value="ModalPosition.Default" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -28,21 +28,17 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.DefaultVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.DefaultVisible"
-                          @attributes="context.Args"
-                          Id="story-modal-default"
+                <BitModal @bind-IsVisible="model.DefaultVisible" @attributes="context.Args" Id="story-modal-default"
                           AriaDescribedById="story-modal-default-desc">
                     <BodyContent>
-                        <p id="story-modal-default-desc">Descrizione scopo della modale.</p>
+                        <p id="story-modal-default-desc">Description of the modal's purpose.</p>
                         <p>Font Titillium 16px. Leading 24px. omnis iste natus error sit voluptatem accusantium.</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-outline-primary btn-sm" type="button"
-                                @onclick="() => model.DefaultVisible = false">Annulla</button>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.DefaultVisible = false">Azione 1</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" @onclick="() => model.DefaultVisible = false">Cancel</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.DefaultVisible = false">Action 1</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -51,7 +47,7 @@
 
     <Story Name="With close button">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Intestazione modale")" />
+            <Arg For="_ => _.Title" Value="@("Modal header")" />
             <Arg For="_ => _.Size" Value="ModalSize.Default" />
             <Arg For="_ => _.Position" Value="ModalPosition.Default" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -64,20 +60,16 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.CloseButtonVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.CloseButtonVisible"
-                          @attributes="context.Args"
-                          Id="story-modal-closeable"
-                          CloseButtonAriaLabel="Chiudi questa finestra">
+                <BitModal @bind-IsVisible="model.CloseButtonVisible" @attributes="context.Args" Id="story-modal-closeable"
+                          CloseButtonAriaLabel="Close this window">
                     <BodyContent>
-                        <p>La modale può essere chiusa facendo clic sul pulsante X nell'intestazione.</p>
+                        <p>The modal can be closed by clicking the X button in the header.</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-outline-primary btn-sm" type="button"
-                                @onclick="() => model.CloseButtonVisible = false">Annulla</button>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.CloseButtonVisible = false">Azione 1</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" @onclick="() => model.CloseButtonVisible = false">Cancel</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.CloseButtonVisible = false">Action 1</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -86,7 +78,7 @@
 
     <Story Name="Sizes - Small">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale piccola")" />
+            <Arg For="_ => _.Title" Value="@("Small modal")" />
             <Arg For="_ => _.Size" Value="ModalSize.Small" />
             <Arg For="_ => _.Position" Value="ModalPosition.Default" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -99,17 +91,14 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.SizeSmallVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.SizeSmallVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
+                <BitModal @bind-IsVisible="model.SizeSmallVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
                     <BodyContent>
-                        <p>Questo è un esempio di modale di dimensione ridotta.</p>
+                        <p>This is an example of a small modal.</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.SizeSmallVisible = false">OK</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.SizeSmallVisible = false">OK</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -118,7 +107,7 @@
 
     <Story Name="Sizes - Large">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale grande")" />
+            <Arg For="_ => _.Title" Value="@("Large modal")" />
             <Arg For="_ => _.Size" Value="ModalSize.Large" />
             <Arg For="_ => _.Position" Value="ModalPosition.Default" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -131,17 +120,14 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.SizeLargeVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.SizeLargeVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
+                <BitModal @bind-IsVisible="model.SizeLargeVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
                     <BodyContent>
-                        <p>Questo è un esempio di modale di dimensione grande.</p>
+                        <p>This is an example of a large modal.</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.SizeLargeVisible = false">OK</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.SizeLargeVisible = false">OK</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -150,7 +136,7 @@
 
     <Story Name="Sizes - Extra Large">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale molto grande")" />
+            <Arg For="_ => _.Title" Value="@("Extra large modal")" />
             <Arg For="_ => _.Size" Value="ModalSize.ExtraLarge" />
             <Arg For="_ => _.Position" Value="ModalPosition.Default" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -163,17 +149,14 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.SizeXLVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.SizeXLVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
+                <BitModal @bind-IsVisible="model.SizeXLVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
                     <BodyContent>
-                        <p>Questo è un esempio di modale di dimensione molto grande.</p>
+                        <p>This is an example of an extra large modal.</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.SizeXLVisible = false">OK</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.SizeXLVisible = false">OK</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -182,7 +165,7 @@
 
     <Story Name="Position - Centered">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale centrata")" />
+            <Arg For="_ => _.Title" Value="@("Centered modal")" />
             <Arg For="_ => _.Size" Value="ModalSize.Default" />
             <Arg For="_ => _.Position" Value="ModalPosition.Centered" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -195,17 +178,14 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.CenteredVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.CenteredVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
+                <BitModal @bind-IsVisible="model.CenteredVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
                     <BodyContent>
-                        <p>La modale è centrata verticalmente nella viewport.</p>
+                        <p>The modal is vertically centered in the viewport.</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.CenteredVisible = false">OK</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.CenteredVisible = false">OK</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -214,7 +194,7 @@
 
     <Story Name="Position - Left">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale a sinistra")" />
+            <Arg For="_ => _.Title" Value="@("Left modal")" />
             <Arg For="_ => _.Size" Value="ModalSize.Default" />
             <Arg For="_ => _.Position" Value="ModalPosition.Left" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -227,13 +207,11 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.LeftVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.LeftVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
+                <BitModal @bind-IsVisible="model.LeftVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
                     <BodyContent>
-                        <p>La modale si apre da sinistra e occupa tutta l'altezza disponibile.</p>
+                        <p>The modal opens from the left and takes up the full available height.</p>
                     </BodyContent>
                 </BitModal>
             </div>
@@ -242,7 +220,7 @@
 
     <Story Name="Position - Right">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale a destra")" />
+            <Arg For="_ => _.Title" Value="@("Right modal")" />
             <Arg For="_ => _.Size" Value="ModalSize.Default" />
             <Arg For="_ => _.Position" Value="ModalPosition.Right" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -255,13 +233,11 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.RightVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.RightVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
+                <BitModal @bind-IsVisible="model.RightVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
                     <BodyContent>
-                        <p>La modale si apre da destra e occupa tutta l'altezza disponibile.</p>
+                        <p>The modal opens from the right and takes up the full available height.</p>
                     </BodyContent>
                 </BitModal>
             </div>
@@ -283,24 +259,20 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.AlertVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.AlertVisible"
-                          @attributes="context.Args"
-                          AriaLabel="Messaggio di notifica"
-                          >
+                <BitModal @bind-IsVisible="model.AlertVisible" @attributes="context.Args" AriaLabel="Notification message">
                     <HeaderContent>
                         <div class="d-flex align-items-center">
                             <BitIcon IconName="@Icons.ItWarningCircle" CssClass="me-2" />
-                            <h2 class="modal-title h5 mb-0">Questo è un messaggio di notifica</h2>
+                            <h2 class="modal-title h5 mb-0">This is a notification message</h2>
                         </div>
                     </HeaderContent>
                     <BodyContent>
-                        <p>In questo caso vengono forniti un pulsante di conferma e uno di chiusura della modale.</p>
+                        <p>In this case, a confirmation button and a close button are provided.</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.AlertVisible = false">Ok</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.AlertVisible = false">OK</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -322,20 +294,15 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.PopconfirmBasicVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.PopconfirmBasicVisible"
-                          @attributes="context.Args"
-                          AriaLabel="Conferma azione"
-                          >
+                <BitModal @bind-IsVisible="model.PopconfirmBasicVisible" @attributes="context.Args" AriaLabel="Confirm action">
                     <BodyContent>
-                        <p>Font Titillium 14px. Leading 21px. Sei sicuro di voler procedere?</p>
+                        <p>Font Titillium 14px. Leading 21px. Are you sure you want to proceed?</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-outline-primary btn-sm" type="button"
-                                @onclick="() => model.PopconfirmBasicVisible = false">Annulla</button>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.PopconfirmBasicVisible = false">Conferma</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" @onclick="() => model.PopconfirmBasicVisible = false">Cancel</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.PopconfirmBasicVisible = false">Confirm</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -344,7 +311,7 @@
 
     <Story Name="Type - Popconfirm (with header)">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Intestazione Popconfirm")" />
+            <Arg For="_ => _.Title" Value="@("Popconfirm header")" />
             <Arg For="_ => _.Size" Value="ModalSize.Default" />
             <Arg For="_ => _.Position" Value="ModalPosition.Default" />
             <Arg For="_ => _.Type" Value="ModalType.Popconfirm" />
@@ -357,18 +324,15 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.PopconfirmHeaderVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.PopconfirmHeaderVisible"
-                          @attributes="context.Args">
+                <BitModal @bind-IsVisible="model.PopconfirmHeaderVisible" @attributes="context.Args">
                     <BodyContent>
-                        <p>Font Titillium 14px. Leading 21px. Sei sicuro di voler procedere?</p>
+                        <p>Font Titillium 14px. Leading 21px. Are you sure you want to proceed?</p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-outline-primary btn-sm" type="button"
-                                @onclick="() => model.PopconfirmHeaderVisible = false">Annulla</button>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.PopconfirmHeaderVisible = false">Conferma</button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" @onclick="() => model.PopconfirmHeaderVisible = false">Cancel</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.PopconfirmHeaderVisible = false">Confirm</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -390,18 +354,15 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.NoHeaderVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.NoHeaderVisible"
-                          @attributes="context.Args"
-                          AriaLabel="Finestra senza intestazione"
-                          >
+                <BitModal @bind-IsVisible="model.NoHeaderVisible" @attributes="context.Args" AriaLabel="Window without header">
                     <BodyContent>
-                        <p>Questa modale non ha intestazione. Usare <code>ShowCloseButton="false"</code> e non impostare <code>Title</code> o <code>HeaderContent</code>.</p>
+                        <p>This modal has no header. Use <code>ShowCloseButton="false"</code> and do not set <code>Title</code> or <code>HeaderContent</code>.
+                        </p>
                     </BodyContent>
                     <FooterContent>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.NoHeaderVisible = false">Chiudi</button>
+                        <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.NoHeaderVisible = false">Close</button>
                     </FooterContent>
                 </BitModal>
             </div>
@@ -410,7 +371,7 @@
 
     <Story Name="Scrollable content">
         <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale con contenuto scorrevole")" />
+            <Arg For="_ => _.Title" Value="@("Modal with scrollable content")" />
             <Arg For="_ => _.Size" Value="ModalSize.Default" />
             <Arg For="_ => _.Position" Value="ModalPosition.Default" />
             <Arg For="_ => _.Type" Value="ModalType.Default" />
@@ -423,96 +384,84 @@
         <Template>
             <div class="p-3">
                 <button class="btn btn-primary" type="button" @onclick="() => model.ScrollableVisible = true">
-                    Apri modale
+                    Open modal
                 </button>
-                <BitModal @bind-IsVisible="model.ScrollableVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi"
-                          >
+                <BitModal @bind-IsVisible="model.ScrollableVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
                     <BodyContent>
-                        <p>Testo molto lungo che causa lo scroll interno della modale.</p>
+                        <p>Very long text that causes the modal to scroll internally.</p>
                         @for (int i = 1; i <= 15; i++)
                         {
-                            <p>Paragrafo @i: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>Paragraph @i: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         }
-                    </BodyContent>
-                    <FooterContent>
-                        <button class="btn btn-outline-primary btn-sm" type="button"
-                                @onclick="() => model.ScrollableVisible = false">Annulla</button>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.ScrollableVisible = false">Conferma</button>
-                    </FooterContent>
-                </BitModal>
-            </div>
-        </Template>
-    </Story>
+                        </BodyContent>
+                        <FooterContent>
+                            <button class="btn btn-outline-primary btn-sm" type="button" @onclick="() => model.ScrollableVisible = false">Cancel</button>
+                            <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.ScrollableVisible = false">Confirm</button>
+                        </FooterContent>
+                    </BitModal>
+                </div>
+            </Template>
+        </Story>
 
-    <Story Name="Backdrop - Static">
-        <Arguments>
-            <Arg For="_ => _.Title" Value="@("Backdrop statico")" />
-            <Arg For="_ => _.Size" Value="ModalSize.Default" />
-            <Arg For="_ => _.Position" Value="ModalPosition.Default" />
-            <Arg For="_ => _.Type" Value="ModalType.Default" />
-            <Arg For="_ => _.Backdrop" Value="ModalBackdrop.Static" />
-            <Arg For="_ => _.ShowCloseButton" Value="true" />
-            <Arg For="_ => _.ScrollableContent" Value="false" />
-            <Arg For="_ => _.FooterShadow" Value="false" />
-            <Arg For="_ => _.Fade" Value="true" />
-        </Arguments>
-        <Template>
-            <div class="p-3">
-                <button class="btn btn-primary" type="button" @onclick="() => model.StaticBackdropVisible = true">
-                    Apri modale
-                </button>
-                <BitModal @bind-IsVisible="model.StaticBackdropVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
-                    <BodyContent>
-                        <p>Con <code>Backdrop="ModalBackdrop.Static"</code> il clic sullo sfondo non chiude la modale.</p>
-                    </BodyContent>
-                    <FooterContent>
-                        <button class="btn btn-outline-primary btn-sm" type="button"
-                                @onclick="() => model.StaticBackdropVisible = false">Annulla</button>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.StaticBackdropVisible = false">OK</button>
-                    </FooterContent>
-                </BitModal>
-            </div>
-        </Template>
-    </Story>
+        <Story Name="Backdrop - Static">
+            <Arguments>
+                <Arg For="_ => _.Title" Value="@("Static backdrop")" />
+                <Arg For="_ => _.Size" Value="ModalSize.Default" />
+                <Arg For="_ => _.Position" Value="ModalPosition.Default" />
+                <Arg For="_ => _.Type" Value="ModalType.Default" />
+                <Arg For="_ => _.Backdrop" Value="ModalBackdrop.Static" />
+                <Arg For="_ => _.ShowCloseButton" Value="true" />
+                <Arg For="_ => _.ScrollableContent" Value="false" />
+                <Arg For="_ => _.FooterShadow" Value="false" />
+                <Arg For="_ => _.Fade" Value="true" />
+            </Arguments>
+            <Template>
+                <div class="p-3">
+                    <button class="btn btn-primary" type="button" @onclick="() => model.StaticBackdropVisible = true">
+                        Open modal
+                    </button>
+                    <BitModal @bind-IsVisible="model.StaticBackdropVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
+                        <BodyContent>
+                            <p>With <code>Backdrop="ModalBackdrop.Static"</code>, clicking the background does not close the modal.</p>
+                        </BodyContent>
+                        <FooterContent>
+                            <button class="btn btn-outline-primary btn-sm" type="button" @onclick="() => model.StaticBackdropVisible = false">Cancel</button>
+                            <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.StaticBackdropVisible = false">OK</button>
+                        </FooterContent>
+                    </BitModal>
+                </div>
+            </Template>
+        </Story>
 
-    <Story Name="No animation (fade disabled)">
-        <Arguments>
-            <Arg For="_ => _.Title" Value="@("Modale senza animazione")" />
-            <Arg For="_ => _.Size" Value="ModalSize.Default" />
-            <Arg For="_ => _.Position" Value="ModalPosition.Default" />
-            <Arg For="_ => _.Type" Value="ModalType.Default" />
-            <Arg For="_ => _.Backdrop" Value="ModalBackdrop.Default" />
-            <Arg For="_ => _.ShowCloseButton" Value="true" />
-            <Arg For="_ => _.ScrollableContent" Value="false" />
-            <Arg For="_ => _.FooterShadow" Value="false" />
-            <Arg For="_ => _.Fade" Value="false" />
-        </Arguments>
-        <Template>
-            <div class="p-3">
-                <button class="btn btn-primary" type="button" @onclick="() => model.NoFadeVisible = true">
-                    Apri modale
-                </button>
-                <BitModal @bind-IsVisible="model.NoFadeVisible"
-                          @attributes="context.Args"
-                          CloseButtonAriaLabel="Chiudi">
-                    <BodyContent>
-                        <p>La classe <code>fade</code> non viene applicata, quindi non c'è animazione di dissolvenza.</p>
-                    </BodyContent>
-                    <FooterContent>
-                        <button class="btn btn-primary btn-sm" type="button"
-                                @onclick="() => model.NoFadeVisible = false">OK</button>
-                    </FooterContent>
-                </BitModal>
-            </div>
-        </Template>
-    </Story>
-</Stories>
+        <Story Name="No animation (fade disabled)">
+            <Arguments>
+                <Arg For="_ => _.Title" Value="@("Modal without animation")" />
+                <Arg For="_ => _.Size" Value="ModalSize.Default" />
+                <Arg For="_ => _.Position" Value="ModalPosition.Default" />
+                <Arg For="_ => _.Type" Value="ModalType.Default" />
+                <Arg For="_ => _.Backdrop" Value="ModalBackdrop.Default" />
+                <Arg For="_ => _.ShowCloseButton" Value="true" />
+                <Arg For="_ => _.ScrollableContent" Value="false" />
+                <Arg For="_ => _.FooterShadow" Value="false" />
+                <Arg For="_ => _.Fade" Value="false" />
+            </Arguments>
+            <Template>
+                <div class="p-3">
+                    <button class="btn btn-primary" type="button" @onclick="() => model.NoFadeVisible = true">
+                        Open modal
+                    </button>
+                    <BitModal @bind-IsVisible="model.NoFadeVisible" @attributes="context.Args" CloseButtonAriaLabel="Close">
+                        <BodyContent>
+                            <p>The <code>fade</code> class is not applied, so there is no fade animation.</p>
+                        </BodyContent>
+                        <FooterContent>
+                            <button class="btn btn-primary btn-sm" type="button" @onclick="() => model.NoFadeVisible = false">OK</button>
+                        </FooterContent>
+                    </BitModal>
+                </div>
+            </Template>
+        </Story>
+    </Stories>
 
 @code {
     private ViewModel model = new();
