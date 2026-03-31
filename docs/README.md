@@ -55,12 +55,19 @@ Specialized badge for use within buttons.
 - Automatic variant inversion
 - Accessibility support
 
+
 #### [Card](components/card.md)
 Complete card system for organizing content.
 - Different types (default, profile, banner)
 - Inline and standard layouts
 - Modular components (header, body, footer, etc.)
 - Support for images and icons
+
+#### [Modal](components/modal.md)
+Modal dialog component for displaying content in an overlay.
+- Accessible dialog overlay
+- Visibility controlled via Blazor state
+- No JavaScript interop required
 
 ### Form Components
 
