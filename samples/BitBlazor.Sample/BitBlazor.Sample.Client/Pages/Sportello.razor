@@ -24,7 +24,9 @@
                 <CardText>
                     <div class="text-center py-2">
                         <div class="fs-2 fw-bold text-primary">@ticketNumber</div>
-                        <div class="small text-muted">Il tuo numero</div>
+                        <BitTooltip Text="Il numero univoco assegnato alla tua sessione allo sportello." Placement="TooltipPlacement.Bottom">
+                            <span class="small text-muted">Il tuo numero</span>
+                        </BitTooltip>
                     </div>
                 </CardText>
             </CardBody>
@@ -36,7 +38,9 @@
                 <CardText>
                     <div class="text-center py-2">
                         <div class="fs-2 fw-bold text-success">@calledNumber</div>
-                        <div class="small text-muted">Numero chiamato</div>
+                        <BitTooltip Text="L'ultimo numero chiamato dagli operatori dello sportello." Placement="TooltipPlacement.Bottom">
+                            <span class="small text-muted">Numero chiamato</span>
+                        </BitTooltip>
                     </div>
                 </CardText>
             </CardBody>
@@ -48,7 +52,9 @@
                 <CardText>
                     <div class="text-center py-2">
                         <div class="fs-2 fw-bold @(waitCount > 5 ? "text-danger" : "text-warning")">@waitCount</div>
-                        <div class="small text-muted">In attesa</div>
+                        <BitTooltip Text="Numero di persone in attesa prima di te." Placement="TooltipPlacement.Bottom">
+                            <span class="small text-muted">In attesa</span>
+                        </BitTooltip>
                     </div>
                 </CardText>
             </CardBody>
@@ -100,10 +106,15 @@
                     </p>
                 </CardText>
                 <CardFooter>
-                    <BitButton Color="Color.Danger" Variant="Variant.Outline" OnClick="@(() => OpenModal("urgente"))">
-                        <BitIcon IconName="@Icons.ItError" />
-                        Richiesta urgente
-                    </BitButton>
+                    <BitPopover Title="Pratica Urgente"
+                                Content="Disponibile solo per certificati anagrafici e stato civile. È richiesta motivazione scritta. I tempi di trattazione sono ridotti a 5 giorni lavorativi."
+                                Placement="PopoverPlacement.Top"
+                                Trigger="PopoverTrigger.Hover">
+                        <BitButton Color="Color.Danger" Variant="Variant.Outline" OnClick="@(() => OpenModal("urgente"))">
+                            <BitIcon IconName="@Icons.ItError" />
+                            Richiesta urgente
+                        </BitButton>
+                    </BitPopover>
                 </CardFooter>
             </CardBody>
         </BitCard>
