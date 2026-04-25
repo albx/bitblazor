@@ -128,6 +128,28 @@ public partial class BitPagination : BitComponentBase
         StateHasChanged();
     }
 
+    private async Task MoveToPreviousPageAsync()
+    {
+        if (CurrentPage == 1)
+        {
+            return;
+        }
+
+        var page = CurrentPage - 1;
+        await ChangePageAsync(page);
+    }
+
+    private async Task MoveToNextPageAsync()
+    {
+        if (CurrentPage == NumberOfPages)
+        {
+            return;
+        }
+
+        var page = CurrentPage + 1;
+        await ChangePageAsync(page);
+    }
+
     private string ComputeContainerCssClass()
     {
         var builder = new CssClassBuilder("pagination-wrapper");
