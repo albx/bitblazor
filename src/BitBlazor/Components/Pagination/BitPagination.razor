@@ -4,7 +4,7 @@
 
 <nav class="@ComputeContainerCssClass()" aria-label="@Description" @attributes="AdditionalAttributes">
     <ul class="pagination">
-        <li class="page-item">
+        <li class="@ComputePreviousPageItemCssClass()">
             <a class="page-link" href="#">
                 <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
                 <span class="visually-hidden">@PreviousPageLabel</span>
@@ -14,11 +14,11 @@
         <CascadingValue Value="this">
             @for (int currentPage = 1; currentPage <= NumberOfPages; currentPage++)
             {
-                <BitPageItem Page="currentPage"/>
+                <BitPageItem Page="currentPage" Disabled="IsPageDisabled(currentPage)"/>
             }
         </CascadingValue>
 
-        <li class="page-item">
+        <li class="@ComputeNextPageItemCssClass()">
             <a class="page-link" href="#">
                 <span class="visually-hidden">@NextPageLabel</span>
                 <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />

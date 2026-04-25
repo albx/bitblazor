@@ -1,3 +1,4 @@
+using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
@@ -24,6 +25,12 @@ public partial class BitPageItem
     [Parameter]
     public int Page { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the component is disabled and cannot be interacted with.
+    /// </summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
     private IDictionary<string, object> attributes = new Dictionary<string, object>();
 
     /// <inheritdoc/>
@@ -40,4 +47,15 @@ public partial class BitPageItem
     }
 
     private Task SetPageAsync() => Parent.ChangePageAsync(Page);
+
+    private string ComputePageItemCssClass()
+    {
+        var builder = new CssClassBuilder("page-item");
+        if (Disabled)
+        {
+            builder.Add("disabled");
+        }
+
+        return builder.Build();
+    }
 }

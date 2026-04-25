@@ -8,17 +8,25 @@
     <ArgType For="_ => _.Alignment" />
     <ArgType For="_ => _.PreviousPageLabel" />
     <ArgType For="_ => _.NextPageLabel" />
+    <ArgType For="_ => _.Disabled" />
+    <ArgType For="_ => _.DisabledPages" />
+    <ArgType For="_ => _.PreviousPageDisabled" />
+    <ArgType For="_ => _.NextPageDisabled" />
 
     <Story Name="Default">
         <Arguments>
-            <Arg For="_ => _.Page" Value="1" />
             <Arg For="_ => _.NumberOfPages" Value="3" />
             <Arg For="_ => _.Description" Value="@("Page navigation")" />
             <Arg For="_ => _.Alignment" Value="PaginationAlignment.Left" />
+            <Arg For="_ => _.Disabled" Value="false" />
+            <Arg For="_ => _.DisabledPages" Value="[]" />
+            <Arg For="_ => _.PreviousPageDisabled" Value="false" />
+            <Arg For="_ => _.NextPageDisabled" Value="false" />
         </Arguments>
         <Template>
             <div class="px-2 py-2">
-                <BitPagination @attributes="context.Args" />
+                <BitPagination @attributes="context.Args"
+                               @bind-Page="model.DefaultStoryPage"/>
             </div>
         </Template>
     </Story>
