@@ -136,11 +136,11 @@ public class BitPaginationTest
 
         // 1, null, 24, 25, 26, 27, 28, null, 50
         Assert.Equal(9, sequence.Count);
-        Assert.Equal(1,  sequence[0]);
-        Assert.Null(     sequence[1]);
+        Assert.Equal(1,sequence[0]);
+        Assert.Null(sequence[1]);
         Assert.Equal(24, sequence[2]);
         Assert.Equal(26, sequence[4]);
-        Assert.Null(     sequence[7]);
+        Assert.Null(sequence[7]);
         Assert.Equal(50, sequence[8]);
     }
 

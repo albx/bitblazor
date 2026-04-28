@@ -59,12 +59,6 @@ public partial class BitPagination : BitComponentBase
     public string PreviousPageLabel { get; set; } = "previous page";
 
     /// <summary>
-    /// Gets or sets a value indicating whether navigation to the previous page is disabled.
-    /// </summary>
-    [Parameter]
-    public bool PreviousPageDisabled { get; set; }
-
-    /// <summary>
     /// Gets or sets the label text displayed for the next page navigation link.
     /// </summary>
     /// <remarks> 
@@ -73,12 +67,6 @@ public partial class BitPagination : BitComponentBase
     /// </remarks>
     [Parameter]
     public string NextPageLabel { get; set; } = "next page";
-
-    /// <summary>
-    /// Gets or sets a value indicating whether navigation to the next page is disabled.
-    /// </summary>
-    [Parameter]
-    public bool NextPageDisabled { get; set; }
 
     /// <summary>
     /// Gets or sets the alignment of the pagination controls within their container.
@@ -95,16 +83,6 @@ public partial class BitPagination : BitComponentBase
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the collection of page indexes that are disabled and cannot be selected.
-    /// </summary>
-    /// <remarks>
-    /// Page indexes in this collection will be rendered as unavailable in the UI. 
-    /// Use this property to prevent user interaction with specific pages, such as for access control or workflow restrictions.
-    /// </remarks>
-    [Parameter]
-    public int[] DisabledPages { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the number of page buttons to show on each side of the current page
@@ -190,29 +168,5 @@ public partial class BitPagination : BitComponentBase
         if (NumberOfPages > 1) result.Add(NumberOfPages);
 
         return result;
-    }
-
-    private bool IsPageDisabled(int page) => Disabled || DisabledPages.Contains(page);
-
-    private string ComputePreviousPageItemCssClass()
-    {
-        var builder = new CssClassBuilder("page-item");
-        if (Disabled || PreviousPageDisabled)
-        {
-            builder.Add("disabled");
-        }
-
-        return builder.Build();
-    }
-
-    private string ComputeNextPageItemCssClass()
-    {
-        var builder = new CssClassBuilder("page-item");
-        if (Disabled || NextPageDisabled)
-        {
-            builder.Add("disabled");
-        }
-
-        return builder.Build();
     }
 }

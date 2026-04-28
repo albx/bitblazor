@@ -4,17 +4,15 @@
 
 <nav class="@ComputeContainerCssClass()" aria-label="@Description" @attributes="AdditionalAttributes">
     <ul class="pagination">
-        <li class="@ComputePreviousPageItemCssClass()">
-            <a class="page-link" href="#" @onclick:preventDefault @onclick="MoveToPreviousPageAsync">
-                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
-                <span class="visually-hidden">@PreviousPageLabel</span>
-            </a>
-        </li>
+        <BitPageItem Disabled="Disabled" PageItemClicked="MoveToPreviousPageAsync">
+            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
+            <span class="visually-hidden">@PreviousPageLabel</span>
+        </BitPageItem>
 
         <CascadingValue Value="this">
-            @foreach (var page in GetPageSequence())
+            @foreach (var pageItem in GetPageSequence())
             {
-                if (page is null)
+                if (pageItem is null)
                 {
                     <li class="page-item">
                         <span class="page-link">...</span>
@@ -22,16 +20,16 @@
                 }
                 else
                 {
-                    <BitPageItem Page="page.Value" Disabled="IsPageDisabled(page.Value)" />
+                    <BitPageItem Page="pageItem" Disabled="Disabled" PageItemClicked="@(() => ChangePageAsync(pageItem.Value))">
+                        @pageItem
+                    </BitPageItem>
                 }
             }
         </CascadingValue>
 
-        <li class="@ComputeNextPageItemCssClass()">
-            <a class="page-link" href="#" @onclick:preventDefault @onclick="MoveToNextPageAsync">
-                <span class="visually-hidden">@NextPageLabel</span>
-                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
-            </a>
-        </li>
+        <BitPageItem Disabled="Disabled" PageItemClicked="MoveToNextPageAsync">
+            <span class="visually-hidden">@NextPageLabel</span>
+            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
+        </BitPageItem>
     </ul>
 </nav>

@@ -9,9 +9,6 @@
     <ArgType For="_ => _.PreviousPageLabel" />
     <ArgType For="_ => _.NextPageLabel" />
     <ArgType For="_ => _.Disabled" />
-    <ArgType For="_ => _.DisabledPages" />
-    <ArgType For="_ => _.PreviousPageDisabled" />
-    <ArgType For="_ => _.NextPageDisabled" />
     <ArgType For="_ => _.PageRangeSize" />
 
     <Story Name="Default">
@@ -20,9 +17,6 @@
             <Arg For="_ => _.Description" Value="@("Page navigation")" />
             <Arg For="_ => _.Alignment" Value="PaginationAlignment.Left" />
             <Arg For="_ => _.Disabled" Value="false" />
-            <Arg For="_ => _.DisabledPages" Value="[]" />
-            <Arg For="_ => _.PreviousPageDisabled" Value="false" />
-            <Arg For="_ => _.NextPageDisabled" Value="false" />
             <Arg For="_ => _.PageRangeSize" />
         </Arguments>
         <Template>

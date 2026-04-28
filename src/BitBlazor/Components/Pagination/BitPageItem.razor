@@ -1,5 +1,7 @@
 ﻿@namespace BitBlazor.Components
 
 <li class="@ComputePageItemCssClass()">
-    <a class="page-link" @attributes="attributes" href="#" @onclick:preventDefault @onclick="SetPageAsync">@Page</a>
+    <a class="page-link" @attributes="attributes" href="#" @onclick:preventDefault @onclick="ClickPageItemAsync">
+        @ChildContent
+    </a>
 </li>

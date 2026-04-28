@@ -23,7 +23,28 @@ public partial class BitPageItem
     /// Ensure that the value is within the valid range for the data source.
     /// </remarks>
     [Parameter]
-    public int Page { get; set; }
+    public int? Page { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when a page item is clicked.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to handle page item click events in the parent component. 
+    /// The callback is triggered when the user interacts with a page item, allowing custom logic to be executed in response.
+    /// </remarks>
+    [Parameter]
+    public EventCallback PageItemClicked { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content to be rendered inside the component.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to specify the child elements or markup that will be rendered within the component. 
+    /// Typically set implicitly by placing content between the component's opening and closing tags in a Razor file.
+    /// </remarks>
+    [Parameter]
+    [EditorRequired]
+    public RenderFragment ChildContent { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets a value indicating whether the component is disabled and cannot be interacted with.
@@ -36,7 +57,7 @@ public partial class BitPageItem
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
-        if (Page == Parent.CurrentPage)
+        if (Page.HasValue && Page.Value == Parent.CurrentPage)
         {
             attributes["aria-current"] = "page";
         }
@@ -44,9 +65,25 @@ public partial class BitPageItem
         {
             attributes.Remove("aria-current");
         }
+
+        SetDisabledAttributes();
     }
 
-    private Task SetPageAsync() => Parent.ChangePageAsync(Page);
+    private void SetDisabledAttributes()
+    {
+        if (Disabled)
+        {
+            attributes["aria-hidden"] = "true";
+            attributes["tabindex"] = "-1";
+        }
+        else
+        {
+            attributes.Remove("aria-hidden");
+            attributes.Remove("tabindex");
+        }
+    }
+
+    private async Task ClickPageItemAsync() => await PageItemClicked.InvokeAsync();
 
     private string ComputePageItemCssClass()
     {
