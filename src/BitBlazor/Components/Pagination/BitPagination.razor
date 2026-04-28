@@ -12,9 +12,18 @@
         </li>
 
         <CascadingValue Value="this">
-            @for (int currentPage = 1; currentPage <= NumberOfPages; currentPage++)
+            @foreach (var page in GetPageSequence())
             {
-                <BitPageItem Page="currentPage" Disabled="IsPageDisabled(currentPage)"/>
+                if (page is null)
+                {
+                    <li class="page-item">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+                else
+                {
+                    <BitPageItem Page="page.Value" Disabled="IsPageDisabled(page.Value)" />
+                }
             }
         </CascadingValue>
 

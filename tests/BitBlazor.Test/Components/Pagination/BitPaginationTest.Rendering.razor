@@ -200,4 +200,62 @@
                 </ul>
             </nav>);
     }
+
+    [Fact]
+    public void BitPagination_Should_Render_Ellipsis_When_PageRangeSize_Is_Set()
+    {
+        int currentPage = 26;
+
+        var component = Render(
+            @<BitPagination NumberOfPages="50"
+                            @bind-Page="currentPage"
+                            Description="Page navigation"
+                            PageRangeSize="2" />);
+
+        // prev, 1, ..., 24, 25, 26, 27, 28, ..., 50, next = 11 items
+        var pageItems = component.FindAll(".page-item");
+        Assert.Equal(11, pageItems.Count);
+
+        var ellipses = component.FindAll(".page-item > span.page-link");
+        Assert.Equal(2, ellipses.Count);
+        Assert.All(ellipses, e => Assert.Equal("...", e.TextContent));
+    }
+
+    [Fact]
+    public void BitPagination_Should_Not_Render_Ellipsis_When_PageRangeSize_Is_Null()
+    {
+        int currentPage = 26;
+
+        var component = Render(
+            @<BitPagination NumberOfPages="50"
+                            @bind-Page="currentPage"
+                            Description="Page navigation" />);
+
+        var ellipses = component.FindAll(".page-item > span.page-link");
+        Assert.Empty(ellipses);
+    }
+
+    [Theory]
+    [InlineData(3,  2, false, true)]    // near start — no leading ellipsis, trailing ellipsis
+    [InlineData(48, 2, true,  false)]   // near end — leading ellipsis, no trailing ellipsis
+    [InlineData(26, 2, true,  true)]    // middle — both ellipses
+    public void BitPagination_Should_Render_Correct_Ellipsis_Position(
+        int currentPage, int rangeSize, bool expectLeading, bool expectTrailing)
+    {
+        var component = Render(
+            @<BitPagination NumberOfPages="50"
+                            @bind-Page="currentPage"
+                            Description="Page navigation"
+                            PageRangeSize="rangeSize" />);
+
+        var pageItems = component.FindAll(".page-item").ToList();
+        // skip first (prev arrow) and last (next arrow)
+        var inner = pageItems.Skip(1).Take(pageItems.Count - 2).ToList();
+
+        bool hasLeading  = inner[1].QuerySelector("span.page-link") is not null;
+        bool hasTrailing = inner[^2].QuerySelector("span.page-link") is not null;
+
+        Assert.Equal(expectLeading,  hasLeading);
+        Assert.Equal(expectTrailing, hasTrailing);
+    }
 }

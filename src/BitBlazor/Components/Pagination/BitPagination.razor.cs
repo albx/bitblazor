@@ -106,6 +106,13 @@ public partial class BitPagination : BitComponentBase
     [Parameter]
     public int[] DisabledPages { get; set; } = [];
 
+    /// <summary>
+    /// Gets or sets the number of page buttons to show on each side of the current page
+    /// before an ellipsis is rendered. When <c>null</c>, all pages are always shown.
+    /// </summary>
+    [Parameter]
+    public int? PageRangeSize { get; set; }
+
     internal int CurrentPage { get; private set; }
 
     /// <inheritdoc/>
@@ -163,6 +170,26 @@ public partial class BitPagination : BitComponentBase
         builder.Add(alignmentClass);
 
         return builder.Build();
+    }
+
+    internal IEnumerable<int?> GetPageSequence()
+    {
+        if (PageRangeSize is null)
+            return Enumerable.Range(1, NumberOfPages).Select(p => (int?)p);
+
+        var range = PageRangeSize.Value;
+        var start = Math.Max(2, CurrentPage - range);
+        var end = Math.Min(NumberOfPages - 1, CurrentPage + range);
+
+        var result = new List<int?> { 1 };
+
+        if (start > 2) result.Add(null);
+        for (int i = start; i <= end; i++) result.Add(i);
+        if (end < NumberOfPages - 1) result.Add(null);
+
+        if (NumberOfPages > 1) result.Add(NumberOfPages);
+
+        return result;
     }
 
     private bool IsPageDisabled(int page) => Disabled || DisabledPages.Contains(page);

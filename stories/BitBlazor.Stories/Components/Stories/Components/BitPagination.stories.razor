@@ -12,6 +12,7 @@
     <ArgType For="_ => _.DisabledPages" />
     <ArgType For="_ => _.PreviousPageDisabled" />
     <ArgType For="_ => _.NextPageDisabled" />
+    <ArgType For="_ => _.PageRangeSize" />
 
     <Story Name="Default">
         <Arguments>
@@ -22,6 +23,7 @@
             <Arg For="_ => _.DisabledPages" Value="[]" />
             <Arg For="_ => _.PreviousPageDisabled" Value="false" />
             <Arg For="_ => _.NextPageDisabled" Value="false" />
+            <Arg For="_ => _.PageRangeSize" />
         </Arguments>
         <Template>
             <div class="px-2 py-2">
