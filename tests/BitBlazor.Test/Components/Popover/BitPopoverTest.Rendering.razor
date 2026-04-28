@@ -3,123 +3,19 @@
 @code {
     private void UseLooseJsInterop() => JSInterop.Mode = JSRuntimeMode.Loose;
 
-    [Theory]
-    [InlineData(PopoverPlacement.Top, "top")]
-    [InlineData(PopoverPlacement.Bottom, "bottom")]
-    [InlineData(PopoverPlacement.Left, "left")]
-    [InlineData(PopoverPlacement.Right, "right")]
-    [InlineData(PopoverPlacement.Auto, "auto")]
-    public void BitPopover_Should_Render_Placement_Correctly(PopoverPlacement placement, string expectedPlacement)
+    [Fact]
+    public void BitPopover_Should_Render_ChildContent_Inside_Wrapper()
     {
         UseLooseJsInterop();
         var component = Render(
-            @<BitPopover Content="Popover content" Placement="@placement">
+            @<BitPopover Content="Popover content">
                 <button type="button">Trigger</button>
              </BitPopover>);
 
         component.MarkupMatches(
-            @<span data-bs-toggle="popover"
-                   data-bs-placement="@expectedPlacement"
-                   data-bs-content="Popover content"
-                   data-bs-trigger="click"
-                   data-bs-html="false">
+            @<bit-popover style="display:contents">
                 <button type="button">Trigger</button>
-             </span>);
-    }
-
-    [Fact]
-    public void BitPopover_Should_Render_Default_Placement_As_Top()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Content="Popover content">
-                <button type="button">Trigger</button>
-             </BitPopover>);
-
-        var span = component.Find("span");
-        Assert.Equal("top", span.GetAttribute("data-bs-placement"));
-    }
-
-    [Fact]
-    public void BitPopover_Should_Render_Default_Trigger_As_Click()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Content="Popover content">
-                <button type="button">Trigger</button>
-             </BitPopover>);
-
-        var span = component.Find("span");
-        Assert.Equal("click", span.GetAttribute("data-bs-trigger"));
-    }
-
-    [Theory]
-    [InlineData(PopoverTrigger.Click, "click")]
-    [InlineData(PopoverTrigger.Hover, "hover")]
-    [InlineData(PopoverTrigger.Focus, "focus")]
-    [InlineData(PopoverTrigger.Manual, "manual")]
-    public void BitPopover_Should_Render_Trigger_Correctly(PopoverTrigger trigger, string expectedTrigger)
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Content="Popover content" Trigger="@trigger">
-                <button type="button">Trigger</button>
-             </BitPopover>);
-
-        var span = component.Find("span");
-        Assert.Equal(expectedTrigger, span.GetAttribute("data-bs-trigger"));
-    }
-
-    [Fact]
-    public void BitPopover_Should_Render_Title_When_Provided()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Title="My Title" Content="Popover content">
-                <button type="button">Trigger</button>
-             </BitPopover>);
-
-        var span = component.Find("span");
-        Assert.Equal("My Title", span.GetAttribute("title"));
-    }
-
-    [Fact]
-    public void BitPopover_Should_Render_Content_In_DataBsContent_Attribute()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Content="This is the popover body">
-                <button type="button">Trigger</button>
-             </BitPopover>);
-
-        var span = component.Find("span");
-        Assert.Equal("This is the popover body", span.GetAttribute("data-bs-content"));
-    }
-
-    [Fact]
-    public void BitPopover_Should_Set_DataBsHtml_To_True_When_HtmlEnabled()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Content="<strong>Bold</strong> content" HtmlEnabled="true">
-                <button type="button">Trigger</button>
-             </BitPopover>);
-
-        var span = component.Find("span");
-        Assert.Equal("true", span.GetAttribute("data-bs-html"));
-    }
-
-    [Fact]
-    public void BitPopover_Should_Set_DataBsHtml_To_False_By_Default()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Content="Popover content">
-                <button type="button">Trigger</button>
-             </BitPopover>);
-
-        var span = component.Find("span");
-        Assert.Equal("false", span.GetAttribute("data-bs-html"));
+             </bit-popover>);
     }
 
     [Fact]
@@ -145,31 +41,7 @@
                 <button type="button">Trigger</button>
              </BitPopover>);
 
-        var span = component.Find("span");
-        Assert.Equal("my-popover-id", span.GetAttribute("id"));
-    }
-
-    [Fact]
-    public void BitPopover_Should_Render_Full_Markup_With_All_Parameters()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitPopover Title="Popover Title"
-                         Content="Popover body text"
-                         Placement="PopoverPlacement.Right"
-                         Trigger="PopoverTrigger.Hover"
-                         HtmlEnabled="false">
-                <button type="button">Open popover</button>
-             </BitPopover>);
-
-        component.MarkupMatches(
-            @<span data-bs-toggle="popover"
-                   data-bs-placement="right"
-                   title="Popover Title"
-                   data-bs-content="Popover body text"
-                   data-bs-trigger="hover"
-                   data-bs-html="false">
-                <button type="button">Open popover</button>
-             </span>);
+        var wrapper = component.Find("bit-popover");
+        Assert.Equal("my-popover-id", wrapper.GetAttribute("id"));
     }
 }

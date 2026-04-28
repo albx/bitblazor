@@ -46,22 +46,78 @@ export function disposeTooltip(element) {
 }
 
 /**
- * Initialises a Bootstrap Italia Popover on the supplied element.
- * @param {HTMLElement} element
+ * Initialises a Bootstrap Italia Tooltip on the first child element
+ * of the given wrapper element.
+ *
+ * @param {HTMLElement} wrapper  - The <bit-tooltip> wrapper element.
+ * @param {string}      title    - The tooltip text.
+ * @param {object}      options  - Tooltip options (matches Bootstrap JS API).
  */
-export async function initPopover(element) {
-    if (!element) return;
+export async function initTooltipOnFirstChild(wrapper, title, options) {
+    const target = wrapper.firstElementChild;
+    if (!target) {
+        console.warn('[BitTooltip] No child element found for tooltip.');
+        return;
+    }
+
+    target.setAttribute('title', title);
+
     await ensureBootstrapItalia();
-    if (window.bootstrap?.Popover) {
-        bootstrap.Popover.getOrCreateInstance(element);
+    if (window.bootstrap?.Tooltip) {
+        const cleaned = Object.fromEntries(
+            Object.entries(options).filter(([, v]) => v !== null && v !== undefined)
+        );
+        bootstrap.Tooltip.getOrCreateInstance(target, cleaned);
     }
 }
 
 /**
- * Disposes the Bootstrap Italia Popover attached to the supplied element.
- * @param {HTMLElement} element
+ * Disposes the Bootstrap Italia Tooltip instance from the first child
+ * element of the given wrapper.
+ *
+ * @param {HTMLElement} wrapper
  */
-export function disposePopover(element) {
-    if (!element || !window.bootstrap?.Popover) return;
-    bootstrap.Popover.getInstance(element)?.dispose();
+export function disposeTooltipOnFirstChild(wrapper) {
+    const target = wrapper.firstElementChild;
+    if (!target || !window.bootstrap?.Tooltip) return;
+    bootstrap.Tooltip.getInstance(target)?.dispose();
+}
+
+/**
+ * Initialises a Bootstrap Italia Popover on the first child element
+ * of the given wrapper element.
+ *
+ * @param {HTMLElement} wrapper  - The <bit-popover> wrapper element.
+ * @param {string|null} title    - The popover header text (optional).
+ * @param {string}      content  - The popover body text.
+ * @param {object}      options  - Popover options (matches Bootstrap JS API).
+ */
+export async function initPopoverOnFirstChild(wrapper, title, content, options) {
+    const target = wrapper.firstElementChild;
+    if (!target) {
+        console.warn('[BitPopover] No child element found for popover.');
+        return;
+    }
+
+    await ensureBootstrapItalia();
+    if (window.bootstrap?.Popover) {
+        const cleaned = Object.fromEntries(
+            Object.entries(options).filter(([, v]) => v !== null && v !== undefined)
+        );
+        const opts = { ...cleaned, content };
+        if (title) opts.title = title;
+        bootstrap.Popover.getOrCreateInstance(target, opts);
+    }
+}
+
+/**
+ * Disposes the Bootstrap Italia Popover instance from the first child
+ * element of the given wrapper.
+ *
+ * @param {HTMLElement} wrapper
+ */
+export function disposePopoverOnFirstChild(wrapper) {
+    const target = wrapper.firstElementChild;
+    if (!target || !window.bootstrap?.Popover) return;
+    bootstrap.Popover.getInstance(target)?.dispose();
 }

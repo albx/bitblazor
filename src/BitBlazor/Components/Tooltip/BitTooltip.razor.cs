@@ -5,14 +5,9 @@ using Microsoft.JSInterop;
 namespace BitBlazor.Components;
 
 /// <summary>
-/// Represents a tooltip component using Bootstrap Italia styles.
+/// Wraps its child content and attaches a Bootstrap Italia tooltip
+/// directly to the first child element.
 /// </summary>
-/// <remarks>
-/// Wraps the trigger element in a <c>&lt;span&gt;</c> with the appropriate
-/// Bootstrap Italia <c>data-bs-*</c> attributes. The Bootstrap Italia JS is
-/// initialised automatically via JS interop after every first render, loading
-/// the bundle on-demand when not already present on the page.
-/// </remarks>
 public partial class BitTooltip : BitComponentBase, IAsyncDisposable
 {
     [Inject]
@@ -22,48 +17,23 @@ public partial class BitTooltip : BitComponentBase, IAsyncDisposable
     private ElementReference _spanRef;
 
     /// <summary>
-    /// Gets or sets the text displayed inside the tooltip.
+    /// The text displayed inside the tooltip (maps to the <c>title</c> attribute).
     /// </summary>
     [Parameter]
     [EditorRequired]
     public string Text { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the placement of the tooltip relative to its trigger element.
-    /// Defaults to <see cref="TooltipPlacement.Top"/>.
+    /// Bootstrap Italia tooltip options passed to the <c>Tooltip</c> constructor.
+    /// When <c>null</c>, Bootstrap defaults apply.
     /// </summary>
     [Parameter]
-    public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
+    public TooltipOptions? Options { get; set; }
 
-    /// <summary>
-    /// Gets or sets a value indicating whether HTML markup is allowed in the tooltip text.
-    /// When <c>true</c>, the <c>data-bs-html</c> attribute is set to <c>"true"</c>.
-    /// </summary>
-    /// <remarks>
-    /// Enabling HTML in tooltips may expose your application to XSS attacks.
-    /// Only use this option with trusted, sanitised content.
-    /// </remarks>
-    [Parameter]
-    public bool HtmlEnabled { get; set; }
-
-    /// <summary>
-    /// Gets or sets the content that acts as the tooltip trigger.
-    /// </summary>
+    /// <summary>The element that triggers the tooltip on hover/focus.</summary>
     [Parameter]
     [EditorRequired]
     public RenderFragment? ChildContent { get; set; }
-
-    private string PlacementValue => Placement switch
-    {
-        TooltipPlacement.Auto   => "auto",
-        TooltipPlacement.Top    => "top",
-        TooltipPlacement.Bottom => "bottom",
-        TooltipPlacement.Left   => "left",
-        TooltipPlacement.Right  => "right",
-        _                       => "top"
-    };
-
-    private string HtmlEnabledValue => HtmlEnabled ? "true" : "false";
 
     /// <inheritdoc/>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -73,7 +43,8 @@ public partial class BitTooltip : BitComponentBase, IAsyncDisposable
         _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./_content/BitBlazor/js/bitblazor-interop.js");
 
-        await _jsModule.InvokeVoidAsync("initTooltip", _spanRef);
+        await _jsModule.InvokeVoidAsync(
+            "initTooltipOnFirstChild", _spanRef, Text, Options ?? new TooltipOptions());
     }
 
     /// <inheritdoc/>
@@ -83,7 +54,7 @@ public partial class BitTooltip : BitComponentBase, IAsyncDisposable
         {
             try
             {
-                await _jsModule.InvokeVoidAsync("disposeTooltip", _spanRef);
+                await _jsModule.InvokeVoidAsync("disposeTooltipOnFirstChild", _spanRef);
                 await _jsModule.DisposeAsync();
             }
             catch (JSDisconnectedException) { }

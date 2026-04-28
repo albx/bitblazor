@@ -3,11 +3,6 @@
 @inherits BitComponentBase
 @implements IAsyncDisposable
 
-<span @ref="_spanRef"
-      data-bs-toggle="tooltip"
-      data-bs-placement="@PlacementValue"
-      title="@Text"
-      data-bs-html="@HtmlEnabledValue"
-      @attributes="AdditionalAttributes">
+<bit-tooltip @ref="_spanRef" style="display:contents" @attributes="AdditionalAttributes">
     @ChildContent
-</span>
+</bit-tooltip>

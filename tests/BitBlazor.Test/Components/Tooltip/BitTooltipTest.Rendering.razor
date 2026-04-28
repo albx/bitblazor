@@ -3,31 +3,8 @@
 @code {
     private void UseLooseJsInterop() => JSInterop.Mode = JSRuntimeMode.Loose;
 
-    [Theory]
-    [InlineData(TooltipPlacement.Top, "top")]
-    [InlineData(TooltipPlacement.Bottom, "bottom")]
-    [InlineData(TooltipPlacement.Left, "left")]
-    [InlineData(TooltipPlacement.Right, "right")]
-    [InlineData(TooltipPlacement.Auto, "auto")]
-    public void BitTooltip_Should_Render_Placement_Correctly(TooltipPlacement placement, string expectedPlacement)
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitTooltip Text="My tooltip" Placement="@placement">
-                <button type="button">Trigger</button>
-             </BitTooltip>);
-
-        component.MarkupMatches(
-            @<span data-bs-toggle="tooltip"
-                   data-bs-placement="@expectedPlacement"
-                   title="My tooltip"
-                   data-bs-html="false">
-                <button type="button">Trigger</button>
-             </span>);
-    }
-
     [Fact]
-    public void BitTooltip_Should_Render_Default_Placement_As_Top()
+    public void BitTooltip_Should_Render_ChildContent_Inside_Wrapper()
     {
         UseLooseJsInterop();
         var component = Render(
@@ -36,56 +13,9 @@
              </BitTooltip>);
 
         component.MarkupMatches(
-            @<span data-bs-toggle="tooltip"
-                   data-bs-placement="top"
-                   title="My tooltip"
-                   data-bs-html="false">
+            @<bit-tooltip style="display:contents">
                 <button type="button">Trigger</button>
-             </span>);
-    }
-
-    [Fact]
-    public void BitTooltip_Should_Render_Text_In_Title_Attribute()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitTooltip Text="Example tooltip text">
-                <span>Trigger element</span>
-             </BitTooltip>);
-
-        var span = component.Find("span");
-        Assert.Equal("Example tooltip text", span.GetAttribute("title"));
-    }
-
-    [Fact]
-    public void BitTooltip_Should_Set_DataBsHtml_To_True_When_HtmlEnabled()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitTooltip Text="<em>HTML</em> tooltip" HtmlEnabled="true">
-                <button type="button">Trigger</button>
-             </BitTooltip>);
-
-        component.MarkupMatches(
-            @<span data-bs-toggle="tooltip"
-                   data-bs-placement="top"
-                   title="<em>HTML</em> tooltip"
-                   data-bs-html="true">
-                <button type="button">Trigger</button>
-             </span>);
-    }
-
-    [Fact]
-    public void BitTooltip_Should_Set_DataBsHtml_To_False_By_Default()
-    {
-        UseLooseJsInterop();
-        var component = Render(
-            @<BitTooltip Text="My tooltip">
-                <button type="button">Trigger</button>
-             </BitTooltip>);
-
-        var span = component.Find("span");
-        Assert.Equal("false", span.GetAttribute("data-bs-html"));
+             </bit-tooltip>);
     }
 
     [Fact]
@@ -111,7 +41,7 @@
                 <button type="button">Trigger</button>
              </BitTooltip>);
 
-        var span = component.Find("span");
-        Assert.Equal("my-tooltip-id", span.GetAttribute("id"));
+        var wrapper = component.Find("bit-tooltip");
+        Assert.Equal("my-tooltip-id", wrapper.GetAttribute("id"));
     }
 }
