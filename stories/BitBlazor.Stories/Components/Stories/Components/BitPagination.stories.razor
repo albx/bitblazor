@@ -66,6 +66,24 @@
         </Template>
     </Story>
 
+    <Story Name="Text links">
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination NumberOfPages="50"
+                               PageRangeSize="2"
+                               Description="Page navigation with text links"
+                               @bind-Page="model.TextLinksStoryPage">
+                    <PreviousPageTemplate>
+                        Previous <span class="visually-hidden">page</span>
+                    </PreviousPageTemplate>
+                    <NextPageTemplate>
+                        Next <span class="visually-hidden">page</span>
+                    </NextPageTemplate>
+                </BitPagination>
+            </div>
+        </Template>
+    </Story>
+
     <Story Name="Total number">
         <Template>
             <div class="px-2 py-2">
@@ -92,6 +110,8 @@
         public int AlignmentStoryPage { get; set; } = 1;
 
         public int PageRageStoryPage { get; set; } = 1;
+        
+        public int TextLinksStoryPage { get; set; } = 26;
 
         public int TotalNumberStoryPage { get; set; } = 24;
     }

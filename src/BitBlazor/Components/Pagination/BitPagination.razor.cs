@@ -59,6 +59,16 @@ public partial class BitPagination : BitComponentBase
     public string PreviousPageLabel { get; set; } = "previous page";
 
     /// <summary>
+    /// Gets or sets the template used to render the previous page button in the pager component.
+    /// </summary>
+    /// <remarks>
+    /// Set this property to customize the appearance or content of the previous page navigation button. 
+    /// If not set, a default template is used.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment? PreviousPageTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the label text displayed for the next page navigation link.
     /// </summary>
     /// <remarks> 
@@ -67,6 +77,16 @@ public partial class BitPagination : BitComponentBase
     /// </remarks>
     [Parameter]
     public string NextPageLabel { get; set; } = "next page";
+
+    /// <summary>
+    /// Gets or sets the template used to render the content for the next page button.
+    /// </summary>
+    /// <remarks>
+    /// Set this property to customize the appearance or behavior of the next page navigation element. 
+    /// If not set, a default template may be used.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment? NextPageTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the alignment of the pagination controls within their container.

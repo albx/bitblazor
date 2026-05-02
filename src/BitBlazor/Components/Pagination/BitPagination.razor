@@ -6,8 +6,7 @@
     <ul class="pagination">
         <CascadingValue Value="this">
             <BitPageItem Disabled="Disabled" PageItemClicked="MoveToPreviousPageAsync">
-                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
-                <span class="visually-hidden">@PreviousPageLabel</span>
+                @RenderPreviousPage()
             </BitPageItem>
 
             @foreach (var pageItem in GetPageSequence())
@@ -27,8 +26,7 @@
             }
 
             <BitPageItem Disabled="Disabled" PageItemClicked="MoveToNextPageAsync">
-                <span class="visually-hidden">@NextPageLabel</span>
-                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
+                @RenderNextPage()
             </BitPageItem>
         </CascadingValue>
     </ul>
@@ -37,3 +35,34 @@
         <p>@TotalItemsTemplate</p>
     }
 </nav>
+
+@code {
+    private RenderFragment RenderPreviousPage()
+    {
+        if (PreviousPageTemplate is not null)
+        {
+            return PreviousPageTemplate;
+        }
+
+        return __builder =>
+        {
+            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
+            <span class="visually-hidden">@PreviousPageLabel</span>
+        };
+    ;
+    }
+
+    private RenderFragment RenderNextPage()
+    {
+        if (NextPageTemplate is not null)
+        {
+            return NextPageTemplate;
+        }
+
+        return __builder =>
+        {
+            <span class="visually-hidden">@NextPageLabel</span>
+            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
+        };
+    }
+}

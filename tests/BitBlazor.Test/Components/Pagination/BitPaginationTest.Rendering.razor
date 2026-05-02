@@ -7,33 +7,33 @@
         int currentPage = 1;
 
         var component = Render(
-            @<BitPagination NumberOfPages="3" 
-                            @bind-Page="@currentPage"
-                            Description="Page navigation" />);
+            @<BitPagination NumberOfPages="3"
+                                @bind-Page="@currentPage"
+                                Description="Page navigation" />);
 
-        component.MarkupMatches(
-            @<nav class="pagination-wrapper" aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left"/></svg>
-                            <span class="visually-hidden">previous page</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <span class="visually-hidden">next page</span>
-                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right"/></svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>);
+                component.MarkupMatches(
+                    @<nav class="pagination-wrapper" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
+                                    <span class="visually-hidden">previous page</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <span class="visually-hidden">next page</span>
+                                    <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right" /></svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>);
     }
 
-    [Theory]
+        [Theory]
     [InlineData(PaginationAlignment.Left, "")]
     [InlineData(PaginationAlignment.Center, "justify-content-center")]
     [InlineData(PaginationAlignment.Right, "justify-content-end")]
@@ -43,123 +43,123 @@
 
         var component = Render(
             @<BitPagination NumberOfPages="3"
-                            @bind-Page="@currentPage"
-                            Description="Page navigation"
-                            Alignment="alignment"/>);
+                                @bind-Page="@currentPage"
+                                Description="Page navigation"
+                                Alignment="alignment" />);
 
-        component.MarkupMatches(
-            @<nav class="pagination-wrapper @expectedAlignmentClass" aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left"/></svg>
-                            <span class="visually-hidden">previous page</span>
-                        </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                            <span class="visually-hidden">next page</span>
-                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right"/></svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>);
+                component.MarkupMatches(
+                    @<nav class="pagination-wrapper @expectedAlignmentClass" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
+                                    <span class="visually-hidden">previous page</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">
+                                    <span class="visually-hidden">next page</span>
+                                    <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right" /></svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>);
     }
 
-    [Fact]
+        [Fact]
     public void BitPagination_Should_Render_All_Items_Disabled()
     {
         int currentPage = 1;
 
         var component = Render(
             @<BitPagination NumberOfPages="3"
-                            @bind-Page="currentPage"
-                            Description="Page navigation"
-                            Disabled="true"/>);
+                                @bind-Page="currentPage"
+                                Description="Page navigation"
+                                Disabled="true" />);
 
-        component.MarkupMatches(
-            @<nav class="pagination-wrapper" aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-hidden="true">
-                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left"/></svg>
-                            <span class="visually-hidden">previous page</span>
-                        </a>
-                    </li>
-                    <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" aria-current="page" href="#">1</a></li>
-                    <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" href="#">2</a></li>
-                    <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" href="#">3</a></li>
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-hidden="true">
-                            <span class="visually-hidden">next page</span>
-                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right"/></svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>);
+                component.MarkupMatches(
+                    @<nav class="pagination-wrapper" aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-hidden="true">
+                                    <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
+                                    <span class="visually-hidden">previous page</span>
+                                </a>
+                            </li>
+                            <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" aria-current="page" href="#">1</a></li>
+                            <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" href="#">2</a></li>
+                            <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" href="#">3</a></li>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-hidden="true">
+                                    <span class="visually-hidden">next page</span>
+                                    <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right" /></svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>);
     }
 
-    [Fact]
+        [Fact]
     public void BitPagination_Should_Render_Ellipsis_When_PageRangeSize_Is_Set()
     {
         int currentPage = 26;
 
         var component = Render(
             @<BitPagination NumberOfPages="50"
-                            @bind-Page="currentPage"
-                            Description="Page navigation"
-                            PageRangeSize="2" />);
+                                @bind-Page="currentPage"
+                                Description="Page navigation"
+                                PageRangeSize="2" />);
 
-        // prev, 1, ..., 24, 25, 26, 27, 28, ..., 50, next = 11 items
-        var pageItems = component.FindAll(".page-item");
-        Assert.Equal(11, pageItems.Count);
+                // prev, 1, ..., 24, 25, 26, 27, 28, ..., 50, next = 11 items
+                var pageItems = component.FindAll(".page-item");
+                Assert.Equal(11, pageItems.Count);
 
-        var ellipses = component.FindAll(".page-item > span.page-link");
-        Assert.Equal(2, ellipses.Count);
-        Assert.All(ellipses, e => Assert.Equal("...", e.TextContent));
-    }
+                var ellipses = component.FindAll(".page-item > span.page-link");
+                Assert.Equal(2, ellipses.Count);
+                Assert.All(ellipses, e => Assert.Equal("...", e.TextContent));
+            }
 
-    [Fact]
+        [Fact]
     public void BitPagination_Should_Not_Render_Ellipsis_When_PageRangeSize_Is_Null()
     {
         int currentPage = 26;
 
         var component = Render(
             @<BitPagination NumberOfPages="50"
-                            @bind-Page="currentPage"
-                            Description="Page navigation" />);
+                                @bind-Page="currentPage"
+                                Description="Page navigation" />);
 
-        var ellipses = component.FindAll(".page-item > span.page-link");
-        Assert.Empty(ellipses);
-    }
+                var ellipses = component.FindAll(".page-item > span.page-link");
+                Assert.Empty(ellipses);
+            }
 
-    [Theory]
-    [InlineData(3,  2, false, true)]    // near start — no leading ellipsis, trailing ellipsis
-    [InlineData(48, 2, true,  false)]   // near end — leading ellipsis, no trailing ellipsis
-    [InlineData(26, 2, true,  true)]    // middle — both ellipses
+        [Theory]
+    [InlineData(3, 2, false, true)]    // near start — no leading ellipsis, trailing ellipsis
+    [InlineData(48, 2, true, false)]   // near end — leading ellipsis, no trailing ellipsis
+    [InlineData(26, 2, true, true)]    // middle — both ellipses
     public void BitPagination_Should_Render_Correct_Ellipsis_Position(int currentPage, int rangeSize, bool expectLeading, bool expectTrailing)
     {
         var component = Render(
             @<BitPagination NumberOfPages="50"
-                            @bind-Page="currentPage"
-                            Description="Page navigation"
-                            PageRangeSize="rangeSize" />);
+                                @bind-Page="currentPage"
+                                Description="Page navigation"
+                                PageRangeSize="rangeSize" />);
 
-        var pageItems = component.FindAll(".page-item").ToList();
-        // skip first (prev arrow) and last (next arrow)
-        var inner = pageItems.Skip(1).Take(pageItems.Count - 2).ToList();
+                var pageItems = component.FindAll(".page-item").ToList();
+                // skip first (prev arrow) and last (next arrow)
+                var inner = pageItems.Skip(1).Take(pageItems.Count - 2).ToList();
 
-        bool hasLeading  = inner[1].QuerySelector("span.page-link") is not null;
-        bool hasTrailing = inner[^2].QuerySelector("span.page-link") is not null;
+                bool hasLeading = inner[1].QuerySelector("span.page-link") is not null;
+                bool hasTrailing = inner[^2].QuerySelector("span.page-link") is not null;
 
-        Assert.Equal(expectLeading,  hasLeading);
-        Assert.Equal(expectTrailing, hasTrailing);
-    }
+                Assert.Equal(expectLeading, hasLeading);
+                Assert.Equal(expectTrailing, hasTrailing);
+            }
 
-    [Fact]
+        [Fact]
     public void BitPagination_Should_Render_TotalItemsTemplate_If_Specified()
     {
         var currentPage = 1;
@@ -168,7 +168,7 @@
                             @bind-Page="currentPage"
                             Description="Page navigation">
                 <TotalItemsTemplate>100 items total</TotalItemsTemplate>
-             </BitPagination>);
+            </BitPagination>);
 
         component.MarkupMatches(
             @<nav class="pagination-wrapper pagination-total" aria-label="Page navigation">
@@ -190,6 +190,43 @@
                     </li>
                 </ul>
                 <p>100 items total</p>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitPagination_Should_Render_Navigation_Custom_Templates_If_Specified()
+    {
+        int currentPage = 1;
+
+        var component = Render(
+            @<BitPagination NumberOfPages="3"
+                            @bind-Page="@currentPage"
+                            Description="Page navigation">
+                <PreviousPageTemplate>
+                    Previous <span class="visually-hidden">page</span>
+                </PreviousPageTemplate>
+                <NextPageTemplate>
+                    Next <span class="visually-hidden">page</span>
+                </NextPageTemplate>
+            </BitPagination>);
+
+        component.MarkupMatches(
+            @<nav class="pagination-wrapper" aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            Previous <span class="visually-hidden">page</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            Next <span class="visually-hidden">page</span>
+                        </a>
+                    </li>
+                </ul>
             </nav>);
     }
 }
