@@ -90,6 +90,15 @@ public partial class BitPagination : BitComponentBase
     /// </summary>
     [Parameter]
     public int? PageRangeSize { get; set; }
+    
+    /// <summary>
+    /// Gets or sets the template used to display the total number of items.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to customize how to display the pagination total section.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment? TotalItemsTemplate { get; set; }
 
     internal int CurrentPage { get; private set; }
 
@@ -146,6 +155,11 @@ public partial class BitPagination : BitComponentBase
             _ => string.Empty
         };
         builder.Add(alignmentClass);
+
+        if (TotalItemsTemplate is not null)
+        {
+            builder.Add("pagination-total");
+        }
 
         return builder.Build();
     }

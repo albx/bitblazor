@@ -26,6 +26,58 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Disabled pagination">
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination NumberOfPages="3"
+                               Description="Page navigation"
+                               @bind-Page="model.DisabledStoryPage"
+                               Disabled="true"/>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Pagination alignment">
+        <Arguments>
+            <Arg For="_ => _.Alignment" Value="PaginationAlignment.Left" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination @attributes="context.Args" 
+                               NumberOfPages="3"
+                               Description="Page navigation"
+                               @bind-Page="model.AlignmentStoryPage"/>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Page range size">
+        <Arguments>
+            <Arg For="_ => _.PageRangeSize" Value="2" />
+        </Arguments>
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination @attributes="context.Args" 
+                               NumberOfPages="50"
+                               Description="Page navigation"
+                               @bind-Page="model.PageRageStoryPage" />
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Total number">
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination NumberOfPages="50"
+                               PageRangeSize="2"
+                               Description="Page navigation with total number"
+                               @bind-Page="model.TotalNumberStoryPage">
+                    <TotalItemsTemplate>300 items total</TotalItemsTemplate>
+                </BitPagination>
+            </div>
+        </Template>
+    </Story>
 </Stories>
 
 @code {
@@ -34,5 +86,13 @@
     class ViewModel
     {
         public int DefaultStoryPage { get; set; } = 1;
+
+        public int DisabledStoryPage { get; set; } = 1;
+
+        public int AlignmentStoryPage { get; set; } = 1;
+
+        public int PageRageStoryPage { get; set; } = 1;
+
+        public int TotalNumberStoryPage { get; set; } = 24;
     }
 }

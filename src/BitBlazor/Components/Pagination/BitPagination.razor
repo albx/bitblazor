@@ -4,12 +4,12 @@
 
 <nav class="@ComputeContainerCssClass()" aria-label="@Description" @attributes="AdditionalAttributes">
     <ul class="pagination">
-        <BitPageItem Disabled="Disabled" PageItemClicked="MoveToPreviousPageAsync">
-            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
-            <span class="visually-hidden">@PreviousPageLabel</span>
-        </BitPageItem>
-
         <CascadingValue Value="this">
+            <BitPageItem Disabled="Disabled" PageItemClicked="MoveToPreviousPageAsync">
+                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
+                <span class="visually-hidden">@PreviousPageLabel</span>
+            </BitPageItem>
+
             @foreach (var pageItem in GetPageSequence())
             {
                 if (pageItem is null)
@@ -25,11 +25,15 @@
                     </BitPageItem>
                 }
             }
-        </CascadingValue>
 
-        <BitPageItem Disabled="Disabled" PageItemClicked="MoveToNextPageAsync">
-            <span class="visually-hidden">@NextPageLabel</span>
-            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
-        </BitPageItem>
+            <BitPageItem Disabled="Disabled" PageItemClicked="MoveToNextPageAsync">
+                <span class="visually-hidden">@NextPageLabel</span>
+                <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
+            </BitPageItem>
+        </CascadingValue>
     </ul>
+    @if (TotalItemsTemplate is not null)
+    {
+        <p>@TotalItemsTemplate</p>
+    }
 </nav>

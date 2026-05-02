@@ -89,11 +89,11 @@
                             <span class="visually-hidden">previous page</span>
                         </a>
                     </li>
-                            <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" aria-current="page" href="#">1</a></li>
+                    <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" aria-current="page" href="#">1</a></li>
                     <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" href="#">2</a></li>
                     <li class="page-item disabled"><a class="page-link" tabindex="-1" aria-hidden="true" href="#">3</a></li>
                     <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-hidden="true">
+                        <a class="page-link" href="#" tabindex="-1" aria-hidden="true">
                             <span class="visually-hidden">next page</span>
                             <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right"/></svg>
                         </a>
@@ -140,8 +140,7 @@
     [InlineData(3,  2, false, true)]    // near start — no leading ellipsis, trailing ellipsis
     [InlineData(48, 2, true,  false)]   // near end — leading ellipsis, no trailing ellipsis
     [InlineData(26, 2, true,  true)]    // middle — both ellipses
-    public void BitPagination_Should_Render_Correct_Ellipsis_Position(
-        int currentPage, int rangeSize, bool expectLeading, bool expectTrailing)
+    public void BitPagination_Should_Render_Correct_Ellipsis_Position(int currentPage, int rangeSize, bool expectLeading, bool expectTrailing)
     {
         var component = Render(
             @<BitPagination NumberOfPages="50"
@@ -158,5 +157,39 @@
 
         Assert.Equal(expectLeading,  hasLeading);
         Assert.Equal(expectTrailing, hasTrailing);
+    }
+
+    [Fact]
+    public void BitPagination_Should_Render_TotalItemsTemplate_If_Specified()
+    {
+        var currentPage = 1;
+        var component = Render(
+            @<BitPagination NumberOfPages="3"
+                            @bind-Page="currentPage"
+                            Description="Page navigation">
+                <TotalItemsTemplate>100 items total</TotalItemsTemplate>
+             </BitPagination>);
+
+        component.MarkupMatches(
+            @<nav class="pagination-wrapper pagination-total" aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
+                            <span class="visually-hidden">previous page</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <span class="visually-hidden">next page</span>
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right" /></svg>
+                        </a>
+                    </li>
+                </ul>
+                <p>100 items total</p>
+            </nav>);
     }
 }
