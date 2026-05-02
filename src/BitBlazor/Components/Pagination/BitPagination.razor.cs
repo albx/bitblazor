@@ -138,8 +138,6 @@ public partial class BitPagination : BitComponentBase
 
         CurrentPage = page;
         await PageChanged.InvokeAsync(page);
-
-        StateHasChanged();
     }
 
     private async Task MoveToPreviousPageAsync()
