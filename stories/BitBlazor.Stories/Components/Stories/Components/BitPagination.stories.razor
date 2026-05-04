@@ -10,6 +10,8 @@
     <ArgType For="_ => _.NextPageLabel" />
     <ArgType For="_ => _.Disabled" />
     <ArgType For="_ => _.PageRangeSize" />
+    <ArgType For="_ => _.ShowJumpToPage" />
+    <ArgType For="_ => _.JumpToPageLabelTemplate" />
 
     <Story Name="Default">
         <Arguments>
@@ -18,6 +20,8 @@
             <Arg For="_ => _.Alignment" Value="PaginationAlignment.Left" />
             <Arg For="_ => _.Disabled" Value="false" />
             <Arg For="_ => _.PageRangeSize" />
+            <Arg For="_ => _.ShowJumpToPage" />
+            <Arg For="_ => _.JumpToPageLabelTemplate" Value="@JumpToPageLabelTemplate" />
         </Arguments>
         <Template>
             <div class="px-2 py-2">
@@ -66,6 +70,22 @@
         </Template>
     </Story>
 
+    <Story Name="Jump to page">
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination NumberOfPages="50"
+                               Description="Page navigation"
+                               PageRangeSize="2"
+                               ShowJumpToPage="true"
+                               @bind-Page="model.JumpToPageStoryValue">
+                    <JumpToPageLabelTemplate>
+                        <span aria-hidden="true">go to...</span><span class="visually-hidden">Set the destination page</span>
+                    </JumpToPageLabelTemplate>
+                </BitPagination>
+            </div>
+        </Template>
+    </Story>
+
     <Story Name="Text links">
         <Template>
             <div class="px-2 py-2">
@@ -110,9 +130,16 @@
         public int AlignmentStoryPage { get; set; } = 1;
 
         public int PageRageStoryPage { get; set; } = 1;
-        
+
+        public int JumpToPageStoryValue { get; set; } = 26;
+
         public int TextLinksStoryPage { get; set; } = 26;
 
         public int TotalNumberStoryPage { get; set; } = 24;
     }
+
+    private RenderFragment JumpToPageLabelTemplate => __builder =>
+    {
+        <span aria-hidden="true">go to...</span><span class="visually-hidden">Set the destination page</span>;
+    };
 }

@@ -120,6 +120,22 @@ public partial class BitPagination : BitComponentBase
     [Parameter]
     public RenderFragment? TotalItemsTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the jump-to-page control is displayed in the pagination component.
+    /// </summary>
+    [Parameter]
+    public bool ShowJumpToPage { get; set; }
+
+    /// <summary>
+    /// Gets or sets the template used to render the label for the jump-to-page input.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? JumpToPageLabelTemplate { get; set; }
+
+    private string jumpToPageId = string.Empty;
+    private string jumpToPageLabelClass = string.Empty;
+    private string jumpToPageValue = string.Empty;
+
     internal int CurrentPage { get; private set; }
 
     /// <inheritdoc/>
@@ -127,6 +143,25 @@ public partial class BitPagination : BitComponentBase
     {
         base.OnParametersSet();
         CurrentPage = Page;
+
+        if (ShowJumpToPage)
+        {
+            SetJumpToPageDefaults();
+        }
+    }
+
+    private void SetJumpToPageDefaults()
+    {
+        if (string.IsNullOrEmpty(jumpToPageId))
+        {
+            var baseId = !string.IsNullOrWhiteSpace(Id) ? Id : Guid.NewGuid().ToString("N");
+            jumpToPageId = $"jumpToPage-{baseId}";
+        }
+
+        if (JumpToPageLabelTemplate is null)
+        {
+            JumpToPageLabelTemplate = DefaultJumpToPageLabelTemplate;
+        }
     }
 
     internal async Task ChangePageAsync(int page)
@@ -201,4 +236,31 @@ public partial class BitPagination : BitComponentBase
 
         return result;
     }
+
+    private async Task JumpToPageAsync()
+    {
+        try
+        {
+            if (!int.TryParse(jumpToPageValue, out int page))
+            {
+                return;
+            }
+
+            if (page < 1 || page > NumberOfPages)
+            {
+                return;
+            }
+
+            await ChangePageAsync(page);
+        }
+        finally
+        {
+            jumpToPageValue = string.Empty;
+        }
+    }
+
+    private void SetJumpToPageLabelActive() => jumpToPageLabelClass = "active";
+
+    private void UpdateJumpToPageLabelClass() 
+        => jumpToPageLabelClass = string.IsNullOrEmpty(jumpToPageValue) ? string.Empty : "active";
 }

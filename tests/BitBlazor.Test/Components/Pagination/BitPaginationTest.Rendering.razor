@@ -229,4 +229,48 @@
                 </ul>
             </nav>);
     }
+
+    [Fact]
+    public void BitPagination_Should_Render_Jump_To_Page_Control_If_Enabled()
+    {
+        var currentPage = 1;
+        var component = Render(
+            @<BitPagination NumberOfPages="3"
+                            @bind-Page="currentPage"
+                            Description="Page navigation"
+                            ShowJumpToPage="true"
+                            Id="test-pagination">
+                <JumpToPageLabelTemplate>
+                    <span aria-hidden="true">go to page...</span><span class="visually-hidden">set the destination page</span>
+                </JumpToPageLabelTemplate>
+            </BitPagination>);
+
+        component.MarkupMatches(
+            @<nav class="pagination-wrapper" aria-label="Page navigation" id="test-pagination">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
+                            <span class="visually-hidden">previous page</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" aria-current="page" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <span class="visually-hidden">next page</span>
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right" /></svg>
+                        </a>
+                    </li>
+                </ul>
+                <div class="form-group">
+                    <input type="text" id="jumpToPage-test-pagination" inputmode="numeric" pattern="[0-9]*" name="jumpToPageValue" class="form-control" value="">
+                    <label for="jumpToPage-test-pagination" class="">
+                        <span aria-hidden="true">go to page...</span>
+                        <span class="visually-hidden">set the destination page</span>
+                    </label>
+                </div>
+            </nav>);
+    }
 }

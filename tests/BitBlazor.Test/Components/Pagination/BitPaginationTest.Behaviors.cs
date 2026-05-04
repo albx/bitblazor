@@ -1,7 +1,5 @@
-﻿using AngleSharp.Dom;
-using BitBlazor.Components;
+﻿using BitBlazor.Components;
 using Bunit;
-using Newtonsoft.Json.Linq;
 
 namespace BitBlazor.Test.Components.Pagination;
 
@@ -178,5 +176,26 @@ public class BitPaginationTest
         Assert.Equal(50, sequence[^1]);
         Assert.Equal(49, sequence[^2]); // no ellipsis before last page
         Assert.NotNull(sequence[^2]);
+    }
+
+    [Fact]
+    public void BitPagination_Jump_To_Page_Should_Change_Current_Page()
+    {
+        using var ctx = new BunitContext();
+
+        int page = 1;
+
+        var component = ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowJumpToPage, true)
+                .Add(p => p.Id, "test-pagination")
+                .Bind(p => p.Page, page, v => page = v));
+
+        var jumpToPageInput = component.Find("input#jumpToPage-test-pagination");
+        jumpToPageInput.Change("2");
+
+        Assert.Equal(2, page);
     }
 }

@@ -30,6 +30,26 @@
             </BitPageItem>
         </CascadingValue>
     </ul>
+
+    @if (ShowJumpToPage)
+    {
+        <div class="form-group">
+            <InputText type="text"
+                       class="form-control"
+                       id="@jumpToPageId"
+                       inputmode="numeric"
+                       pattern="[0-9]*"
+                       disabled="@Disabled"
+                       @bind-Value="jumpToPageValue"
+                       @bind-Value:after="JumpToPageAsync"
+                       @onfocus="SetJumpToPageLabelActive"
+                       @onblur="UpdateJumpToPageLabelClass"/>
+            <label for="@jumpToPageId" class="@jumpToPageLabelClass">
+                @JumpToPageLabelTemplate
+            </label>
+        </div>
+    }
+
     @if (TotalItemsTemplate is not null)
     {
         <p>@TotalItemsTemplate</p>
@@ -65,4 +85,9 @@
             <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
         };
     }
+
+    private static RenderFragment DefaultJumpToPageLabelTemplate => __builder =>
+    {
+        <span aria-hidden="true">go to...</span><span class="visually-hidden">Set the destination page</span>
+    };
 }
