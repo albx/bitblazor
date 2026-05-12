@@ -132,23 +132,47 @@ public partial class BitPagination : BitComponentBase
     [Parameter]
     public RenderFragment? JumpToPageLabelTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the display mode for the pagination component.
+    /// </summary>
+    /// <remarks>
+    /// Use this property to control how the pagination UI is rendered. 
+    /// The available modes are defined by the PaginationViewMode enumeration. 
+    /// Changing this property affects the appearance and behavior of the pagination controls.
+    /// </remarks>
+    [Parameter]
+    public PaginationViewMode ViewMode { get; set; } = PaginationViewMode.Default;
+
+    /// <summary>
+    /// Gets or sets the template used to render visually hidden content for simple mode pagination, typically for accessibility purposes.
+    /// If not provided a default content (i.e. "page 1 of 10") will be displayed.
+    /// </summary>
+    /// <remarks>
+    /// Use this template to provide additional information for screen readers or assistive technologies when simple mode pagination is enabled. 
+    /// The template receives the current pagination state as its context.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment<PaginationState>? SimpleModeVisuallyHiddenTemplate { get; set; }
+
     private string jumpToPageId = string.Empty;
     private string jumpToPageLabelClass = string.Empty;
     private string jumpToPageValue = string.Empty;
 
-    internal int CurrentPage { get; private set; }
+    private PaginationState state;
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        CurrentPage = Page;
+        state = new(Page, NumberOfPages);
 
         if (ShowJumpToPage)
         {
             SetJumpToPageDefaults();
         }
     }
+
+    internal bool IsCurrentPage(int page) => state.CurrentPage == page;
 
     private void SetJumpToPageDefaults()
     {
@@ -164,36 +188,36 @@ public partial class BitPagination : BitComponentBase
         }
     }
 
-    internal async Task ChangePageAsync(int page)
+    private async Task ChangePageAsync(int page)
     {
-        if (CurrentPage == page)
+        if (state.CurrentPage == page)
         {
             return;
         }
 
-        CurrentPage = page;
+        state = state with { CurrentPage = page };
         await PageChanged.InvokeAsync(page);
     }
 
     private async Task MoveToPreviousPageAsync()
     {
-        if (CurrentPage == 1)
+        if (state.IsFirstPage)
         {
             return;
         }
 
-        var page = CurrentPage - 1;
+        var page = state.CurrentPage - 1;
         await ChangePageAsync(page);
     }
 
     private async Task MoveToNextPageAsync()
     {
-        if (CurrentPage == NumberOfPages)
+        if (state.IsLastPage)
         {
             return;
         }
 
-        var page = CurrentPage + 1;
+        var page = state.CurrentPage + 1;
         await ChangePageAsync(page);
     }
 
@@ -220,11 +244,11 @@ public partial class BitPagination : BitComponentBase
     internal IEnumerable<int?> GetPageSequence()
     {
         if (PageRangeSize is null)
-            return Enumerable.Range(1, NumberOfPages).Select(p => (int?)p);
+            return Enumerable.Range(1, state.NumberOfPages).Select(p => (int?)p);
 
         var range = PageRangeSize.Value;
-        var start = Math.Max(2, CurrentPage - range);
-        var end = Math.Min(NumberOfPages - 1, CurrentPage + range);
+        var start = Math.Max(2, state.CurrentPage - range);
+        var end = Math.Min(state.NumberOfPages - 1, state.CurrentPage + range);
 
         var result = new List<int?> { 1 };
 
@@ -232,7 +256,7 @@ public partial class BitPagination : BitComponentBase
         for (int i = start; i <= end; i++) result.Add(i);
         if (end < NumberOfPages - 1) result.Add(null);
 
-        if (NumberOfPages > 1) result.Add(NumberOfPages);
+        if (state.NumberOfPages > 1) result.Add(state.NumberOfPages);
 
         return result;
     }
@@ -246,7 +270,7 @@ public partial class BitPagination : BitComponentBase
                 return;
             }
 
-            if (page < 1 || page > NumberOfPages)
+            if (page < 1 || page > state.NumberOfPages)
             {
                 return;
             }

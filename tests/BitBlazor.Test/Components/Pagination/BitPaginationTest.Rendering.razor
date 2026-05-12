@@ -273,4 +273,41 @@
                 </div>
             </nav>);
     }
+
+    [Fact]
+    public void BitPagination_Should_Render_Simple_Mode_Correctly()
+    {
+        var currentPage = 1;
+
+        var component = Render(
+            @<BitPagination NumberOfPages="5"
+                            @bind-Page="currentPage"
+                            Description="Page navigation in simple mode"
+                            ViewMode="PaginationViewMode.Simple">
+            </BitPagination>);
+
+        component.MarkupMatches(
+            @<nav class="pagination-wrapper" aria-label="Page navigation in simple mode">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
+                            <span class="visually-hidden">previous page</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><span class="page-link" aria-current="page">1</span></li>
+                    <li class="page-item"><span class="page-link">/</span></li>
+                    <li class="page-item"><span class="page-link">5</span></li>
+                    <li class="page-item visually-hidden">
+                        <a class="page-link" href="#" aria-current="page">page 1 of 5</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <span class="visually-hidden">next page</span>
+                            <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-right" /></svg>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
 }

@@ -57,7 +57,7 @@ public partial class BitPageItem
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
-        if (Page.HasValue && Page.Value == Parent.CurrentPage)
+        if (Page.HasValue && Parent.IsCurrentPage(Page.Value))
         {
             attributes["aria-current"] = "page";
         }

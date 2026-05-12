@@ -9,7 +9,51 @@
                 @RenderPreviousPage()
             </BitPageItem>
 
-            @foreach (var pageItem in GetPageSequence())
+            @switch (ViewMode)
+            {
+                case PaginationViewMode.Simple:
+                    @RenderSimpleModePaginationControl()
+                    break;
+                default:
+                    @RenderFullPaginationControl()
+                    break;
+            }
+
+            <BitPageItem Disabled="Disabled" PageItemClicked="MoveToNextPageAsync">
+                @RenderNextPage()
+            </BitPageItem>
+        </CascadingValue>
+    </ul>
+
+    @if (ShowJumpToPage)
+    {
+        <div class="form-group">
+            <InputText type="text"
+            class="form-control"
+            id="@jumpToPageId"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            disabled="@Disabled"
+            @bind-Value="jumpToPageValue"
+            @bind-Value:after="JumpToPageAsync"
+            @onfocus="SetJumpToPageLabelActive"
+            @onblur="UpdateJumpToPageLabelClass"/>
+            <label for="@jumpToPageId" class="@jumpToPageLabelClass">
+                @JumpToPageLabelTemplate
+            </label>
+        </div>
+    }
+
+    @if (TotalItemsTemplate is not null)
+    {
+        <p>@TotalItemsTemplate</p>
+    }
+</nav>
+
+@code {
+    private RenderFragment RenderFullPaginationControl() => __builder =>
+        {
+            foreach (var pageItem in GetPageSequence())
             {
                 if (pageItem is null)
                 {
@@ -24,39 +68,35 @@
                     </BitPageItem>
                 }
             }
+        };
 
-            <BitPageItem Disabled="Disabled" PageItemClicked="MoveToNextPageAsync">
-                @RenderNextPage()
-            </BitPageItem>
-        </CascadingValue>
-    </ul>
-
-    @if (ShowJumpToPage)
+    private RenderFragment RenderSimpleModePaginationControl() => __builder =>
     {
-        <div class="form-group">
-            <InputText type="text"
-                       class="form-control"
-                       id="@jumpToPageId"
-                       inputmode="numeric"
-                       pattern="[0-9]*"
-                       disabled="@Disabled"
-                       @bind-Value="jumpToPageValue"
-                       @bind-Value:after="JumpToPageAsync"
-                       @onfocus="SetJumpToPageLabelActive"
-                       @onblur="UpdateJumpToPageLabelClass"/>
-            <label for="@jumpToPageId" class="@jumpToPageLabelClass">
-                @JumpToPageLabelTemplate
-            </label>
-        </div>
-    }
+        <li class="page-item">
+            <span class="page-link" aria-current="page">@state.CurrentPage</span>
+        </li>
+        <li class="page-item">
+            <span class="page-link">/</span>
+        </li>
+        <li class="page-item">
+            <span class="page-link">@NumberOfPages</span>
+        </li>
+        <li class="page-item visually-hidden">
+            <a class="page-link" href="#" aria-current="page" @onclick:preventDefault>
+                @if (SimpleModeVisuallyHiddenTemplate is not null)
+                {
+                    @SimpleModeVisuallyHiddenTemplate(state)
+                }
+                else
+                {
+                    @DefaultSimpleModeVisuallyHiddenTemplate
+                }
+            </a>
+        </li>
+    };
 
-    @if (TotalItemsTemplate is not null)
-    {
-        <p>@TotalItemsTemplate</p>
-    }
-</nav>
+    private string DefaultSimpleModeVisuallyHiddenTemplate => $"page {state.CurrentPage} of {state.NumberOfPages}";
 
-@code {
     private RenderFragment RenderPreviousPage()
     {
         if (PreviousPageTemplate is not null)

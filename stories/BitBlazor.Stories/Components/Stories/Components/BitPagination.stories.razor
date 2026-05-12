@@ -12,6 +12,7 @@
     <ArgType For="_ => _.PageRangeSize" />
     <ArgType For="_ => _.ShowJumpToPage" />
     <ArgType For="_ => _.JumpToPageLabelTemplate" />
+    <ArgType For="_ => _.ViewMode" DefaultValue="PaginationViewMode.Default" />
 
     <Story Name="Default">
         <Arguments>
@@ -22,6 +23,7 @@
             <Arg For="_ => _.PageRangeSize" />
             <Arg For="_ => _.ShowJumpToPage" />
             <Arg For="_ => _.JumpToPageLabelTemplate" Value="@JumpToPageLabelTemplate" />
+            <Arg For="_ => _.ViewMode" Value="PaginationViewMode.Default" />
         </Arguments>
         <Template>
             <div class="px-2 py-2">
@@ -86,6 +88,18 @@
         </Template>
     </Story>
 
+    <Story Name="Simple mode">
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination NumberOfPages="5"
+                               Description="Page navigation with simple mode"
+                               @bind-Page="model.SimpleModeStoryValue"
+                               ViewMode="PaginationViewMode.Simple">
+                </BitPagination>
+            </div>
+        </Template>
+    </Story>
+
     <Story Name="Text links">
         <Template>
             <div class="px-2 py-2">
@@ -132,6 +146,8 @@
         public int PageRageStoryPage { get; set; } = 1;
 
         public int JumpToPageStoryValue { get; set; } = 26;
+
+        public int SimpleModeStoryValue { get; set; } = 1;
 
         public int TextLinksStoryPage { get; set; } = 26;
 
