@@ -267,6 +267,118 @@ Defines alignment options for icons.
 | `Middle` | Center alignment | `align-middle` |
 | `Top` | Top alignment | `align-top` |
 
+## Modal-specific Enumerations
+
+### ModalBackdrop
+
+**Namespace**: `BitBlazor.Components`
+
+Defines the backdrop behaviour of the `BitModal` component.
+
+| Value | Description |
+|-------|-------------|
+| `Default` | A backdrop is shown; clicking it closes the modal. |
+| `Static` | A backdrop is shown; clicking it does **not** close the modal. |
+| `None` | No backdrop is rendered. |
+
+**Components using ModalBackdrop**:
+- `BitModal`
+
+### ModalPosition
+
+**Namespace**: `BitBlazor.Components`
+
+Defines the positioning variant of the `BitModal` component.
+
+| Value | CSS effect | Description |
+|-------|------------|-------------|
+| `Default` | *(none)* | Top-center (Bootstrap Italia default). |
+| `Centered` | `modal-dialog-centered` on `.modal-dialog` | Vertically centered. |
+| `Left` | `modal-dialog-left` on `.modal-dialog` + `it-dialog-scrollable` on `.modal` | Full-height, left-aligned. |
+| `Right` | `modal-dialog-right` on `.modal-dialog` + `it-dialog-scrollable` on `.modal` | Full-height, right-aligned. |
+
+**Components using ModalPosition**:
+- `BitModal`
+
+### ModalSize
+
+**Namespace**: `BitBlazor.Components`
+
+Defines the size variant of the `BitModal` component.
+
+| Value | CSS class on `.modal-dialog` | Description |
+|-------|------------------------------|-------------|
+| `Default` | *(none)* | Standard size. |
+| `Small` | `modal-sm` | Small dialog. |
+| `Large` | `modal-lg` | Large dialog. |
+| `ExtraLarge` | `modal-xl` | Extra-large dialog. |
+
+**Components using ModalSize**:
+- `BitModal`
+
+### ModalType
+
+**Namespace**: `BitBlazor.Components`
+
+Defines the visual type variant of the `BitModal` component.
+
+| Value | CSS class on `.modal` | Description |
+|-------|----------------------|-------------|
+| `Default` | *(none)* | Standard modal. |
+| `Alert` | `alert-modal` | Alert modal, typically used with an icon in the header. |
+| `LinkList` | `it-dialog-link-list` | Optimised for rendering navigation link lists. |
+| `Popconfirm` | `popconfirm-modal` | Compact confirmation dialog. |
+
+**Components using ModalType**:
+- `BitModal`
+
+## Pagination-specific Enumerations
+
+### PaginationAlignment
+
+**Namespace**: `BitBlazor.Components`
+
+Specifies the horizontal alignment of the pagination controls within their container.
+
+| Value | CSS class added to `<nav>` | Description |
+|-------|---------------------------|-------------|
+| `Left` | *(none)* | Left-aligned (default). |
+| `Center` | `justify-content-center` | Centered horizontally. |
+| `Right` | `justify-content-end` | Right-aligned. |
+
+**Components using PaginationAlignment**:
+- `BitPagination`
+
+### PaginationViewMode
+
+**Namespace**: `BitBlazor.Components`
+
+Specifies the display mode for the `BitPagination` component.
+
+| Value | Description |
+|-------|-------------|
+| `Default` | Full pagination control: all page buttons with optional ellipsis, previous and next buttons. |
+| `Simple` | Compact control showing the current page and total pages (e.g. `3 / 10`) with an accessible hidden link. |
+
+**Components using PaginationViewMode**:
+- `BitPagination`
+
+### PaginationState
+
+**Namespace**: `BitBlazor.Components`
+
+`PaginationState` is a `record struct` (not an enum) that represents a snapshot of the pagination control's state. It is passed as context to `BitPagination.SimpleModeVisuallyHiddenTemplate`.
+
+| Member | Type | Description |
+|--------|------|-------------|
+| `CurrentPage` | `int` | The currently active page number. |
+| `NumberOfPages` | `int` | Total number of pages. |
+| `IsFirstPage` | `bool` | `true` when `CurrentPage == 1`. |
+| `IsLastPage` | `bool` | `true` when `CurrentPage == NumberOfPages`. |
+
+**Components using PaginationState**:
+- `BitPagination` (`SimpleModeVisuallyHiddenTemplate` context)
+
 ## Enumeration Mappings
 
 ### Color vs IconColor

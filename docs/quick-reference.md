@@ -79,6 +79,37 @@ This guide provides a quick overview of all BitBlazor components with basic exam
 </BitCard>
 ```
 
+### Pagination
+```razor
+<!-- Basic pagination with two-way binding -->
+<BitPagination NumberOfPages="10"
+               Description="Navigate pages"
+               @bind-Page="currentPage" />
+
+<!-- Centered, with ellipsis -->
+<BitPagination NumberOfPages="50"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               Alignment="PaginationAlignment.Center"
+               PageRangeSize="2" />
+
+<!-- Simple mode -->
+<BitPagination NumberOfPages="20"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               ViewMode="PaginationViewMode.Simple" />
+
+<!-- With jump-to-page and total summary -->
+<BitPagination NumberOfPages="10"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               ShowJumpToPage="true">
+    <TotalItemsTemplate>
+        Results @((currentPage - 1) * 10 + 1)–@(currentPage * 10) of 100
+    </TotalItemsTemplate>
+</BitPagination>
+```
+
 ## Form Components
 
 ### BitTextField
