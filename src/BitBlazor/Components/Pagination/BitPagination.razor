@@ -39,7 +39,7 @@
             @onfocus="SetJumpToPageLabelActive"
             @onblur="UpdateJumpToPageLabelClass"/>
             <label for="@jumpToPageId" class="@jumpToPageLabelClass">
-                @JumpToPageLabelTemplate
+                @(JumpToPageLabelTemplate ?? DefaultJumpToPageLabelTemplate)
             </label>
         </div>
     }
@@ -109,7 +109,6 @@
             <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
             <span class="visually-hidden">@PreviousPageLabel</span>
         };
-    ;
     }
 
     private RenderFragment RenderNextPage()

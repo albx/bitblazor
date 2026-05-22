@@ -181,11 +181,6 @@ public partial class BitPagination : BitComponentBase
             var baseId = !string.IsNullOrWhiteSpace(Id) ? Id : Guid.NewGuid().ToString("N");
             jumpToPageId = $"jumpToPage-{baseId}";
         }
-
-        if (JumpToPageLabelTemplate is null)
-        {
-            JumpToPageLabelTemplate = DefaultJumpToPageLabelTemplate;
-        }
     }
 
     private async Task ChangePageAsync(int page)
@@ -237,6 +232,8 @@ public partial class BitPagination : BitComponentBase
         {
             builder.Add("pagination-total");
         }
+
+        AddCustomCssClass(builder);
 
         return builder.Build();
     }

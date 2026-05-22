@@ -83,7 +83,15 @@ public partial class BitPageItem
         }
     }
 
-    private async Task ClickPageItemAsync() => await PageItemClicked.InvokeAsync();
+    private async Task ClickPageItemAsync()
+    {
+        if (Disabled)
+        {
+            return;
+        }
+        
+        await PageItemClicked.InvokeAsync();
+    }
 
     private string ComputePageItemCssClass()
     {
