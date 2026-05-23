@@ -1,0 +1,16 @@
+﻿@namespace BitBlazor.Components
+
+<li class="@ComputePageItemCssClass()">
+    @if (!string.IsNullOrEmpty(Href))
+    {
+        <a class="page-link" href="@Href" @onclick="ClickPageItemAsync" @attributes="attributes">
+            @ChildContent
+        </a>
+    }
+    else
+    {
+        <a class="page-link" style="cursor: pointer;" @onclick="ClickPageItemAsync" @onkeydown="OnKeyDownAsync" @attributes="attributes">
+            @ChildContent
+        </a>
+    }
+</li>

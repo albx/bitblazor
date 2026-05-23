@@ -69,6 +69,13 @@ Modal dialog component for displaying content in an overlay.
 - Visibility controlled via Blazor state
 - No JavaScript interop required
 
+#### [Pagination](components/pagination.md)
+Pagination control for navigating large data sets across multiple pages.
+- Full and simple view modes
+- Ellipsis truncation via `PageRangeSize`
+- Optional jump-to-page input and total-items summary
+- Customizable previous/next buttons and alignment
+
 ### Form Components
 
 BitBlazor provides a comprehensive set of form components that integrate seamlessly with ASP.NET Core Blazor's form system and Bootstrap Italia styling.
