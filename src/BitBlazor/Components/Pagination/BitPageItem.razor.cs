@@ -1,5 +1,6 @@
 using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BitBlazor.Components;
 
@@ -52,6 +53,17 @@ public partial class BitPageItem
     [Parameter]
     public bool Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the URL to navigate to when the page item is clicked.
+    /// </summary>
+    /// <remarks>
+    /// When set, the page item renders as a real anchor link with the provided href,
+    /// enabling SSR-compatible navigation and improving accessibility (e.g. right-click "Open in new tab").
+    /// When not set, navigation is handled via the <see cref="PageItemClicked"/> callback.
+    /// </remarks>
+    [Parameter]
+    public string? Href { get; set; }
+
     private IDictionary<string, object> attributes = new Dictionary<string, object>();
 
     /// <inheritdoc/>
@@ -79,7 +91,14 @@ public partial class BitPageItem
         else
         {
             attributes.Remove("aria-hidden");
-            attributes.Remove("tabindex");
+            if (string.IsNullOrEmpty(Href))
+            {
+                attributes["tabindex"] = "0";
+            }
+            else
+            {
+                attributes.Remove("tabindex");
+            }
         }
     }
 
@@ -91,6 +110,14 @@ public partial class BitPageItem
         }
         
         await PageItemClicked.InvokeAsync();
+    }
+
+    private async Task OnKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (args.Key is "Enter")
+        {
+            await ClickPageItemAsync();
+        }
     }
 
     private string ComputePageItemCssClass()

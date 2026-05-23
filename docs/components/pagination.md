@@ -12,6 +12,8 @@ BitBlazor.Components
 
 The Pagination component enables users to navigate through large data sets split across multiple pages. It renders previous/next buttons, individual page links with optional ellipsis truncation, and optional extras such as a jump-to-page input and a total-items summary. Two view modes are available: the default full control and a compact simple mode.
 
+`BitPagination` supports both **interactive** and **static SSR** render modes. In interactive mode, page changes are handled via two-way binding with `@bind-Page`. In SSR mode, supply a `PageLinkGenerator` to render real `<a href>` links that trigger full browser navigation — no JavaScript required.
+
 ## Parameters
 
 | Name | Type | Required | Default | Description |
@@ -20,6 +22,7 @@ The Pagination component enables users to navigate through large data sets split
 | `Description` | `string` | ✓ | `""` | Text placed in the `aria-label` of the wrapping `<nav>` element. |
 | `Page` | `int` | ✗ | `1` | The currently selected page. Use `@bind-Page` for two-way binding. |
 | `PageChanged` | `EventCallback<int>` | ✗ | - | Callback invoked when the active page changes. Receives the new page number. |
+| `PageLinkGenerator` | `Func<int, string>?` | ✗ | `null` | When provided, each page button is rendered as a real `<a href>` pointing to the URL returned by this function for the given page number. Required for SSR compatibility. When `null`, page buttons use `href="#"` and rely on interactive C# event handlers. |
 | `PreviousPageLabel` | `string` | ✗ | `"previous page"` | Visually-hidden label for the previous-page button (screen readers). |
 | `PreviousPageTemplate` | `RenderFragment?` | ✗ | `null` | Custom content for the previous-page button. Replaces the default chevron icon. |
 | `NextPageLabel` | `string` | ✗ | `"next page"` | Visually-hidden label for the next-page button (screen readers). |
@@ -74,10 +77,66 @@ The Pagination component enables users to navigate through large data sets split
 @code {
     private int currentPage = 1;
 
-    private async Task HandlePageChanged(int page)
+    private async Task HandlePageChanged()
     {
-        currentPage = page;
-        await LoadDataAsync(page);
+        await LoadDataAsync(currentPage);
+    }
+}
+```
+
+### SSR pagination (Static Server-Side Rendering)
+
+Use `PageLinkGenerator` to make each page button a real `<a href>` link. This works without JavaScript and is required for components rendered with `@attribute [StreamRendering]` or in a fully static SSR context.
+
+The current page is typically encoded as a route parameter so the server can pre-render the correct page on load.
+
+```razor
+@page "/news"
+@page "/news/{Page:int}"
+@attribute [StreamRendering]
+
+@inject INewsService NewsService
+
+<BitPagination NumberOfPages="@totalPages"
+               Page="@currentPage"
+               PageLinkGenerator="@(page => $"/news/{page}")"
+               Description="Navigate news pages"
+               Alignment="PaginationAlignment.Center"
+               PageRangeSize="2" />
+
+@code {
+    [Parameter] public int Page { get; set; }
+
+    private int currentPage;
+    private int totalPages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentPage = Page < 1 ? 1 : Page;
+        var result = await NewsService.GetNewsAsync(currentPage);
+        totalPages = (int)Math.Ceiling((double)result.TotalCount / 10);
+    }
+}
+```
+
+### Interactive mode with shareable URL
+
+Combine `PageLinkGenerator` with `@bind-Page` when you want both a C# callback (e.g. to update in-memory state without full navigation) and a real URL that can be bookmarked or shared. In interactive mode `@onclick:preventDefault` intercepts clicks so the C# handler runs; in SSR the browser follows the real `href`.
+
+```razor
+<BitPagination NumberOfPages="@totalPages"
+               @bind-Page="currentPage"
+               @bind-Page:after="LoadCurrentPage"
+               PageLinkGenerator="@(page => $"/products?page={page}")"
+               Description="Navigate products" />
+
+@code {
+    private int currentPage = 1;
+    private int totalPages = 10;
+
+    private async Task LoadCurrentPage()
+    {
+        await LoadDataAsync(currentPage);
     }
 }
 ```
@@ -212,6 +271,8 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 
 ## Generated HTML Structure
 
+When `PageLinkGenerator` is **not** set (interactive mode), page buttons use `href="#"` and rely on Blazor event handlers:
+
 ```html
 <nav class="pagination-wrapper" aria-label="Navigate pages">
     <ul class="pagination">
@@ -261,12 +322,37 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 </nav>
 ```
 
+When `PageLinkGenerator` is set, each `href` is populated with the URL returned by the generator. The previous/next buttons receive the adjacent page URL; disabled nav buttons (first page's prev, last page's next) keep `href="#"`:
+
+```html
+<!-- With PageLinkGenerator="@(page => $"/news/{page}")" on page 3 of 10 -->
+<li class="page-item">
+    <a class="page-link" href="/news/2"><!-- prev --></a>
+</li>
+<li class="page-item">
+    <a class="page-link" href="/news/1">1</a>
+</li>
+<li class="page-item">
+    <a class="page-link" href="/news/2">2</a>
+</li>
+<li class="page-item">
+    <a class="page-link" href="/news/3" aria-current="page">3</a>
+</li>
+...
+<li class="page-item">
+    <a class="page-link" href="/news/4"><!-- next --></a>
+</li>
+```
+
 ## Notes
 
 - `NumberOfPages` and `Description` are both marked `[EditorRequired]`; omitting either will produce a build warning.
-- The `Page` parameter does not use `@bind-Page` internally — it is a one-way input. Changes are propagated back to the parent via `PageChanged`. Using `@bind-Page` is the recommended pattern for keeping the parent in sync.
+- The `Page` parameter supports two-way binding via `@bind-Page`. Use `@bind-Page:after` to react to page changes (e.g. to reload data).
 - When `ShowJumpToPage` is `true` and the user enters a value outside the valid range (`< 1` or `> NumberOfPages`), the input is silently reset without triggering navigation.
 - `PageRangeSize` always preserves the first and last page buttons; only the middle pages are collapsed into ellipses.
+- **SSR compatibility**: In Blazor static SSR, `@onclick` C# callbacks never fire. Set `PageLinkGenerator` to produce real `<a href>` links — the component will then work purely via browser navigation with no JavaScript required.
+- **Progressive enhancement**: When both `PageLinkGenerator` and `@bind-Page` are set, the component uses `@onclick:preventDefault` to intercept clicks in interactive mode (running the C# handler) while still exposing a valid `href` for SSR and for right-click / open-in-new-tab scenarios.
+- **Disabled nav buttons**: The previous-page button on page 1 and the next-page button on the last page are always rendered with `href="#"` regardless of `PageLinkGenerator`, since there is no valid target page to link to.
 
 ## References
 

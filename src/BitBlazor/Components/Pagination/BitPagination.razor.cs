@@ -154,6 +154,20 @@ public partial class BitPagination : BitComponentBase
     [Parameter]
     public RenderFragment<PaginationState>? SimpleModeVisuallyHiddenTemplate { get; set; }
 
+    /// <summary>
+    /// Gets or sets a function that generates the navigation URL for a given page number.
+    /// </summary>
+    /// <remarks>
+    /// When set, each page item (including previous and next) renders as a real anchor link,
+    /// enabling SSR-compatible navigation and browser features such as "Open in new tab".
+    /// In interactive render modes, <see cref="PageChanged"/> still fires on click; the href
+    /// acts as progressive enhancement.
+    /// Previous and next links receive <c>null</c> when already on the first or last page respectively,
+    /// falling back to <c>href="#"</c>.
+    /// </remarks>
+    [Parameter]
+    public Func<int, string>? PageLinkGenerator { get; set; }
+
     private string jumpToPageId = string.Empty;
     private string jumpToPageLabelClass = string.Empty;
     private string jumpToPageValue = string.Empty;
@@ -284,4 +298,13 @@ public partial class BitPagination : BitComponentBase
 
     private void UpdateJumpToPageLabelClass() 
         => jumpToPageLabelClass = string.IsNullOrEmpty(jumpToPageValue) ? string.Empty : "active";
+
+    private string? GetPageHref(int page)
+        => PageLinkGenerator?.Invoke(page);
+
+    private string? GetPrevPageHref()
+        => !state.IsFirstPage ? GetPageHref(state.CurrentPage - 1) : null;
+
+    private string? GetNextPageHref()
+        => !state.IsLastPage ? GetPageHref(state.CurrentPage + 1) : null;
 }
