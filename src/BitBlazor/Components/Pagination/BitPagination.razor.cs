@@ -174,6 +174,10 @@ public partial class BitPagination : BitComponentBase
 
     private PaginationState state;
 
+    private bool PreviousPageLinkDisabled => Disabled || state.IsFirstPage;
+
+    private bool NextPageLinkDisabled => Disabled || state.IsLastPage;
+
     /// <inheritdoc/>
     protected override void OnParametersSet()
     {
@@ -265,7 +269,7 @@ public partial class BitPagination : BitComponentBase
 
         if (start > 2) result.Add(null);
         for (int i = start; i <= end; i++) result.Add(i);
-        if (end < NumberOfPages - 1) result.Add(null);
+        if (end < state.NumberOfPages - 1) result.Add(null);
 
         if (state.NumberOfPages > 1) result.Add(state.NumberOfPages);
 
@@ -302,7 +306,7 @@ public partial class BitPagination : BitComponentBase
     private string? GetPageHref(int page)
         => PageLinkGenerator?.Invoke(page);
 
-    private string? GetPrevPageHref()
+    private string? GetPreviousPageHref()
         => !state.IsFirstPage ? GetPageHref(state.CurrentPage - 1) : null;
 
     private string? GetNextPageHref()

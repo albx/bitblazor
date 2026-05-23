@@ -5,14 +5,14 @@
     <ArgType For="_ => _.Page" DefaultValue="1" />
     <ArgType For="_ => _.NumberOfPages" DefaultValue="3" />
     <ArgType For="_ => _.Description" />
-    <ArgType For="_ => _.Alignment" />
+    <ArgType For="_ => _.Alignment" Control="ControlType.Select" />
     <ArgType For="_ => _.PreviousPageLabel" />
     <ArgType For="_ => _.NextPageLabel" />
     <ArgType For="_ => _.Disabled" />
     <ArgType For="_ => _.PageRangeSize" />
     <ArgType For="_ => _.ShowJumpToPage" />
     <ArgType For="_ => _.JumpToPageLabelTemplate" />
-    <ArgType For="_ => _.ViewMode" DefaultValue="PaginationViewMode.Default" />
+    <ArgType For="_ => _.ViewMode" DefaultValue="PaginationViewMode.Default" Control="ControlType.Select" />
 
     <Story Name="Default">
         <Arguments>
@@ -156,6 +156,6 @@
 
     private RenderFragment JumpToPageLabelTemplate => __builder =>
     {
-        <span aria-hidden="true">go to...</span><span class="visually-hidden">Set the destination page</span>;
+        <span aria-hidden="true">go to...</span><span class="visually-hidden">Set the destination page</span>
     };
 }

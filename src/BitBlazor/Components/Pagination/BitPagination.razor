@@ -5,7 +5,7 @@
 <nav class="@ComputeContainerCssClass()" aria-label="@Description" @attributes="AdditionalAttributes">
     <ul class="pagination">
         <CascadingValue Value="this">
-            <BitPageItem Disabled="Disabled" Href="@GetPrevPageHref()" PageItemClicked="MoveToPreviousPageAsync">
+            <BitPageItem Disabled="PreviousPageLinkDisabled" Href="@GetPreviousPageHref()" PageItemClicked="MoveToPreviousPageAsync">
                 @RenderPreviousPage()
             </BitPageItem>
 
@@ -19,7 +19,7 @@
                     break;
             }
 
-            <BitPageItem Disabled="Disabled" Href="@GetNextPageHref()" PageItemClicked="MoveToNextPageAsync">
+            <BitPageItem Disabled="NextPageLinkDisabled" Href="@GetNextPageHref()" PageItemClicked="MoveToNextPageAsync">
                 @RenderNextPage()
             </BitPageItem>
         </CascadingValue>

@@ -14,8 +14,8 @@
                 component.MarkupMatches(
                     @<nav class="pagination-wrapper" aria-label="Page navigation">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" style="cursor: pointer;" tabindex="0">
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-hidden="true" style="cursor: pointer;">
                                     <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
                                     <span class="visually-hidden">previous page</span>
                                 </a>
@@ -33,7 +33,7 @@
                     </nav>);
     }
 
-        [Theory]
+    [Theory]
     [InlineData(PaginationAlignment.Left, "")]
     [InlineData(PaginationAlignment.Center, "justify-content-center")]
     [InlineData(PaginationAlignment.Right, "justify-content-end")]
@@ -50,8 +50,8 @@
                 component.MarkupMatches(
                     @<nav class="pagination-wrapper @expectedAlignmentClass" aria-label="Page navigation">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" style="cursor: pointer;" tabindex="0">
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-hidden="true" style="cursor: pointer;">
                                     <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
                                     <span class="visually-hidden">previous page</span>
                                 </a>
@@ -69,7 +69,7 @@
                     </nav>);
     }
 
-        [Fact]
+    [Fact]
     public void BitPagination_Should_Render_All_Items_Disabled()
     {
         int currentPage = 1;
@@ -102,7 +102,7 @@
                     </nav>);
     }
 
-        [Fact]
+    [Fact]
     public void BitPagination_Should_Render_Ellipsis_When_PageRangeSize_Is_Set()
     {
         int currentPage = 26;
@@ -122,7 +122,7 @@
                 Assert.All(ellipses, e => Assert.Equal("...", e.TextContent));
             }
 
-        [Fact]
+    [Fact]
     public void BitPagination_Should_Not_Render_Ellipsis_When_PageRangeSize_Is_Null()
     {
         int currentPage = 26;
@@ -136,7 +136,7 @@
                 Assert.Empty(ellipses);
             }
 
-        [Theory]
+    [Theory]
     [InlineData(3, 2, false, true)]    // near start — no leading ellipsis, trailing ellipsis
     [InlineData(48, 2, true, false)]   // near end — leading ellipsis, no trailing ellipsis
     [InlineData(26, 2, true, true)]    // middle — both ellipses
@@ -159,7 +159,7 @@
                 Assert.Equal(expectTrailing, hasTrailing);
             }
 
-        [Fact]
+    [Fact]
     public void BitPagination_Should_Render_TotalItemsTemplate_If_Specified()
     {
         var currentPage = 1;
@@ -173,8 +173,8 @@
         component.MarkupMatches(
             @<nav class="pagination-wrapper pagination-total" aria-label="Page navigation">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" style="cursor: pointer;" tabindex="0">
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-hidden="true" style="cursor: pointer;">
                             <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
                             <span class="visually-hidden">previous page</span>
                         </a>
@@ -213,8 +213,8 @@
         component.MarkupMatches(
             @<nav class="pagination-wrapper" aria-label="Page navigation">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" style="cursor: pointer;" tabindex="0">
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-hidden="true" style="cursor: pointer;">
                             Previous <span class="visually-hidden">page</span>
                         </a>
                     </li>
@@ -248,8 +248,8 @@
         component.MarkupMatches(
             @<nav class="pagination-wrapper" aria-label="Page navigation" id="test-pagination">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" style="cursor: pointer;" tabindex="0">
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-hidden="true" style="cursor: pointer;">
                             <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
                             <span class="visually-hidden">previous page</span>
                         </a>
@@ -289,8 +289,8 @@
         component.MarkupMatches(
             @<nav class="pagination-wrapper" aria-label="Page navigation in simple mode">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" style="cursor: pointer;" tabindex="0">
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-hidden="true" style="cursor: pointer;">
                             <svg class="icon icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-chevron-left" /></svg>
                             <span class="visually-hidden">previous page</span>
                         </a>

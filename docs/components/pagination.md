@@ -252,7 +252,7 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 
 - The wrapping `<nav>` element always carries the `aria-label` set via the required `Description` parameter.
 - The active page item receives `aria-current="page"` automatically.
-- Disabled items receive `aria-hidden="true"` and `tabindex="-1"` so they are skipped by keyboard and screen-reader navigation.
+- Disabled items receive `aria-hidden="true"` and `tabindex="-1"` so they are skipped by keyboard and screen-reader navigation. The previous-page and next-page buttons are disabled automatically when already on the first or last page respectively.
 - Previous and next page buttons include a `<span class="visually-hidden">` text sourced from `PreviousPageLabel` and `NextPageLabel` respectively.
 - In Simple mode, a visually hidden element provides the full page context (e.g. `"page 3 of 20"`) for screen readers. Customise it with `SimpleModeVisuallyHiddenTemplate`.
 - When `ShowJumpToPage` is `true`, the input and its label are properly associated via `id`/`for` attributes generated at runtime.
@@ -267,7 +267,7 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 | `<nav>` | `pagination-total` | `TotalItemsTemplate` is not `null` |
 | `<ul>` | `pagination` | Always |
 | `<li>` | `page-item` | Always |
-| `<li>` | `disabled` | `Disabled == true` |
+| `<li>` | `disabled` | `Disabled == true`, or the previous-page button when on page 1, or the next-page button when on the last page |
 
 ## Generated HTML Structure
 
@@ -276,9 +276,9 @@ When `PageLinkGenerator` is **not** set (interactive mode), page buttons use `hr
 ```html
 <nav class="pagination-wrapper" aria-label="Navigate pages">
     <ul class="pagination">
-        <!-- Previous page button -->
-        <li class="page-item">
-            <a class="page-link" href="#" onclick="...">
+        <!-- Previous page button (disabled on page 1) -->
+        <li class="page-item disabled">
+            <a class="page-link" style="cursor: pointer;" tabindex="-1" aria-hidden="true">
                 <!-- chevron-left icon -->
                 <span class="visually-hidden">previous page</span>
             </a>
@@ -352,7 +352,7 @@ When `PageLinkGenerator` is set, each `href` is populated with the URL returned 
 - `PageRangeSize` always preserves the first and last page buttons; only the middle pages are collapsed into ellipses.
 - **SSR compatibility**: In Blazor static SSR, `@onclick` C# callbacks never fire. Set `PageLinkGenerator` to produce real `<a href>` links — the component will then work purely via browser navigation with no JavaScript required.
 - **Progressive enhancement**: When both `PageLinkGenerator` and `@bind-Page` are set, the component uses `@onclick:preventDefault` to intercept clicks in interactive mode (running the C# handler) while still exposing a valid `href` for SSR and for right-click / open-in-new-tab scenarios.
-- **Disabled nav buttons**: The previous-page button on page 1 and the next-page button on the last page are always rendered with `href="#"` regardless of `PageLinkGenerator`, since there is no valid target page to link to.
+- **Disabled nav buttons**: The previous-page button on page 1 and the next-page button on the last page are automatically disabled — they receive the `disabled` CSS class on `<li>`, plus `aria-hidden="true"` and `tabindex="-1"` on the `<a>`, regardless of the `Disabled` parameter. When `PageLinkGenerator` is set, these boundary buttons render without an `href` since there is no valid target page to link to.
 
 ## References
 
