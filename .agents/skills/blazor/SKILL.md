@@ -98,7 +98,7 @@ Library components must work in **all render modes** used by the consuming appli
 
 ## Accessibility
 
-Accessibility is a **first-class requirement** for every component in this library. The authoritative ruleset is [`a11y.instructions.md`](../../instructions/a11y.instructions.md), which is automatically active on every `.razor`, `.razor.cs`, and `.razor.css` edit — read it before authoring any interactive component.
+Accessibility is a **first-class requirement** for every component in this library. The authoritative ruleset is [`a11y.instructions.md`](../../../.github/instructions/a11y.instructions.md), which is automatically active on every `.razor`, `.razor.cs`, and `.razor.css` edit — read it before authoring any interactive component.
 
 The checks most commonly missed when creating a new BitBlazor component are:
 
