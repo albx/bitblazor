@@ -34,7 +34,7 @@ Reusable skills (smaller capability units used by agents) present in the environ
 
 ## Where to find the source
 - Instruction files: `.github/instructions/`
-- Agent and skill definitions: extension-specific locations under `.agents/` or the workspace VS Code extension assets (see repository `agents` metadata).
-
+- Agent definitions: `.github/agents/`
+- Skill definitions: `.agents/skills/`
 ---
 This doc is intended as a lightweight reference. For details, consult the instruction files and skill manifests in the workspace.

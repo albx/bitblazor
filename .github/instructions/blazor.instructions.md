@@ -1,6 +1,9 @@
 ---
 description: 'Blazor UI kit library component authoring patterns and conventions for BitBlazor'
-applyTo: '**/*.razor, **/*.razor.cs, **/*.razor.css'
+applyTo:
+  - '**/*.razor'
+  - '**/*.razor.cs'
+  - '**/*.razor.css'
 ---
 
 ## Project Context
@@ -127,7 +130,7 @@ public Color Color { get; set; }
 - Use data binding effectively with `@bind`.
 - Leverage Dependency Injection for any services needed by components.
 - Structure components following Separation of Concerns (markup in `.razor`, logic in `.razor.cs`).
-- Target C# 13 features (record types, pattern matching, global usings) as the baseline — the library targets `net9.0`.
+- Target modern C# features (records, pattern matching, global usings) as the baseline — the library targets `net9.0`.
 
 ## Error Handling and Validation
 
@@ -154,5 +157,5 @@ Library components have first-class accessibility responsibilities. Follow the c
 ## Testing
 
 - Test components using **bUnit** alongside xUnit.
-- Use Moq or NSubstitute for mocking dependencies.
+- If mocking dependencies is necessary, add and use a mocking library (for example Moq or NSubstitute) consistently.
 - Cover parameter combinations, CSS class output, event callbacks, and accessibility attributes in tests.
