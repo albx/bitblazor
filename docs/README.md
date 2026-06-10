@@ -164,6 +164,10 @@ Icon system based on Bootstrap Italia.
 - Customizable alignment
 - Full accessibility support
 
+#### [Agents, Instructions & Skills](agents-and-skills.md)
+Repository-level agents, instruction files, and skills available to contributors and automation tooling. See this reference for agent names, instruction file locations, and guidance for extending skills.
+
+
 ## Common Enumerations
 
 ### Color
