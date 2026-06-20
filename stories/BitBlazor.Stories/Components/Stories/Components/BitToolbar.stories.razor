@@ -1,0 +1,107 @@
+﻿@attribute [Stories("Components/BitToolbar")]
+
+<Stories TComponent="BitToolbar">
+
+    <ArgType For="_ => _.Size" Control="ControlType.Select" DefaultValue="ToolbarSize.Default" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Size" Value="ToolbarSize.Default" />
+        </Arguments>
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar @attributes="context.Args">
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Medium size">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar Size="ToolbarSize.Medium">
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Small size">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar Size="ToolbarSize.Small">
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Active Item">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" Active="true" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Disabled Item">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" Disabled="true" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="With Divider">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Mixed States">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" Active="true" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" Disabled="true" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+</Stories>
