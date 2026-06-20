@@ -37,6 +37,26 @@ public partial class BitToolbarItem
     [Parameter]
     public bool Disabled { get; set; }
 
+    /// <summary>
+    /// Gets or sets the count to be displayed as a badge on the toolbar item. If set, a badge will be shown with the specified count.
+    /// </summary>
+    [Parameter]
+    public int? BadgeCount { get; set; }
+
+    /// <summary>
+    /// Gets or sets the label for the badge on the toolbar item. This label can provide additional context for the badge count.
+    /// </summary>
+    [Parameter]
+    public string? BadgeLabel { get; set; }
+
+    private bool HasBadgeNumber => BadgeCount.HasValue && BadgeCount.Value > 0;
+
+    private bool HasBadgeLabel => !string.IsNullOrWhiteSpace(BadgeLabel);
+
+    private bool HasBadge => HasBadgeNumber || HasBadgeLabel;
+
+    private bool IsToolbarSizeDefault => Parent.Size is ToolbarSize.Default;
+
     private IDictionary<string, object> attributes = new Dictionary<string, object>();
 
     /// <inheritdoc/>
