@@ -1,7 +1,7 @@
 ﻿@namespace BitBlazor.Components
 
 <li>
-    <a href="#" class="@ComputeLinkCssClass()" disabled="@Disabled" @attributes="attributes">
+    <a href="@Href" class="@ComputeLinkCssClass()" disabled="@Disabled" @attributes="attributes" @onclick="ClickAsync">
         @if (HasBadge)
         {
             <div class="badge-wrapper">

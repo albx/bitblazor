@@ -26,6 +26,13 @@ public partial class BitToolbarItem
     public string IconName { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the URL that the toolbar item should link to. 
+    /// If not specified, the item will default to a "#" link.
+    /// </summary>
+    [Parameter]
+    public string Href { get; set; } = "#";
+
+    /// <summary>
     /// Gets or sets a value indicating whether the toolbar item is active. When set to true, the item will be styled as active.
     /// </summary>
     [Parameter]
@@ -48,6 +55,13 @@ public partial class BitToolbarItem
     /// </summary>
     [Parameter]
     public string? BadgeLabel { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback to be invoked when the toolbar item is clicked. 
+    /// This allows for custom behavior to be defined when the item is interacted with.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnClick { get; set; }
 
     private bool HasBadgeNumber => BadgeCount.HasValue && BadgeCount.Value > 0;
 
@@ -108,4 +122,6 @@ public partial class BitToolbarItem
 
         return builder.Build();
     }
+
+    private async Task ClickAsync() => await OnClick.InvokeAsync();
 }
