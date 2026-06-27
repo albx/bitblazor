@@ -1,0 +1,33 @@
+﻿@namespace BitBlazor.Components
+
+<li>
+    <a href="@Href" class="@ComputeLinkCssClass()" disabled="@Disabled" @attributes="AdditionalAttributes" @onclick="ClickAsync" @onclick:preventDefault="@RendererInfo.IsInteractive" @onkeydown="OnKeyDownAsync">
+        @if (HasBadge)
+        {
+            <div class="badge-wrapper">
+                <span class="toolbar-badge">
+                    @if (IsToolbarSizeDefault)
+                    {
+                        @BadgeCount
+                    }
+                </span>
+                @if (Parent.Size is ToolbarSize.Medium or ToolbarSize.Small && HasBadgeLabel)
+                {
+                    @RenderBadgeLabel()
+                }
+            </div>
+        }
+        <BitIcon IconName="@IconName" />
+        <span class="@ComputeLabelCssClass()">
+            @Label
+            @if (Parent.Size is ToolbarSize.Default && HasBadgeLabel)
+            {
+                @RenderBadgeLabel()
+            }
+        </span>
+    </a>
+</li>
+
+@code {
+    private RenderFragment RenderBadgeLabel() => @<span class="visually-hidden">@BadgeLabel</span>;
+}

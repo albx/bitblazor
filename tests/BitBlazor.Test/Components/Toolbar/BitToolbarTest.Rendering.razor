@@ -1,0 +1,561 @@
+﻿@inherits BunitContext
+
+@code {
+    public BitToolbarTest_Rendering()
+    {
+        SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Default_Markup_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="toolbar-label">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="toolbar-label">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="toolbar-label">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="toolbar-label">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="toolbar-label">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Medium_Toolbar_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar Size="ToolbarSize.Medium">
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar toolbar-medium">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="visually-hidden">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="visually-hidden">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="visually-hidden">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="visually-hidden">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="visually-hidden">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Small_Toolbar_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar Size="ToolbarSize.Small">
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar toolbar-small">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="visually-hidden">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="visually-hidden">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="visually-hidden">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="visually-hidden">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="visually-hidden">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Disabled_Items_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Disabled="true" Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="toolbar-label">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="toolbar-label">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="toolbar-label">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="toolbar-label">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="disabled" disabled aria-disabled="true">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="toolbar-label">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Divider_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarDivider />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="toolbar-label">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="toolbar-label">images</span>
+                        </a>
+                    </li>
+                    <li class="toolbar-divider" role="separator" aria-orientation="vertical"></li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="toolbar-label">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="toolbar-label">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="toolbar-label">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Badges_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" BadgeCount="1" BadgeLabel="to read" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" BadgeCount="42" BadgeLabel="to view" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <div class="badge-wrapper"><span class="toolbar-badge">1</span></div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="toolbar-label">messages<span class="visually-hidden">to read</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="toolbar-label">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <div class="badge-wrapper"><span class="toolbar-badge">42</span></div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="toolbar-label">documents<span class="visually-hidden">to view</span></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="toolbar-label">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="toolbar-label">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Badges_On_Medium_Toolbar_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar Size="ToolbarSize.Medium">
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" BadgeLabel="There are 42 messages to read" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" BadgeLabel="There are 42 documents to view" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar toolbar-medium">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <div class="badge-wrapper">
+                                <span class="toolbar-badge"></span>
+                                <span class="visually-hidden">There are 42 messages to read</span>
+                            </div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="visually-hidden">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="visually-hidden">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <div class="badge-wrapper">
+                                <span class="toolbar-badge"></span>
+                                <span class="visually-hidden">There are 42 documents to view</span>
+                            </div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="visually-hidden">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="visually-hidden">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="visually-hidden">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Badges_On_Small_Toolbar_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar Size="ToolbarSize.Small">
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" BadgeLabel="There are new messages to read" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" BadgeLabel="There are new documents to view" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar toolbar-small">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <div class="badge-wrapper">
+                                <span class="toolbar-badge"></span>
+                                <span class="visually-hidden">There are new messages to read</span>
+                            </div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="visually-hidden">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="visually-hidden">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <div class="badge-wrapper">
+                                <span class="toolbar-badge"></span>
+                                <span class="visually-hidden">There are new documents to view</span>
+                            </div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="visually-hidden">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="visually-hidden">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="visually-hidden">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Theory]
+    [InlineData(ToolbarSize.Medium, "toolbar-medium")]
+    [InlineData(ToolbarSize.Small, "toolbar-small")]
+    public void BitToolbar_Should_Ignore_BadgeCount_If_Toolbar_Size_Is_Not_Default(ToolbarSize size, string sizeClass)
+    {
+        var component = Render(
+            @<BitToolbar Size="size">
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" BadgeCount="42" BadgeLabel="There are 42 messages to read" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" BadgeCount="42" BadgeLabel="There are 42 documents to view" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar @sizeClass">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <div class="badge-wrapper">
+                                <span class="toolbar-badge"></span>
+                                <span class="visually-hidden">There are 42 messages to read</span>
+                            </div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="visually-hidden">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="visually-hidden">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <div class="badge-wrapper">
+                                <span class="toolbar-badge"></span>
+                                <span class="visually-hidden">There are 42 documents to view</span>
+                            </div>
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="visually-hidden">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="visually-hidden">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="visually-hidden">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Vertical_Markup_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar Orientation="Orientation.Vertical">
+                <BitToolbarItem Active="true" Label="messages" IconName="@Icons.ItComment" />
+                <BitToolbarItem Label="images" IconName="@Icons.ItCamera" />
+                <BitToolbarItem Label="documents" IconName="@Icons.ItFile" />
+                <BitToolbarItem Label="privacy" IconName="@Icons.ItLocked" />
+                <BitToolbarItem Label="favourites" IconName="@Icons.ItStarOutline" />
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar toolbar-vertical">
+                <ul>
+                    <li>
+                        <a class="active">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                            <span class="toolbar-label">messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                            <span class="toolbar-label">images</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
+                            <span class="toolbar-label">documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
+                            <span class="toolbar-label">privacy</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="">
+                            <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
+                            <span class="toolbar-label">favourites</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Not_Render_Href_Attribute_When_Href_Is_Not_Set()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+            </BitToolbar>);
+
+        Assert.Null(component.Find("a").GetAttribute("href"));
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Href_Attribute_When_Href_Is_Provided()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" Href="/search" />
+            </BitToolbar>);
+
+        Assert.Equal("/search", component.Find("a").GetAttribute("href"));
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Apply_Custom_CssClass()
+    {
+        var component = Render(
+            @<BitToolbar CssClass="my-custom-toolbar">
+                <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+            </BitToolbar>);
+
+        Assert.True(component.Find("nav").ClassList.Contains("my-custom-toolbar"));
+    }
+}

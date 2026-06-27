@@ -110,6 +110,30 @@ This guide provides a quick overview of all BitBlazor components with basic exam
 </BitPagination>
 ```
 
+### Toolbar
+```razor
+<!-- Basic horizontal toolbar -->
+<BitToolbar>
+    <BitToolbarItem IconName="it-home" Label="Home" Href="/" />
+    <BitToolbarItem IconName="it-search" Label="Search" Href="/search" />
+    <BitToolbarItem IconName="it-settings" Label="Settings" Href="/settings" />
+</BitToolbar>
+
+<!-- With active item, disabled item, and divider -->
+<BitToolbar>
+    <BitToolbarItem IconName="it-home" Label="Home" Href="/" Active="true" />
+    <BitToolbarItem IconName="it-search" Label="Search" Href="/search" />
+    <BitToolbarDivider />
+    <BitToolbarItem IconName="it-lock" Label="Locked" Disabled="true" />
+</BitToolbar>
+
+<!-- Small vertical toolbar with badge -->
+<BitToolbar Size="ToolbarSize.Small" Orientation="Orientation.Vertical">
+    <BitToolbarItem IconName="it-mail" Label="Messages" BadgeCount="5" BadgeLabel="new" />
+    <BitToolbarItem IconName="it-bell" Label="Notifications" BadgeCount="3" />
+</BitToolbar>
+```
+
 ## Form Components
 
 ### BitTextField

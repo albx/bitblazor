@@ -76,6 +76,13 @@ Pagination control for navigating large data sets across multiple pages.
 - Optional jump-to-page input and total-items summary
 - Customizable previous/next buttons and alignment
 
+#### [Toolbar](components/toolbar.md)
+Navigation toolbar for grouping icon-based action items.
+- Horizontal and vertical orientations
+- Three size variants (default, medium, small)
+- Badge counts and labels on items
+- `BitToolbarDivider` sub-component for visual separation
+
 ### Form Components
 
 BitBlazor provides a comprehensive set of form components that integrate seamlessly with ASP.NET Core Blazor's form system and Bootstrap Italia styling.
