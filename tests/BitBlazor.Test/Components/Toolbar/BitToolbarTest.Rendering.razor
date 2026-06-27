@@ -1,6 +1,11 @@
 ﻿@inherits BunitContext
 
 @code {
+    public BitToolbarTest_Rendering()
+    {
+        SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+    }
+
     [Fact]
     public void BitToolbar_Should_Render_Default_Markup_Correctly()
     {
@@ -17,31 +22,31 @@
             @<nav class="toolbar">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
                             <span class="toolbar-label">messages</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="toolbar-label">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
                             <span class="toolbar-label">documents</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="toolbar-label">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="toolbar-label">favourites</span>
                         </a>
@@ -66,31 +71,31 @@
             @<nav class="toolbar toolbar-medium">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
                             <span class="visually-hidden">messages</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="visually-hidden">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
                             <span class="visually-hidden">documents</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="visually-hidden">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="visually-hidden">favourites</span>
                         </a>
@@ -115,31 +120,31 @@
             @<nav class="toolbar toolbar-small">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
                             <span class="visually-hidden">messages</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="visually-hidden">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
                             <span class="visually-hidden">documents</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="visually-hidden">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="visually-hidden">favourites</span>
                         </a>
@@ -164,31 +169,31 @@
             @<nav class="toolbar">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
                             <span class="toolbar-label">messages</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="toolbar-label">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
                             <span class="toolbar-label">documents</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="toolbar-label">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="disabled" disabled aria-disabled="true">
+                        <a class="disabled" disabled aria-disabled="true">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="toolbar-label">favourites</span>
                         </a>
@@ -214,32 +219,32 @@
             @<nav class="toolbar">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
                             <span class="toolbar-label">messages</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="toolbar-label">images</span>
                         </a>
                     </li>
                     <li class="toolbar-divider" role="separator" aria-orientation="vertical"></li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
                             <span class="toolbar-label">documents</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="toolbar-label">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="toolbar-label">favourites</span>
                         </a>
@@ -264,33 +269,33 @@
             @<nav class="toolbar">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <div class="badge-wrapper"><span class="toolbar-badge">1</span></div>
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
                             <span class="toolbar-label">messages<span class="visually-hidden">to read</span></span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="toolbar-label">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <div class="badge-wrapper"><span class="toolbar-badge">42</span></div>
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
                             <span class="toolbar-label">documents<span class="visually-hidden">to view</span></span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="toolbar-label">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="toolbar-label">favourites</span>
                         </a>
@@ -315,7 +320,7 @@
             @<nav class="toolbar toolbar-medium">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <div class="badge-wrapper">
                                 <span class="toolbar-badge"></span>
                                 <span class="visually-hidden">There are 42 messages to read</span>
@@ -325,13 +330,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="visually-hidden">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <div class="badge-wrapper">
                                 <span class="toolbar-badge"></span>
                                 <span class="visually-hidden">There are 42 documents to view</span>
@@ -341,13 +346,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="visually-hidden">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="visually-hidden">favourites</span>
                         </a>
@@ -372,7 +377,7 @@
             @<nav class="toolbar toolbar-small">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <div class="badge-wrapper">
                                 <span class="toolbar-badge"></span>
                                 <span class="visually-hidden">There are new messages to read</span>
@@ -382,13 +387,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="visually-hidden">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <div class="badge-wrapper">
                                 <span class="toolbar-badge"></span>
                                 <span class="visually-hidden">There are new documents to view</span>
@@ -398,13 +403,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="visually-hidden">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="visually-hidden">favourites</span>
                         </a>
@@ -431,7 +436,7 @@
             @<nav class="toolbar @sizeClass">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <div class="badge-wrapper">
                                 <span class="toolbar-badge"></span>
                                 <span class="visually-hidden">There are 42 messages to read</span>
@@ -441,13 +446,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="visually-hidden">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <div class="badge-wrapper">
                                 <span class="toolbar-badge"></span>
                                 <span class="visually-hidden">There are 42 documents to view</span>
@@ -457,13 +462,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="visually-hidden">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="visually-hidden">favourites</span>
                         </a>
@@ -488,36 +493,58 @@
             @<nav class="toolbar toolbar-vertical">
                 <ul>
                     <li>
-                        <a href="#" class="active">
+                        <a class="active">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
                             <span class="toolbar-label">messages</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
                             <span class="toolbar-label">images</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg>
                             <span class="toolbar-label">documents</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-locked"></use></svg>
                             <span class="toolbar-label">privacy</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="">
+                        <a class="">
                             <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg>
                             <span class="toolbar-label">favourites</span>
                         </a>
                     </li>
                 </ul>
             </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Not_Render_Href_Attribute_When_Href_Is_Not_Set()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+            </BitToolbar>);
+
+        Assert.Null(component.Find("a").GetAttribute("href"));
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Href_Attribute_When_Href_Is_Provided()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" Href="/search" />
+            </BitToolbar>);
+
+        Assert.Equal("/search", component.Find("a").GetAttribute("href"));
     }
 }

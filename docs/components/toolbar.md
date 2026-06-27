@@ -10,7 +10,9 @@ BitBlazor.Components
 
 ## Description
 
-The Toolbar component provides a navigation bar for grouping and displaying icon-based action items. It supports horizontal and vertical orientations, three size variants, optional badge counts, and a divider sub-component. Items link to a URL and support an active and a disabled state.
+The Toolbar component provides a navigation bar for grouping and displaying icon-based action items. It supports horizontal and vertical orientations, three size variants, optional badge counts, and a divider sub-component. Items support an active and a disabled state, and are compatible with both static (SSR) and interactive rendering modes.
+
+Each `BitToolbarItem` can be used as a navigation link (via `Href`), a click handler (via `OnClick`), or both at the same time. When both are provided, `OnClick` takes precedence in interactive rendering while `Href` remains available for browser-native behaviors such as right-click → Open in new tab and Ctrl+Click. In static SSR rendering, `Href` is the only navigation mechanism.
 
 ## Components
 
@@ -37,12 +39,12 @@ The Toolbar component provides a navigation bar for grouping and displaying icon
 |------|------|----------|---------|-------------|
 | `Label` | `string` | ✓ | - | The visible label text for the item |
 | `IconName` | `string` | ✓ | - | The Bootstrap Italia icon name to display |
-| `Href` | `string` | ✗ | `"#"` | The URL the item links to |
+| `Href` | `string?` | ✗ | `null` | The URL the item links to. In SSR rendering the browser follows this URL on click. In interactive rendering it is a navigation fallback when `OnClick` has no delegate, and a secondary browser target (right-click, Ctrl+Click) when `OnClick` is set. |
 | `Active` | `bool` | ✗ | `false` | When `true`, applies the active style to the item |
 | `Disabled` | `bool` | ✗ | `false` | When `true`, disables the item and adds `aria-disabled="true"` |
 | `BadgeCount` | `int?` | ✗ | `null` | A numeric badge count shown on the item; hidden when `null` or `0` |
 | `BadgeLabel` | `string?` | ✗ | `null` | A text label shown next to the badge; displayed in different positions depending on `Size` |
-| `OnClick` | `EventCallback` | ✗ | - | Callback invoked when the item is clicked |
+| `OnClick` | `EventCallback` | ✗ | - | Primary interactive callback invoked when the item is clicked. Takes precedence over `Href` navigation in interactive rendering. Not invoked during static (SSR) rendering — provide `Href` as a navigation fallback for SSR contexts. |
 | `Id` | `string?` | ✗ | `null` | Sets the `id` HTML attribute on the root element |
 | `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply to the item |
 | `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes forwarded to the root element |
@@ -147,6 +149,35 @@ The Toolbar component provides a navigation bar for grouping and displaying icon
 @code {
     private void HandleDownload() { /* ... */ }
     private void HandleDelete() { /* ... */ }
+}
+```
+
+### Navigation items (SSR-compatible)
+
+When only `Href` is provided the item works as a plain navigation link in both SSR and interactive rendering.
+
+```razor
+<BitToolbar>
+    <BitToolbarItem IconName="it-home" Label="Home" Href="/" />
+    <BitToolbarItem IconName="it-search" Label="Search" Href="/search" />
+    <BitToolbarDivider />
+    <BitToolbarItem IconName="it-settings" Label="Settings" Href="/settings" />
+</BitToolbar>
+```
+
+### Mixed mode (OnClick takes precedence)
+
+When both `Href` and `OnClick` are provided, `OnClick` handles the primary click in interactive rendering. `Href` is still rendered on the `<a>` element so that right-click → Open in new tab and Ctrl+Click continue to work.
+
+```razor
+<BitToolbar>
+    <BitToolbarItem IconName="it-home" Label="Home" Href="/" OnClick="HandleHome" />
+    <BitToolbarItem IconName="it-search" Label="Search" Href="/search" OnClick="HandleSearch" />
+</BitToolbar>
+
+@code {
+    private void HandleHome() { /* custom SPA navigation or analytics */ }
+    private void HandleSearch() { /* open search panel */ }
 }
 ```
 

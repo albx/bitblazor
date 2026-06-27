@@ -170,10 +170,10 @@ else
         _                => Color.Secondary
     };
 
-    private Task NuovaPraticaAsync()
+    private async Task NuovaPraticaAsync()
     {
         _activeToolbarItem = _activeToolbarItem == "nuova-pratica" ? null : "nuova-pratica";
-        return Task.CompletedTask;
+        await InvokeAsync(StateHasChanged);
     }
 
     private Task ScaricaAsync()

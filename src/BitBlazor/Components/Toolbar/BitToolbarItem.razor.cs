@@ -11,6 +11,9 @@ public partial class BitToolbarItem
     [CascadingParameter]
     BitToolbar Parent { get; set; } = default!;
 
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
     /// <summary>
     /// Gets or sets the label for the toolbar item.
     /// </summary>
@@ -26,11 +29,14 @@ public partial class BitToolbarItem
     public string IconName { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the URL that the toolbar item should link to. 
-    /// If not specified, the item will default to a "#" link.
+    /// Gets or sets the URL that the toolbar item should link to.
+    /// In SSR rendering, the browser follows this URL directly on click.
+    /// In interactive rendering, this URL is used as a navigation fallback when <see cref="OnClick"/> has no delegate,
+    /// and as a secondary browser behavior target (right-click, Ctrl+Click) when <see cref="OnClick"/> is set.
+    /// When both <see cref="Href"/> and <see cref="OnClick"/> are set, <see cref="OnClick"/> takes precedence for primary interaction.
     /// </summary>
     [Parameter]
-    public string Href { get; set; } = "#";
+    public string? Href { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the toolbar item is active. When set to true, the item will be styled as active.
@@ -57,8 +63,9 @@ public partial class BitToolbarItem
     public string? BadgeLabel { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback to be invoked when the toolbar item is clicked. 
-    /// This allows for custom behavior to be defined when the item is interacted with.
+    /// Gets or sets the primary interactive callback, invoked when the toolbar item is clicked.
+    /// When set, it takes precedence over <see cref="Href"/> navigation in interactive rendering.
+    /// Not invoked during static (SSR) rendering — provide <see cref="Href"/> as a navigation fallback for SSR contexts.
     /// </summary>
     [Parameter]
     public EventCallback OnClick { get; set; }
@@ -123,5 +130,18 @@ public partial class BitToolbarItem
         return builder.Build();
     }
 
-    private async Task ClickAsync() => await OnClick.InvokeAsync();
+    private async Task ClickAsync()
+    {
+        if (Disabled)
+            return;
+
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+        else if (Href is not null)
+        {
+            NavigationManager.NavigateTo(Href);
+        }
+    }
 }
