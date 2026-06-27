@@ -2,7 +2,7 @@
 
 @inherits BitComponentBase
 
-<nav class="@ComputeContainerCssClass()">
+<nav class="@ComputeContainerCssClass()" @attributes="AdditionalAttributes">
     <ul>
         <CascadingValue Value="this">
             @ChildContent

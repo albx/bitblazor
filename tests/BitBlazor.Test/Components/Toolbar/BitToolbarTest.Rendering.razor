@@ -547,4 +547,15 @@
 
         Assert.Equal("/search", component.Find("a").GetAttribute("href"));
     }
+
+    [Fact]
+    public void BitToolbar_Should_Apply_Custom_CssClass()
+    {
+        var component = Render(
+            @<BitToolbar CssClass="my-custom-toolbar">
+                <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+            </BitToolbar>);
+
+        Assert.True(component.Find("nav").ClassList.Contains("my-custom-toolbar"));
+    }
 }

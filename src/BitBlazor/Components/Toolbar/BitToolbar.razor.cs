@@ -10,7 +10,8 @@ public partial class BitToolbar : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the content to be rendered inside the toolbar. 
-    /// This can include one or more <see cref="BitToolbarItem"/> components.
+    /// This can include one or more <see cref="BitToolbarItem"/> components,
+    /// optionally separated by <see cref="BitToolbarDivider"/> components.
     /// </summary>
     [Parameter]
     [EditorRequired]

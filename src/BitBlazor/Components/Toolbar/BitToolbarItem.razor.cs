@@ -1,5 +1,6 @@
 using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BitBlazor.Components;
 
@@ -70,6 +71,12 @@ public partial class BitToolbarItem
     [Parameter]
     public EventCallback OnClick { get; set; }
 
+    /// <summary>
+    /// Gets or sets additional attributes that do not match any of the explicitly defined parameters.
+    /// </summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public IDictionary<string, object> AdditionalAttributes { get; set; } = new Dictionary<string, object>();
+
     private bool HasBadgeNumber => BadgeCount.HasValue && BadgeCount.Value > 0;
 
     private bool HasBadgeLabel => !string.IsNullOrWhiteSpace(BadgeLabel);
@@ -77,8 +84,6 @@ public partial class BitToolbarItem
     private bool HasBadge => HasBadgeNumber || HasBadgeLabel;
 
     private bool IsToolbarSizeDefault => Parent.Size is ToolbarSize.Default;
-
-    private IDictionary<string, object> attributes = new Dictionary<string, object>();
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
@@ -90,11 +95,11 @@ public partial class BitToolbarItem
     {
         if (Disabled)
         {
-            attributes["aria-disabled"] = "true";
+            AdditionalAttributes["aria-disabled"] = "true";
         }
         else
         {
-            attributes.Remove("aria-disabled");
+            AdditionalAttributes.Remove("aria-disabled");
         }
     }
 
@@ -142,6 +147,14 @@ public partial class BitToolbarItem
         else if (Href is not null)
         {
             NavigationManager.NavigateTo(Href);
+        }
+    }
+
+    private async Task OnKeyDownAsync(KeyboardEventArgs args)
+    {
+        if (args.Key is "Enter" or " ")
+        {
+            await ClickAsync();
         }
     }
 }

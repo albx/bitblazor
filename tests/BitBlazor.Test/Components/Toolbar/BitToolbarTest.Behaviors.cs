@@ -2,6 +2,7 @@
 using BitBlazor.Utilities;
 using Bunit;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BitBlazor.Test.Components.Toolbar;
@@ -126,5 +127,75 @@ public class BitToolbarTest
 
         Assert.True(clicked);
         Assert.Equal(initialUri, navManager.Uri);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Activate_Item_On_Enter_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        bool clicked = false;
+        Action onItemClick = () => clicked = true;
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarItem>(childParameters =>
+            {
+                childParameters.Add(p => p.Label, "Item 1");
+                childParameters.Add(p => p.IconName, Icons.ItComment);
+                childParameters.Add(p => p.OnClick, onItemClick);
+            })
+        );
+
+        cut.Find("a").KeyDown(new KeyboardEventArgs { Key = "Enter" });
+
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Activate_Item_On_Space_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        bool clicked = false;
+        Action onItemClick = () => clicked = true;
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarItem>(childParameters =>
+            {
+                childParameters.Add(p => p.Label, "Item 1");
+                childParameters.Add(p => p.IconName, Icons.ItComment);
+                childParameters.Add(p => p.OnClick, onItemClick);
+            })
+        );
+
+        cut.Find("a").KeyDown(new KeyboardEventArgs { Key = " " });
+
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Not_Activate_Item_On_Key_When_Disabled()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        bool clicked = false;
+        Action onItemClick = () => clicked = true;
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarItem>(childParameters =>
+            {
+                childParameters.Add(p => p.Label, "Item 1");
+                childParameters.Add(p => p.IconName, Icons.ItComment);
+                childParameters.Add(p => p.Disabled, true);
+                childParameters.Add(p => p.OnClick, onItemClick);
+            })
+        );
+
+        cut.Find("a").KeyDown(new KeyboardEventArgs { Key = "Enter" });
+
+        Assert.False(clicked);
     }
 }
