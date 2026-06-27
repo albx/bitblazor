@@ -12,7 +12,7 @@ BitBlazor.Components
 
 The Toolbar component provides a navigation bar for grouping and displaying icon-based action items. It supports horizontal and vertical orientations, three size variants, optional badge counts, and a divider sub-component. Items support an active and a disabled state, and are compatible with both static (SSR) and interactive rendering modes.
 
-Each `BitToolbarItem` can be used as a navigation link (via `Href`), a click handler (via `OnClick`), or both at the same time. When both are provided, `OnClick` takes precedence in interactive rendering while `Href` remains available for browser-native behaviors such as right-click → Open in new tab and Ctrl+Click. In static SSR rendering, `Href` is the only navigation mechanism.
+Each `BitToolbarItem` can be used as a navigation link (via `Href`), a click handler (via `OnClick`), or both at the same time. When both are provided, `OnClick` takes precedence in interactive rendering while `Href` remains available for browser-native behaviors such as right-click → Open in new tab. In static SSR rendering, `Href` is the only navigation mechanism.
 
 ## Components
 
@@ -167,7 +167,7 @@ When only `Href` is provided the item works as a plain navigation link in both S
 
 ### Mixed mode (OnClick takes precedence)
 
-When both `Href` and `OnClick` are provided, `OnClick` handles the primary click in interactive rendering. `Href` is still rendered on the `<a>` element so that right-click → Open in new tab and Ctrl+Click continue to work.
+When both `Href` and `OnClick` are provided, `OnClick` handles the primary click in interactive rendering. `Href` is still rendered on the `<a>` element so that right-click → Open in new tab continues to work.
 
 ```razor
 <BitToolbar>
