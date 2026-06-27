@@ -14,6 +14,31 @@
     </p>
 </div>
 
+<!-- Azioni rapide -->
+<div class="mb-3">
+    <BitToolbar>
+        <BitToolbarItem IconName="@Icons.ItPlusCircle"
+                        Label="Nuova Pratica"
+                        Active="@(_activeToolbarItem == "nuova-pratica")"
+                        OnClick="NuovaPraticaAsync" />
+        <BitToolbarItem IconName="@Icons.ItDownload"
+                        Label="Scarica"
+                        BadgeCount="3"
+                        BadgeLabel="in scadenza"
+                        Active="@(_activeToolbarItem == "scarica")"
+                        OnClick="ScaricaAsync" />
+        <BitToolbarItem IconName="@Icons.ItPrint"
+                        Label="Stampa"
+                        Active="@(_activeToolbarItem == "stampa")"
+                        OnClick="StampaAsync" />
+        <BitToolbarDivider />
+        <BitToolbarItem IconName="@Icons.ItSettings"
+                        Label="Impostazioni"
+                        Active="@(_activeToolbarItem == "impostazioni")"
+                        OnClick="ImpostazioniAsync" />
+    </BitToolbar>
+</div>
+
 <!-- Filtri stato -->
 <div class="d-flex flex-wrap gap-2 mb-4" role="group" aria-label="Filtra per stato">
     @foreach (var filtro in StatiFiltro)
@@ -103,6 +128,7 @@ else
 
     private int currentPage = 1;
     private string? statoFiltroAttivo;
+    private string? _activeToolbarItem;
     private PraticheResult? result;
     private int totalPages;
 
@@ -143,4 +169,28 @@ else
         "In Attesa"      => Color.Warning,
         _                => Color.Secondary
     };
+
+    private Task NuovaPraticaAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "nuova-pratica" ? null : "nuova-pratica";
+        return Task.CompletedTask;
+    }
+
+    private Task ScaricaAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "scarica" ? null : "scarica";
+        return Task.CompletedTask;
+    }
+
+    private Task StampaAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "stampa" ? null : "stampa";
+        return Task.CompletedTask;
+    }
+
+    private Task ImpostazioniAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "impostazioni" ? null : "impostazioni";
+        return Task.CompletedTask;
+    }
 }
