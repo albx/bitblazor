@@ -86,6 +86,15 @@ public partial class BitToolbarItem
     private bool IsToolbarSizeDefault => Parent.Size is ToolbarSize.Default;
 
     /// <inheritdoc/>
+    protected override void OnInitialized()
+    {
+        if (Parent is null)
+        {
+            throw new InvalidOperationException("BitToolbarItem component must be used inside a BitToolbar component");
+        }
+    }
+
+    /// <inheritdoc/>
     protected override void OnParametersSet()
     {
         SetDisabled();

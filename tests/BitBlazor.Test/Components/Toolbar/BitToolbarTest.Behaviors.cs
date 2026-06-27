@@ -198,4 +198,30 @@ public class BitToolbarTest
 
         Assert.False(clicked);
     }
+
+    [Fact]
+    public void BitToolbarItem_Should_Throw_InvalidOperationException_When_Used_Outside_BitToolbar()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            ctx.Render<BitToolbarItem>(parameters => parameters
+                .Add(p => p.Label, "Item 1")
+                .Add(p => p.IconName, Icons.ItComment)));
+
+        Assert.Equal("BitToolbarItem component must be used inside a BitToolbar component", exception.Message);
+    }
+
+    [Fact]
+    public void BitToolbarDivider_Should_Throw_InvalidOperationException_When_Used_Outside_BitToolbar()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            ctx.Render<BitToolbarDivider>());
+
+        Assert.Equal("BitToolbarDivider component must be used inside a BitToolbar component", exception.Message);
+    }
 }
