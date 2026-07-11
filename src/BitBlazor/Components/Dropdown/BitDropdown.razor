@@ -1,0 +1,24 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<div class="@ComputeDropdownContainerClass()">
+    @DefaultActivator
+    <div class="@ComputeDropdownMenuClass()" aria-labelledby="@Id">
+        <div class="link-list-wrapper">
+            <ul class="link-list">
+                <CascadingValue Value="this">
+                    @ChildContent
+                </CascadingValue>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RenderFragment DefaultActivator => 
+        @<button class="btn btn-dropdown dropdown-toggle" type="button" id="@Id" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="@AriaExpanded" @onclick="@state.Toggle">
+            @ActivatorLabel
+            <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Primary" Size="IconSize.Small" CssClass="icon-expand" />
+        </button>;
+}

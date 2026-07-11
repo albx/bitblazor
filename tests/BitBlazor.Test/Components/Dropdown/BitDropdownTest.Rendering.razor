@@ -1,0 +1,37 @@
+﻿@inherits BunitContext
+
+@code {
+    [Fact]
+    public void BitDropdown_Should_Render_Default_Markup_Correctly()
+    {
+        var component = Render(
+            @<BitDropdown Id="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a href="#" class="dropdown-item list-item"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item list-item"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item list-item"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+}
