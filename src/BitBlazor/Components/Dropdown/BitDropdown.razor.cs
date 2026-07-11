@@ -22,17 +22,41 @@ public partial class BitDropdown : BitComponentBase
     [Parameter]
     public string ActivatorLabel { get; set; } = string.Empty;
 
-    private DropdownState state = new();
+    /// <summary>
+    /// Gets or sets the position of the dropdown menu relative to its toggle button. 
+    /// </summary>
+    /// <remarks>
+    /// The default value is <see cref="DropdownPosition.Down"/>, which positions the menu below the button.
+    /// Other options include <see cref="DropdownPosition.Up"/>, <see cref="DropdownPosition.End"/>, and <see cref="DropdownPosition.Start"/>.
+    /// </remarks>
+    [Parameter]
+    public DropdownPosition Position { get; set; } = DropdownPosition.Down;
+
+    private readonly DropdownState state = new();
 
     private string AriaExpanded => state.IsOpen ? "true" : "false";
 
     private string ComputeDropdownContainerClass()
     {
         var builder = new CssClassBuilder("dropdown");
+        AddPositionClass(builder);
 
         AddCustomCssClass(builder);
 
         return builder.Build();
+    }
+
+    private void AddPositionClass(CssClassBuilder builder)
+    {
+        var positionClass = Position switch
+        {
+            DropdownPosition.Up => "dropup",
+            DropdownPosition.End => "dropend",
+            DropdownPosition.Start => "dropstart",
+            _ => string.Empty
+        };
+
+        builder.Add(positionClass);
     }
 
     private string ComputeDropdownMenuClass()

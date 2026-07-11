@@ -17,7 +17,7 @@
 
 @code {
     private RenderFragment DefaultActivator => 
-        @<button class="btn btn-dropdown dropdown-toggle" type="button" id="@Id" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="@AriaExpanded" @onclick="@state.Toggle">
+        @<button class="btn btn-dropdown dropdown-toggle" type="button" id="@Id" aria-haspopup="true" aria-expanded="@AriaExpanded" @onclick="@state.Toggle">
             @ActivatorLabel
             <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Primary" Size="IconSize.Small" CssClass="icon-expand" />
         </button>;
