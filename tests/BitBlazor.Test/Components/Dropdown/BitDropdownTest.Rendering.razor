@@ -5,7 +5,7 @@
     public void BitDropdown_Should_Render_Default_Markup_Correctly()
     {
         var component = Render(
-            @<BitDropdown Id="dropdownMenu" ActivatorLabel="Open">
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
                 <BitDropdownItem><span>Action 1</span></BitDropdownItem>
                 <BitDropdownItem><span>Action 2</span></BitDropdownItem>
                 <BitDropdownItem><span>Action 3</span></BitDropdownItem>
@@ -17,7 +17,7 @@
                     Open
                     <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu" data-bs-popper="static">
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
@@ -35,6 +35,33 @@
             </div>);
     }
 
+    [Fact]
+    public void BitDropdown_Should_Render_Custom_CssClass_On_Root()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" CssClass="my-custom">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var root = component.Find("div");
+        Assert.Contains("my-custom", root.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Update_AriaExpanded_On_Toggle()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var button = component.Find("button");
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+
+        button.Click();
+        Assert.Equal("true", button.GetAttribute("aria-expanded"));
+    }
+
     [Theory]
     [InlineData(DropdownPosition.Down, "")]
     [InlineData(DropdownPosition.Up, "dropup")]
@@ -43,7 +70,7 @@
     public void BitDropdown_Should_Render_Correct_Position(DropdownPosition position, string expectedClass)
     {
         var component = Render(
-            @<BitDropdown Id="dropdownMenu" ActivatorLabel="Open" Position="@position">
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" Position="@position">
                 <BitDropdownItem><span>Action 1</span></BitDropdownItem>
                 <BitDropdownItem><span>Action 2</span></BitDropdownItem>
                 <BitDropdownItem><span>Action 3</span></BitDropdownItem>
@@ -55,7 +82,7 @@
                     Open
                     <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu" data-bs-popper="static">
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>

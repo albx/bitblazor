@@ -2,9 +2,9 @@
 
 @inherits BitComponentBase
 
-<div class="@ComputeDropdownContainerClass()">
+<div class="@ComputeDropdownContainerClass()" @attributes="AdditionalAttributes">
     @DefaultActivator
-    <div class="@ComputeDropdownMenuClass()" aria-labelledby="@Id">
+    <div class="@ComputeDropdownMenuClass()" aria-labelledby="@ActivatorId" data-bs-popper="static" @attributes="dropdownMenuAttributes">
         <div class="link-list-wrapper">
             <ul class="link-list">
                 <CascadingValue Value="this">
@@ -17,7 +17,7 @@
 
 @code {
     private RenderFragment DefaultActivator => 
-        @<button class="btn btn-dropdown dropdown-toggle" type="button" id="@Id" aria-haspopup="true" aria-expanded="@AriaExpanded" @onclick="@state.Toggle">
+        @<button class="btn btn-dropdown dropdown-toggle" type="button" id="@ActivatorId" aria-haspopup="true" aria-expanded="@AriaExpanded" @onclick="@state.Toggle">
             @ActivatorLabel
             <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Primary" Size="IconSize.Small" CssClass="icon-expand" />
         </button>;
