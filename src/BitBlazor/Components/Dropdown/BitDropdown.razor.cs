@@ -1,4 +1,3 @@
-using BitBlazor.Components.Dropdown;
 using BitBlazor.Core;
 using Microsoft.AspNetCore.Components;
 
@@ -7,14 +6,14 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents a dropdown component that can be used to display a list of options or actions in a collapsible menu.
 /// </summary>
-public partial class BitDropdown : BitComponentBase, IDisposable
+public partial class BitDropdown : BitComponentBase
 {
     /// <summary>
     /// Gets or sets the content to be rendered inside the dropdown. This content can include a list of <see cref="BitDropdownItem"/> components.
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public RenderFragment ChildContent { get; set; }
+    public RenderFragment ChildContent { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the label for the dropdown activator button. This label is displayed on the button that triggers the dropdown menu.
@@ -31,6 +30,12 @@ public partial class BitDropdown : BitComponentBase, IDisposable
     public string ActivatorId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets a custom template for the dropdown activator button.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ActivatorContext>? ActivatorTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the position of the dropdown menu relative to its toggle button. 
     /// </summary>
     /// <remarks>
@@ -40,23 +45,37 @@ public partial class BitDropdown : BitComponentBase, IDisposable
     [Parameter]
     public DropdownPosition Position { get; set; } = DropdownPosition.Down;
 
-    private readonly DropdownState state = new();
-    private bool disposedValue;
+    private RenderFragment<ActivatorContext> RenderedActivator => ActivatorTemplate ?? DefaultActivator;
 
-    private string AriaExpanded => state.IsOpen ? "true" : "false";
+    private bool isOpen;
+
+    private string AriaExpanded => isOpen ? "true" : "false";
 
     private IDictionary<string, object> dropdownMenuAttributes = new Dictionary<string, object>();
 
-    /// <inheritdoc/>
-    protected override void OnInitialized()
+    private readonly ActivatorContext activatorContext;
+
+
+    /// <summary>
+    /// Constructs a new instance of the <see cref="BitDropdown"/> component and initializes the activator context.
+    /// </summary>
+    public BitDropdown()
     {
-        base.OnInitialized();
-        state.StateChanged += OnDropdownStateChanged;
+        activatorContext = new(this);
     }
 
-    private void OnDropdownStateChanged(object? sender, DropdownState.DropdownStateChangedEventArgs e)
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
     {
-        if (e.IsOpen)
+        base.OnParametersSet();
+        activatorContext.ActivatorId = ActivatorId;
+        activatorContext.ActivatorLabel = ActivatorLabel;
+    }
+
+    internal void Toggle()
+    {
+        isOpen = !isOpen;
+        if (isOpen)
         {
             dropdownMenuAttributes["data-popper-placement"] = Position switch
             {
@@ -65,13 +84,14 @@ public partial class BitDropdown : BitComponentBase, IDisposable
                 DropdownPosition.Start => "left-start",
                 _ => "bottom-start"
             };
+
+            activatorContext.Attributes["aria-expanded"] = "true";
         }
         else
         {
             dropdownMenuAttributes.Remove("data-popper-placement");
+            activatorContext.Attributes["aria-expanded"] = "false";
         }
-
-        InvokeAsync(StateHasChanged);
     }
 
     private string ComputeDropdownContainerClass()
@@ -101,37 +121,11 @@ public partial class BitDropdown : BitComponentBase, IDisposable
     {
         var builder = new CssClassBuilder("dropdown-menu");
 
-        if (state.IsOpen)
+        if (isOpen)
         {
             builder.Add("show");
         }
 
         return builder.Build();
     }
-
-    #region IDisposable implementation
-    /// <summary>
-    /// Disposes of the resources used by the <see cref="BitDropdown"/> component. 
-    /// This method is called when the component is no longer needed and is being removed from the UI.
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (!disposedValue)
-        {
-            if (disposing)
-            {
-                state.StateChanged -= OnDropdownStateChanged;
-            }
-
-            disposedValue = true;
-        }
-    }
-
-    void IDisposable.Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }
