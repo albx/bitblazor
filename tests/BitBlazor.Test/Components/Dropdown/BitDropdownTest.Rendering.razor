@@ -319,4 +319,40 @@
                 </div>
             </div>);
     }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Menu_Full_Width_Correctly()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" MenuWidth="DropdownMenuWidth.Full">
+                <ChildContent>
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </ChildContent>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu full-width" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
 }

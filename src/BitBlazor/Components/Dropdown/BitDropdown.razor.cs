@@ -53,6 +53,12 @@ public partial class BitDropdown : BitComponentBase
     public DropdownMenuColor MenuColor { get; set; } = DropdownMenuColor.Default;
 
     /// <summary>
+    /// Gets or sets the width of the dropdown menu.
+    /// </summary>
+    [Parameter]
+    public DropdownMenuWidth MenuWidth { get; set; } = DropdownMenuWidth.Default;
+
+    /// <summary>
     /// Gets or sets the size of the dropdown items. 
     /// This property allows developers to specify the visual size of individual items within the dropdown menu.
     /// </summary>
@@ -147,18 +153,30 @@ public partial class BitDropdown : BitComponentBase
         }
 
         AddDropdownMenuColorCssClass(builder);
+        AddDropdownMenuWidthCssClass(builder);
 
         return builder.Build();
     }
 
+    private void AddDropdownMenuWidthCssClass(CssClassBuilder builder)
+    {
+        var widthClass = MenuWidth switch
+        {
+            DropdownMenuWidth.Full => "full-width",
+            _ => string.Empty
+        };
+
+        builder.Add(widthClass);
+    }
+
     private void AddDropdownMenuColorCssClass(CssClassBuilder builder)
     {
-        var color = MenuColor switch
+        var colorClass = MenuColor switch
         {
             DropdownMenuColor.Dark => "dark",
             _ => string.Empty
         };
 
-        builder.Add(color);
+        builder.Add(colorClass);
     }
 }

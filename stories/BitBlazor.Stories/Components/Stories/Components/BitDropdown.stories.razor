@@ -5,7 +5,9 @@
     <ArgType For="_ => _.ActivatorLabel" DefaultValue="@("Open")" />
     <ArgType For="_ => _.Position" DefaultValue="@DropdownPosition.Down" Control="ControlType.Select" />
     <ArgType For="_ => _.MenuColor" DefaultValue="@DropdownMenuColor.Default" Control="ControlType.Select" />
+    <ArgType For="_ => _.MenuWidth" DefaultValue="@DropdownMenuWidth.Default" Control="ControlType.Select" />
     <ArgType For="_ => _.ItemSize" DefaultValue="@DropdownItemSize.Default" Control="ControlType.Select" />
+    <ArgType For="_ => _.CssClass" />
 
     <Story Name="Default">
         <Arguments>
@@ -13,12 +15,14 @@
             <Arg For="_ => _.ActivatorLabel" Value="@("Open")" />
             <Arg For="_ => _.Position" Value="DropdownPosition.Down" />
             <Arg For="_ => _.MenuColor" Value="DropdownMenuColor.Default" />
+            <Arg For="_ => _.MenuWidth" Value="DropdownMenuWidth.Default" />
             <Arg For="_ => _.ItemSize" Value="DropdownItemSize.Default" />
+            <Arg For="_ => _.CssClass" />
         </Arguments>
 
         <Template>
             <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
-                <BitDropdown @attributes="context.Args" CssClass="text-center">
+                <BitDropdown @attributes="context.Args">
                     <BitDropdownItem><span>Action 1</span></BitDropdownItem>
                     <BitDropdownItem><span>Action 2</span></BitDropdownItem>
                     <BitDropdownItem><span>Action 3</span></BitDropdownItem>
@@ -138,6 +142,18 @@
                     <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
                     <BitDropdownItem Disabled="true"><span>Disabled Item 2</span></BitDropdownItem>
                     <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Full width menu">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown CssClass="w-100" ActivatorId="darkMenuDropdown" ActivatorLabel="Open" MenuWidth="DropdownMenuWidth.Full">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
                 </BitDropdown>
             </div>
         </Template>
