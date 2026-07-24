@@ -84,6 +84,61 @@ This guide provides a quick overview of all BitBlazor components with basic exam
 </BitCard>
 ```
 
+### Pagination
+```razor
+<!-- Basic pagination with two-way binding -->
+<BitPagination NumberOfPages="10"
+               Description="Navigate pages"
+               @bind-Page="currentPage" />
+
+<!-- Centered, with ellipsis -->
+<BitPagination NumberOfPages="50"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               Alignment="PaginationAlignment.Center"
+               PageRangeSize="2" />
+
+<!-- Simple mode -->
+<BitPagination NumberOfPages="20"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               ViewMode="PaginationViewMode.Simple" />
+
+<!-- With jump-to-page and total summary -->
+<BitPagination NumberOfPages="10"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               ShowJumpToPage="true">
+    <TotalItemsTemplate>
+        Results @((currentPage - 1) * 10 + 1)–@(currentPage * 10) of 100
+    </TotalItemsTemplate>
+</BitPagination>
+```
+
+### Toolbar
+```razor
+<!-- Basic horizontal toolbar -->
+<BitToolbar>
+    <BitToolbarItem IconName="it-home" Label="Home" Href="/" />
+    <BitToolbarItem IconName="it-search" Label="Search" Href="/search" />
+    <BitToolbarItem IconName="it-settings" Label="Settings" Href="/settings" />
+</BitToolbar>
+
+<!-- With active item, disabled item, and divider -->
+<BitToolbar>
+    <BitToolbarItem IconName="it-home" Label="Home" Href="/" Active="true" />
+    <BitToolbarItem IconName="it-search" Label="Search" Href="/search" />
+    <BitToolbarDivider />
+    <BitToolbarItem IconName="it-lock" Label="Locked" Disabled="true" />
+</BitToolbar>
+
+<!-- Small vertical toolbar with badge -->
+<BitToolbar Size="ToolbarSize.Small" Orientation="Orientation.Vertical">
+    <BitToolbarItem IconName="it-mail" Label="Messages" BadgeCount="5" BadgeLabel="new" />
+    <BitToolbarItem IconName="it-bell" Label="Notifications" BadgeCount="3" />
+</BitToolbar>
+```
+
 ## Form Components
 
 ### BitTextField

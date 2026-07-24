@@ -1,0 +1,196 @@
+@page "/pratiche"
+@rendermode InteractiveServer
+
+@inject IPraticheService PraticheService
+
+<PageTitle>Le Mie Pratiche — Comune di Bitopoli</PageTitle>
+
+<BitBreadcrumb Items="@breadcrumbItems" />
+
+<div class="mt-3 mb-4">
+    <h1 class="h3 fw-bold mb-1">Le Mie Pratiche</h1>
+    <p class="text-muted mb-0">
+        Monitora lo stato delle tue pratiche e istanze presentate al Comune di Bitopoli.
+    </p>
+</div>
+
+<!-- Azioni rapide -->
+<div class="mb-3">
+    <BitToolbar>
+        <BitToolbarItem IconName="@Icons.ItPlusCircle"
+                        Label="Nuova Pratica"
+                        Active="@(_activeToolbarItem == "nuova-pratica")"
+                        OnClick="NuovaPraticaAsync" />
+        <BitToolbarItem IconName="@Icons.ItDownload"
+                        Label="Scarica"
+                        BadgeCount="3"
+                        BadgeLabel="in scadenza"
+                        Active="@(_activeToolbarItem == "scarica")"
+                        OnClick="ScaricaAsync" />
+        <BitToolbarItem IconName="@Icons.ItPrint"
+                        Label="Stampa"
+                        Active="@(_activeToolbarItem == "stampa")"
+                        OnClick="StampaAsync" />
+        <BitToolbarDivider />
+        <BitToolbarItem IconName="@Icons.ItSettings"
+                        Label="Impostazioni"
+                        Active="@(_activeToolbarItem == "impostazioni")"
+                        OnClick="ImpostazioniAsync" />
+    </BitToolbar>
+</div>
+
+<!-- Filtri stato -->
+<div class="d-flex flex-wrap gap-2 mb-4" role="group" aria-label="Filtra per stato">
+    @foreach (var filtro in StatiFiltro)
+    {
+        <button class="btn btn-sm @(statoFiltroAttivo == filtro.Valore ? "btn-primary" : "btn-outline-primary")"
+                @onclick="() => ApplicaFiltroAsync(filtro.Valore)">
+            @if (filtro.Icona is not null)
+            {
+                <BitIcon IconName="@filtro.Icona" />
+            }
+            @filtro.Etichetta
+            @if (filtro.Valore == statoFiltroAttivo && result is not null)
+            {
+                <span class="badge bg-white text-primary ms-1">@result.TotalCount</span>
+            }
+        </button>
+    }
+</div>
+
+@if (result is null)
+{
+    <p><em>Caricamento pratiche in corso...</em></p>
+}
+else if (result.Items.Count == 0)
+{
+    <div class="text-center py-5 text-muted">
+        <BitIcon IconName="@Icons.ItFolder" Size="IconSize.Large" />
+        <p class="mt-2">Nessuna pratica trovata per il filtro selezionato.</p>
+    </div>
+}
+else
+{
+    <div class="row g-3 mb-4">
+        @foreach (var pratica in result.Items)
+        {
+            <div class="col-12 col-md-6">
+                <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+                    <CardBody>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <span class="text-muted small">N° @pratica.Id</span>
+                                <CardTitle>@pratica.Titolo</CardTitle>
+                            </div>
+                            <BitBadge Text="@pratica.Stato"
+                                      BackgroundColor="@GetStatoColor(pratica.Stato)"
+                                      Rounded="true" />
+                        </div>
+                        <CardText>
+                            <p class="text-muted small mb-2">@pratica.Descrizione</p>
+                            <div class="d-flex gap-3 small text-muted">
+                                <span>
+                                    <BitIcon IconName="@Icons.ItFolder" />
+                                    @pratica.Categoria
+                                </span>
+                                <span>
+                                    <BitIcon IconName="@Icons.ItClock" />
+                                    @pratica.DataPresentazione.ToString("dd/MM/yyyy")
+                                </span>
+                            </div>
+                        </CardText>
+                        <CardFooter>
+                            <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">
+                                Dettagli
+                            </BitButton>
+                        </CardFooter>
+                    </CardBody>
+                </BitCard>
+            </div>
+        }
+    </div>
+    
+    <BitPagination NumberOfPages="@totalPages"
+                   @bind-Page="currentPage"
+                   @bind-Page:after="LoadPageAsync"
+                   Description="Navigazione pratiche"
+                   Alignment="PaginationAlignment.Center"
+                   PageRangeSize="2"
+                   ShowJumpToPage="true">
+        <TotalItemsTemplate>
+            Pratiche @((currentPage - 1) * PageSize + 1)–@(Math.Min(currentPage * PageSize, result.TotalCount)) di @result.TotalCount
+        </TotalItemsTemplate>
+    </BitPagination>
+}
+
+@code {
+    private const int PageSize = 8;
+
+    private int currentPage = 1;
+    private string? statoFiltroAttivo;
+    private string? _activeToolbarItem;
+    private PraticheResult? result;
+    private int totalPages;
+
+    private static readonly IReadOnlyList<(string Etichetta, string? Valore, string? Icona)> StatiFiltro =
+    [
+        ("Tutte",          null,             null),
+        ("In Lavorazione", "In Lavorazione", Icons.ItRefresh),
+        ("In Attesa",      "In Attesa",      Icons.ItClock),
+        ("Completate",     "Completata",     Icons.ItCheckCircle),
+    ];
+
+    private IReadOnlyList<BitBreadcrumbItem> breadcrumbItems =
+    [
+        new BitBreadcrumbItem { Text = "Home", Link = "/" },
+        new BitBreadcrumbItem { Text = "Pratiche" }
+    ];
+
+    protected override async Task OnInitializedAsync()
+        => await LoadPageAsync();
+
+    private async Task ApplicaFiltroAsync(string? stato)
+    {
+        statoFiltroAttivo = stato;
+        currentPage = 1;
+        await LoadPageAsync();
+    }
+
+    private async Task LoadPageAsync()
+    {
+        result = await PraticheService.GetPraticheAsync(currentPage, statoFiltroAttivo);
+        totalPages = (int)Math.Ceiling((double)result.TotalCount / PageSize);
+    }
+
+    private static Color GetStatoColor(string stato) => stato switch
+    {
+        "Completata"     => Color.Success,
+        "In Lavorazione" => Color.Primary,
+        "In Attesa"      => Color.Warning,
+        _                => Color.Secondary
+    };
+
+    private async Task NuovaPraticaAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "nuova-pratica" ? null : "nuova-pratica";
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private Task ScaricaAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "scarica" ? null : "scarica";
+        return Task.CompletedTask;
+    }
+
+    private Task StampaAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "stampa" ? null : "stampa";
+        return Task.CompletedTask;
+    }
+
+    private Task ImpostazioniAsync()
+    {
+        _activeToolbarItem = _activeToolbarItem == "impostazioni" ? null : "impostazioni";
+        return Task.CompletedTask;
+    }
+}

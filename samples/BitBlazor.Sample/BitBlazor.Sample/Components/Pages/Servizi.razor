@@ -1,0 +1,319 @@
+@page "/servizi"
+
+<PageTitle>Servizi — Comune di Bitopoli</PageTitle>
+
+<BitBreadcrumb Items="@breadcrumbItems" />
+
+<div class="mt-3 mb-4">
+    <h1 class="h3 fw-bold mb-1">Catalogo dei Servizi</h1>
+    <p class="text-muted mb-0">
+        Tutti i servizi comunali disponibili online. Seleziona la categoria per trovare
+        rapidamente ciò di cui hai bisogno.
+    </p>
+</div>
+
+<!-- Filtri categoria -->
+<div class="d-flex flex-wrap gap-2 mb-4">
+    <BitBadge Text="Tutti" BackgroundColor="Color.Primary" Rounded="true" />
+    <BitBadge Text="Anagrafe" BackgroundColor="Color.Secondary" Rounded="true" />
+    <BitBadge Text="Tributi" BackgroundColor="Color.Secondary" Rounded="true" />
+    <BitBadge Text="Edilizia" BackgroundColor="Color.Secondary" Rounded="true" />
+    <BitBadge Text="Ambiente" BackgroundColor="Color.Secondary" Rounded="true" />
+    <BitBadge Text="Sociale" BackgroundColor="Color.Secondary" Rounded="true" />
+</div>
+
+<!-- Anagrafe -->
+<h2 class="h5 fw-semibold mb-3 d-flex align-items-center gap-2">
+    <BitIcon IconName="@Icons.ItUser" Color="IconColor.Primary" />
+    Anagrafe e Stato Civile
+</h2>
+<div class="row g-3 mb-5">
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Certificato di Residenza</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Rilascio del certificato di residenza anagrafica. Disponibile anche in
+                        formato digitale con firma elettronica.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Richiedi</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Info</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Stato di Famiglia</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Certificato attestante la composizione del nucleo familiare anagrafico
+                        alla data di rilascio.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Richiedi</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Info</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Carta d'Identità Elettronica</CardTitle>
+                    <BitBadge Text="Sportello" BackgroundColor="Color.Warning" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Rinnovo e primo rilascio della CIE. Prenotazione appuntamento disponibile
+                        online, ritiro fisico allo sportello.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Prenota</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Info</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Cambio di Residenza</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Dichiarazione di cambio di residenza nel Comune o trasferimento
+                        da altro Comune.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Richiedi</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Info</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Atto di Nascita</CardTitle>
+                    <BitBadge Text="Sportello" BackgroundColor="Color.Warning" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Copia integrale o estratto dell'atto di nascita per uso
+                        dichiarativo o internazionale.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Prenota</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Info</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Certificato Elettorale</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Iscrizione nelle liste elettorali, certificato di iscrizione e
+                        tessera elettorale.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Richiedi</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Info</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+</div>
+
+<!-- Tributi -->
+<h2 class="h5 fw-semibold mb-3 d-flex align-items-center gap-2">
+    <BitIcon IconName="@Icons.ItCard" Color="IconColor.Primary" />
+    Tributi e Pagamenti
+</h2>
+<div class="row g-3 mb-5">
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>IMU</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Calcolo e pagamento dell'Imposta Municipale Propria. Simulatore,
+                        aliquote e scadenze.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Calcola e Paga</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Aliquote</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>TARI</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Tassa sui rifiuti: dichiarazione, variazione utenze, pagamento rate
+                        e riduzioni tariffarie.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Gestisci</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Tariffe</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Multa e Sanzioni</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Pagamento verbali di violazione del Codice della Strada e altre
+                        sanzioni amministrative.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Paga Ora</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Ricerca</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+</div>
+
+<!-- Edilizia -->
+<h2 class="h5 fw-semibold mb-3 d-flex align-items-center gap-2">
+    <BitIcon IconName="@Icons.ItMapMarker" Color="IconColor.Primary" />
+    Edilizia e Territorio
+</h2>
+<div class="row g-3 mb-4">
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>CILA / SCIA</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Comunicazione di inizio lavori e Segnalazione Certificata di Inizio Attività
+                        edilizia.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Presenta</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Guida</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Permesso di Costruire</CardTitle>
+                    <BitBadge Text="Istruttoria" BackgroundColor="Color.Danger" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Domanda di permesso per interventi di nuova costruzione, ristrutturazione
+                        o ampliamento significativi.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Richiedi</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Normativa</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" FullHeight="true">
+            <CardBody>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <CardTitle>Visura Catastale</CardTitle>
+                    <BitBadge Text="Online" BackgroundColor="Color.Success" Rounded="true" />
+                </div>
+                <CardText>
+                    <p class="text-muted small">
+                        Consultazione delle mappe catastali, planimetrie e dati degli immobili
+                        presenti nel territorio comunale.
+                    </p>
+                </CardText>
+                <CardFooter>
+                    <div class="d-flex gap-2">
+                        <BitButton Color="Color.Primary" Size="Size.Small">Consulta</BitButton>
+                        <BitButton Color="Color.Primary" Variant="Variant.Outline" Size="Size.Small">Info</BitButton>
+                    </div>
+                </CardFooter>
+            </CardBody>
+        </BitCard>
+    </div>
+</div>
+
+@code {
+    private IReadOnlyList<BitBreadcrumbItem> breadcrumbItems = new List<BitBreadcrumbItem>
+    {
+        new BitBreadcrumbItem { Text = "Home", Link = "/" },
+        new BitBreadcrumbItem { Text = "Servizi" }
+    };
+}

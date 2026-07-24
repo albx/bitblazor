@@ -1,0 +1,11 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<nav class="@ComputeContainerCssClass()" @attributes="AdditionalAttributes">
+    <ul>
+        <CascadingValue Value="this">
+            @ChildContent
+        </CascadingValue>
+    </ul>
+</nav>

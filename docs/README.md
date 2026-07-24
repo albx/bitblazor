@@ -60,12 +60,33 @@ Specialized badge for use within buttons.
 - Automatic variant inversion
 - Accessibility support
 
+
 #### [Card](components/card.md)
 Complete card system for organizing content.
 - Different types (default, profile, banner)
 - Inline and standard layouts
 - Modular components (header, body, footer, etc.)
 - Support for images and icons
+
+#### [Modal](components/modal.md)
+Modal dialog component for displaying content in an overlay.
+- Accessible dialog overlay
+- Visibility controlled via Blazor state
+- No JavaScript interop required
+
+#### [Pagination](components/pagination.md)
+Pagination control for navigating large data sets across multiple pages.
+- Full and simple view modes
+- Ellipsis truncation via `PageRangeSize`
+- Optional jump-to-page input and total-items summary
+- Customizable previous/next buttons and alignment
+
+#### [Toolbar](components/toolbar.md)
+Navigation toolbar for grouping icon-based action items.
+- Horizontal and vertical orientations
+- Three size variants (default, medium, small)
+- Badge counts and labels on items
+- `BitToolbarDivider` sub-component for visual separation
 
 ### Form Components
 
@@ -154,6 +175,10 @@ Icon system based on Bootstrap Italia.
 - Multiple sizes and colors
 - Customizable alignment
 - Full accessibility support
+
+#### [Agents, Instructions & Skills](agents-and-skills.md)
+Repository-level agents, instruction files, and skills available to contributors and automation tooling. See this reference for agent names, instruction file locations, and guidance for extending skills.
+
 
 ## Common Enumerations
 

@@ -1,0 +1,291 @@
+@page "/modulistica"
+@rendermode InteractiveAuto
+
+@using BitBlazor.Components
+@using BitBlazor.Utilities
+@using BitBlazor.Form
+
+<PageTitle>Modulistica — Comune di Bitopoli</PageTitle>
+
+<BitBreadcrumb Items="@breadcrumbItems" />
+
+<div class="mt-3 mb-4">
+    <h1 class="h3 fw-bold mb-1">Modulistica Online</h1>
+    <p class="text-muted mb-0">
+        Compila e invia i moduli digitali direttamente dal portale. I dati salvati sono
+        protetti e trasmessi in modo sicuro agli uffici competenti.
+    </p>
+</div>
+
+<div class="row g-4">
+
+    <!-- Colonna sinistra: form -->
+    <div class="col-12 col-lg-8">
+
+        <!-- Sezione: Dati anagrafici -->
+        <BitCard Bordered="true" Shadow="CardShadow.Small" CssClass="mb-4">
+            <CardBody>
+                <CardTitle>Dati Anagrafici</CardTitle>
+                <CardText>
+                    <EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
+                                <BitTextField Label="Nome" @bind-Value="formModel.Nome" Placeholder="Inserisci il nome" Required="true" />
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <BitTextField Label="Cognome" @bind-Value="formModel.Cognome" Placeholder="Inserisci il cognome" Required="true" />
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <BitTextField Label="Codice Fiscale" @bind-Value="formModel.CodiceFiscale" Placeholder="Es. RSSMRA80A01H501U" Required="true" />
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <BitTextField Label="Telefono" @bind-Value="formModel.Telefono" Placeholder="+39 000 0000000" />
+                            </div>
+                            <div class="col-12">
+                                <BitTextField Label="Indirizzo email" @bind-Value="formModel.Email" Placeholder="nome@esempio.it" Required="true" />
+                            </div>
+                        </div>
+                    </EditForm>
+                </CardText>
+            </CardBody>
+        </BitCard>
+
+        <!-- Sezione: Tipo di richiesta -->
+        <BitCard Bordered="true" Shadow="CardShadow.Small" CssClass="mb-4">
+            <CardBody>
+                <CardTitle>Tipo di Richiesta</CardTitle>
+                <CardText>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small">Area di interesse</label>
+                        <BitSelectField @bind-Value="formModel.AreaServizio" Label="Area di servizio" Required="true">
+                            <BitSelectItem Value="@("anagrafe")">Anagrafe e Stato Civile</BitSelectItem>
+                            <BitSelectItem Value="@("tributi")">Tributi e Pagamenti</BitSelectItem>
+                            <BitSelectItem Value="@("edilizia")">Edilizia e Territorio</BitSelectItem>
+                            <BitSelectItem Value="@("suap")">SUAP — Attività Produttive</BitSelectItem>
+                            <BitSelectItem Value="@("sociale")">Servizi Sociali</BitSelectItem>
+                            <BitSelectItem Value="@("ambiente")">Ambiente e Mobilità</BitSelectItem>
+                        </BitSelectField>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small d-block mb-2">Urgenza della pratica</label>
+                        <BitRadioGroup @bind-Value="formModel.Urgenza">
+                            <BitRadio Value="@("normale")" Label="Normale (15 giorni lavorativi)" />
+                            <BitRadio Value="@("urgente")" Label="Urgente (5 giorni lavorativi) — motivazione richiesta" />
+                            <BitRadio Value="@("immediata")" Label="Immediata — solo certificati base" />
+                        </BitRadioGroup>
+                    </div>
+
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-6">
+                            <BitDatepicker Label="Data preferita rilascio" @bind-Value="formModel.DataRilascio" />
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <BitTimepicker Label="Orario preferito" @bind-Value="formModel.OraRilascio" />
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <BitNumberField Label="Numero di copie richieste" @bind-Value="formModel.NumeroCopie" />
+                    </div>
+                </CardText>
+            </CardBody>
+        </BitCard>
+
+        <!-- Sezione: Dettaglio richiesta -->
+        <BitCard Bordered="true" Shadow="CardShadow.Small" CssClass="mb-4">
+            <CardBody>
+                <CardTitle>Dettaglio della Richiesta</CardTitle>
+                <CardText>
+                    <div class="mb-3">
+                        <BitTextAreaField Label="Descrizione" @bind-Value="formModel.Descrizione"
+                                          Placeholder="Descrivi la tua richiesta in modo dettagliato..." />
+                    </div>
+
+                    <div class="mb-3">
+                        <BitCheckbox Label="Dichiaro che i dati inseriti sono veritieri ai sensi del D.P.R. 445/2000"
+                                     @bind-Value="formModel.AccettaDichiarazione" Required="true" />
+                    </div>
+                    <div class="mb-3">
+                        <BitCheckbox Label="Acconsento al trattamento dei dati personali ai sensi del Reg. UE 2016/679 (GDPR)"
+                                     @bind-Value="formModel.AccettaPrivacy" Required="true" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold small d-block mb-2">
+                            Modalità di consegna
+                        </label>
+                        <BitToggle Label="Consegna digitale via email" @bind-Value="formModel.ConsegnaDigitale" />
+                        <div class="mt-2">
+                            <BitToggle Label="Notifica via SMS" @bind-Value="formModel.NotificaSMS" />
+                        </div>
+                    </div>
+                </CardText>
+            </CardBody>
+        </BitCard>
+
+        <!-- Pulsanti invio -->
+        <div class="d-flex gap-3 flex-wrap">
+            <BitButton Color="Color.Primary" Size="Size.Large" OnClick="HandleValidSubmit" Disabled="@(!IsFormValid)">
+                <BitIcon IconName="@Icons.ItUpload" />
+                Invia Richiesta
+            </BitButton>
+            <BitButton Color="Color.Secondary" Variant="Variant.Outline" Size="Size.Large" OnClick="ResetForm">
+                Azzera modulo
+            </BitButton>
+        </div>
+
+        @if (submitted)
+        {
+            <div class="mt-4">
+                <BitAlert Type="AlertType.Success" Title="Richiesta inviata con successo!">
+                    <p class="mb-0">
+                        Il tuo numero di protocollo è <strong>#@protocolNumber</strong>.
+                        Riceverai una conferma all'indirizzo <strong>@formModel.Email</strong>
+                        entro pochi minuti.
+                    </p>
+                </BitAlert>
+            </div>
+        }
+    </div>
+
+    <!-- Colonna destra: riepilogo e info -->
+    <div class="col-12 col-lg-4">
+        <BitCard Bordered="true" Shadow="CardShadow.Small" CssClass="mb-4">
+            <CardBody>
+                <CardTitle>Riepilogo Richiesta</CardTitle>
+                <CardText>
+                    <dl class="small mb-0">
+                        <dt class="text-muted">Richiedente</dt>
+                        <dd class="mb-2">
+                            @if (!string.IsNullOrWhiteSpace(formModel.Nome) || !string.IsNullOrWhiteSpace(formModel.Cognome))
+                            {
+                                <span>@formModel.Nome @formModel.Cognome</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">—</span>
+                            }
+                        </dd>
+                        <dt class="text-muted">Area</dt>
+                        <dd class="mb-2">
+                            @if (!string.IsNullOrWhiteSpace(formModel.AreaServizio))
+                            {
+                                <BitBadge Text="@areaLabel" BackgroundColor="Color.Primary" Rounded="true" />
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">—</span>
+                            }
+                        </dd>
+                        <dt class="text-muted">Urgenza</dt>
+                        <dd class="mb-2">
+                            @if (!string.IsNullOrWhiteSpace(formModel.Urgenza))
+                            {
+                                @formModel.Urgenza
+                            }
+                            else
+                            {
+                                <span class="text-muted fst-italic">—</span>
+                            }
+                        </dd>
+                        <dt class="text-muted">Copie</dt>
+                        <dd class="mb-0">@formModel.NumeroCopie</dd>
+                    </dl>
+                </CardText>
+            </CardBody>
+        </BitCard>
+
+        <BitCard Bordered="true" Shadow="CardShadow.Small">
+            <CardBody>
+                <CardTitle>Orari Sportello</CardTitle>
+                <CardText>
+                    <ul class="list-unstyled small mb-0">
+                        <li class="mb-1 d-flex justify-content-between">
+                            <span class="text-muted">Lunedì – Mercoledì</span>
+                            <span>09:00 – 13:00</span>
+                        </li>
+                        <li class="mb-1 d-flex justify-content-between">
+                            <span class="text-muted">Giovedì</span>
+                            <span>09:00 – 17:00</span>
+                        </li>
+                        <li class="mb-1 d-flex justify-content-between">
+                            <span class="text-muted">Venerdì</span>
+                            <span>09:00 – 12:00</span>
+                        </li>
+                        <li class="d-flex justify-content-between">
+                            <span class="text-muted">Sabato – Domenica</span>
+                            <span>Chiuso</span>
+                        </li>
+                    </ul>
+                </CardText>
+            </CardBody>
+        </BitCard>
+    </div>
+
+</div>
+
+@code {
+    private FormModel formModel = new();
+    private bool submitted = false;
+    private string protocolNumber = string.Empty;
+
+    private bool IsFormValid =>
+        !string.IsNullOrWhiteSpace(formModel.Nome) &&
+        !string.IsNullOrWhiteSpace(formModel.Cognome) &&
+        !string.IsNullOrWhiteSpace(formModel.Email) &&
+        formModel.AccettaDichiarazione &&
+        formModel.AccettaPrivacy;
+
+    private string areaLabel => formModel.AreaServizio switch
+    {
+        "anagrafe" => "Anagrafe",
+        "tributi"  => "Tributi",
+        "edilizia" => "Edilizia",
+        "suap"     => "SUAP",
+        "sociale"  => "Sociale",
+        "ambiente" => "Ambiente",
+        _          => formModel.AreaServizio ?? string.Empty
+    };
+
+    private void HandleValidSubmit()
+    {
+        if (!IsFormValid) return;
+        protocolNumber = $"BIT-{DateTime.Now:yyyyMMdd}-{Random.Shared.Next(1000, 9999)}";
+        submitted = true;
+    }
+
+    private void ResetForm()
+    {
+        formModel = new();
+        submitted = false;
+        protocolNumber = string.Empty;
+    }
+
+    private IReadOnlyList<BitBreadcrumbItem> breadcrumbItems = new List<BitBreadcrumbItem>
+    {
+        new BitBreadcrumbItem { Text = "Home", Link = "/" },
+        new BitBreadcrumbItem { Text = "Modulistica" }
+    };
+
+    private class FormModel
+    {
+        public string? Nome { get; set; }
+        public string? Cognome { get; set; }
+        public string? CodiceFiscale { get; set; }
+        public string? Telefono { get; set; }
+        public string? Email { get; set; }
+        public string? AreaServizio { get; set; }
+        public string? Urgenza { get; set; } = "normale";
+        public DateOnly? DataRilascio { get; set; }
+        public TimeOnly? OraRilascio { get; set; }
+        public int NumeroCopie { get; set; } = 1;
+        public string? Descrizione { get; set; }
+        public bool AccettaDichiarazione { get; set; }
+        public bool AccettaPrivacy { get; set; }
+        public bool ConsegnaDigitale { get; set; } = true;
+        public bool NotificaSMS { get; set; }
+    }
+}

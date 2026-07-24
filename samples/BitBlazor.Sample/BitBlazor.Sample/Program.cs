@@ -2,6 +2,7 @@ using BitBlazor.Sample.Client.Pages;
 using BitBlazor.Sample.Components;
 using BitBlazor.Sample.Components.Account;
 using BitBlazor.Sample.Data;
+using BitBlazor.Sample.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<IPraticheService, PraticheService>();
 
 var app = builder.Build();
 

@@ -5,16 +5,41 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-05-30
+
+### Added
+
+#### Components
+- [x] **Modal** - BitModal component for accessible modal dialogs with no JavaScript interop required (#87)
+  - [x] ModalSize, ModalPosition, ModalType, ModalBackdrop enumerations
+- [x] **Pagination** - BitPagination component for navigating large data sets split across multiple pages (#90)
+  - [x] BitPageItem - Individual page item sub-component
+  - [x] PaginationViewMode, PaginationAlignment enumerations
+  - [x] PaginationState record struct for Simple mode template context
+  - [x] Supports both interactive and static SSR render modes
+
+#### Documentation
+- [x] Modal component documentation
+- [x] Pagination component documentation
+
+### Changed
+- [x] Updated NuGet packages
+- [x] Updated Bootstrap Italia to version 2.18.1
+
 ## [0.2.3] - 2026-02-28
 
 ### Added
 
 #### Components
-- [x] **Select** - BitSelect component for dropdown selection (#38)
 - [x] **Breadcrumb** - BitBreadcrumb component for navigation breadcrumbs (#7)
 
+#### Form Components
+- [x] **SelectField** - BitSelectField component for dropdown selection with form integration (#38)
+  - [x] BitSelectItem - Individual selectable option component
+  - [x] BitSelectItemGroup - Option group component
+
 #### Documentation
-- [x] Select documentation
+- [x] SelectField documentation
 - [x] Breadcrumb documentation
 
 ### Changed
@@ -114,6 +139,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [x] Variant enumeration
 - [x] Typography enumeration
 - [x] Ratio enumeration
+
+#### Utilities
+- [x] **Icon** - BitIcon component for displaying Bootstrap Italia SVG icons
+  - [x] IconSize, IconColor, IconAlignment enumerations
+  - [x] Icons static class with all Bootstrap Italia icon names
 
 #### Infrastructure
 - [x] .NET 9 support

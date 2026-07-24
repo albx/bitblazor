@@ -1,0 +1,132 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<nav class="@ComputeContainerCssClass()" aria-label="@Description" @attributes="AdditionalAttributes">
+    <ul class="pagination">
+        <CascadingValue Value="this">
+            <BitPageItem Disabled="PreviousPageLinkDisabled" Href="@GetPreviousPageHref()" PageItemClicked="MoveToPreviousPageAsync">
+                @RenderPreviousPage()
+            </BitPageItem>
+
+            @switch (ViewMode)
+            {
+                case PaginationViewMode.Simple:
+                    @RenderSimpleModePaginationControl()
+                    break;
+                default:
+                    @RenderFullPaginationControl()
+                    break;
+            }
+
+            <BitPageItem Disabled="NextPageLinkDisabled" Href="@GetNextPageHref()" PageItemClicked="MoveToNextPageAsync">
+                @RenderNextPage()
+            </BitPageItem>
+        </CascadingValue>
+    </ul>
+
+    @if (ShowJumpToPage)
+    {
+        <div class="form-group">
+            <InputText type="text"
+            class="form-control"
+            id="@jumpToPageId"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            disabled="@Disabled"
+            @bind-Value="jumpToPageValue"
+            @bind-Value:after="JumpToPageAsync"
+            @onfocus="SetJumpToPageLabelActive"
+            @onblur="UpdateJumpToPageLabelClass"/>
+            <label for="@jumpToPageId" class="@jumpToPageLabelClass">
+                @(JumpToPageLabelTemplate ?? DefaultJumpToPageLabelTemplate)
+            </label>
+        </div>
+    }
+
+    @if (TotalItemsTemplate is not null)
+    {
+        <p>@TotalItemsTemplate</p>
+    }
+</nav>
+
+@code {
+    private RenderFragment RenderFullPaginationControl() => __builder =>
+        {
+            foreach (var pageItem in GetPageSequence())
+            {
+                if (pageItem is null)
+                {
+                    <li class="page-item">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+                else
+                {
+                    <BitPageItem Page="pageItem" Disabled="Disabled" Href="@GetPageHref(pageItem.Value)" PageItemClicked="@(() => ChangePageAsync(pageItem.Value))">
+                        @pageItem
+                    </BitPageItem>
+                }
+            }
+        };
+
+    private RenderFragment RenderSimpleModePaginationControl() => __builder =>
+    {
+        <li class="page-item">
+            <span class="page-link" aria-current="page">@state.CurrentPage</span>
+        </li>
+        <li class="page-item">
+            <span class="page-link">/</span>
+        </li>
+        <li class="page-item">
+            <span class="page-link">@NumberOfPages</span>
+        </li>
+        <li class="page-item visually-hidden">
+            <a class="page-link" href="#" aria-current="page" @onclick:preventDefault>
+                @if (SimpleModeVisuallyHiddenTemplate is not null)
+                {
+                    @SimpleModeVisuallyHiddenTemplate(state)
+                }
+                else
+                {
+                    @DefaultSimpleModeVisuallyHiddenTemplate
+                }
+            </a>
+        </li>
+    };
+
+    private string DefaultSimpleModeVisuallyHiddenTemplate => $"page {state.CurrentPage} of {state.NumberOfPages}";
+
+    private RenderFragment RenderPreviousPage()
+    {
+        if (PreviousPageTemplate is not null)
+        {
+            return PreviousPageTemplate;
+        }
+
+        return __builder =>
+        {
+            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronLeft" />
+            <span class="visually-hidden">@PreviousPageLabel</span>
+        };
+    }
+
+    private RenderFragment RenderNextPage()
+    {
+        if (NextPageTemplate is not null)
+        {
+            return NextPageTemplate;
+        }
+
+        return __builder =>
+        {
+            <span class="visually-hidden">@NextPageLabel</span>
+            <BitIcon Color="IconColor.Primary" IconName="@Icons.ItChevronRight" />
+        };
+    }
+
+    private static RenderFragment DefaultJumpToPageLabelTemplate => __builder =>
+    {
+        <span aria-hidden="true">go to...</span><span class="visually-hidden">Set the destination page</span>
+    };
+}

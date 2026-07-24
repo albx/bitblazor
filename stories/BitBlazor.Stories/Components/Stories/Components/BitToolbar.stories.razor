@@ -1,0 +1,160 @@
+﻿@attribute [Stories("Components/BitToolbar")]
+
+<Stories TComponent="BitToolbar">
+
+    <ArgType For="_ => _.Size" Control="ControlType.Select" DefaultValue="ToolbarSize.Default" />
+    <ArgType For="_ => _.Orientation" Control="ControlType.Select" DefaultValue="Orientation.Horizontal" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Size" Value="ToolbarSize.Default" />
+            <Arg For="_ => _.Orientation" Value="Orientation.Horizontal" />
+        </Arguments>
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar @attributes="context.Args">
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Medium size">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar Size="ToolbarSize.Medium">
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Small size">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar Size="ToolbarSize.Small">
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Active Item">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" Active="true" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Disabled Item">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" Disabled="true" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="With Divider">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Mixed States">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" Active="true" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" Disabled="true" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Close" IconName="@Icons.ItCloseBig" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Toolbar with badge">
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar>
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Messages" IconName="@Icons.ItMail" BadgeCount="3" BadgeLabel="3 unread messages" />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" BadgeCount="7" BadgeLabel="7 unread notifications" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Badge on sizes">
+        <Arguments>
+            <Arg For="_ => _.Size" Value="ToolbarSize.Default" />
+        </Arguments>
+
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar @attributes="@context.Args">
+                    <BitToolbarItem Label="Messages" IconName="@Icons.ItMail" BadgeCount="3" BadgeLabel="3 unread messages" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" BadgeCount="7" BadgeLabel="7 unread notifications" />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Vertical toolbar">
+        <Arguments>
+            <Arg For="_ => _.Size" Value="ToolbarSize.Default" />
+        </Arguments>
+
+        <Template>
+            <div class="py-2 px-2">
+                <BitToolbar @attributes="context.Args" Orientation="Orientation.Vertical">
+                    <BitToolbarItem Label="Search" IconName="@Icons.ItSearch" />
+                    <BitToolbarItem Label="Messages" IconName="@Icons.ItMail" BadgeCount="3" BadgeLabel="3 unread messages" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="User" IconName="@Icons.ItUser" />
+                    <BitToolbarItem Label="Notifications" IconName="@Icons.ItHorn" BadgeCount="7" BadgeLabel="7 unread notifications" />
+                    <BitToolbarDivider />
+                    <BitToolbarItem Label="Settings" IconName="@Icons.ItSettings" />
+                </BitToolbar>
+            </div>
+        </Template>
+    </Story>
+
+</Stories>

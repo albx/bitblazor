@@ -1,23 +1,43 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+<div class="portal-wrapper">
+    <header class="portal-header">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center py-2 gap-3">
+                <a href="/" class="portal-brand text-decoration-none d-flex align-items-center gap-3 me-auto">
+                    <div class="portal-logo">
+                        <BitIcon IconName="@Icons.ItPa" Color="IconColor.White" Size="IconSize.Large" />
+                    </div>
+                    <div>
+                        <div class="portal-brand-title">Comune di Bitopoli</div>
+                        <div class="portal-brand-subtitle d-none d-sm-block">Portale dei Servizi Digitali al Cittadino</div>
+                    </div>
+                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <BitAvatar Text="OS" Size="Size.Small" BackgroundColor="Color.Secondary" />
+                    <div class="d-none d-md-block">
+                        <div class="portal-username">Utente Ospite</div>
+                        <div class="portal-userstatus">Non autenticato</div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </header>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+    <div class="portal-body">
+        <nav class="portal-sidebar">
+            <NavMenu />
+        </nav>
+        <main class="portal-main">
+            <article class="portal-content">
+                @Body
+            </article>
+        </main>
+    </div>
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
+    Si è verificato un errore imprevisto.
+    <a href="." class="reload">Ricarica</a>
     <span class="dismiss">🗙</span>
 </div>
