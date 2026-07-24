@@ -110,4 +110,32 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Active items">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="activeDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+                    <BitDropdownItem Active="true"><span>Active Item 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+                    <BitDropdownItem Active="true"><span>Active Item 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Disabled items">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="disabledDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+                    <BitDropdownItem Disabled="true"><span>Disabled Item 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+                    <BitDropdownItem Disabled="true"><span>Disabled Item 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
 </Stories>

@@ -49,8 +49,6 @@ public partial class BitDropdown : BitComponentBase
 
     private bool isOpen;
 
-    private string AriaExpanded => isOpen ? "true" : "false";
-
     private IDictionary<string, object> dropdownMenuAttributes = new Dictionary<string, object>();
 
     private readonly ActivatorContext activatorContext;

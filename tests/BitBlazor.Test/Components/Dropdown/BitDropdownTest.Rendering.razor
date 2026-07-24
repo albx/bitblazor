@@ -1,6 +1,11 @@
 ﻿@inherits BunitContext
 
 @code {
+    public BitDropdownTest_Rendering()
+    {
+        SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+    }
+
     [Fact]
     public void BitDropdown_Should_Render_Default_Markup_Correctly()
     {
@@ -21,13 +26,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -86,13 +91,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -128,17 +133,82 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a href="#" class="dropdown-item list-item"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>);
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_Active_Class()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Active="true"><span>Active Item</span></BitDropdownItem>
+                <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var items = component.FindAll("a.dropdown-item");
+        Assert.Equal(2, items.Count);
+
+        var activeItem = items[0];
+        Assert.Contains("active", activeItem.ClassList);
+
+        var inactiveItem = items[1];
+        Assert.DoesNotContain("active", inactiveItem.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_Disabled_Class_And_Attribute()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Disabled="true"><span>Disabled Item</span></BitDropdownItem>
+                <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var items = component.FindAll("a.dropdown-item");
+        Assert.Equal(2, items.Count);
+
+        var disabledItem = items[0];
+        Assert.Contains("disabled", disabledItem.ClassList);
+        Assert.Equal("true", disabledItem.GetAttribute("aria-disabled"));
+
+        var enabledItem = items[1];
+        Assert.DoesNotContain("disabled", enabledItem.ClassList);
+        Assert.Null(enabledItem.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_With_Href()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Href="/test-page"><span>Link Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var link = component.Find("a.dropdown-item");
+        Assert.Equal("/test-page", link.GetAttribute("href"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_Additional_Attributes()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem data-testid="custom-item" title="Test Item"><span>Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var item = component.Find("a.dropdown-item");
+        Assert.Equal("custom-item", item.GetAttribute("data-testid"));
+        Assert.Equal("Test Item", item.GetAttribute("title"));
     }
 }
