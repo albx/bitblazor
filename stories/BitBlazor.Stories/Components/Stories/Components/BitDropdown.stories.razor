@@ -5,6 +5,7 @@
     <ArgType For="_ => _.ActivatorLabel" DefaultValue="@("Open")" />
     <ArgType For="_ => _.Position" DefaultValue="@DropdownPosition.Down" Control="ControlType.Select" />
     <ArgType For="_ => _.MenuColor" DefaultValue="@DropdownMenuColor.Default" Control="ControlType.Select" />
+    <ArgType For="_ => _.ItemSize" DefaultValue="@DropdownItemSize.Default" Control="ControlType.Select" />
 
     <Story Name="Default">
         <Arguments>
@@ -12,6 +13,7 @@
             <Arg For="_ => _.ActivatorLabel" Value="@("Open")" />
             <Arg For="_ => _.Position" Value="DropdownPosition.Down" />
             <Arg For="_ => _.MenuColor" Value="DropdownMenuColor.Default" />
+            <Arg For="_ => _.ItemSize" Value="DropdownItemSize.Default" />
         </Arguments>
 
         <Template>
@@ -163,6 +165,18 @@
                         <BitDropdownItem><span>Action 2</span></BitDropdownItem>
                         <BitDropdownItem Disabled="true"><span>Action 3</span></BitDropdownItem>
                     </ChildContent>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Large dropdown items">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open" ItemSize="DropdownItemSize.Large">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
                 </BitDropdown>
             </div>
         </Template>

@@ -93,8 +93,21 @@ public partial class BitDropdownItem
         {
             builder.Add("disabled");
         }
+
+        AddSizeCssClass(builder);
         
         return builder.Build();
+    }
+
+    private void AddSizeCssClass(CssClassBuilder builder)
+    {
+        var sizeClass = Parent.ItemSize switch
+        {
+            DropdownItemSize.Large => "large",
+            _ => string.Empty
+        };
+
+        builder.Add(sizeClass);
     }
 
     private async Task ClickAsync()

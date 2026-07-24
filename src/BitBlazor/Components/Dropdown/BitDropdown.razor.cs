@@ -53,6 +53,13 @@ public partial class BitDropdown : BitComponentBase
     public DropdownMenuColor MenuColor { get; set; } = DropdownMenuColor.Default;
 
     /// <summary>
+    /// Gets or sets the size of the dropdown items. 
+    /// This property allows developers to specify the visual size of individual items within the dropdown menu.
+    /// </summary>
+    [Parameter]
+    public DropdownItemSize ItemSize { get; set; } = DropdownItemSize.Default;
+
+    /// <summary>
     /// Gets or sets a custom template for the heading of the dropdown menu.
     /// </summary>
     /// <remarks>
@@ -68,7 +75,6 @@ public partial class BitDropdown : BitComponentBase
     private IDictionary<string, object> dropdownMenuAttributes = new Dictionary<string, object>();
 
     private readonly ActivatorContext activatorContext;
-
 
     /// <summary>
     /// Constructs a new instance of the <see cref="BitDropdown"/> component and initializes the activator context.
