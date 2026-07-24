@@ -1,0 +1,81 @@
+﻿@inherits BunitContext
+
+@code {
+    [Fact]
+    public void BitBottomNav_Should_Render_Correctly()
+    {
+        List<BitBottomNavItem> items = new()
+        {
+            new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment },
+            new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
+            new BitBottomNavItem { Text = "Documents", Link = "#", Icon = BitBlazor.Utilities.Icons.ItFile },
+            new BitBottomNavItem { Text = "Favorites", Link = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+            new BitBottomNavItem { Text = "Settings", Link = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+        };
+
+        var component = Render(@<BitBottomNav Items="@items" />);
+
+        component.MarkupMatches(
+            @<nav class="bottom-nav">
+                <ul>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg><span class="bottom-nav-label">Messages</span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg><span class="bottom-nav-label">Images</span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg><span class="bottom-nav-label">Documents</span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg><span class="bottom-nav-label">Favorites</span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-settings"></use></svg><span class="bottom-nav-label">Settings</span></a></li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitBottomNavWithBadges_Should_Render_Correctly()
+    {
+        List<BitBottomNavItem> items = new()
+        {
+            new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment, BadgeText="1", BadgeAriaLabel="to read" },
+            new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera, BadgeText="2", BadgeAriaLabel="to view" },
+            new BitBottomNavItem { Text = "Documents", Link = "#", Icon = BitBlazor.Utilities.Icons.ItFile, BadgeText="42", BadgeAriaLabel="to examine" },
+            new BitBottomNavItem { Text = "Favorites", Link = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+            new BitBottomNavItem { Text = "Settings", Link = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+        };
+
+        var component = Render(@<BitBottomNav Items="@items" />);
+
+        component.MarkupMatches(
+            @<nav class="bottom-nav">
+                <ul>
+                    <li><a href="#" class=""><div class="badge-wrapper"><span class="bottom-nav-badge">1</span></div><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg><span class="bottom-nav-label">Messages <span class="visually-hidden">to read</span></span></a></li>
+                    <li><a href="#" class=""><div class="badge-wrapper"><span class="bottom-nav-badge">2</span></div><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg><span class="bottom-nav-label">Images <span class="visually-hidden">to view</span></span></a></li>
+                    <li><a href="#" class=""><div class="badge-wrapper"><span class="bottom-nav-badge">42</span></div><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg><span class="bottom-nav-label">Documents <span class="visually-hidden">to examine</span></span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg><span class="bottom-nav-label">Favorites</span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-settings"></use></svg><span class="bottom-nav-label">Settings</span></a></li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitBottomNavWithAlerts_Should_Render_Correctly()
+    {
+        List<BitBottomNavItem> items = new()
+        {
+            new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment, IsAlertActive=true, BadgeAriaLabel="There are 2 new messages" },
+            new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
+            new BitBottomNavItem { Text = "Documents", Link = "#", Icon = BitBlazor.Utilities.Icons.ItFile, IsAlertActive=true, BadgeAriaLabel="There are 42 new documents" },
+            new BitBottomNavItem { Text = "Favorites", Link = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+            new BitBottomNavItem { Text = "Settings", Link = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+        };
+
+        var component = Render(@<BitBottomNav Items="@items" />);
+
+        component.MarkupMatches(
+            @<nav class="bottom-nav">
+                <ul>
+                    <li><a href="#" class=""><div class="badge-wrapper"><span class="bottom-nav-alert"></span></div><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg><span class="bottom-nav-label">Messages <span class="visually-hidden">There are 2 new messages</span></span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg><span class="bottom-nav-label">Images</span></a></li>
+                    <li><a href="#" class=""><div class="badge-wrapper"><span class="bottom-nav-alert"></span></div><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-file"></use></svg><span class="bottom-nav-label">Documents <span class="visually-hidden">There are 42 new documents</span></span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg><span class="bottom-nav-label">Favorites</span></a></li>
+                    <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-settings"></use></svg><span class="bottom-nav-label">Settings</span></a></li>
+                </ul>
+            </nav>);
+    }
+}

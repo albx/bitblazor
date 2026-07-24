@@ -29,6 +29,11 @@ This guide provides a quick overview of all BitBlazor components with basic exam
           Rounded="true" />
 ```
 
+### BottomNav
+```razor
+<BitBottomNav Items=@items" />
+```
+
 ### Button
 ```razor
 <!-- Simple button -->

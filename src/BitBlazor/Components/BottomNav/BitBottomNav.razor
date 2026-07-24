@@ -1,0 +1,38 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<!-- BitBottomNav renders a bottom navigation component to display the current location in a mobile-optimized way.
+     The component supports customization of items, badges, alerts and accessibility features. -->
+
+<nav class="@ComputeCssClasses()">
+    <ul>
+        @foreach (var item in Items)
+        {
+            <li>
+                <a href="@item.Link" class="@(item.IsActive ? "active" : string.Empty)">
+                    @if (item.HasBadge())
+                    {
+                        <div class="badge-wrapper"><span class="bottom-nav-badge">@item.BadgeText</span></div>
+                    }
+                    @if (item.IsAlertActive && !item.HasBadge())
+                    {
+                        <div class="badge-wrapper"><span class="bottom-nav-alert"></span></div>
+                    }
+                    @if (item.HasIcon())
+                    {
+                        <BitIcon IconName="@item.Icon"></BitIcon>
+                    }
+                    @if (item.HasAriaLabel())
+                    {
+                        <span class="bottom-nav-label">@item.Text <span class="visually-hidden">@item.BadgeAriaLabel</span></span>
+                    }
+                    else
+                    {
+                        <span class="bottom-nav-label">@item.Text</span>
+                    }
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

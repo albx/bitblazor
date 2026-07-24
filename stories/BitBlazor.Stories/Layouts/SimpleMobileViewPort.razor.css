@@ -1,0 +1,16 @@
+﻿.bd-example {
+    max-width: 375px;
+    height: 240px;
+    margin: 20px;
+    padding: 0;
+    position: relative;
+    border: solid hsl(210, 4%, 78%);
+    border-width: 1px;
+    background-color: hsl(0, 0%, 96%);
+    border-radius: 4px;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+}
+
+::deep .bottom-nav {
+    position: absolute;
+}
