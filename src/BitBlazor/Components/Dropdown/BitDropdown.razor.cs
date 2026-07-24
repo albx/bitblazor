@@ -45,6 +45,13 @@ public partial class BitDropdown : BitComponentBase
     [Parameter]
     public DropdownPosition Position { get; set; } = DropdownPosition.Down;
 
+    /// <summary>
+    /// Gets or sets the color theme of the dropdown menu. 
+    /// This property allows developers to customize the appearance of the dropdown menu based on their application's design requirements.
+    /// </summary>
+    [Parameter]
+    public DropdownMenuColor MenuColor { get; set; } = DropdownMenuColor.Default;
+
     private RenderFragment<ActivatorContext> RenderedActivator => ActivatorTemplate ?? DefaultActivator;
 
     private bool isOpen;
@@ -124,6 +131,19 @@ public partial class BitDropdown : BitComponentBase
             builder.Add("show");
         }
 
+        AddDropdownMenuColorCssClass(builder);
+
         return builder.Build();
+    }
+
+    private void AddDropdownMenuColorCssClass(CssClassBuilder builder)
+    {
+        var color = MenuColor switch
+        {
+            DropdownMenuColor.Dark => "dark",
+            _ => string.Empty
+        };
+
+        builder.Add(color);
     }
 }
