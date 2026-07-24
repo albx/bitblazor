@@ -6,6 +6,13 @@
     @RenderedActivator(activatorContext)
     <div class="@ComputeDropdownMenuClass()" aria-labelledby="@ActivatorId" data-bs-popper="static" @attributes="dropdownMenuAttributes">
         <div class="link-list-wrapper">
+            @if (MenuHeaderTemplate is not null)
+            {
+                <div class="link-list-heading">
+                    @MenuHeaderTemplate
+                </div>
+            }
+
             <ul class="link-list">
                 <CascadingValue Value="this">
                     @ChildContent

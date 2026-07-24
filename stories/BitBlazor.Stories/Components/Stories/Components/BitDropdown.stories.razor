@@ -152,4 +152,19 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Custom menu header">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open">
+                    <MenuHeaderTemplate>Heading</MenuHeaderTemplate>
+                    <ChildContent>
+                        <BitDropdownItem Active="true"><span>Action 1</span></BitDropdownItem>
+                        <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                        <BitDropdownItem Disabled="true"><span>Action 3</span></BitDropdownItem>
+                    </ChildContent>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
 </Stories>

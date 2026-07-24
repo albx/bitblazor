@@ -52,6 +52,15 @@ public partial class BitDropdown : BitComponentBase
     [Parameter]
     public DropdownMenuColor MenuColor { get; set; } = DropdownMenuColor.Default;
 
+    /// <summary>
+    /// Gets or sets a custom template for the heading of the dropdown menu.
+    /// </summary>
+    /// <remarks>
+    /// This allows developers to provide a custom UI for the menu's heading section.
+    /// </remarks>
+    [Parameter]
+    public RenderFragment? MenuHeaderTemplate { get; set; }
+
     private RenderFragment<ActivatorContext> RenderedActivator => ActivatorTemplate ?? DefaultActivator;
 
     private bool isOpen;
