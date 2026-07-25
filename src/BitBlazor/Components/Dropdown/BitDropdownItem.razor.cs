@@ -8,8 +8,9 @@ namespace BitBlazor.Components;
 /// Represents an item within a <see cref="BitDropdown"/> component. 
 /// Each <see cref="BitDropdownItem"/> can contain custom content and is rendered as part of the dropdown menu.
 /// </summary>
-public partial class BitDropdownItem
+public partial class BitDropdownItem : IDisposable
 {
+    private ElementReference itemAnchorRef;
     [CascadingParameter]
     BitDropdown Parent { get; set; } = default!;
 
@@ -60,7 +61,14 @@ public partial class BitDropdownItem
         {
             throw new InvalidOperationException("BitDropdownItem component must be used inside a BitDropdown component");
         }
+
+        Parent.RegisterItem(this);
     }
+
+    /// <inheritdoc/>
+    public void Dispose() => Parent?.UnregisterItem(this);
+
+    internal Task FocusAsync() => itemAnchorRef.FocusAsync().AsTask();
 
     /// <inheritdoc/>
     protected override void OnParametersSet()
@@ -129,9 +137,23 @@ public partial class BitDropdownItem
 
     private async Task OnKeyDownAsync(KeyboardEventArgs args)
     {
-        if (args.Key is "Enter" or " ")
+        switch (args.Key)
         {
-            await ClickAsync();
+            case "Enter" or " ":
+                await ClickAsync();
+                break;
+
+            case "ArrowDown":
+                await Parent.FocusNextItemAsync(this);
+                break;
+
+            case "ArrowUp":
+                await Parent.FocusPreviousItemAsync(this);
+                break;
+
+            case "Escape":
+                await Parent.CloseAsync();
+                break;
         }
     }
 }

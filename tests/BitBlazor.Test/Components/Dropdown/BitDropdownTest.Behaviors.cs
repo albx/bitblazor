@@ -273,4 +273,232 @@ public class BitDropdownTest
 
         Assert.Contains("BitDropdownItem component must be used inside a BitDropdown component", exception.Message);
     }
+
+    [Fact]
+    public void BitDropdown_Should_Open_On_ArrowDown_Key_On_Activator()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+
+        var button = component.Find("button");
+        button.KeyDown("ArrowDown");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Open_On_ArrowUp_Key_On_Activator()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+
+        var button = component.Find("button");
+        button.KeyDown("ArrowUp");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Not_Toggle_On_Other_Keys_On_Activator()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+
+        var button = component.Find("button");
+        button.KeyDown("Tab");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.DoesNotContain("show", menu.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Open_On_Enter_Key_On_Activator_Without_Moving_Focus()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+
+        var button = component.Find("button");
+        button.KeyDown("Enter");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+        Assert.Equal("true", button.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Close_On_Enter_Key_When_Already_Open()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+
+        var button = component.Find("button");
+        button.Click();
+        button.KeyDown("Enter");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.DoesNotContain("show", menu.ClassList);
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Close_Dropdown_On_Escape_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+
+        var button = component.Find("button");
+        button.Click();
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+
+        var link = component.Find("a.dropdown-item");
+        link.KeyDown("Escape");
+
+        Assert.DoesNotContain("show", menu.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Move_Focus_To_Next_Item_On_ArrowDown_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item 1</span>"))
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item 2</span>")));
+
+        var button = component.Find("button");
+        button.Click();
+
+        var firstLink = component.FindAll("a.dropdown-item")[0];
+        firstLink.KeyDown("ArrowDown");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Move_Focus_To_Previous_Item_On_ArrowUp_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item 1</span>"))
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item 2</span>")));
+
+        var button = component.Find("button");
+        button.Click();
+
+        var secondLink = component.FindAll("a.dropdown-item")[1];
+        secondLink.KeyDown("ArrowUp");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Skip_Disabled_Items_On_ArrowDown_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item 1</span>"))
+            .AddChildContent<BitDropdownItem>(itemParams => itemParams
+                .Add(p => p.Disabled, true)
+                .AddChildContent("<span>Item 2 (disabled)</span>"))
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item 3</span>")));
+
+        var button = component.Find("button");
+        button.Click();
+
+        var firstLink = component.FindAll("a.dropdown-item")[0];
+        firstLink.KeyDown("ArrowDown");
+
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Have_Tabindex_Zero_When_Enabled()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+
+        var link = component.Find("a.dropdown-item");
+        Assert.Equal("0", link.GetAttribute("tabindex"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Have_Tabindex_MinusOne_When_Disabled()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .AddChildContent<BitDropdownItem>(itemParams => itemParams
+                .Add(p => p.Disabled, true)
+                .AddChildContent("<span>Disabled Item</span>")));
+
+        var link = component.Find("a.dropdown-item");
+        Assert.Equal("-1", link.GetAttribute("tabindex"));
+    }
 }

@@ -78,6 +78,10 @@ public partial class BitDropdown : BitComponentBase
 
     private bool isOpen;
 
+    internal bool IsOpen => isOpen;
+
+    private readonly List<BitDropdownItem> _items = [];
+
     private IDictionary<string, object> dropdownMenuAttributes = new Dictionary<string, object>();
 
     private readonly ActivatorContext activatorContext;
@@ -178,5 +182,68 @@ public partial class BitDropdown : BitComponentBase
         };
 
         builder.Add(colorClass);
+    }
+
+    internal void RegisterItem(BitDropdownItem item) => _items.Add(item);
+
+    internal void UnregisterItem(BitDropdownItem item) => _items.Remove(item);
+
+    internal async Task FocusFirstItemAsync()
+    {
+        var first = _items.FirstOrDefault(i => !i.Disabled);
+        if (first is not null)
+        {
+            await first.FocusAsync();
+        }
+    }
+
+    internal async Task FocusLastItemAsync()
+    {
+        var last = _items.LastOrDefault(i => !i.Disabled);
+        if (last is not null)
+        {
+            await last.FocusAsync();
+        }
+    }
+
+    internal async Task FocusNextItemAsync(BitDropdownItem current)
+    {
+        var index = _items.IndexOf(current);
+        var next = _items
+            .Skip(index + 1)
+            .FirstOrDefault(i => !i.Disabled)
+            ?? _items.FirstOrDefault(i => !i.Disabled);
+
+        if (next is not null)
+        {
+            await next.FocusAsync();
+        }
+    }
+
+    internal async Task FocusPreviousItemAsync(BitDropdownItem current)
+    {
+        var index = _items.IndexOf(current);
+        var previous = _items
+            .Take(index)
+            .LastOrDefault(i => !i.Disabled)
+            ?? _items.LastOrDefault(i => !i.Disabled);
+
+        if (previous is not null)
+        {
+            await previous.FocusAsync();
+        }
+    }
+
+    internal async Task CloseAsync()
+    {
+        isOpen = false;
+        activatorContext.Attributes["aria-expanded"] = "false";
+        dropdownMenuAttributes.Remove("data-popper-placement");
+        StateHasChanged();
+
+        if (activatorContext.ActivatorRef.Id is not null)
+        {
+            await activatorContext.ActivatorRef.FocusAsync();
+        }
     }
 }
