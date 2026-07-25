@@ -197,4 +197,46 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Menu with icons on the right">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem>
+                        <span>Action 1</span>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <span>Action 2</span>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <span>Action 3</span>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                    </BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Menu with icons on the left">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                        <span>Action 1</span>
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                        <span>Action 2</span>
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                        <span>Action 3</span>
+                    </BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
 </Stories>
