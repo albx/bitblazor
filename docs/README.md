@@ -63,6 +63,14 @@ Complete card system for organizing content.
 - Modular components (header, body, footer, etc.)
 - Support for images and icons
 
+#### [Dropdown](components/dropdown.md)
+Collapsible dropdown menu anchored to an activator button.
+- Four opening directions (down, up, start, end)
+- Dark menu color theme and full-width mode
+- Custom activator template with full keyboard accessibility
+- Active, disabled, and large-size item variants
+- No JavaScript interop required
+
 #### [Modal](components/modal.md)
 Modal dialog component for displaying content in an overlay.
 - Accessible dialog overlay
