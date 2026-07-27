@@ -26,7 +26,7 @@ public sealed class ActivatorContext(BitDropdown dropdown)
     /// When using the default activator this is set automatically.
     /// When providing a custom <see cref="BitDropdown.ActivatorTemplate"/>, bind this to your
     /// activator element via <c>@ref="context.ActivatorRef"</c> to enable focus restoration on Escape.
-    /// Omitting it is safe: <see cref="CloseAsync"/> degrades gracefully without it.
+    /// Omitting it is safe: <see cref="BitDropdown.CloseAsync"/> degrades gracefully without it.
     /// </summary>
     public ElementReference ActivatorRef { get; set; }
 
@@ -61,7 +61,6 @@ public sealed class ActivatorContext(BitDropdown dropdown)
     ///     &lt;button @ref="ctx.ActivatorRef"
     ///             @onclick="ctx.ToggleDropdown"
     ///             @onkeydown="ctx.HandleKeyDownAsync"
-    ///             @onkeydown:preventDefault="true"
     ///             @attributes="ctx.Attributes"&gt;
     ///         Your custom content
     ///     &lt;/button&gt;
@@ -71,7 +70,6 @@ public sealed class ActivatorContext(BitDropdown dropdown)
     ///   <item><description><c>@ref</c> — optional; enables focus restoration on Escape. Safe to omit.</description></item>
     ///   <item><description><c>@onclick</c> — handles mouse / touch toggle.</description></item>
     ///   <item><description><c>@onkeydown</c> — handles keyboard toggle and arrow-key navigation.</description></item>
-    ///   <item><description><c>@onkeydown:preventDefault</c> — prevents the browser from scrolling on arrow keys.</description></item>
     ///   <item><description><c>@attributes</c> — spreads <c>aria-haspopup</c> and <c>aria-expanded</c>.</description></item>
     /// </list>
     /// </remarks>
@@ -79,14 +77,11 @@ public sealed class ActivatorContext(BitDropdown dropdown)
     {
         switch (args.Key)
         {
-            case "Enter" or " ":
-                dropdown.Toggle();
-                break;
-
             case "ArrowDown":
                 if (!dropdown.IsOpen)
                 {
                     dropdown.Toggle();
+                    await Task.Yield();
                 }
                 await dropdown.FocusFirstItemAsync();
                 break;
@@ -95,6 +90,7 @@ public sealed class ActivatorContext(BitDropdown dropdown)
                 if (!dropdown.IsOpen)
                 {
                     dropdown.Toggle();
+                    await Task.Yield();
                 }
                 await dropdown.FocusLastItemAsync();
                 break;

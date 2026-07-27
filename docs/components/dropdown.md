@@ -133,7 +133,6 @@ When replacing the default button, you must wire all five directives to preserve
                 @ref="ctx.ActivatorRef"
                 @onclick="ctx.ToggleDropdown"
                 @onkeydown="ctx.HandleKeyDownAsync"
-                @onkeydown:preventDefault="true"
                 @attributes="ctx.Attributes">
             @ctx.ActivatorLabel
         </button>
@@ -272,7 +271,6 @@ Replace the default button with any element while preserving full accessibility 
                 @ref="ctx.ActivatorRef"
                 @onclick="ctx.ToggleDropdown"
                 @onkeydown="ctx.HandleKeyDownAsync"
-                @onkeydown:preventDefault="true"
                 @attributes="ctx.Attributes">
             <BitIcon IconName="@Icons.ItUser" />
             @ctx.ActivatorLabel

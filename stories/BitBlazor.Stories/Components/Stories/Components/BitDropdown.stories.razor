@@ -73,7 +73,7 @@
                 <div class="btn-group">
                     <BitDropdown ActivatorId="primaryDropdown" ActivatorLabel="Open">
                         <ActivatorTemplate Context="activator">
-                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Primary" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
+                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Primary" OnKeyDown="@activator.HandleKeyDownAsync" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
                                 @activator.ActivatorLabel
                                 <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Light" Size="IconSize.Small" CssClass="icon-expand" />
                             </BitButton>
@@ -88,7 +88,7 @@
                 <div class="btn-group">
                     <BitDropdown ActivatorId="outlineDropdown" ActivatorLabel="Open">
                         <ActivatorTemplate Context="activator">
-                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Secondary" Variant="Variant.Outline" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
+                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Secondary" Variant="Variant.Outline" OnKeyDown="@activator.HandleKeyDownAsync" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
                                 @activator.ActivatorLabel
                                 <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Secondary" Size="IconSize.Small" CssClass="icon-expand" />
                             </BitButton>
@@ -103,7 +103,7 @@
                 <div class="btn-group">
                     <BitDropdown ActivatorId="dangerDropdown" ActivatorLabel="Open">
                         <ActivatorTemplate Context="activator">
-                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Danger" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
+                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Danger" @onkeydown="@activator.HandleKeyDownAsync" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
                                 @activator.ActivatorLabel
                                 <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Light" Size="IconSize.Small" CssClass="icon-expand" />
                             </BitButton>

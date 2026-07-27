@@ -15,6 +15,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
 
@@ -34,6 +35,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
 
@@ -58,6 +60,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .Add(p => p.Position, position)
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
@@ -78,6 +81,7 @@ public class BitDropdownTest
         var clicked = false;
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.OnClick, EventCallback.Factory.Create(ctx, () => clicked = true))
                 .AddChildContent("<span>Click Me</span>")));
@@ -96,6 +100,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.Href, "/test-page")
                 .AddChildContent("<span>Navigation Link</span>")));
@@ -116,6 +121,7 @@ public class BitDropdownTest
         var clicked = false;
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.Disabled, true)
                 .Add(p => p.OnClick, EventCallback.Factory.Create(ctx, () => clicked = true))
@@ -136,6 +142,7 @@ public class BitDropdownTest
         var clicked = false;
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.OnClick, EventCallback.Factory.Create(ctx, () => clicked = true))
                 .AddChildContent("<span>Item</span>")));
@@ -155,6 +162,7 @@ public class BitDropdownTest
         var clicked = false;
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.OnClick, EventCallback.Factory.Create(ctx, () => clicked = true))
                 .AddChildContent("<span>Item</span>")));
@@ -174,6 +182,7 @@ public class BitDropdownTest
         var clicked = false;
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.OnClick, EventCallback.Factory.Create(ctx, () => clicked = true))
                 .AddChildContent("<span>Item</span>")));
@@ -193,6 +202,7 @@ public class BitDropdownTest
         var clicked = false;
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.Disabled, true)
                 .Add(p => p.OnClick, EventCallback.Factory.Create(ctx, () => clicked = true))
@@ -216,6 +226,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.Href, "/other-page")
                 .Add(p => p.OnClick, EventCallback.Factory.Create(ctx, () => clicked = true))
@@ -237,6 +248,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.Active, true)
                 .AddChildContent("<span>Active Item</span>")));
@@ -253,6 +265,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.Disabled, true)
                 .AddChildContent("<span>Disabled Item</span>")));
@@ -283,6 +296,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
 
@@ -302,6 +316,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
 
@@ -321,6 +336,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
 
@@ -332,47 +348,6 @@ public class BitDropdownTest
     }
 
     [Fact]
-    public void BitDropdown_Should_Open_On_Enter_Key_On_Activator_Without_Moving_Focus()
-    {
-        using var ctx = new BunitContext();
-        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
-        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
-
-        var component = ctx.Render<BitDropdown>(parameters => parameters
-            .Add(p => p.ActivatorLabel, "Open")
-            .AddChildContent<BitDropdownItem>(itemParams =>
-                itemParams.AddChildContent("<span>Item</span>")));
-
-        var button = component.Find("button");
-        button.KeyDown("Enter");
-
-        var menu = component.Find("div.dropdown-menu");
-        Assert.Contains("show", menu.ClassList);
-        Assert.Equal("true", button.GetAttribute("aria-expanded"));
-    }
-
-    [Fact]
-    public void BitDropdown_Should_Close_On_Enter_Key_When_Already_Open()
-    {
-        using var ctx = new BunitContext();
-        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
-        ctx.JSInterop.Mode = JSRuntimeMode.Loose;
-
-        var component = ctx.Render<BitDropdown>(parameters => parameters
-            .Add(p => p.ActivatorLabel, "Open")
-            .AddChildContent<BitDropdownItem>(itemParams =>
-                itemParams.AddChildContent("<span>Item</span>")));
-
-        var button = component.Find("button");
-        button.Click();
-        button.KeyDown("Enter");
-
-        var menu = component.Find("div.dropdown-menu");
-        Assert.DoesNotContain("show", menu.ClassList);
-        Assert.Equal("false", button.GetAttribute("aria-expanded"));
-    }
-
-    [Fact]
     public void BitDropdownItem_Should_Close_Dropdown_On_Escape_Key()
     {
         using var ctx = new BunitContext();
@@ -381,6 +356,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
 
@@ -405,6 +381,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item 1</span>"))
             .AddChildContent<BitDropdownItem>(itemParams =>
@@ -429,6 +406,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item 1</span>"))
             .AddChildContent<BitDropdownItem>(itemParams =>
@@ -453,6 +431,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item 1</span>"))
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
@@ -479,6 +458,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams =>
                 itemParams.AddChildContent("<span>Item</span>")));
 
@@ -494,6 +474,7 @@ public class BitDropdownTest
 
         var component = ctx.Render<BitDropdown>(parameters => parameters
             .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
             .AddChildContent<BitDropdownItem>(itemParams => itemParams
                 .Add(p => p.Disabled, true)
                 .AddChildContent("<span>Disabled Item</span>")));
