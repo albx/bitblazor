@@ -81,10 +81,12 @@ public partial class BitDropdownItem : IDisposable
         if (Disabled)
         {
             AdditionalAttributes["aria-disabled"] = "true";
+            AdditionalAttributes["role"] = "button";
         }
         else
         {
             AdditionalAttributes.Remove("aria-disabled");
+            AdditionalAttributes.Remove("role");
         }
     }
 
