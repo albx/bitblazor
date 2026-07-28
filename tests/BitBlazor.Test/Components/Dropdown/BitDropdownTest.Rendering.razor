@@ -1,0 +1,358 @@
+@inherits BunitContext
+
+@code {
+    public BitDropdownTest_Rendering()
+    {
+        SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Default_Markup_Correctly()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Custom_CssClass_On_Root()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" CssClass="my-custom">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var root = component.Find("div");
+        Assert.Contains("my-custom", root.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Update_AriaExpanded_On_Toggle()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var button = component.Find("button");
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+
+        button.Click();
+        Assert.Equal("true", button.GetAttribute("aria-expanded"));
+    }
+
+    [Theory]
+    [InlineData(DropdownPosition.Down, "")]
+    [InlineData(DropdownPosition.Up, "dropup")]
+    [InlineData(DropdownPosition.End, "dropend")]
+    [InlineData(DropdownPosition.Start, "dropstart")]
+    public void BitDropdown_Should_Render_Correct_Position(DropdownPosition position, string expectedClass)
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" Position="@position">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown @expectedClass">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Custom_Activator()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <ActivatorTemplate>
+                    <BitButton Id="@context.ActivatorId" CssClass="dropdown-toggle" AdditionalAttributes="context.Attributes" OnClick="context.ToggleDropdown" Color="Color.Primary">
+                        @context.ActivatorLabel
+                        <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Primary" Size="IconSize.Small" CssClass="icon-expand" />
+                    </BitButton>
+                </ActivatorTemplate>
+                <ChildContent>
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </ChildContent>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_Active_Class()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Active="true"><span>Active Item</span></BitDropdownItem>
+                <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var items = component.FindAll("a.dropdown-item");
+        Assert.Equal(2, items.Count);
+
+        var activeItem = items[0];
+        Assert.Contains("active", activeItem.ClassList);
+
+        var inactiveItem = items[1];
+        Assert.DoesNotContain("active", inactiveItem.ClassList);
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_Disabled_Class_And_Attribute()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Disabled="true"><span>Disabled Item</span></BitDropdownItem>
+                <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var items = component.FindAll("a.dropdown-item");
+        Assert.Equal(2, items.Count);
+
+        var disabledItem = items[0];
+        Assert.Contains("disabled", disabledItem.ClassList);
+        Assert.Equal("true", disabledItem.GetAttribute("aria-disabled"));
+
+        var enabledItem = items[1];
+        Assert.DoesNotContain("disabled", enabledItem.ClassList);
+        Assert.Null(enabledItem.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_With_Href()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Href="/test-page"><span>Link Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var link = component.Find("a.dropdown-item");
+        Assert.Equal("/test-page", link.GetAttribute("href"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_Additional_Attributes()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem data-testid="custom-item" title="Test Item"><span>Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var item = component.Find("a.dropdown-item");
+        Assert.Equal("custom-item", item.GetAttribute("data-testid"));
+        Assert.Equal("Test Item", item.GetAttribute("title"));
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Dark_Menu_Correctly()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" MenuColor="DropdownMenuColor.Dark">
+                <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu dark" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Menu_Header_Correctly()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <MenuHeaderTemplate>Heading</MenuHeaderTemplate>
+                <ChildContent>
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </ChildContent>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <div class="link-list-heading">Heading</div>
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Items_Size_Correctly()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" ItemSize="DropdownItemSize.Large">
+                <ChildContent>
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </ChildContent>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item large" tabindex="0"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item large" tabindex="0"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item large" tabindex="0"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+
+    [Fact]
+    public void BitDropdown_Should_Render_Menu_Full_Width_Correctly()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open" MenuWidth="DropdownMenuWidth.Full">
+                <ChildContent>
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </ChildContent>
+            </BitDropdown>);
+
+        component.MarkupMatches(
+            @<div class="dropdown">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdownMenu" aria-haspopup="true" aria-expanded="false">
+                    Open
+                    <svg class="icon-expand icon icon-sm icon-primary"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-expand"></use></svg>
+                </button>
+                <div class="dropdown-menu full-width" aria-labelledby="dropdownMenu" data-bs-popper="static">
+                    <div class="link-list-wrapper">
+                        <ul class="link-list">
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>);
+    }
+}

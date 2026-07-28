@@ -1,0 +1,242 @@
+﻿@attribute [Stories("Components/BitDropdown")]
+
+<Stories TComponent="BitDropdown">
+    <ArgType For="_ => _.ActivatorId" DefaultValue="@("dropdownMenu")" />
+    <ArgType For="_ => _.ActivatorLabel" DefaultValue="@("Open")" />
+    <ArgType For="_ => _.Position" DefaultValue="@DropdownPosition.Down" Control="ControlType.Select" />
+    <ArgType For="_ => _.MenuColor" DefaultValue="@DropdownMenuColor.Default" Control="ControlType.Select" />
+    <ArgType For="_ => _.MenuWidth" DefaultValue="@DropdownMenuWidth.Default" Control="ControlType.Select" />
+    <ArgType For="_ => _.ItemSize" DefaultValue="@DropdownItemSize.Default" Control="ControlType.Select" />
+    <ArgType For="_ => _.CssClass" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.ActivatorId" Value="@("dropdownMenu")" />
+            <Arg For="_ => _.ActivatorLabel" Value="@("Open")" />
+            <Arg For="_ => _.Position" Value="DropdownPosition.Down" />
+            <Arg For="_ => _.MenuColor" Value="DropdownMenuColor.Default" />
+            <Arg For="_ => _.MenuWidth" Value="DropdownMenuWidth.Default" />
+            <Arg For="_ => _.ItemSize" Value="DropdownItemSize.Default" />
+            <Arg For="_ => _.CssClass" />
+        </Arguments>
+
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown @attributes="context.Args">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Dropup">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="dropupMenu" ActivatorLabel="Open" Position="DropdownPosition.Up">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Dropend">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="dropendMenu" ActivatorLabel="Open" Position="DropdownPosition.End">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Dropstart">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="dropstartMenu" ActivatorLabel="Open" Position="DropdownPosition.Start">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Custom activator">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center gap-5" style="display:flex; height:90vh;">
+                <div class="btn-group">
+                    <BitDropdown ActivatorId="primaryDropdown" ActivatorLabel="Open">
+                        <ActivatorTemplate Context="activator">
+                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Primary" OnKeyDown="@activator.HandleKeyDownAsync" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
+                                @activator.ActivatorLabel
+                                <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Light" Size="IconSize.Small" CssClass="icon-expand" />
+                            </BitButton>
+                        </ActivatorTemplate>
+                        <ChildContent>
+                            <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                            <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                            <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                        </ChildContent>
+                    </BitDropdown>
+                </div>
+                <div class="btn-group">
+                    <BitDropdown ActivatorId="outlineDropdown" ActivatorLabel="Open">
+                        <ActivatorTemplate Context="activator">
+                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Secondary" Variant="Variant.Outline" OnKeyDown="@activator.HandleKeyDownAsync" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
+                                @activator.ActivatorLabel
+                                <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Secondary" Size="IconSize.Small" CssClass="icon-expand" />
+                            </BitButton>
+                        </ActivatorTemplate>
+                        <ChildContent>
+                            <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                            <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                            <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                        </ChildContent>
+                    </BitDropdown>
+                </div>
+                <div class="btn-group">
+                    <BitDropdown ActivatorId="dangerDropdown" ActivatorLabel="Open">
+                        <ActivatorTemplate Context="activator">
+                            <BitButton CssClass="dropdown-toggle" Id="@activator.ActivatorId" Color="Color.Danger" @onkeydown="@activator.HandleKeyDownAsync" AdditionalAttributes="@activator.Attributes" OnClick="@activator.ToggleDropdown">
+                                @activator.ActivatorLabel
+                                <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Light" Size="IconSize.Small" CssClass="icon-expand" />
+                            </BitButton>
+                        </ActivatorTemplate>
+                        <ChildContent>
+                            <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                            <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                            <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                        </ChildContent>
+                    </BitDropdown>
+                </div>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Active items">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="activeDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+                    <BitDropdownItem Active="true"><span>Active Item 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+                    <BitDropdownItem Active="true"><span>Active Item 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Inactive Item</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Disabled items">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="disabledDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+                    <BitDropdownItem Disabled="true"><span>Disabled Item 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+                    <BitDropdownItem Disabled="true"><span>Disabled Item 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Enabled Item</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Full width menu">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown CssClass="w-100" ActivatorId="darkMenuDropdown" ActivatorLabel="Open" MenuWidth="DropdownMenuWidth.Full">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Dark menu">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open" MenuColor="DropdownMenuColor.Dark">
+                    <BitDropdownItem Active="true"><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem Disabled="true"><span>Action 3</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Custom menu header">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open">
+                    <MenuHeaderTemplate>Heading</MenuHeaderTemplate>
+                    <ChildContent>
+                        <BitDropdownItem Active="true"><span>Action 1</span></BitDropdownItem>
+                        <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                        <BitDropdownItem Disabled="true"><span>Action 3</span></BitDropdownItem>
+                    </ChildContent>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Large dropdown items">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open" ItemSize="DropdownItemSize.Large">
+                    <BitDropdownItem><span>Action 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 2</span></BitDropdownItem>
+                    <BitDropdownItem><span>Action 3</span></BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Menu with icons on the right">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem>
+                        <span>Action 1</span>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <span>Action 2</span>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <span>Action 3</span>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                    </BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Menu with icons on the left">
+        <Template>
+            <div class="px-2 py-2 justify-content-center align-items-center" style="display:flex; height:90vh;">
+                <BitDropdown ActivatorId="darkMenuDropdown" ActivatorLabel="Open">
+                    <BitDropdownItem>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                        <span>Action 1</span>
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                        <span>Action 2</span>
+                    </BitDropdownItem>
+                    <BitDropdownItem>
+                        <BitIcon IconName="@Icons.ItStarOutline" Color="IconColor.Primary" Size="IconSize.Small" />
+                        <span>Action 3</span>
+                    </BitDropdownItem>
+                </BitDropdown>
+            </div>
+        </Template>
+    </Story>
+</Stories>

@@ -1,6 +1,7 @@
 using BitBlazor.Core;
 using BitBlazor.Utilities;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BitBlazor.Components;
 
@@ -70,6 +71,12 @@ public partial class BitButton : BitComponentBase
     /// </summary>
     [Parameter]
     public EventCallback OnClick { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback to invoke when a key is pressed while the button has focus.
+    /// </summary>
+    [Parameter]
+    public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
 
     private string ButtonTypeString => Type switch
     {
