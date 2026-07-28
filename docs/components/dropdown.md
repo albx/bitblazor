@@ -148,7 +148,6 @@ When replacing the default button, you must wire all five directives to preserve
 | `@ref="ctx.ActivatorRef"` | Optional. Enables focus restoration to the activator when the menu closes via Escape |
 | `@onclick="ctx.ToggleDropdown"` | Handles mouse and touch toggle |
 | `@onkeydown="ctx.HandleKeyDownAsync"` | Handles keyboard toggle and arrow-key navigation |
-| `@onkeydown:preventDefault="true"` | Prevents the browser from scrolling on arrow keys |
 | `@attributes="ctx.Attributes"` | Spreads `aria-haspopup` and live `aria-expanded` |
 
 > **Note:** Omitting `@ref="ctx.ActivatorRef"` is safe — `CloseAsync` degrades gracefully and simply will not restore focus to the activator on Escape.
