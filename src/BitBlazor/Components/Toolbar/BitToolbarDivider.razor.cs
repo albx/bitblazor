@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Components;
 
+/// <summary>
+/// Represents a divider in a <see cref="BitToolbar"/> component.
+/// </summary>
 public partial class BitToolbarDivider
 {
     [CascadingParameter]

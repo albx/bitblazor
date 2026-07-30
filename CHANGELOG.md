@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 
+
+### Added
+
+#### Components
+- [x] **Toolbar** - BitToolbar component for grouping icon-based action items in a navigation bar (#98)
+  - [x] BitToolbarItem - Individual action item sub-component
+  - [x] BitToolbarDivider - Visual and semantic separator between items
+  - [x] ToolbarSize enumeration
+- [x] **Dropdown** - BitDropdown component for collapsible menus with no JavaScript interop required (#102)
+  - [x] BitDropdownItem - Individual menu entry sub-component
+  - [x] DropdownItemSize, DropdownMenuColor, DropdownMenuWidth, DropdownPosition enumerations
+  - [x] ActivatorContext - Context type for custom activator templates
+
+#### Documentation
+- [x] Toolbar component documentation
+- [x] Dropdown component documentation
+
 ## [0.3.0] - 2026-05-30
 
 ### Added
