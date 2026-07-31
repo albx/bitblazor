@@ -19,6 +19,8 @@ public partial class BitBottomNav : BitComponentBase
     {
         var builder = new CssClassBuilder("bottom-nav");
 
+        AddCustomCssClass(builder);
+
         return builder.Build();
     }
 }
