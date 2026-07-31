@@ -1,0 +1,18 @@
+/*
+ * Shrink-wrap the container to the activator button's dimensions.
+ *
+ * Bootstrap's positional CSS (left:100%, right:100%, bottom:100%) resolves
+ * against the nearest positioned ancestor -- the .dropdown container div.
+ * As a block element it stretches to its parent's full width, so the menu
+ * lands at the container's far edge rather than the button's edge.
+ *
+ * display:inline-block collapses the container to the button's own width/height,
+ * replicating what Popper.js would compute via getBoundingClientRect() --
+ * with zero JS interop.
+ */
+.dropdown,
+.dropup,
+.dropend,
+.dropstart {
+    display: inline-block;
+}

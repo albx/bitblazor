@@ -1,0 +1,7 @@
+﻿@namespace BitBlazor.Components
+
+<li>
+    <a href="@Href" class="@ComputeLinkCssClass()" tabindex="@(Disabled ? "-1" : "0")" @ref="itemAnchorRef" @attributes="AdditionalAttributes" @onclick="ClickAsync" @onclick:preventDefault="@RendererInfo.IsInteractive" @onkeydown="OnKeyDownAsync">
+        @ChildContent
+    </a>
+</li>

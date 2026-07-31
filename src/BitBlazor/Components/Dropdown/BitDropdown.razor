@@ -1,0 +1,32 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<div class="@ComputeDropdownContainerClass()" @attributes="AdditionalAttributes">
+    @RenderedActivator(activatorContext)
+    <div class="@ComputeDropdownMenuClass()" aria-labelledby="@ActivatorId" data-bs-popper="static" @attributes="dropdownMenuAttributes">
+        <div class="link-list-wrapper">
+            @if (MenuHeaderTemplate is not null)
+            {
+                <div class="link-list-heading">
+                    @MenuHeaderTemplate
+                </div>
+            }
+
+            <ul class="link-list">
+                <CascadingValue Value="this">
+                    @ChildContent
+                </CascadingValue>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RenderFragment<ActivatorContext> DefaultActivator => 
+        context =>
+            @<button class="btn btn-dropdown dropdown-toggle" type="button" id="@context.ActivatorId" @ref="activatorContext.ActivatorRef" @attributes="context.Attributes" @onclick="@context.ToggleDropdown" @onkeydown="@context.HandleKeyDownAsync">
+                @context.ActivatorLabel
+                <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Primary" Size="IconSize.Small" CssClass="icon-expand" />
+            </button>;
+}

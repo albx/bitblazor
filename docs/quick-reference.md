@@ -115,6 +115,50 @@ This guide provides a quick overview of all BitBlazor components with basic exam
 </BitPagination>
 ```
 
+### Dropdown
+```razor
+<!-- Basic dropdown -->
+<BitDropdown ActivatorId="actions-dd" ActivatorLabel="Actions">
+    <BitDropdownItem Href="/new">New</BitDropdownItem>
+    <BitDropdownItem Href="/edit">Edit</BitDropdownItem>
+    <BitDropdownItem Href="/delete">Delete</BitDropdownItem>
+</BitDropdown>
+
+<!-- With click callbacks -->
+<BitDropdown ActivatorId="cb-dd" ActivatorLabel="File">
+    <BitDropdownItem OnClick="HandleNew">New file</BitDropdownItem>
+    <BitDropdownItem OnClick="HandleSave">Save</BitDropdownItem>
+    <BitDropdownItem Href="/export" Disabled="true">Export (unavailable)</BitDropdownItem>
+</BitDropdown>
+
+<!-- Dark menu, menu opens upward -->
+<BitDropdown ActivatorId="dark-up-dd"
+             ActivatorLabel="Options"
+             MenuColor="DropdownMenuColor.Dark"
+             Position="DropdownPosition.Up">
+    <BitDropdownItem Href="/profile">Profile</BitDropdownItem>
+    <BitDropdownItem Href="/settings">Settings</BitDropdownItem>
+</BitDropdown>
+
+<!-- Custom activator template (preserves full keyboard accessibility) -->
+<BitDropdown ActivatorId="custom-dd" ActivatorLabel="User menu">
+    <ActivatorTemplate Context="ctx">
+        <button id="@ctx.ActivatorId"
+                class="btn btn-outline-primary"
+                @ref="ctx.ActivatorRef"
+                @onclick="ctx.ToggleDropdown"
+                @onkeydown="ctx.HandleKeyDownAsync"
+                @onkeydown:preventDefault="true"
+                @attributes="ctx.Attributes">
+            <BitIcon IconName="@Icons.ItUser" />
+            @ctx.ActivatorLabel
+        </button>
+    </ActivatorTemplate>
+    <BitDropdownItem Href="/profile">Profile</BitDropdownItem>
+    <BitDropdownItem OnClick="HandleLogout">Log out</BitDropdownItem>
+</BitDropdown>
+```
+
 ### Toolbar
 ```razor
 <!-- Basic horizontal toolbar -->
