@@ -51,7 +51,7 @@ Helper methods on `BitBottomNavItem`:
 C# (prepare items):
 
 ```csharp
-List<BitBottomNavItem> items =  new()
+var items = new List<BitBottomNavItem>
     {
         new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment, BadgeText = "1", BadgeAriaLabel = "to read" },
         new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera, BadgeText = "2", BadgeAriaLabel = "to view" },
