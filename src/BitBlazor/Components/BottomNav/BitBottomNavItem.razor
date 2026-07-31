@@ -1,0 +1,51 @@
+﻿@namespace BitBlazor.Components
+@if (item != null)
+{
+    <a href="@item.Href" @onclick="ClickAsync" @onclick:preventDefault="@RendererInfo.IsInteractive" class="@(item.IsActive ? "active" : string.Empty)">
+        @if (item.HasBadge())
+        {
+            <div class="badge-wrapper"><span class="bottom-nav-badge">@item.BadgeText</span></div>
+        }
+        @if (item.IsAlertActive && !item.HasBadge())
+        {
+            <div class="badge-wrapper"><span class="bottom-nav-alert"></span></div>
+        }
+        @if (item.HasIcon())
+        {
+            <BitIcon IconName="@item.Icon"></BitIcon>
+        }
+        @if (item.HasAriaLabel())
+        {
+            <span class="bottom-nav-label">@item.Text <span class="visually-hidden">@item.BadgeAriaLabel</span></span>
+        }
+        else
+        {
+            <span class="bottom-nav-label">@item.Text</span>
+        }
+    </a>
+}
+@code{
+    [CascadingParameter]
+    BitBottomNav Parent { get; set; } = default!;
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
+    [Parameter]
+    public BitBottomNavItem item { get; set; } = default!;
+
+    private async Task ClickAsync()
+    {
+        //if (Disabled)
+        //    return;
+
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+        else if (Href is not null)
+        {
+            NavigationManager.NavigateTo(Href);
+        }
+    }
+}

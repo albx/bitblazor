@@ -1,16 +1,22 @@
 ﻿@inherits BunitContext
 
 @code {
+
+    public BitBottomNavTest_Rendering()
+    {
+        SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+    }
+
     [Fact]
     public void BitBottomNav_Should_Render_Correctly()
     {
         List<BitBottomNavItem> items = new()
         {
-            new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment },
-            new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
-            new BitBottomNavItem { Text = "Documents", Link = "#", Icon = BitBlazor.Utilities.Icons.ItFile },
-            new BitBottomNavItem { Text = "Favorites", Link = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
-            new BitBottomNavItem { Text = "Settings", Link = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+            new BitBottomNavItem { Text = "Messages", Href = "#", Icon = BitBlazor.Utilities.Icons.ItComment },
+            new BitBottomNavItem { Text = "Images", Href = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
+            new BitBottomNavItem { Text = "Documents", Href = "#", Icon = BitBlazor.Utilities.Icons.ItFile },
+            new BitBottomNavItem { Text = "Favorites", Href = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+            new BitBottomNavItem { Text = "Settings", Href = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
         };
 
         var component = Render(@<BitBottomNav Items="@items" />);
@@ -32,11 +38,11 @@
     {
         List<BitBottomNavItem> items = new()
         {
-            new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment, BadgeText="1", BadgeAriaLabel="to read" },
-            new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera, BadgeText="2", BadgeAriaLabel="to view" },
-            new BitBottomNavItem { Text = "Documents", Link = "#", Icon = BitBlazor.Utilities.Icons.ItFile, BadgeText="42", BadgeAriaLabel="to examine" },
-            new BitBottomNavItem { Text = "Favorites", Link = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
-            new BitBottomNavItem { Text = "Settings", Link = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+            new BitBottomNavItem { Text = "Messages", Href = "#", Icon = BitBlazor.Utilities.Icons.ItComment, BadgeText="1", BadgeAriaLabel="to read" },
+            new BitBottomNavItem { Text = "Images", Href = "#", Icon = BitBlazor.Utilities.Icons.ItCamera, BadgeText="2", BadgeAriaLabel="to view" },
+            new BitBottomNavItem { Text = "Documents", Href = "#", Icon = BitBlazor.Utilities.Icons.ItFile, BadgeText="42", BadgeAriaLabel="to examine" },
+            new BitBottomNavItem { Text = "Favorites", Href = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+            new BitBottomNavItem { Text = "Settings", Href = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
         };
 
         var component = Render(@<BitBottomNav Items="@items" />);
@@ -58,11 +64,11 @@
     {
         List<BitBottomNavItem> items = new()
         {
-            new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment, IsAlertActive=true, BadgeAriaLabel="There are 2 new messages" },
-            new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
-            new BitBottomNavItem { Text = "Documents", Link = "#", Icon = BitBlazor.Utilities.Icons.ItFile, IsAlertActive=true, BadgeAriaLabel="There are 42 new documents" },
-            new BitBottomNavItem { Text = "Favorites", Link = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
-            new BitBottomNavItem { Text = "Settings", Link = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+            new BitBottomNavItem { Text = "Messages", Href = "#", Icon = BitBlazor.Utilities.Icons.ItComment, IsAlertActive=true, BadgeAriaLabel="There are 2 new messages" },
+            new BitBottomNavItem { Text = "Images", Href = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
+            new BitBottomNavItem { Text = "Documents", Href = "#", Icon = BitBlazor.Utilities.Icons.ItFile, IsAlertActive=true, BadgeAriaLabel="There are 42 new documents" },
+            new BitBottomNavItem { Text = "Favorites", Href = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+            new BitBottomNavItem { Text = "Settings", Href = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
         };
 
         var component = Render(@<BitBottomNav Items="@items" />);
