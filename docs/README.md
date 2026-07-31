@@ -37,6 +37,11 @@ Small and adaptable labels for adding information.
 - Support for rounded shapes
 - Various colors available
 
+#### [BottomNav](components/bottomnav.md)
+Mobile-optimized bottom navigation bar to show the current location or quick actions.
+- Support for the customization of items, icons, alerts and badges
+- Accessibility support
+
 #### [Breadcrumb](components/breadcrumb.md)
 Breadcrumb navigation component to display the current location within a hierarchy.
 - Support for the customization of items and the separator

@@ -1,0 +1,17 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+
+<!-- BitBottomNav renders a bottom navigation component to display the current location in a mobile-optimized way.
+     The component supports customization of items, badges, alerts and accessibility features. -->
+
+ <nav class="@ComputeCssClasses()" @attributes="AdditionalAttributes">
+     <ul>
+        @foreach (var item in Items)
+        {
+            <li>
+                <BitBottomNavItem Item="item" />
+            </li>
+        }
+    </ul>
+</nav>

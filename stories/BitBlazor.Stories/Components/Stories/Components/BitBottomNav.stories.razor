@@ -1,0 +1,66 @@
+﻿@using BitBlazor.Stories.Layouts
+@attribute [Stories("Components/BitBottomNav")]
+
+<Stories TComponent="BitBottomNav" Layout="typeof(SimpleMobileViewPort)">
+    <Story Name="Default">
+        <Arguments>
+        </Arguments>
+        <Template>
+            <BitBottomNav Items="@_items.Take(3).ToList()" />
+        </Template>
+    </Story>
+
+    <Story Name="Example with four buttons">
+        <Arguments>
+        </Arguments>
+        <Template>
+            <BitBottomNav Items="@_items.Take(4).ToList()" />
+        </Template>
+    </Story>
+
+    <Story Name="Badges">
+        <Arguments>
+        </Arguments>
+        <Template>
+            <BitBottomNav Items="@_itemsWithBadges" />
+        </Template>
+    </Story>
+
+    <Story Name="Alerts">
+        <Arguments>
+        </Arguments>
+        <Template>
+            <BitBottomNav Items="@_itemsWithAlerts" />
+        </Template>
+    </Story>
+</Stories>
+
+@code
+{
+    private List<BitBottomNavItem> _items = new()
+    {
+        new BitBottomNavItem { Text = "Messages", Href = "#", Icon = BitBlazor.Utilities.Icons.ItComment },
+        new BitBottomNavItem { Text = "Images", Href = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
+        new BitBottomNavItem { Text = "Documents", Href = "#", Icon = BitBlazor.Utilities.Icons.ItFile },
+        new BitBottomNavItem { Text = "Favorites", Href = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+        new BitBottomNavItem { Text = "Settings", Href = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+    };
+
+    private List<BitBottomNavItem> _itemsWithBadges = new()
+    {
+        new BitBottomNavItem { Text = "Messages", Href = "#", Icon = BitBlazor.Utilities.Icons.ItComment, BadgeText="1", BadgeAriaLabel="to read" },
+        new BitBottomNavItem { Text = "Images", Href = "#", Icon = BitBlazor.Utilities.Icons.ItCamera, BadgeText="2", BadgeAriaLabel="to view" },
+        new BitBottomNavItem { Text = "Documents", Href = "#", Icon = BitBlazor.Utilities.Icons.ItFile, BadgeText="42", BadgeAriaLabel="to examine" },
+        new BitBottomNavItem { Text = "Favorites", Href = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+        new BitBottomNavItem { Text = "Settings", Href = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+    };
+
+    private List<BitBottomNavItem> _itemsWithAlerts = new()
+    {
+        new BitBottomNavItem { Text = "Messages", Href = "#", Icon = BitBlazor.Utilities.Icons.ItComment, IsAlertActive=true, BadgeAriaLabel="There are 2 new messages" },
+        new BitBottomNavItem { Text = "Images", Href = "#", Icon = BitBlazor.Utilities.Icons.ItCamera },
+        new BitBottomNavItem { Text = "Documents", Href = "#", Icon = BitBlazor.Utilities.Icons.ItFile, IsAlertActive=true, BadgeAriaLabel="There are 42 new documents" },
+        new BitBottomNavItem { Text = "Favorites", Href = "#", Icon = BitBlazor.Utilities.Icons.ItStarOutline },
+        new BitBottomNavItem { Text = "Settings", Href = "#", Icon = BitBlazor.Utilities.Icons.ItSettings }
+    };
+}
