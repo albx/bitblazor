@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.4.0] - 
+## [0.4.0] - 2026-07-31
 
 ### Added
 
@@ -18,10 +18,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - [x] BitDropdownItem - Individual menu entry sub-component
   - [x] DropdownItemSize, DropdownMenuColor, DropdownMenuWidth, DropdownPosition enumerations
   - [x] ActivatorContext - Context type for custom activator templates
+- [x] **BottomNav** - BitBottomNav component for mobile-optimized bottom navigation (#103)
+  - [x] BitBottomNavItem - Individual navigation item sub-component
+  - [x] Support for icons, badges, and alert indicators
 
 #### Documentation
 - [x] Toolbar component documentation
 - [x] Dropdown component documentation
+- [x] BottomNav component documentation
 
 ## [0.3.0] - 2026-05-30
 
