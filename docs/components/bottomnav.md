@@ -17,7 +17,7 @@ BitBottomNav displays a horizontal list of navigation entries optimized for bott
 - an optional alert indicator (dot) when no badge is present,
 - an active state applied via the IsActive flag.
 
-Items are rendered as anchor elements (<a>) so they are keyboard-focusable and navigable. Visual styling is provided by the consuming app's stylesheet; the component emits semantic classes the CSS targets.
+Items are rendered as anchor elements (`<a>`) so they are keyboard-focusable and navigable. Visual styling is provided by the consuming app's stylesheet; the component emits semantic classes the CSS targets.
 
 ## Parameters
 
@@ -51,7 +51,7 @@ Helper methods on `BitBottomNavItem`:
 C# (prepare items):
 
 ```csharp
-var items =  new()
+List<BitBottomNavItem> items =  new()
     {
         new BitBottomNavItem { Text = "Messages", Link = "#", Icon = BitBlazor.Utilities.Icons.ItComment, BadgeText = "1", BadgeAriaLabel = "to read" },
         new BitBottomNavItem { Text = "Images", Link = "#", Icon = BitBlazor.Utilities.Icons.ItCamera, BadgeText = "2", BadgeAriaLabel = "to view" },
@@ -98,10 +98,10 @@ Razor (render component):
         <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-star-outline"></use></svg><span class="bottom-nav-label">Favorites</span></a></li>
         <li><a href="#" class=""><svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-settings"></use></svg><span class="bottom-nav-label">Settings</span></a></li>
     </ul>
-</nav>)
+</nav>
 ```
 
 ## Notes
-- If Items is null or empty the component renders an empty list by default.
+- If Items is empty the component renders an empty list by default.
 - The component does not enforce positional semantics for first/last items; the ordering and the active item are controlled by the provided Items and each item's `IsActive` flag.
 - Visual appearance depends on the app's stylesheet. Ensure your project includes the BitBlazor CSS or defines styles for the classes listed above.
