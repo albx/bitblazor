@@ -25,6 +25,16 @@
         </CascadingValue>
     </ul>
 
+    @if (ShowChanger)
+    {
+        <BitDropdown ActivatorLabel="@ChangerActivatorLabel" ActivatorId="pageChanger">
+            @foreach (var pageSize in PageSizeOptions)
+            {
+                <BitDropdownItem Active="@(PageSize == pageSize)"><span>@pageSize</span></BitDropdownItem>
+            }
+        </BitDropdown>
+    }
+
     @if (ShowJumpToPage)
     {
         <div class="form-group">

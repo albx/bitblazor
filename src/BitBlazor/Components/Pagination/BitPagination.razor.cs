@@ -168,6 +168,32 @@ public partial class BitPagination : BitComponentBase
     [Parameter]
     public Func<int, string>? PageLinkGenerator { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the page size changer is displayed in the pagination component.
+    /// </summary>
+    [Parameter]
+    public bool ShowChanger { get; set; }
+
+    /// <summary>
+    /// Gets or sets the current page size, which determines how many items are displayed per page in the pagination component.
+    /// </summary>
+    [Parameter]
+    public int PageSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the page size changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<int> PageSizeChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the collection of available page size options that users can select from in the pagination component.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<int> PageSizeOptions { get; set; } = [];
+
+    private string ChangerActivatorLabel => $"{PageSize}";
+
     private string jumpToPageId = string.Empty;
     private string jumpToPageLabelClass = string.Empty;
     private string jumpToPageValue = string.Empty;
