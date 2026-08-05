@@ -27,11 +27,21 @@
 
     @if (ShowChanger)
     {
-        <BitDropdown ActivatorLabel="@ChangerActivatorLabel" ActivatorId="pageChanger">
-            @foreach (var pageSize in PageSizeOptions)
-            {
-                <BitDropdownItem Active="@(PageSize == pageSize)"><span>@pageSize</span></BitDropdownItem>
-            }
+        <BitDropdown ActivatorId="@ChangerComputedId">
+            <ActivatorTemplate>
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="@context.ActivatorId" @ref="context.ActivatorRef" @attributes="context.Attributes" @onclick="@context.ToggleDropdown" @onkeydown="@context.HandleKeyDownAsync">
+                    @RenderPageSizeLabel(state.PageSize)
+                    <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Primary" Size="IconSize.Small" CssClass="icon-expand" />
+                </button>
+            </ActivatorTemplate>
+            <ChildContent>
+                @foreach (var pageSize in PageSizeOptions)
+                {
+                    <BitDropdownItem Active="@(state.PageSize == pageSize)" Href="@GetPageSizeHref(pageSize)" OnClick="@(() => ClickPageSizeItemAsync(pageSize))">
+                        <span>@RenderPageSizeLabel(pageSize)</span>
+                    </BitDropdownItem>
+                }
+            </ChildContent>
         </BitDropdown>
     }
 
@@ -39,15 +49,15 @@
     {
         <div class="form-group">
             <InputText type="text"
-            class="form-control"
-            id="@jumpToPageId"
-            inputmode="numeric"
-            pattern="[0-9]*"
-            disabled="@Disabled"
-            @bind-Value="jumpToPageValue"
-            @bind-Value:after="JumpToPageAsync"
-            @onfocus="SetJumpToPageLabelActive"
-            @onblur="UpdateJumpToPageLabelClass"/>
+                       class="form-control"
+                       id="@jumpToPageId"
+                       inputmode="numeric"
+                       pattern="[0-9]*"
+                       disabled="@Disabled"
+                       @bind-Value="jumpToPageValue"
+                       @bind-Value:after="JumpToPageAsync"
+                       @onfocus="SetJumpToPageLabelActive"
+                       @onblur="UpdateJumpToPageLabelClass" />
             <label for="@jumpToPageId" class="@jumpToPageLabelClass">
                 @(JumpToPageLabelTemplate ?? DefaultJumpToPageLabelTemplate)
             </label>
@@ -62,23 +72,23 @@
 
 @code {
     private RenderFragment RenderFullPaginationControl() => __builder =>
+    {
+        foreach (var pageItem in GetPageSequence())
         {
-            foreach (var pageItem in GetPageSequence())
+            if (pageItem is null)
             {
-                if (pageItem is null)
-                {
-                    <li class="page-item">
-                        <span class="page-link">...</span>
-                    </li>
-                }
-                else
-                {
-                    <BitPageItem Page="pageItem" Disabled="Disabled" Href="@GetPageHref(pageItem.Value)" PageItemClicked="@(() => ChangePageAsync(pageItem.Value))">
-                        @pageItem
-                    </BitPageItem>
-                }
+                <li class="page-item">
+                    <span class="page-link">...</span>
+                </li>
             }
-        };
+            else
+            {
+                <BitPageItem Page="pageItem" Disabled="Disabled" Href="@GetPageHref(pageItem.Value)" PageItemClicked="@(() => ChangePageAsync(pageItem.Value))">
+                    @pageItem
+                </BitPageItem>
+            }
+        }
+    };
 
     private RenderFragment RenderSimpleModePaginationControl() => __builder =>
     {

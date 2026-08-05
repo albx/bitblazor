@@ -5,15 +5,16 @@
 /// </summary>
 /// <param name="CurrentPage">The current page selected</param>
 /// <param name="NumberOfPages">The total number of pages</param>
-public record struct PaginationState(int CurrentPage, int NumberOfPages)
+/// <param name="PageSize">The page size</param>
+public record struct PaginationState(int CurrentPage, int NumberOfPages, int PageSize)
 {
     /// <summary>
     /// Gets a value indicating whether the current page is the first page in the sequence.
     /// </summary>
-    public bool IsFirstPage => CurrentPage == 1;
+    public readonly bool IsFirstPage => CurrentPage == 1;
 
     /// <summary>
     /// Gets a value indicating whether the current page is the last page in the collection.
     /// </summary>
-    public bool IsLastPage => CurrentPage == NumberOfPages;
+    public readonly bool IsLastPage => CurrentPage == NumberOfPages;
 }

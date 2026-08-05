@@ -320,7 +320,7 @@
             @<BitPagination NumberOfPages="3"
                                 @bind-Page="@currentPage"
                                 Description="Page navigation"
-                                PageLinkGenerator="@(page => $"/items/{page}")" />);
+                                PageLinkGenerator="@(state => $"/items/{state.CurrentPage}")" />);
 
         component.MarkupMatches(
             @<nav class="pagination-wrapper" aria-label="Page navigation">
@@ -353,7 +353,7 @@
             @<BitPagination NumberOfPages="3"
                                 @bind-Page="@currentPage"
                                 Description="Page navigation"
-                                PageLinkGenerator="@(page => $"/items/{page}")" />);
+                                PageLinkGenerator="@(state => $"/items/{state.CurrentPage}")" />);
 
         var prevLink = component.FindAll(".page-item > .page-link").First();
         Assert.Null(prevLink.GetAttribute("href"));
@@ -371,8 +371,7 @@
             @<BitPagination NumberOfPages="3"
                                 @bind-Page="@currentPage"
                                 Description="Page navigation"
-                                PageLinkGenerator="@(page => $"/items/{page}")" />
-    );
+                                PageLinkGenerator="@(state => $"/items/{state.CurrentPage}")" />);
 
         var prevLink = component.FindAll(".page-item > .page-link").First();
         Assert.Equal("/items/2", prevLink.GetAttribute("href"));
@@ -396,6 +395,7 @@
                             PageRangeSize="2"
                             Description="Page navigation"
                             ShowChanger="true"
+                            ChangerId="pageChanger"
                             @bind-PageSize="currentPageSize"
                             PageSizeOptions="pageSizeOptions"/>);
 

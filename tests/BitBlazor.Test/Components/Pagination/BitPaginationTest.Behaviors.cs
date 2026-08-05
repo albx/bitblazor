@@ -210,7 +210,7 @@ public class BitPaginationTest
             parameters => parameters
                 .Add(p => p.NumberOfPages, 3)
                 .Add(p => p.Description, "pagination")
-                .Add(p => p.PageLinkGenerator, (Func<int, string>)(p => $"/items/{p}"))
+                .Add(p => p.PageLinkGenerator, p => $"/items/{p.CurrentPage}")
                 .Bind(p => p.Page, page, v => page = v));
 
         var pageItem = component.FindComponents<BitPageItem>().First(p => p.Instance.Page == 2);
