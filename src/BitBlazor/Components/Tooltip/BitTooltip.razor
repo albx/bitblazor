@@ -1,0 +1,13 @@
+@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+@implements IAsyncDisposable
+
+<span @ref="_spanRef"
+      data-bs-toggle="tooltip"
+      data-bs-placement="@PlacementValue"
+      title="@Text"
+      data-bs-html="@HtmlEnabledValue"
+      @attributes="AdditionalAttributes">
+    @ChildContent
+</span>

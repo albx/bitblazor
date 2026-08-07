@@ -36,7 +36,9 @@
                         <BitBadge Text="@item.Category" BackgroundColor="@item.BadgeColor" Rounded="true" />
                         <span class="text-muted small">@item.Date.ToString("dd MMMM yyyy")</span>
                     </div>
-                    <BitAvatar Text="@item.AvatarText" Size="Size.Small" BackgroundColor="@item.AvatarColor" />
+                    <BitTooltip Text="@item.AuthorName" Placement="TooltipPlacement.Left">
+                        <BitAvatar Text="@item.AvatarText" Size="Size.Small" BackgroundColor="@item.AvatarColor" />
+                    </BitTooltip>
                 </div>
                 <BitAlert Type="@item.AlertType" Title="@item.Title" Dismissible="true"
                           CloseButtonAriaLabel="Chiudi avviso"
@@ -108,19 +110,19 @@
     {
         new(1, "Urgente",     AlertType.Danger,  "Allerta meteo — Codice Arancione",
             "La Protezione Civile ha emesso un'allerta meteo arancione per il comune di Bitopoli valida dalle 18:00 di oggi alle 06:00 di domani. Si raccomanda la massima prudenza.",
-            new DateOnly(2026, 3, 14), "PC", Color.Danger, Color.Danger),
+            new DateOnly(2026, 3, 14), "PC", "Protezione Civile", Color.Danger, Color.Danger),
         new(2, "Lavori",      AlertType.Warning, "Interruzione acqua in Via Mazzini",
             "Giovedì 19 marzo dalle 08:00 alle 16:00 sarà sospesa l'erogazione idrica in Via Mazzini, Via Garibaldi e vie limitrofe per interventi di manutenzione straordinaria.",
-            new DateOnly(2026, 3, 13), "AM", Color.Warning, Color.Warning),
+            new DateOnly(2026, 3, 13), "AM", "Ufficio Acquedotto Municipale", Color.Warning, Color.Warning),
         new(3, "Informativo", AlertType.Info,    "Apertura sportello PagoPA",
             "A partire dal 17 marzo 2026 sarà attivo il nuovo sportello PagoPA per il pagamento online di tutti i tributi e le sanzioni comunali, incluse IMU, TARI e infrazioni stradali.",
-            new DateOnly(2026, 3, 12), "PA", Color.Primary, Color.Primary),
+            new DateOnly(2026, 3, 12), "PA", "Ufficio PagoPA — Tributi", Color.Primary, Color.Primary),
         new(4, "Avviso",      AlertType.Info,    "Consultazione pubblica PNRR",
             "È aperta fino al 31 marzo 2026 la consultazione pubblica sul Piano Nazionale di Ripresa e Resilienza — progetti del Comune di Bitopoli. Tutti i cittadini possono partecipare.",
-            new DateOnly(2026, 3, 10), "PN", Color.Secondary, Color.Secondary),
+            new DateOnly(2026, 3, 10), "PN", "Piano Nazionale di Ripresa e Resilienza", Color.Secondary, Color.Secondary),
         new(5, "Servizi",     AlertType.Success, "Nuovo CIE Point operativo",
             "Da oggi è operativo il nuovo punto di rilascio CIE (Carta d'Identità Elettronica) presso la sede municipale. Tempi di attesa ridotti e prenotazione online disponibile.",
-            new DateOnly(2026, 3, 8),  "CI", Color.Success, Color.Success),
+            new DateOnly(2026, 3, 8),  "CI", "Ufficio Anagrafe — CIE", Color.Success, Color.Success),
     };
 
     private List<ComunicazioneItem> visibleItems =>
@@ -154,7 +156,7 @@
 
     private record ComunicazioneItem(
         int Id, string Category, AlertType AlertType, string Title, string Body,
-        DateOnly Date, string AvatarText, Color AvatarColor, Color BadgeColor);
+        DateOnly Date, string AvatarText, string AuthorName, Color AvatarColor, Color BadgeColor);
 
     private record ArchivioItem(string Category, string Title, string Summary, DateOnly Date);
 }
