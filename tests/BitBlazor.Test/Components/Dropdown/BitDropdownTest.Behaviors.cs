@@ -482,4 +482,28 @@ public class BitDropdownTest
         var link = component.Find("a.dropdown-item");
         Assert.Equal("-1", link.GetAttribute("tabindex"));
     }
+
+    [Fact]
+    public void BitDropdown_Should_Close_When_Item_Clicked()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var component = ctx.Render<BitDropdown>(parameters => parameters
+            .Add(p => p.ActivatorLabel, "Open")
+            .Add(p => p.ActivatorId, "dropdownActivator")
+            .AddChildContent<BitDropdownItem>(itemParams =>
+                itemParams.AddChildContent("<span>Item</span>")));
+        
+        var button = component.Find("button");
+        button.Click();
+        
+        var menu = component.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+        
+        var link = component.Find("a.dropdown-item");
+        link.Click();
+        
+        Assert.DoesNotContain("show", menu.ClassList);
+    }
 }

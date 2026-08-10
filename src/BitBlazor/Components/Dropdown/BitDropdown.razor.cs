@@ -107,21 +107,39 @@ public partial class BitDropdown : BitComponentBase
         isOpen = !isOpen;
         if (isOpen)
         {
-            dropdownMenuAttributes["data-popper-placement"] = Position switch
-            {
-                DropdownPosition.Up => "top-start",
-                DropdownPosition.End => "right-start",
-                DropdownPosition.Start => "left-start",
-                _ => "bottom-start"
-            };
-
-            activatorContext.Attributes["aria-expanded"] = "true";
+            AddOpenDropdownMenuAttributes();
         }
         else
         {
-            dropdownMenuAttributes.Remove("data-popper-placement");
-            activatorContext.Attributes["aria-expanded"] = "false";
+            RemoveDropdownMenuAttributes();
         }
+    }
+
+    internal void Close()
+    {
+        isOpen = false;
+        RemoveDropdownMenuAttributes();
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void AddOpenDropdownMenuAttributes()
+    {
+        dropdownMenuAttributes["data-popper-placement"] = Position switch
+        {
+            DropdownPosition.Up => "top-start",
+            DropdownPosition.End => "right-start",
+            DropdownPosition.Start => "left-start",
+            _ => "bottom-start"
+        };
+
+        activatorContext.Attributes["aria-expanded"] = "true";
+    }
+
+    private void RemoveDropdownMenuAttributes()
+    {
+        dropdownMenuAttributes.Remove("data-popper-placement");
+        activatorContext.Attributes["aria-expanded"] = "false";
     }
 
     private string ComputeDropdownContainerClass()

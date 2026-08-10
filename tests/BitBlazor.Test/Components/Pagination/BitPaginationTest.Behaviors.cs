@@ -1,5 +1,6 @@
 ﻿using BitBlazor.Components;
 using Bunit;
+using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Test.Components.Pagination;
 
@@ -219,5 +220,34 @@ public class BitPaginationTest
         pageLink.Click();
 
         Assert.Equal(2, page);
+    }
+
+    [Fact]
+    public void BitPagination_Should_Change_PageSize_Correctly_When_PageSize_Changed()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        
+        int page = 1;
+        int pageSize = 10;
+        int[] pageSizeOptions = [10, 20, 30];
+
+        var component = ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, pageSizeOptions)
+                .Add(p => p.ChangerId, "pagechanger")
+                .Bind(p => p.Page, page, v => page = v)
+                .Bind(p => p.PageSize, pageSize, v => pageSize = v));
+
+        var changerButton = component.Find("button#pagechanger");
+        changerButton.Click();
+
+        var newPageSizeOption = component.Find(".dropdown-menu > .link-list-wrapper > .link-list > li:nth-child(2) > a.list-item"); // Select the second option (20)
+        newPageSizeOption.Click();
+
+        Assert.Equal(20, pageSize);
     }
 }

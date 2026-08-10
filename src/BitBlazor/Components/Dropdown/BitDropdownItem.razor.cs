@@ -135,6 +135,8 @@ public partial class BitDropdownItem : IDisposable
         {
             NavigationManager.NavigateTo(Href);
         }
+
+        Parent.Close();
     }
 
     private async Task OnKeyDownAsync(KeyboardEventArgs args)
