@@ -22,7 +22,7 @@ The Pagination component enables users to navigate through large data sets split
 | `Description` | `string` | ✓ | `""` | Text placed in the `aria-label` of the wrapping `<nav>` element. |
 | `Page` | `int` | ✗ | `1` | The currently selected page. Use `@bind-Page` for two-way binding. |
 | `PageChanged` | `EventCallback<int>` | ✗ | - | Callback invoked when the active page changes. Receives the new page number. |
-| `PageLinkGenerator` | `Func<int, string>?` | ✗ | `null` | When provided, each page button is rendered as a real `<a href>` pointing to the URL returned by this function for the given page number. Required for SSR compatibility. When `null`, page buttons use `href="#"` and rely on interactive C# event handlers. |
+| `PageLinkGenerator` | `Func<PaginationState, string>?` | ✗ | `null` | When provided, each page button is rendered as a real `<a href>` pointing to the URL returned by this function for the given `PaginationState` (containing current page and page size). Required for SSR compatibility. When `null`, page buttons use `href="#"` and rely on interactive C# event handlers. |
 | `PreviousPageLabel` | `string` | ✗ | `"previous page"` | Visually-hidden label for the previous-page button (screen readers). |
 | `PreviousPageTemplate` | `RenderFragment?` | ✗ | `null` | Custom content for the previous-page button. Replaces the default chevron icon. |
 | `NextPageLabel` | `string` | ✗ | `"next page"` | Visually-hidden label for the next-page button (screen readers). |
@@ -35,6 +35,12 @@ The Pagination component enables users to navigate through large data sets split
 | `JumpToPageLabelTemplate` | `RenderFragment?` | ✗ | `null` | Custom label for the jump-to-page input. Defaults to `"go to..."` with an accessible description. |
 | `ViewMode` | `PaginationViewMode` | ✗ | `Default` | Display mode for the pagination controls (see `PaginationViewMode`). |
 | `SimpleModeVisuallyHiddenTemplate` | `RenderFragment<PaginationState>?` | ✗ | `null` | Accessible content for Simple mode, provided to screen readers. Receives `PaginationState` as context. Defaults to `"page N of M"`. |
+| `ShowChanger` | `bool` | ✗ | `false` | When `true`, displays a dropdown menu that allows users to select from available page size options. |
+| `PageSize` | `int` | ✗ | `0` | The currently selected page size. Use `@bind-PageSize` for two-way binding. |
+| `PageSizeChanged` | `EventCallback<int>` | ✗ | - | Callback invoked when the page size selection changes. Receives the new page size as an integer argument. |
+| `PageSizeOptions` | `IEnumerable<int>` | ✗ | `[]` | Collection of page size values available for selection in the changer dropdown. |
+| `ChangerId` | `string` | ✗ | `string.Empty` | Unique identifier for the page size changer dropdown button. If not provided, a unique GUID-based ID is generated automatically. |
+| `PageSizeLabelTemplate` | `RenderFragment<int>?` | ✗ | `null` | Custom template for rendering the page size display. Receives the current page size as context. Defaults to displaying the numeric size (e.g., `"10"`, `"25"`). |
 
 ## Enumerations
 
@@ -55,12 +61,13 @@ The Pagination component enables users to navigate through large data sets split
 
 ### PaginationState
 
-`PaginationState` is a `record struct` passed as context to `SimpleModeVisuallyHiddenTemplate`.
+`PaginationState` is a `record struct` passed as context to `SimpleModeVisuallyHiddenTemplate` and used by `PageLinkGenerator`.
 
 | Member | Type | Description |
 |--------|------|-------------|
 | `CurrentPage` | `int` | The currently active page number. |
 | `NumberOfPages` | `int` | Total number of pages. |
+| `PageSize` | `int` | The currently selected page size. Used when generating URLs for page size changes. |
 | `IsFirstPage` | `bool` | `true` when the current page is `1`. |
 | `IsLastPage` | `bool` | `true` when the current page equals `NumberOfPages`. |
 
@@ -99,7 +106,7 @@ The current page is typically encoded as a route parameter so the server can pre
 
 <BitPagination NumberOfPages="@totalPages"
                Page="@currentPage"
-               PageLinkGenerator="@(page => $"/news/{page}")"
+               PageLinkGenerator="@((state) => $"/news/{state.CurrentPage}")"
                Description="Navigate news pages"
                Alignment="PaginationAlignment.Center"
                PageRangeSize="2" />
@@ -127,7 +134,7 @@ Combine `PageLinkGenerator` with `@bind-Page` when you want both a C# callback (
 <BitPagination NumberOfPages="@totalPages"
                @bind-Page="currentPage"
                @bind-Page:after="LoadCurrentPage"
-               PageLinkGenerator="@(page => $"/products?page={page}")"
+               PageLinkGenerator="@((state) => $"/products?page={state.CurrentPage}")"
                Description="Navigate products" />
 
 @code {
@@ -248,6 +255,131 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 </BitPagination>
 ```
 
+### Page size changer (basic)
+
+```razor
+<BitPagination NumberOfPages="@totalPages"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               ShowChanger="true"
+               @bind-PageSize="pageSize"
+               @bind-PageSize:after="HandlePageSizeChanged"
+               PageSizeOptions="@(new[] { 10, 25, 50, 100 })" />
+
+@code {
+    private int currentPage = 1;
+    private int pageSize = 10;
+    private int totalPages = 100;
+
+    private async Task HandlePageSizeChanged()
+    {
+        // Reset to page 1 when page size changes
+        currentPage = 1;
+        await LoadDataAsync(currentPage, pageSize);
+    }
+}
+```
+
+### Page size changer with custom label template
+
+```razor
+<BitPagination NumberOfPages="@totalPages"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               ShowChanger="true"
+               @bind-PageSize="pageSize"
+               @bind-PageSize:after="HandlePageSizeChanged"
+               PageSizeOptions="@(new[] { 10, 25, 50, 100 })">
+    <PageSizeLabelTemplate Context="size">
+        <span>Show @size items</span>
+    </PageSizeLabelTemplate>
+</BitPagination>
+```
+
+### Page size changer with custom ID
+
+```razor
+<BitPagination NumberOfPages="@totalPages"
+               Description="Navigate pages"
+               @bind-Page="currentPage"
+               ShowChanger="true"
+               ChangerId="products-page-size-changer"
+               @bind-PageSize="pageSize"
+               @bind-PageSize:after="HandlePageSizeChanged"
+               PageSizeOptions="@(new[] { 10, 25, 50, 100 })" />
+```
+
+### SSR with page size changer
+
+When using SSR mode with `PageLinkGenerator`, the page size changes are also included in the URL:
+
+```razor
+@page "/products"
+@page "/products/{Page:int}"
+@page "/products/{Page:int}/{Size:int}"
+@attribute [StreamRendering]
+
+@inject IProductService ProductService
+
+<BitPagination NumberOfPages="@totalPages"
+               Page="@currentPage"
+               PageSize="@currentPageSize"
+               ShowChanger="true"
+               PageSizeOptions="@(new[] { 10, 25, 50, 100 })"
+               PageLinkGenerator="@((state) => $"/products/{state.CurrentPage}/{state.PageSize}")"
+               Description="Navigate products" />
+
+@code {
+    [Parameter] public int Page { get; set; }
+    [Parameter] public int Size { get; set; }
+
+    private int currentPage;
+    private int currentPageSize;
+    private int totalPages;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentPage = Page < 1 ? 1 : Page;
+        currentPageSize = Size < 1 ? 10 : Size;
+        var result = await ProductService.GetProductsAsync(currentPage, currentPageSize);
+        totalPages = (int)Math.Ceiling((double)result.TotalCount / currentPageSize);
+    }
+}
+```
+
+### Page size changer with interactive mode and shareable URLs
+
+Combine `PageLinkGenerator` with `@bind-PageSize` to support both C# callbacks and shareable URLs:
+
+```razor
+<BitPagination NumberOfPages="@totalPages"
+               @bind-Page="currentPage"
+               @bind-PageSize="pageSize"
+               @bind-PageSize:after="HandlePageSizeChanged"
+               ShowChanger="true"
+               PageSizeOptions="@(new[] { 10, 25, 50, 100 })"
+               PageLinkGenerator="@((state) => $"/search?page={state.CurrentPage}&size={state.PageSize}")"
+               Description="Navigate search results" />
+
+@code {
+    private int currentPage = 1;
+    private int pageSize = 10;
+    private int totalPages;
+
+    private async Task HandlePageSizeChanged()
+    {
+        currentPage = 1;
+        await LoadDataAsync(currentPage, pageSize);
+    }
+
+    private async Task LoadDataAsync(int page, int size)
+    {
+        var result = await SearchService.SearchAsync(page, size);
+        totalPages = (int)Math.Ceiling((double)result.TotalCount / size);
+    }
+}
+```
+
 ## Accessibility
 
 - The wrapping `<nav>` element always carries the `aria-label` set via the required `Description` parameter.
@@ -256,6 +388,7 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 - Previous and next page buttons include a `<span class="visually-hidden">` text sourced from `PreviousPageLabel` and `NextPageLabel` respectively.
 - In Simple mode, a visually hidden element provides the full page context (e.g. `"page 3 of 20"`) for screen readers. Customise it with `SimpleModeVisuallyHiddenTemplate`.
 - When `ShowJumpToPage` is `true`, the input and its label are properly associated via `id`/`for` attributes generated at runtime.
+- When `ShowChanger` is `true`, the dropdown button is keyboard-accessible and follows Bootstrap Italia's dropdown accessibility patterns. Use `ChangerId` to assign a custom, meaningful identifier to the dropdown button for better accessibility tracking.
 
 ## Generated CSS Classes
 
@@ -268,6 +401,8 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 | `<ul>` | `pagination` | Always |
 | `<li>` | `page-item` | Always |
 | `<li>` | `disabled` | `Disabled == true`, or the previous-page button when on page 1, or the next-page button when on the last page |
+| `<div>` | `dropdown` | `ShowChanger == true` |
+| `<button>` | `btn btn-dropdown dropdown-toggle` | `ShowChanger == true` |
 
 ## Generated HTML Structure
 
@@ -308,6 +443,20 @@ When `PageLinkGenerator` is **not** set (interactive mode), page buttons use `hr
         </li>
     </ul>
 
+    <!-- Page size changer dropdown (when ShowChanger is true) -->
+    <div class="dropdown">
+        <button class="btn btn-dropdown dropdown-toggle" type="button" id="pageSizeChanger-..." @onclick="...">
+            10
+            <svg><!-- expand icon --></svg>
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item active" href="#">10</a>
+            <a class="dropdown-item" href="#">25</a>
+            <a class="dropdown-item" href="#">50</a>
+            <a class="dropdown-item" href="#">100</a>
+        </div>
+    </div>
+
     <!-- Jump-to-page input (when ShowJumpToPage is true) -->
     <div class="form-group">
         <input type="text" class="form-control" inputmode="numeric" pattern="[0-9]*" />
@@ -322,39 +471,55 @@ When `PageLinkGenerator` is **not** set (interactive mode), page buttons use `hr
 </nav>
 ```
 
-When `PageLinkGenerator` is set, each `href` is populated with the URL returned by the generator. The previous/next buttons receive the adjacent page URL; disabled nav buttons (first page's prev, last page's next) keep `href="#"`:
+When `PageLinkGenerator` is set, each `href` is populated with the URL returned by the generator. The previous/next buttons receive the adjacent page URL; disabled nav buttons (first page's prev, last page's next) keep `href="#"`. Page size changer items also include the generated URL with the updated page size:
 
 ```html
-<!-- With PageLinkGenerator="@(page => $"/news/{page}")" on page 3 of 10 -->
+<!-- With PageLinkGenerator="@((state) => $"/news/{state.CurrentPage}/{state.PageSize}")" on page 3 of 10 with page size 10 -->
 <li class="page-item">
-    <a class="page-link" href="/news/2"><!-- prev --></a>
+    <a class="page-link" href="/news/2/10"><!-- prev --></a>
 </li>
 <li class="page-item">
-    <a class="page-link" href="/news/1">1</a>
+    <a class="page-link" href="/news/1/10">1</a>
 </li>
 <li class="page-item">
-    <a class="page-link" href="/news/2">2</a>
+    <a class="page-link" href="/news/2/10">2</a>
 </li>
 <li class="page-item">
-    <a class="page-link" href="/news/3" aria-current="page">3</a>
+    <a class="page-link" href="/news/3/10" aria-current="page">3</a>
 </li>
 ...
 <li class="page-item">
-    <a class="page-link" href="/news/4"><!-- next --></a>
+    <a class="page-link" href="/news/4/10"><!-- next --></a>
 </li>
+
+<!-- Page size changer dropdown with page size URLs -->
+<div class="dropdown">
+    <button class="btn btn-dropdown dropdown-toggle" type="button" id="pageSizeChanger-...">
+        10
+        <svg><!-- expand icon --></svg>
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item active" href="/news/3/10">10</a>
+        <a class="dropdown-item" href="/news/3/25">25</a>
+        <a class="dropdown-item" href="/news/3/50">50</a>
+        <a class="dropdown-item" href="/news/3/100">100</a>
+    </div>
+</div>
 ```
 
 ## Notes
 
 - `NumberOfPages` and `Description` are both marked `[EditorRequired]`; omitting either will produce a build warning.
 - The `Page` parameter supports two-way binding via `@bind-Page`. Use `@bind-Page:after` to react to page changes (e.g. to reload data).
+- The `PageSize` parameter supports two-way binding via `@bind-PageSize`. Use `@bind-PageSize:after` to react to page size changes (e.g. to reload data with the new page size).
 - When `ShowJumpToPage` is `true` and the user enters a value outside the valid range (`< 1` or `> NumberOfPages`), the input is silently reset without triggering navigation.
 - `PageRangeSize` always preserves the first and last page buttons; only the middle pages are collapsed into ellipses.
-- **SSR compatibility**: In Blazor static SSR, `@onclick` C# callbacks never fire. Set `PageLinkGenerator` to produce real `<a href>` links — the component will then work purely via browser navigation with no JavaScript required.
-- **Progressive enhancement**: When both `PageLinkGenerator` and `@bind-Page` are set, the component uses `@onclick:preventDefault` to intercept clicks in interactive mode (running the C# handler) while still exposing a valid `href` for SSR and for right-click / open-in-new-tab scenarios.
+- **Page size changer**: When `ShowChanger` is `true`, a dropdown menu is rendered allowing users to select from `PageSizeOptions`. Set `ChangerId` to assign a custom identifier to the dropdown button for accessibility. Set `PageSizeLabelTemplate` to customize how page sizes are displayed in the dropdown.
+- **SSR compatibility**: In Blazor static SSR, `@onclick` C# callbacks never fire. Set `PageLinkGenerator` to produce real `<a href>` links — the component will then work purely via browser navigation with no JavaScript required. The `PageLinkGenerator` receives the entire `PaginationState` (including both page number and page size), allowing you to encode both into the URL.
+- **Progressive enhancement**: When both `PageLinkGenerator` and `@bind-Page` (or `@bind-PageSize`) are set, the component uses `@onclick:preventDefault` to intercept clicks in interactive mode (running the C# handler) while still exposing a valid `href` for SSR and for right-click / open-in-new-tab scenarios.
 - **Disabled nav buttons**: The previous-page button on page 1 and the next-page button on the last page are automatically disabled — they receive the `disabled` CSS class on `<li>`, plus `aria-hidden="true"` and `tabindex="-1"` on the `<a>`, regardless of the `Disabled` parameter. When `PageLinkGenerator` is set, these boundary buttons render without an `href` since there is no valid target page to link to.
 
 ## References
 
 - [Bootstrap Italia — Paginazione](https://italia.github.io/bootstrap-italia/docs/componenti/paginazione/)
-- [WAI-ARIA Authoring Practices — Pagination](https://www.w3.org/WAI/ARIA/apg/patterns/navigation/)
+- [WCAG 2.4.1 Bypass Blocks](https://www.w3.org/WAI/WCAG22/Understanding/bypass-blocks)
