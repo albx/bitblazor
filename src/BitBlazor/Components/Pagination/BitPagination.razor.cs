@@ -205,6 +205,12 @@ public partial class BitPagination : BitComponentBase
     public string ChangerId { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets the accessible label for the page size changer button. The default value is "Select page size".
+    /// </summary>
+    [Parameter]
+    public string ChangerAriaLabel { get; set; } = "Select page size";
+
+    /// <summary>
     /// Gets or sets the template used to render the label for the page size changer, allowing for customization of how the page size is displayed.
     /// </summary>
     [Parameter]
@@ -212,7 +218,19 @@ public partial class BitPagination : BitComponentBase
 
     private Func<int, string> PageSizeDefaultLabel => (pageSize) => $"{pageSize}";
 
-    private string ChangerComputedId => !string.IsNullOrWhiteSpace(ChangerId) ? ChangerId : $"pageSizeChanger-{Guid.NewGuid():N}";
+    private string _changerComputedId = string.Empty;
+
+    private string GetChangerComputedId()
+    {
+        if (string.IsNullOrWhiteSpace(_changerComputedId))
+        {
+            _changerComputedId = !string.IsNullOrWhiteSpace(ChangerId)
+                ? ChangerId
+                : $"pageSizeChanger-{Guid.NewGuid():N}";
+        }
+
+        return _changerComputedId;
+    }
 
     private string jumpToPageId = string.Empty;
     private string jumpToPageLabelClass = string.Empty;

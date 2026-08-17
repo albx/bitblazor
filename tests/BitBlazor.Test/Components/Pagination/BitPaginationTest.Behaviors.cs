@@ -250,4 +250,55 @@ public class BitPaginationTest
 
         Assert.Equal(20, pageSize);
     }
+
+    [Fact]
+    public void BitPagination_Should_Set_AriaLabel_On_Changer_Button()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        int pageSize = 10;
+        int[] pageSizeOptions = [10, 20, 30];
+
+        var component = ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, pageSizeOptions)
+                .Add(p => p.ChangerAriaLabel, "Rows per page")
+                .Bind(p => p.PageSize, pageSize, v => pageSize = v));
+
+        var changerButton = component.Find("button.btn-dropdown");
+
+        Assert.Equal("Rows per page", changerButton.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void BitPagination_Should_Keep_Changer_Id_Stable_Across_Renders()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        int page = 1;
+        int pageSize = 10;
+        int[] pageSizeOptions = [10, 20, 30];
+
+        var component = ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, pageSizeOptions)
+                .Bind(p => p.Page, page, v => page = v)
+                .Bind(p => p.PageSize, pageSize, v => pageSize = v));
+
+        var firstId = component.Find("button.btn-dropdown").GetAttribute("id");
+
+        component.Render();
+
+        var secondId = component.Find("button.btn-dropdown").GetAttribute("id");
+
+        Assert.Equal(firstId, secondId);
+    }
 }

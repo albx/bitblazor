@@ -27,9 +27,9 @@
 
     @if (ShowChanger)
     {
-        <BitDropdown ActivatorId="@ChangerComputedId">
+        <BitDropdown ActivatorId="@GetChangerComputedId()">
             <ActivatorTemplate>
-                <button class="btn btn-dropdown dropdown-toggle" type="button" id="@context.ActivatorId" @ref="context.ActivatorRef" @attributes="context.Attributes" @onclick="@context.ToggleDropdown" @onkeydown="@context.HandleKeyDownAsync">
+                <button class="btn btn-dropdown dropdown-toggle" type="button" id="@context.ActivatorId" aria-label="@ChangerAriaLabel" @ref="context.ActivatorRef" @attributes="context.Attributes" @onclick="@context.ToggleDropdown" @onkeydown="@context.HandleKeyDownAsync">
                     @RenderPageSizeLabel(state.PageSize)
                     <BitIcon IconName="@Icons.ItExpand" Color="IconColor.Primary" Size="IconSize.Small" CssClass="icon-expand" />
                 </button>
