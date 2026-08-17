@@ -15,6 +15,7 @@
     <ArgType For="_ => _.ViewMode" DefaultValue="PaginationViewMode.Default" Control="ControlType.Select" />
     <ArgType For="_ => _.ShowChanger" Control="ControlType.Select" />
     <ArgType For="_ => _.ChangerId" />
+    <ArgType For="_ => _.ChangerAriaLabel" />
     <ArgType For="_ => _.PageSize" />
     <ArgType For="_ => _.PageSizeOptions" DefaultValue="@(new int[] { 10, 20, 30, 40 })" />
     <ArgType For="_ => _.PageSizeLabelTemplate" />
@@ -31,6 +32,7 @@
             <Arg For="_ => _.ViewMode" Value="PaginationViewMode.Default" />
             <Arg For="_ => _.ShowChanger" />
             <Arg For="_ => _.ChangerId" />
+            <Arg For="_ => _.ChangerAriaLabel" />
             <Arg For="_ => _.PageSize" Value="10" />
             <Arg For="_ => _.PageSizeOptions" Value="@(new int[] { 10, 20, 30, 40 })" />
         </Arguments>

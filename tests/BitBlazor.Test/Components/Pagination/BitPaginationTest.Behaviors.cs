@@ -301,4 +301,21 @@ public class BitPaginationTest
 
         Assert.Equal(firstId, secondId);
     }
+
+    [Fact]
+    public void BitPagination_Should_Throw_When_Changer_Is_Enabled_Without_PageSizeOptions()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var exception = Assert.Throws<InvalidOperationException>(() => ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, Array.Empty<int>())
+                .Add(p => p.PageSize, 10)));
+
+        Assert.Equal("BitPagination requires at least one page size option when ShowChanger is true.", exception.Message);
+    }
 }

@@ -42,6 +42,7 @@ The Pagination component enables users to navigate through large data sets split
 | `PageSizeChanged` | `EventCallback<int>` | ✗ | - | Callback invoked when the page size selection changes. Receives the new page size as an integer argument. |
 | `PageSizeOptions` | `IEnumerable<int>` | ✗ | `[]` | Collection of page size values available for selection in the changer dropdown. |
 | `ChangerId` | `string` | ✗ | `string.Empty` | Unique identifier for the page size changer dropdown button. If not provided, a unique GUID-based ID is generated automatically. |
+| `ChangerAriaLabel` | `string` | ✗ | `"Select page size"` | Accessible label applied to the page size changer dropdown button. Visible only to assistive technologies. |
 | `PageSizeLabelTemplate` | `RenderFragment<int>?` | ✗ | `null` | Custom template for rendering the page size display. Receives the current page size as context. Defaults to displaying the numeric size (e.g., `"10"`, `"25"`). |
 
 ## Enumerations
@@ -392,7 +393,7 @@ Combine `PageLinkGenerator` with `@bind-PageSize` to support both C# callbacks a
 - Previous and next page buttons include a `<span class="visually-hidden">` text sourced from `PreviousPageLabel` and `NextPageLabel` respectively.
 - In Simple mode, a visually hidden element provides the full page context (e.g. `"page 3 of 20"`) for screen readers. Customise it with `SimpleModeVisuallyHiddenTemplate`.
 - When `ShowJumpToPage` is `true`, the input and its label are properly associated via `id`/`for` attributes generated at runtime.
-- When `ShowChanger` is `true`, the dropdown button is keyboard-accessible and follows Bootstrap Italia's dropdown accessibility patterns. Use `ChangerId` to assign a custom, meaningful identifier to the dropdown button for better accessibility tracking.
+- When `ShowChanger` is `true`, the dropdown button is keyboard-accessible and follows Bootstrap Italia's dropdown accessibility patterns. The button exposes an accessible label via `ChangerAriaLabel` (default `"Select page size"`). Use `ChangerId` to assign a custom, meaningful identifier to the dropdown button for better accessibility tracking.
 
 ## Generated CSS Classes
 

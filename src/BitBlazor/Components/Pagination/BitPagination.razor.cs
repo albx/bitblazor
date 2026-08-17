@@ -246,6 +246,12 @@ public partial class BitPagination : BitComponentBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        if (ShowChanger && !PageSizeOptions.Any())
+        {
+            throw new InvalidOperationException("BitPagination requires at least one page size option when ShowChanger is true.");
+        }
+
         state = new(Page, NumberOfPages, PageSize);
 
         if (ShowJumpToPage)
