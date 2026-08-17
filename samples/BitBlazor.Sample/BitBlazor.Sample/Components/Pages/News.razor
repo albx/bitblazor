@@ -57,11 +57,7 @@ else
                    PageLinkGenerator="@(state => $"/news/{state.CurrentPage}")"
                    Description="Navigazione notizie"
                    Alignment="PaginationAlignment.Center"
-                   PageRangeSize="2"
-                   ShowChanger="true"
-                   PageSizeOptions="@(new[] { 10, 20, 30, 40 })"
-                   @bind-PageSize="pageSize"
-                   @bind-PageSize:after="HandlePageSizeChanged" />
+                   PageRangeSize="2" />
 }
 
 @code {
@@ -70,7 +66,6 @@ else
 
     private const int DefaultPageSize = 10;
     private int currentPage;
-    private int pageSize = DefaultPageSize;
     private NewsResult? newsResult;
     private int totalPages;
 
@@ -88,14 +83,8 @@ else
 
     private async Task LoadPageAsync()
     {
-        newsResult = await NewsService.GetNewsAsync(currentPage, pageSize);
-        totalPages = (int)Math.Ceiling((double)newsResult.TotalCount / pageSize);
-    }
-
-    private async Task HandlePageSizeChanged()
-    {
-        currentPage = 1;
-        await LoadPageAsync();
+        newsResult = await NewsService.GetNewsAsync(currentPage, DefaultPageSize);
+        totalPages = (int)Math.Ceiling((double)newsResult.TotalCount / DefaultPageSize);
     }
 
     private static Color GetCategoryColor(string category) => category switch

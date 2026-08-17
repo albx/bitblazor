@@ -171,6 +171,12 @@ public partial class BitPagination : BitComponentBase
     /// <summary>
     /// Gets or sets a value indicating whether the page size changer is displayed in the pagination component.
     /// </summary>
+    /// <remarks>
+    /// The changer is rendered with <see cref="BitDropdown"/>, which requires an interactive render mode
+    /// (Server, WebAssembly, or Auto) to open and close. Unlike page navigation, it has no href-based fallback,
+    /// so setting <see cref="PageLinkGenerator"/> does not make the changer usable under static SSR — the
+    /// dropdown menu simply cannot be opened without a live circuit or WASM runtime.
+    /// </remarks>
     [Parameter]
     public bool ShowChanger { get; set; }
 

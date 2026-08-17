@@ -12,7 +12,9 @@ BitBlazor.Components
 
 The Pagination component enables users to navigate through large data sets split across multiple pages. It renders previous/next buttons, individual page links with optional ellipsis truncation, and optional extras such as a jump-to-page input and a total-items summary. Two view modes are available: the default full control and a compact simple mode.
 
-`BitPagination` supports both **interactive** and **static SSR** render modes. In interactive mode, page changes are handled via two-way binding with `@bind-Page`. In SSR mode, supply a `PageLinkGenerator` to render real `<a href>` links that trigger full browser navigation — no JavaScript required.
+`BitPagination` supports both **interactive** and **static SSR** render modes for page navigation. In interactive mode, page changes are handled via two-way binding with `@bind-Page`. In SSR mode, supply a `PageLinkGenerator` to render real `<a href>` links that trigger full browser navigation — no JavaScript required.
+
+> **The page size changer (`ShowChanger`) requires interactive rendering.** It is rendered with [`BitDropdown`](./dropdown.md), which manages its open/closed state entirely in C# with no href-based fallback. Setting `PageLinkGenerator` produces valid links for each page size option, but the dropdown menu itself cannot be opened under static SSR — it needs an interactive render mode (Server, WebAssembly, or Auto).
 
 ## Parameters
 
@@ -311,6 +313,8 @@ When `PageRangeSize` is set, only the first page, the last page, the current pag
 
 ### SSR with page size changer
 
+> **Note:** This example only works if the page is rendered with an interactive render mode. The `PageLinkGenerator` produces valid `<a href>` links for each page size option, but the changer's dropdown menu (`BitDropdown`) cannot be opened under fully static SSR — see the [BitDropdown render mode requirements](./dropdown.md).
+
 When using SSR mode with `PageLinkGenerator`, the page size changes are also included in the URL:
 
 ```razor
@@ -514,8 +518,8 @@ When `PageLinkGenerator` is set, each `href` is populated with the URL returned 
 - The `PageSize` parameter supports two-way binding via `@bind-PageSize`. Use `@bind-PageSize:after` to react to page size changes (e.g. to reload data with the new page size).
 - When `ShowJumpToPage` is `true` and the user enters a value outside the valid range (`< 1` or `> NumberOfPages`), the input is silently reset without triggering navigation.
 - `PageRangeSize` always preserves the first and last page buttons; only the middle pages are collapsed into ellipses.
-- **Page size changer**: When `ShowChanger` is `true`, a dropdown menu is rendered allowing users to select from `PageSizeOptions`. Set `ChangerId` to assign a custom identifier to the dropdown button for accessibility. Set `PageSizeLabelTemplate` to customize how page sizes are displayed in the dropdown.
-- **SSR compatibility**: In Blazor static SSR, `@onclick` C# callbacks never fire. Set `PageLinkGenerator` to produce real `<a href>` links — the component will then work purely via browser navigation with no JavaScript required. The `PageLinkGenerator` receives the entire `PaginationState` (including both page number and page size), allowing you to encode both into the URL.
+- **Page size changer**: When `ShowChanger` is `true`, a dropdown menu is rendered allowing users to select from `PageSizeOptions`. Set `ChangerId` to assign a custom identifier to the dropdown button for accessibility. Set `PageSizeLabelTemplate` to customize how page sizes are displayed in the dropdown. **This feature requires an interactive render mode** — it is rendered with `BitDropdown`, which has no static-SSR fallback for opening the menu (see [BitDropdown render mode requirements](./dropdown.md)).
+- **SSR compatibility**: In Blazor static SSR, `@onclick` C# callbacks never fire. Set `PageLinkGenerator` to produce real `<a href>` links — the component will then work purely via browser navigation with no JavaScript required for page navigation. This does **not** extend to the page size changer (`ShowChanger`), which still requires an interactive render mode. The `PageLinkGenerator` receives the entire `PaginationState` (including both page number and page size), allowing you to encode both into the URL.
 - **Progressive enhancement**: When both `PageLinkGenerator` and `@bind-Page` (or `@bind-PageSize`) are set, the component uses `@onclick:preventDefault` to intercept clicks in interactive mode (running the C# handler) while still exposing a valid `href` for SSR and for right-click / open-in-new-tab scenarios.
 - **Disabled nav buttons**: The previous-page button on page 1 and the next-page button on the last page are automatically disabled — they receive the `disabled` CSS class on `<li>`, plus `aria-hidden="true"` and `tabindex="-1"` on the `<a>`, regardless of the `Disabled` parameter. When `PageLinkGenerator` is set, these boundary buttons render without an `href` since there is no valid target page to link to.
 

@@ -6,6 +6,13 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents a dropdown component that can be used to display a list of options or actions in a collapsible menu.
 /// </summary>
+/// <remarks>
+/// Requires an interactive render mode (Server, WebAssembly, or Auto). The open/closed state and keyboard
+/// navigation are managed entirely in C# via event handlers, with no JavaScript interop and no href-based
+/// fallback for the activator button. Under static SSR (no circuit/WASM runtime attached) the activator
+/// cannot be toggled, so the menu can never be opened. Do not use <see cref="BitDropdown"/> — directly or
+/// indirectly, e.g. via <see cref="BitPagination.ShowChanger"/> — on a page that stays fully static.
+/// </remarks>
 public partial class BitDropdown : BitComponentBase
 {
     /// <summary>
