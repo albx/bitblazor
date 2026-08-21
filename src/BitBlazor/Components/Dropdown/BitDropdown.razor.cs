@@ -122,14 +122,6 @@ public partial class BitDropdown : BitComponentBase
         }
     }
 
-    internal void Close()
-    {
-        isOpen = false;
-        RemoveDropdownMenuAttributes();
-
-        InvokeAsync(StateHasChanged);
-    }
-
     private void AddOpenDropdownMenuAttributes()
     {
         dropdownMenuAttributes["data-popper-placement"] = Position switch
@@ -262,8 +254,7 @@ public partial class BitDropdown : BitComponentBase
     internal async Task CloseAsync()
     {
         isOpen = false;
-        activatorContext.Attributes["aria-expanded"] = "false";
-        dropdownMenuAttributes.Remove("data-popper-placement");
+        RemoveDropdownMenuAttributes();
         StateHasChanged();
 
         if (activatorContext.ActivatorRef.Id is not null)
