@@ -52,8 +52,9 @@ else
     </div>
 
     <BitPagination NumberOfPages="@totalPages"
-                   Page="@currentPage"
-                   PageLinkGenerator="@(p => $"/news/{p}")"
+                   @bind-Page="currentPage"
+                   @bind-Page:after="LoadPageAsync"
+                   PageLinkGenerator="@(state => $"/news/{state.CurrentPage}")"
                    Description="Navigazione notizie"
                    Alignment="PaginationAlignment.Center"
                    PageRangeSize="2" />
@@ -63,6 +64,7 @@ else
     [Parameter]
     public int Page { get; set; } = 1;
 
+    private const int DefaultPageSize = 10;
     private int currentPage;
     private NewsResult? newsResult;
     private int totalPages;
@@ -76,8 +78,13 @@ else
     protected override async Task OnInitializedAsync()
     {
         currentPage = Page < 1 ? 1 : Page;
-        newsResult = await NewsService.GetNewsAsync(currentPage);
-        totalPages = (int)Math.Ceiling((double)newsResult.TotalCount / 10);
+        await LoadPageAsync();
+    }
+
+    private async Task LoadPageAsync()
+    {
+        newsResult = await NewsService.GetNewsAsync(currentPage, DefaultPageSize);
+        totalPages = (int)Math.Ceiling((double)newsResult.TotalCount / DefaultPageSize);
     }
 
     private static Color GetCategoryColor(string category) => category switch

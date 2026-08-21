@@ -166,7 +166,71 @@ public partial class BitPagination : BitComponentBase
     /// falling back to <c>href="#"</c>.
     /// </remarks>
     [Parameter]
-    public Func<int, string>? PageLinkGenerator { get; set; }
+    public Func<PaginationState, string>? PageLinkGenerator { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the page size changer is displayed in the pagination component.
+    /// </summary>
+    /// <remarks>
+    /// The changer is rendered with <see cref="BitDropdown"/>, which requires an interactive render mode
+    /// (Server, WebAssembly, or Auto) to open and close. Unlike page navigation, it has no href-based fallback,
+    /// so setting <see cref="PageLinkGenerator"/> does not make the changer usable under static SSR — the
+    /// dropdown menu simply cannot be opened without a live circuit or WASM runtime.
+    /// </remarks>
+    [Parameter]
+    public bool ShowChanger { get; set; }
+
+    /// <summary>
+    /// Gets or sets the current page size, which determines how many items are displayed per page in the pagination component.
+    /// </summary>
+    [Parameter]
+    public int PageSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback that is invoked when the page size changes.
+    /// </summary>
+    [Parameter]
+    public EventCallback<int> PageSizeChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the collection of available page size options that users can select from in the pagination component.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<int> PageSizeOptions { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the unique identifier for the page size changer element, which is used for accessibility and labeling purposes.
+    /// </summary>
+    [Parameter]
+    public string ChangerId { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the accessible label for the page size changer button. The default value is "Select page size".
+    /// </summary>
+    [Parameter]
+    public string ChangerAriaLabel { get; set; } = "Select page size";
+
+    /// <summary>
+    /// Gets or sets the template used to render the label for the page size changer, allowing for customization of how the page size is displayed.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<int>? PageSizeLabelTemplate { get; set; }
+
+    private Func<int, string> PageSizeDefaultLabel => (pageSize) => $"{pageSize}";
+
+    private string _changerComputedId = string.Empty;
+
+    private string GetChangerComputedId()
+    {
+        if (string.IsNullOrWhiteSpace(_changerComputedId))
+        {
+            _changerComputedId = !string.IsNullOrWhiteSpace(ChangerId)
+                ? ChangerId
+                : $"pageSizeChanger-{Guid.NewGuid():N}";
+        }
+
+        return _changerComputedId;
+    }
 
     private string jumpToPageId = string.Empty;
     private string jumpToPageLabelClass = string.Empty;
@@ -182,7 +246,13 @@ public partial class BitPagination : BitComponentBase
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        state = new(Page, NumberOfPages);
+
+        if (ShowChanger && !PageSizeOptions.Any())
+        {
+            throw new InvalidOperationException("BitPagination requires at least one page size option when ShowChanger is true.");
+        }
+
+        state = new(Page, NumberOfPages, PageSize);
 
         if (ShowJumpToPage)
         {
@@ -304,11 +374,29 @@ public partial class BitPagination : BitComponentBase
         => jumpToPageLabelClass = string.IsNullOrEmpty(jumpToPageValue) ? string.Empty : "active";
 
     private string? GetPageHref(int page)
-        => PageLinkGenerator?.Invoke(page);
+    {
+        var newPageState = state with { CurrentPage = page };
+        return PageLinkGenerator?.Invoke(newPageState);
+    }
 
     private string? GetPreviousPageHref()
         => !state.IsFirstPage ? GetPageHref(state.CurrentPage - 1) : null;
 
     private string? GetNextPageHref()
         => !state.IsLastPage ? GetPageHref(state.CurrentPage + 1) : null;
+
+    private RenderFragment RenderPageSizeLabel(int pageSize)
+        => PageSizeLabelTemplate is not null ? PageSizeLabelTemplate(pageSize) : builder => builder.AddContent(0, PageSizeDefaultLabel(pageSize));
+
+    private string? GetPageSizeHref(int pageSize)
+    {
+        var newPageState = state with { PageSize = pageSize };
+        return PageLinkGenerator?.Invoke(newPageState);
+    }
+
+    private async Task ClickPageSizeItemAsync(int pageSize)
+    {
+        state = state with { PageSize = pageSize };
+        await PageSizeChanged.InvokeAsync(pageSize);
+    }
 }

@@ -13,6 +13,12 @@
     <ArgType For="_ => _.ShowJumpToPage" />
     <ArgType For="_ => _.JumpToPageLabelTemplate" />
     <ArgType For="_ => _.ViewMode" DefaultValue="PaginationViewMode.Default" Control="ControlType.Select" />
+    <ArgType For="_ => _.ShowChanger" Control="ControlType.Select" />
+    <ArgType For="_ => _.ChangerId" />
+    <ArgType For="_ => _.ChangerAriaLabel" />
+    <ArgType For="_ => _.PageSize" />
+    <ArgType For="_ => _.PageSizeOptions" DefaultValue="@(new int[] { 10, 20, 30, 40 })" />
+    <ArgType For="_ => _.PageSizeLabelTemplate" />
 
     <Story Name="Default">
         <Arguments>
@@ -24,6 +30,11 @@
             <Arg For="_ => _.ShowJumpToPage" />
             <Arg For="_ => _.JumpToPageLabelTemplate" Value="@JumpToPageLabelTemplate" />
             <Arg For="_ => _.ViewMode" Value="PaginationViewMode.Default" />
+            <Arg For="_ => _.ShowChanger" />
+            <Arg For="_ => _.ChangerId" />
+            <Arg For="_ => _.ChangerAriaLabel" />
+            <Arg For="_ => _.PageSize" Value="10" />
+            <Arg For="_ => _.PageSizeOptions" Value="@(new int[] { 10, 20, 30, 40 })" />
         </Arguments>
         <Template>
             <div class="px-2 py-2">
@@ -130,10 +141,46 @@
             </div>
         </Template>
     </Story>
+
+    <Story Name="Page size">
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination @attributes="context.Args"
+                               NumberOfPages="50"
+                               PageRangeSize="2"
+                               Description="Page navigation"
+                               @bind-Page="model.PageSizeStoryPage"
+                               ShowChanger="true"
+                               ChangerId="pageChanger-1"
+                               PageSizeOptions="pageSizeOptions"
+                               @bind-PageSize="model.PageSizeStoryPageSize"/>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Page size with custom label template">
+        <Template>
+            <div class="px-2 py-2">
+                <BitPagination @attributes="context.Args"
+                               NumberOfPages="50"
+                               PageRangeSize="2"
+                               Description="Page navigation"
+                               @bind-Page="model.PageSizeStoryPage"
+                               ShowChanger="true"
+                               ChangerId="pageChanger-1"
+                               PageSizeOptions="pageSizeOptions"
+                               @bind-PageSize="model.PageSizeStoryPageSize">
+                    <PageSizeLabelTemplate Context="size">@size/page</PageSizeLabelTemplate>
+                </BitPagination>
+            </div>
+        </Template>
+    </Story>
 </Stories>
 
 @code {
     private ViewModel model = new();
+
+    private int[] pageSizeOptions = [10, 20, 30, 40];
 
     class ViewModel
     {
@@ -152,6 +199,10 @@
         public int TextLinksStoryPage { get; set; } = 26;
 
         public int TotalNumberStoryPage { get; set; } = 24;
+
+        public int PageSizeStoryPage { get; set; } = 26;
+
+        public int PageSizeStoryPageSize { get; set; } = 10;
     }
 
     private RenderFragment JumpToPageLabelTemplate => __builder =>

@@ -4,5 +4,5 @@ namespace BitBlazor.Sample.Services;
 
 public interface IPraticheService
 {
-    Task<PraticheResult> GetPraticheAsync(int page, string? statoFiltro = null);
+    Task<PraticheResult> GetPraticheAsync(int page, string? statoFiltro = null, int pageSize = 8);
 }

@@ -6,6 +6,13 @@ namespace BitBlazor.Components;
 /// <summary>
 /// Represents a dropdown component that can be used to display a list of options or actions in a collapsible menu.
 /// </summary>
+/// <remarks>
+/// Requires an interactive render mode (Server, WebAssembly, or Auto). The open/closed state and keyboard
+/// navigation are managed entirely in C# via event handlers, with no JavaScript interop and no href-based
+/// fallback for the activator button. Under static SSR (no circuit/WASM runtime attached) the activator
+/// cannot be toggled, so the menu can never be opened. Do not use <see cref="BitDropdown"/> — directly or
+/// indirectly, e.g. via <see cref="BitPagination.ShowChanger"/> — on a page that stays fully static.
+/// </remarks>
 public partial class BitDropdown : BitComponentBase
 {
     /// <summary>
@@ -107,21 +114,31 @@ public partial class BitDropdown : BitComponentBase
         isOpen = !isOpen;
         if (isOpen)
         {
-            dropdownMenuAttributes["data-popper-placement"] = Position switch
-            {
-                DropdownPosition.Up => "top-start",
-                DropdownPosition.End => "right-start",
-                DropdownPosition.Start => "left-start",
-                _ => "bottom-start"
-            };
-
-            activatorContext.Attributes["aria-expanded"] = "true";
+            AddOpenDropdownMenuAttributes();
         }
         else
         {
-            dropdownMenuAttributes.Remove("data-popper-placement");
-            activatorContext.Attributes["aria-expanded"] = "false";
+            RemoveDropdownMenuAttributes();
         }
+    }
+
+    private void AddOpenDropdownMenuAttributes()
+    {
+        dropdownMenuAttributes["data-popper-placement"] = Position switch
+        {
+            DropdownPosition.Up => "top-start",
+            DropdownPosition.End => "right-start",
+            DropdownPosition.Start => "left-start",
+            _ => "bottom-start"
+        };
+
+        activatorContext.Attributes["aria-expanded"] = "true";
+    }
+
+    private void RemoveDropdownMenuAttributes()
+    {
+        dropdownMenuAttributes.Remove("data-popper-placement");
+        activatorContext.Attributes["aria-expanded"] = "false";
     }
 
     private string ComputeDropdownContainerClass()
@@ -237,8 +254,7 @@ public partial class BitDropdown : BitComponentBase
     internal async Task CloseAsync()
     {
         isOpen = false;
-        activatorContext.Attributes["aria-expanded"] = "false";
-        dropdownMenuAttributes.Remove("data-popper-placement");
+        RemoveDropdownMenuAttributes();
         StateHasChanged();
 
         if (activatorContext.ActivatorRef.Id is not null)

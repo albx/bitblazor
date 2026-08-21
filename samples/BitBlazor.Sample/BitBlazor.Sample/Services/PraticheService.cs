@@ -4,8 +4,6 @@ namespace BitBlazor.Sample.Services;
 
 public class PraticheService : IPraticheService
 {
-    private const int PageSize = 8;
-
     private static readonly IReadOnlyList<PraticaItem> AllPratiche =
     [
         new(1,  "Rinnovo Carta d'Identità Elettronica",         "Anagrafe",  "Completata",     "Richiesta di rinnovo della CIE scaduta. Documento ritirato allo sportello.",                            new DateOnly(2025, 11, 3)),
@@ -40,15 +38,15 @@ public class PraticheService : IPraticheService
         new(30, "Rettifica Atto di Nascita",                    "Anagrafe",  "In Lavorazione", "Istanza di rettifica per errore materiale in trascrizione atto di nascita. Pratiche in corso.",      new DateOnly(2026, 4, 9)),
     ];
 
-    public Task<PraticheResult> GetPraticheAsync(int page, string? statoFiltro = null)
+    public Task<PraticheResult> GetPraticheAsync(int page, string? statoFiltro = null, int pageSize = 8)
     {
         var filtered = string.IsNullOrEmpty(statoFiltro)
             ? AllPratiche
             : AllPratiche.Where(p => p.Stato == statoFiltro).ToList();
 
         var items = filtered
-            .Skip((page - 1) * PageSize)
-            .Take(PageSize)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
             .ToList();
 
         return Task.FromResult(new PraticheResult(items, filtered.Count));

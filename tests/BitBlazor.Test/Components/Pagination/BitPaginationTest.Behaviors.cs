@@ -1,5 +1,6 @@
 ﻿using BitBlazor.Components;
 using Bunit;
+using Microsoft.AspNetCore.Components;
 
 namespace BitBlazor.Test.Components.Pagination;
 
@@ -210,7 +211,7 @@ public class BitPaginationTest
             parameters => parameters
                 .Add(p => p.NumberOfPages, 3)
                 .Add(p => p.Description, "pagination")
-                .Add(p => p.PageLinkGenerator, (Func<int, string>)(p => $"/items/{p}"))
+                .Add(p => p.PageLinkGenerator, p => $"/items/{p.CurrentPage}")
                 .Bind(p => p.Page, page, v => page = v));
 
         var pageItem = component.FindComponents<BitPageItem>().First(p => p.Instance.Page == 2);
@@ -219,5 +220,102 @@ public class BitPaginationTest
         pageLink.Click();
 
         Assert.Equal(2, page);
+    }
+
+    [Fact]
+    public void BitPagination_Should_Change_PageSize_Correctly_When_PageSize_Changed()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+        
+        int page = 1;
+        int pageSize = 10;
+        int[] pageSizeOptions = [10, 20, 30];
+
+        var component = ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, pageSizeOptions)
+                .Add(p => p.ChangerId, "pagechanger")
+                .Bind(p => p.Page, page, v => page = v)
+                .Bind(p => p.PageSize, pageSize, v => pageSize = v));
+
+        var changerButton = component.Find("button#pagechanger");
+        changerButton.Click();
+
+        var newPageSizeOption = component.Find(".dropdown-menu > .link-list-wrapper > .link-list > li:nth-child(2) > a.list-item"); // Select the second option (20)
+        newPageSizeOption.Click();
+
+        Assert.Equal(20, pageSize);
+    }
+
+    [Fact]
+    public void BitPagination_Should_Set_AriaLabel_On_Changer_Button()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        int pageSize = 10;
+        int[] pageSizeOptions = [10, 20, 30];
+
+        var component = ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, pageSizeOptions)
+                .Add(p => p.ChangerAriaLabel, "Rows per page")
+                .Bind(p => p.PageSize, pageSize, v => pageSize = v));
+
+        var changerButton = component.Find("button.btn-dropdown");
+
+        Assert.Equal("Rows per page", changerButton.GetAttribute("aria-label"));
+    }
+
+    [Fact]
+    public void BitPagination_Should_Keep_Changer_Id_Stable_Across_Renders()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        int page = 1;
+        int pageSize = 10;
+        int[] pageSizeOptions = [10, 20, 30];
+
+        var component = ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, pageSizeOptions)
+                .Bind(p => p.Page, page, v => page = v)
+                .Bind(p => p.PageSize, pageSize, v => pageSize = v));
+
+        var firstId = component.Find("button.btn-dropdown").GetAttribute("id");
+
+        component.Render();
+
+        var secondId = component.Find("button.btn-dropdown").GetAttribute("id");
+
+        Assert.Equal(firstId, secondId);
+    }
+
+    [Fact]
+    public void BitPagination_Should_Throw_When_Changer_Is_Enabled_Without_PageSizeOptions()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var exception = Assert.Throws<InvalidOperationException>(() => ctx.Render<BitPagination>(
+            parameters => parameters
+                .Add(p => p.NumberOfPages, 3)
+                .Add(p => p.Description, "pagination")
+                .Add(p => p.ShowChanger, true)
+                .Add(p => p.PageSizeOptions, Array.Empty<int>())
+                .Add(p => p.PageSize, 10)));
+
+        Assert.Equal("BitPagination requires at least one page size option when ShowChanger is true.", exception.Message);
     }
 }

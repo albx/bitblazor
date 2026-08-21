@@ -14,6 +14,8 @@ BitBlazor.Components
 
 A custom `ActivatorTemplate` can replace the built-in toggle button with any element while retaining the complete keyboard interaction model.
 
+> **Requires interactive rendering.** Because the open/closed state is managed purely in C# (`@onclick` / `@onkeydown`) with no JavaScript fallback, `BitDropdown` only works under an interactive render mode (Server, WebAssembly, or Auto). Under static SSR the activator button cannot be toggled, so the menu can never open — even though `BitDropdownItem.Href` values still render as valid links. This also applies to any component that renders a `BitDropdown` internally, such as `BitPagination`'s `ShowChanger` feature (see [pagination.md](./pagination.md)).
+
 ## Components
 
 | Component | Description |

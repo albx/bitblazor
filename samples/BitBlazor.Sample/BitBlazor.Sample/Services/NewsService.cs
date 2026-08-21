@@ -4,7 +4,6 @@ namespace BitBlazor.Sample.Services;
 
 public class NewsService : INewsService
 {
-    private const int PageSize = 10;
     private const int TotalItems = 50;
 
     private static readonly string[] Categories =
@@ -30,10 +29,10 @@ public class NewsService : INewsService
         "Il Comune di Bitopoli aderisce al programma nazionale per la rigenerazione urbana dei quartieri periferici."
     ];
 
-    public Task<NewsResult> GetNewsAsync(int page)
+    public Task<NewsResult> GetNewsAsync(int page, int pageSize = 10)
     {
-        var skip = (page - 1) * PageSize;
-        var count = Math.Min(PageSize, TotalItems - skip);
+        var skip = (page - 1) * pageSize;
+        var count = Math.Min(pageSize, TotalItems - skip);
 
         var items = Enumerable.Range(skip + 1, count)
             .Select(i => new NewsItem(
