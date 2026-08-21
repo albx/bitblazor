@@ -476,7 +476,7 @@ When `PageLinkGenerator` is **not** set (interactive mode), page buttons use `hr
 </nav>
 ```
 
-When `PageLinkGenerator` is set, each `href` is populated with the URL returned by the generator. The previous/next buttons receive the adjacent page URL; disabled nav buttons (first page's prev, last page's next) keep `href="#"`. Page size changer items also include the generated URL with the updated page size:
+When `PageLinkGenerator` is set, each `href` is populated with the URL returned by the generator. The previous/next buttons receive the adjacent page URL; disabled nav buttons (first page's prev, last page's next) render without an `href`. Page size changer items also include the generated URL with the updated page size:
 
 ```html
 <!-- With PageLinkGenerator="@((state) => $"/news/{state.CurrentPage}/{state.PageSize}")" on page 3 of 10 with page size 10 -->
