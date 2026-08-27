@@ -1,0 +1,78 @@
+@attribute [Stories("Components/BitPopover")]
+
+<Stories TComponent="BitPopover">
+    <ArgType For="_ => _.Placement" Control="ControlType.Select" />
+    <ArgType For="_ => _.Trigger" Control="ControlType.Select" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Title" Value="@("Popover Title")" />
+            <Arg For="_ => _.Content" Value="@("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")" />
+            <Arg For="_ => _.Placement" Value="PopoverPlacement.Top" />
+            <Arg For="_ => _.Trigger" Value="PopoverTrigger.Click" />
+        </Arguments>
+
+        <Template>
+            <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+                <BitPopover @attributes="context.Args">
+                    <button type="button" class="btn btn-lg btn-danger">Click to open popover</button>
+                </BitPopover>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Placements">
+        <Template>
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height:100vh; gap: 2rem;">
+                <BitPopover Title="Popover on top" Content="Popover content." Placement="PopoverPlacement.Top">
+                    <button type="button" class="btn btn-secondary">Top</button>
+                </BitPopover>
+                <div class="d-flex gap-5">
+                    <BitPopover Title="Popover on left" Content="Popover content." Placement="PopoverPlacement.Left">
+                        <button type="button" class="btn btn-secondary">Left</button>
+                    </BitPopover>
+                    <BitPopover Title="Popover on right" Content="Popover content." Placement="PopoverPlacement.Right">
+                        <button type="button" class="btn btn-secondary">Right</button>
+                    </BitPopover>
+                </div>
+                <BitPopover Title="Popover on bottom" Content="Popover content." Placement="PopoverPlacement.Bottom">
+                    <button type="button" class="btn btn-secondary">Bottom</button>
+                </BitPopover>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Hover trigger">
+        <Template>
+            <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+                <BitPopover Title="Hover trigger"
+                            Content="This popover opens on mouse hover."
+                            Trigger="PopoverTrigger.Hover">
+                    <button type="button" class="btn btn-secondary">Hover trigger</button>
+                </BitPopover>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Without title">
+        <Template>
+            <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+                <BitPopover Content="Popover without title, text content only.">
+                    <button type="button" class="btn btn-secondary">No title popover</button>
+                </BitPopover>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="HTML content">
+        <Template>
+            <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+                <BitPopover Title="<strong>Title</strong> with HTML"
+                            Content="Content with <em>HTML</em> enabled."
+                            HtmlEnabled="true">
+                    <button type="button" class="btn btn-secondary">Popover with HTML</button>
+                </BitPopover>
+            </div>
+        </Template>
+    </Story>
+</Stories>

@@ -1,0 +1,68 @@
+@attribute [Stories("Components/BitTooltip")]
+
+<Stories TComponent="BitTooltip">
+    <ArgType For="_ => _.Placement" Control="ControlType.Select" />
+
+    <Story Name="Default">
+        <Arguments>
+            <Arg For="_ => _.Text" Value="@("Tooltip text")" />
+            <Arg For="_ => _.Placement" Value="TooltipPlacement.Top" />
+        </Arguments>
+
+        <Template>
+            <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+                <BitTooltip @attributes="context.Args">
+                    <button type="button" class="btn btn-secondary">Hover me</button>
+                </BitTooltip>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Placements">
+        <Template>
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height:100vh; gap: 2rem;">
+                <BitTooltip Text="Top" Placement="TooltipPlacement.Top">
+                    <button type="button" class="btn btn-secondary" style="width:90px">Top</button>
+                </BitTooltip>
+                <div class="d-flex gap-5">
+                    <BitTooltip Text="Left" Placement="TooltipPlacement.Left">
+                        <button type="button" class="btn btn-secondary" style="width:90px">Left</button>
+                    </BitTooltip>
+                    <BitTooltip Text="Auto" Placement="TooltipPlacement.Auto">
+                        <button type="button" class="btn btn-secondary" style="width:90px">Auto</button>
+                    </BitTooltip>
+                    <BitTooltip Text="Right" Placement="TooltipPlacement.Right">
+                        <button type="button" class="btn btn-secondary" style="width:90px">Right</button>
+                    </BitTooltip>
+                </div>
+                <BitTooltip Text="Bottom" Placement="TooltipPlacement.Bottom">
+                    <button type="button" class="btn btn-secondary" style="width:90px">Bottom</button>
+                </BitTooltip>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="On link">
+        <Template>
+            <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+                <p class="mb-0">
+                    Hover over
+                    <BitTooltip Text="This is a tooltip on a link" Placement="TooltipPlacement.Top">
+                        <a href="#">this link</a>
+                    </BitTooltip>
+                    to see the tooltip.
+                </p>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="HTML content">
+        <Template>
+            <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
+                <BitTooltip Text="<em>Tooltip</em> with <strong>HTML</strong>" HtmlEnabled="true">
+                    <button type="button" class="btn btn-secondary">Tooltip with HTML</button>
+                </BitTooltip>
+            </div>
+        </Template>
+    </Story>
+</Stories>
