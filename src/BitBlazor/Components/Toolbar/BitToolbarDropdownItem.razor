@@ -5,7 +5,7 @@
 <li>
     <BitDropdown ActivatorId="@Id" ActivatorLabel="@Label">
         <ActivatorTemplate>
-            <button class="btn btn-dropdown dropdown-toggle" type="button" id="@context.ActivatorId" @ref="context.ActivatorRef" @attributes="context.Attributes" @onclick="@context.ToggleDropdown" @onkeydown="@context.HandleKeyDownAsync">
+            <button class="@ComputeActivatorCssClass()" type="button" id="@context.ActivatorId" @ref="context.ActivatorRef" @attributes="ComputeActivatorAttributes(context)" disabled="@Disabled" @onclick="@(() => HandleActivatorClick(context))" @onkeydown="@(args => HandleActivatorKeyDownAsync(context, args))">
                 @if (HasBadge)
                 {
                     <div class="badge-wrapper">

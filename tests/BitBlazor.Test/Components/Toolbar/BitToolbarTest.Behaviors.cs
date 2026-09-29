@@ -365,4 +365,75 @@ public class BitToolbarTest
 
         Assert.Equal("A toolbar item must be only used inside a BitToolbar component", exception.Message);
     }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Render_Native_Disabled_State_On_Activator()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .Add(p => p.Disabled, true)
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+        );
+
+        var button = cut.Find("button");
+
+        Assert.True(button.HasAttribute("disabled"));
+        Assert.Equal("true", button.GetAttribute("aria-disabled"));
+        Assert.Contains("disabled", button.ClassList);
+    }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Not_Open_On_Activator_Click_When_Disabled()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .Add(p => p.Disabled, true)
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+        );
+
+        var button = cut.Find("button");
+        button.Click();
+
+        var menu = cut.Find("div.dropdown-menu");
+        Assert.False(menu.ClassList.Contains("show"));
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Not_Open_On_ArrowDown_Key_When_Disabled()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .Add(p => p.Disabled, true)
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+        );
+
+        var button = cut.Find("button");
+        button.KeyDown(new KeyboardEventArgs { Key = "ArrowDown" });
+
+        var menu = cut.Find("div.dropdown-menu");
+        Assert.False(menu.ClassList.Contains("show"));
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+    }
 }
