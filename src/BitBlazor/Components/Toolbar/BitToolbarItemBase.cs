@@ -8,6 +8,10 @@ namespace BitBlazor.Components;
 /// </summary>
 public abstract class BitToolbarItemBase : ComponentBase
 {
+    /// <summary>
+    /// Gets or sets the parent <see cref="BitToolbar"/> component. 
+    /// This property is set via cascading parameters and is used to access properties of the parent toolbar.
+    /// </summary>
     [CascadingParameter]
     protected BitToolbar Parent { get; set; } = default!;
 
@@ -80,7 +84,7 @@ public abstract class BitToolbarItemBase : ComponentBase
     {
         if (Parent is null)
         {
-            throw new InvalidOperationException($"This component must be used inside a BitToolbar component");
+            throw new InvalidOperationException("A toolbar item must be only used inside a BitToolbar component");
         }
     }
 

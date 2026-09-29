@@ -210,7 +210,7 @@ public class BitToolbarTest
                 .Add(p => p.Label, "Item 1")
                 .Add(p => p.IconName, Icons.ItComment)));
 
-        Assert.Equal("BitToolbarItem component must be used inside a BitToolbar component", exception.Message);
+        Assert.Equal("A toolbar item must be only used inside a BitToolbar component", exception.Message);
     }
 
     [Fact]
@@ -363,6 +363,6 @@ public class BitToolbarTest
                 .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
                     dropdownItemParameters.AddChildContent("<span>Label 1</span>"))));
 
-        Assert.Equal("This component must be used inside a BitToolbar component", exception.Message);
+        Assert.Equal("A toolbar item must be only used inside a BitToolbar component", exception.Message);
     }
 }

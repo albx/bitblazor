@@ -1,5 +1,7 @@
 ﻿@namespace BitBlazor.Components
 
+@inherits BitToolbarItemBase
+
 <li>
     <a href="@Href" class="@ComputeLinkCssClass()" disabled="@Disabled" @attributes="AdditionalAttributes" @onclick="ClickAsync" @onclick:preventDefault="@RendererInfo.IsInteractive" @onkeydown="OnKeyDownAsync">
         @if (HasBadge)
@@ -27,7 +29,3 @@
         </span>
     </a>
 </li>
-
-@code {
-    private RenderFragment RenderBadgeLabel() => @<span class="visually-hidden">@BadgeLabel</span>;
-}
