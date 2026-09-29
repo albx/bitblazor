@@ -124,6 +124,10 @@ public abstract class BitToolbarItemBase : ComponentBase
         return builder.Build();
     }
 
+    /// <summary>
+    /// Renders the badge label as a visually hidden span element for accessibility purposes.
+    /// </summary>
+    /// <returns></returns>
     protected RenderFragment RenderBadgeLabel() => 
         builder =>
         {

@@ -224,4 +224,145 @@ public class BitToolbarTest
 
         Assert.Equal("BitToolbarDivider component must be used inside a BitToolbar component", exception.Message);
     }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Open_On_Activator_Click()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+        );
+
+        var button = cut.Find("button");
+        button.Click();
+
+        var menu = cut.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+        Assert.Equal("true", button.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Close_On_Activator_Click_Again()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+        );
+
+        var button = cut.Find("button");
+        button.Click();
+        button.Click();
+
+        var menu = cut.Find("div.dropdown-menu");
+        Assert.False(menu.ClassList.Contains("show"));
+        Assert.Equal("false", button.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Open_And_Focus_First_Item_On_ArrowDown_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+        );
+
+        var button = cut.Find("button");
+        button.KeyDown(new KeyboardEventArgs { Key = "ArrowDown" });
+
+        var menu = cut.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+        Assert.Equal("true", button.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Open_On_ArrowUp_Key()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+        );
+
+        var button = cut.Find("button");
+        button.KeyDown(new KeyboardEventArgs { Key = "ArrowUp" });
+
+        var menu = cut.Find("div.dropdown-menu");
+        Assert.Contains("show", menu.ClassList);
+        Assert.Equal("true", button.GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Toggle_Independently_When_Multiple_Present()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var cut = ctx.Render<BitToolbar>(parameters => parameters
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>")))
+            .AddChildContent<BitToolbarDropdownItem>(itemParameters => itemParameters
+                .Add(p => p.Label, "Images")
+                .Add(p => p.IconName, Icons.ItCamera)
+                .Add(p => p.Id, "dropdown2")
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 2</span>")))
+        );
+
+        cut.FindAll("button")[0].Click();
+
+        var buttons = cut.FindAll("button");
+        var menus = cut.FindAll("div.dropdown-menu");
+        Assert.Contains("show", menus[0].ClassList);
+        Assert.False(menus[1].ClassList.Contains("show"));
+        Assert.Equal("true", buttons[0].GetAttribute("aria-expanded"));
+        Assert.Equal("false", buttons[1].GetAttribute("aria-expanded"));
+    }
+
+    [Fact]
+    public void BitToolbarDropdownItem_Should_Throw_InvalidOperationException_When_Used_Outside_BitToolbar()
+    {
+        using var ctx = new BunitContext();
+        ctx.SetRendererInfo(new RendererInfo("InteractiveServer", isInteractive: true));
+
+        var exception = Assert.Throws<InvalidOperationException>(() =>
+            ctx.Render<BitToolbarDropdownItem>(parameters => parameters
+                .Add(p => p.Label, "Messages")
+                .Add(p => p.IconName, Icons.ItComment)
+                .Add(p => p.Id, "dropdown1")
+                .AddChildContent<BitDropdownItem>(dropdownItemParameters =>
+                    dropdownItemParameters.AddChildContent("<span>Label 1</span>"))));
+
+        Assert.Equal("This component must be used inside a BitToolbar component", exception.Message);
+    }
 }

@@ -23,7 +23,7 @@
                 }
                 
                 <BitIcon IconName="@IconName" />
-                <span class="toolbar-label">
+                <span class="@ComputeLabelCssClass()">
                     @context.ActivatorLabel
                     @if (Parent.Size is ToolbarSize.Default && HasBadgeLabel)
                     {
