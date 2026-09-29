@@ -31,6 +31,13 @@
                         Label="Stampa"
                         Active="@(_activeToolbarItem == "stampa")"
                         OnClick="StampaAsync" />
+        <BitToolbarDropdownItem IconName="@Icons.ItFiles"
+                                Label="Esporta"
+                                Id="pratiche-esporta-dropdown">
+            <BitDropdownItem OnClick="@(() => EsportaAsync("PDF"))"><span>Esporta in PDF</span></BitDropdownItem>
+            <BitDropdownItem OnClick="@(() => EsportaAsync("Excel"))"><span>Esporta in Excel</span></BitDropdownItem>
+            <BitDropdownItem OnClick="@(() => EsportaAsync("CSV"))"><span>Esporta in CSV</span></BitDropdownItem>
+        </BitToolbarDropdownItem>
         <BitToolbarDivider />
         <BitToolbarItem IconName="@Icons.ItSettings"
                         Label="Impostazioni"
@@ -202,6 +209,13 @@ else
     private Task ImpostazioniAsync()
     {
         _activeToolbarItem = _activeToolbarItem == "impostazioni" ? null : "impostazioni";
+        return Task.CompletedTask;
+    }
+
+    private Task EsportaAsync(string formato)
+    {
+        _activeToolbarItem = null;
+        // In un'applicazione reale, qui verrebbe avviato il download delle pratiche nel formato scelto.
         return Task.CompletedTask;
     }
 }
