@@ -14,12 +14,17 @@ The Toolbar component provides a navigation bar for grouping and displaying icon
 
 Each `BitToolbarItem` can be used as a navigation link (via `Href`), a click handler (via `OnClick`), or both at the same time. When both are provided, `OnClick` takes precedence in interactive rendering while `Href` remains available for browser-native behaviors such as right-click → Open in new tab. In static SSR rendering, `Href` is the only navigation mechanism.
 
+A `BitToolbarDropdownItem` renders a [`BitDropdown`](./dropdown.md) activator styled as a toolbar item, letting a single toolbar entry expand into a menu of `BitDropdownItem` choices.
+
+> **`BitToolbarDropdownItem` requires interactive rendering.** It renders a `BitDropdown` internally, and the dropdown's open/closed state is managed purely in C# (`@onclick` / `@onkeydown`) with no JavaScript fallback. Under static SSR the activator button cannot be toggled, so the menu can never open. Only use `BitToolbarDropdownItem` in pages or components running under an interactive render mode (Server, WebAssembly, or Auto). `BitToolbarItem` (with `Href` and/or `OnClick`) remains fully SSR-compatible.
+
 ## Components
 
 | Component | Description |
 |-----------|-------------|
 | `BitToolbar` | Root container that renders a `<nav>` with an inner `<ul>` and cascades itself to child items |
 | `BitToolbarItem` | Individual action item rendered as an `<li>` with an icon and a label |
+| `BitToolbarDropdownItem` | Individual action item rendered as an `<li>` containing a `BitDropdown` activator; expands into a menu of `BitDropdownItem` choices. **Requires interactive rendering** |
 | `BitToolbarDivider` | Visual and semantic separator between items |
 
 ## BitToolbar Parameters
@@ -48,6 +53,22 @@ Each `BitToolbarItem` can be used as a navigation link (via `Href`), a click han
 | `Id` | `string?` | ✗ | `null` | Sets the `id` HTML attribute on the root element |
 | `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply to the item |
 | `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes forwarded to the root element |
+
+## BitToolbarDropdownItem Parameters
+
+> **Requires interactive rendering.** See the note above — this component only functions under Server, WebAssembly, or Auto render modes.
+
+| Name | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `Id` | `string` | ✓ | - | Unique identifier for the item, passed as the `BitDropdown.ActivatorId` and used to associate the activator button with its menu for accessibility |
+| `Label` | `string` | ✓ | - | The visible label text for the item, also passed as the `BitDropdown.ActivatorLabel` |
+| `IconName` | `string` | ✓ | - | The Bootstrap Italia icon name to display on the activator button |
+| `ChildContent` | `RenderFragment` | ✓ | - | One or more `BitDropdownItem` components rendered inside the dropdown menu |
+| `Active` | `bool` | ✗ | `false` | When `true`, applies the active style to the item |
+| `Disabled` | `bool` | ✗ | `false` | When `true`, disables the item and adds `aria-disabled="true"` |
+| `BadgeCount` | `int?` | ✗ | `null` | A numeric badge count shown on the item; hidden when `null` or `0` |
+| `BadgeLabel` | `string?` | ✗ | `null` | A text label shown next to the badge; displayed in different positions depending on `Size` |
+| `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes forwarded to the activator button |
 
 ## Used Enumerations
 
@@ -187,4 +208,25 @@ When both `Href` and `OnClick` are provided, `OnClick` handles the primary click
 <BitToolbar data-testid="main-toolbar" aria-label="Main actions">
     <BitToolbarItem IconName="it-home" Label="Home" Href="/" />
 </BitToolbar>
+```
+
+### With a dropdown item (interactive rendering required)
+
+`BitToolbarDropdownItem` expands a toolbar entry into a `BitDropdown` menu. Because the menu's open/closed state is managed in C# with no JavaScript fallback, this only works in an interactive render mode — add `@rendermode InteractiveServer` (or `InteractiveWebAssembly`/`InteractiveAuto`) to the page or component, or host it inside an already-interactive parent.
+
+```razor
+@rendermode InteractiveServer
+
+<BitToolbar>
+    <BitToolbarItem IconName="it-home" Label="Home" Href="/" />
+    <BitToolbarDropdownItem Id="toolbar-user-menu" IconName="it-user" Label="Account">
+        <BitDropdownItem Href="/profile"><span>Profile</span></BitDropdownItem>
+        <BitDropdownItem Href="/settings"><span>Settings</span></BitDropdownItem>
+        <BitDropdownItem OnClick="HandleSignOut"><span>Sign out</span></BitDropdownItem>
+    </BitToolbarDropdownItem>
+</BitToolbar>
+
+@code {
+    private void HandleSignOut() { /* ... */ }
+}
 ```
