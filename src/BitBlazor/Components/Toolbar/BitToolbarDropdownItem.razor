@@ -1,0 +1,39 @@
+﻿@namespace BitBlazor.Components
+
+@inherits BitToolbarItemBase
+
+<li>
+    <BitDropdown ActivatorId="@Id" ActivatorLabel="@Label">
+        <ActivatorTemplate>
+            <button class="@ComputeActivatorCssClass()" type="button" id="@context.ActivatorId" @ref="context.ActivatorRef" @attributes="ComputeActivatorAttributes(context)" disabled="@Disabled" @onclick="@(() => HandleActivatorClick(context))" @onkeydown="@(args => HandleActivatorKeyDownAsync(context, args))">
+                @if (HasBadge)
+                {
+                    <div class="badge-wrapper">
+                        <span class="toolbar-badge">
+                            @if (IsToolbarSizeDefault)
+                            {
+                                @BadgeCount
+                            }
+                        </span>
+                        @if (Parent.Size is ToolbarSize.Medium or ToolbarSize.Small && HasBadgeLabel)
+                        {
+                            @RenderBadgeLabel()
+                        }
+                    </div>
+                }
+                
+                <BitIcon IconName="@IconName" />
+                <span class="@ComputeLabelCssClass()">
+                    @context.ActivatorLabel
+                    @if (Parent.Size is ToolbarSize.Default && HasBadgeLabel)
+                    {
+                        @RenderBadgeLabel()
+                    }
+                </span>
+            </button>
+        </ActivatorTemplate>
+        <ChildContent>
+            @ChildContent
+        </ChildContent>
+    </BitDropdown>
+</li>

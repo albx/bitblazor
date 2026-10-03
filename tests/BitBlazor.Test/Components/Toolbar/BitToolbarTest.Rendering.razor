@@ -558,4 +558,187 @@
 
         Assert.True(component.Find("nav").ClassList.Contains("my-custom-toolbar"));
     }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Dropdown_Item_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarDropdownItem Label="Messages" IconName="@Icons.ItComment" Id="dropdown1">
+                    <BitDropdownItem><span>Label 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Label 2</span></BitDropdownItem>
+                </BitToolbarDropdownItem>
+                <BitToolbarDropdownItem Label="Images" IconName="@Icons.ItCamera" Id="dropdown2">
+                    <BitDropdownItem><span>Label 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Label 2</span></BitDropdownItem>
+                </BitToolbarDropdownItem>
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar">
+                <ul>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdown1" aria-haspopup="true" aria-expanded="false">
+                                <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                                <span class="toolbar-label">Messages</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown1" data-bs-popper="static">
+                                <div class="link-list-wrapper">
+                                    <ul class="link-list">
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 1</span></a></li>
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 2</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdown2" aria-haspopup="true" aria-expanded="false">
+                                <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                                <span class="toolbar-label">Images</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown2" data-bs-popper="static">
+                                <div class="link-list-wrapper">
+                                    <ul class="link-list">
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 1</span></a></li>
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 2</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Fact]
+    public void BitToolbar_Should_Render_Dropdown_Item_With_Badge_Correctly()
+    {
+        var component = Render(
+            @<BitToolbar>
+                <BitToolbarDropdownItem Label="Messages" IconName="@Icons.ItComment" Id="dropdown1" BadgeCount="1" BadgeLabel="to read">
+                    <BitDropdownItem><span>Label 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Label 2</span></BitDropdownItem>
+                </BitToolbarDropdownItem>
+                <BitToolbarDropdownItem Label="Images" IconName="@Icons.ItCamera" Id="dropdown2" BadgeCount="42" BadgeLabel="to view">
+                    <BitDropdownItem><span>Label 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Label 2</span></BitDropdownItem>
+                </BitToolbarDropdownItem>
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar">
+                <ul>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdown1" aria-haspopup="true" aria-expanded="false">
+                                <div class="badge-wrapper"><span class="toolbar-badge">1</span></div>
+                                <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                                <span class="toolbar-label">Messages<span class="visually-hidden">to read</span></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown1" data-bs-popper="static">
+                                <div class="link-list-wrapper">
+                                    <ul class="link-list">
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 1</span></a></li>
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 2</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdown2" aria-haspopup="true" aria-expanded="false">
+                                <div class="badge-wrapper"><span class="toolbar-badge">42</span></div>
+                                <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-camera"></use></svg>
+                                <span class="toolbar-label">Images<span class="visually-hidden">to view</span></span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown2" data-bs-popper="static">
+                                <div class="link-list-wrapper">
+                                    <ul class="link-list">
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 1</span></a></li>
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 2</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Theory]
+    [InlineData(ToolbarSize.Medium, "toolbar-medium")]
+    [InlineData(ToolbarSize.Small, "toolbar-small")]
+    public void BitToolbar_Should_Render_Dropdown_Item_In_Medium_And_Small_Toolbar_Correctly(ToolbarSize size, string sizeClass)
+    {
+        var component = Render(
+            @<BitToolbar Size="size">
+                <BitToolbarDropdownItem Label="Messages" IconName="@Icons.ItComment" Id="dropdown1">
+                    <BitDropdownItem><span>Label 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Label 2</span></BitDropdownItem>
+                </BitToolbarDropdownItem>
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar @sizeClass">
+                <ul>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdown1" aria-haspopup="true" aria-expanded="false">
+                                <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                                <span class="visually-hidden">Messages</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown1" data-bs-popper="static">
+                                <div class="link-list-wrapper">
+                                    <ul class="link-list">
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 1</span></a></li>
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 2</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>);
+    }
+
+    [Theory]
+    [InlineData(ToolbarSize.Medium, "toolbar-medium")]
+    [InlineData(ToolbarSize.Small, "toolbar-small")]
+    public void BitToolbar_Should_Render_Dropdown_Item_With_Badge_In_Medium_And_Small_Toolbar_Correctly(ToolbarSize size, string sizeClass)
+    {
+        var component = Render(
+            @<BitToolbar Size="size">
+                <BitToolbarDropdownItem Label="Messages" IconName="@Icons.ItComment" Id="dropdown1" BadgeCount="1" BadgeLabel="to read">
+                    <BitDropdownItem><span>Label 1</span></BitDropdownItem>
+                    <BitDropdownItem><span>Label 2</span></BitDropdownItem>
+                </BitToolbarDropdownItem>
+            </BitToolbar>);
+
+        component.MarkupMatches(
+            @<nav class="toolbar @sizeClass">
+                <ul>
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-dropdown dropdown-toggle" type="button" id="dropdown1" aria-haspopup="true" aria-expanded="false">
+                                <div class="badge-wrapper"><span class="toolbar-badge"></span><span class="visually-hidden">to read</span></div>
+                                <svg class="icon"><use href="/_content/BitBlazor/bootstrap-italia/svg/sprites.svg#it-comment"></use></svg>
+                                <span class="visually-hidden">Messages</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdown1" data-bs-popper="static">
+                                <div class="link-list-wrapper">
+                                    <ul class="link-list">
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 1</span></a></li>
+                                        <li><a class="dropdown-item list-item" tabindex="0"><span>Label 2</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>);
+    }
 }
