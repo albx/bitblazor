@@ -48,7 +48,7 @@ A `BitToolbarDropdownItem` renders a [`BitDropdown`](./dropdown.md) activator st
 | `Active` | `bool` | ✗ | `false` | When `true`, applies the active style to the item |
 | `Disabled` | `bool` | ✗ | `false` | When `true`, disables the item and adds `aria-disabled="true"` |
 | `BadgeCount` | `int?` | ✗ | `null` | A numeric badge count shown on the item; hidden when `null` or `0` |
-| `BadgeLabel` | `string?` | ✗ | `null` | A text label shown next to the badge; displayed in different positions depending on `Size` |
+| `BadgeLabel` | `string?` | ✗ | `null` | A visually hidden accessible label that provides context for the badge count; its markup position varies with the toolbar `Size` |
 | `OnClick` | `EventCallback` | ✗ | - | Primary interactive callback invoked when the item is clicked. Takes precedence over `Href` navigation in interactive rendering. Not invoked during static (SSR) rendering — provide `Href` as a navigation fallback for SSR contexts. |
 | `Id` | `string?` | ✗ | `null` | Sets the `id` HTML attribute on the root element |
 | `CssClass` | `string?` | ✗ | `null` | Additional CSS classes to apply to the item |
@@ -67,7 +67,7 @@ A `BitToolbarDropdownItem` renders a [`BitDropdown`](./dropdown.md) activator st
 | `Active` | `bool` | ✗ | `false` | When `true`, applies the active style to the item |
 | `Disabled` | `bool` | ✗ | `false` | When `true`, disables the item and adds `aria-disabled="true"` |
 | `BadgeCount` | `int?` | ✗ | `null` | A numeric badge count shown on the item; hidden when `null` or `0` |
-| `BadgeLabel` | `string?` | ✗ | `null` | A text label shown next to the badge; displayed in different positions depending on `Size` |
+| `BadgeLabel` | `string?` | ✗ | `null` | A visually hidden accessible label that provides context for the badge count; its markup position varies with the toolbar `Size` |
 | `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes forwarded to the activator button |
 
 ## Used Enumerations
