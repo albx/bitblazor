@@ -3,28 +3,14 @@ using System.Text.Json.Serialization;
 namespace BitBlazor.Components;
 
 /// <summary>
-/// Strongly-typed options for the Bootstrap Italia Tooltip component.
+/// Options payload sent to the Bootstrap Italia Tooltip JS API.
 /// Property names are serialized to camelCase to match the Bootstrap JS API.
 /// </summary>
-public class TooltipOptions
+internal class TooltipOptions
 {
     /// <summary>Applies a CSS fade transition. Default: <c>true</c>.</summary>
     [JsonPropertyName("animation")]
     public bool Animation { get; set; } = true;
-
-    /// <summary>
-    /// Overflow constraint boundary of the tooltip.
-    /// Default: <c>"clippingParents"</c>.
-    /// </summary>
-    [JsonPropertyName("boundary")]
-    public string Boundary { get; set; } = "clippingParents";
-
-    /// <summary>
-    /// Appends the tooltip to a specific element, e.g. <c>"body"</c>.
-    /// Default: <c>null</c> (appended after the trigger element).
-    /// </summary>
-    [JsonPropertyName("container")]
-    public string? Container { get; set; }
 
     /// <summary>Extra CSS classes added to the tooltip when shown.</summary>
     [JsonPropertyName("customClass")]
@@ -68,16 +54,6 @@ public class TooltipOptions
     public bool Sanitize { get; set; } = true;
 
     /// <summary>
-    /// CSS selector used for tooltip delegation on dynamically added elements.
-    /// </summary>
-    [JsonPropertyName("selector")]
-    public string? Selector { get; set; }
-
-    /// <summary>Custom HTML template used to create the tooltip.</summary>
-    [JsonPropertyName("template")]
-    public string? Template { get; set; }
-
-    /// <summary>
     /// Events that trigger the tooltip: <c>click</c>, <c>hover</c>, <c>focus</c>,
     /// <c>manual</c> (space-separated). Default: <c>"hover focus"</c>.
     /// </summary>
@@ -86,7 +62,7 @@ public class TooltipOptions
 }
 
 /// <summary>Show/hide delay configuration for a tooltip.</summary>
-public class TooltipDelay
+internal class TooltipDelay
 {
     /// <summary>Delay before showing the tooltip (ms). Default: <c>0</c>.</summary>
     [JsonPropertyName("show")]

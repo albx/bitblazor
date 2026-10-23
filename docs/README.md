@@ -89,12 +89,26 @@ Pagination control for navigating large data sets across multiple pages.
 - Optional jump-to-page input and total-items summary
 - Customizable previous/next buttons and alignment
 
+#### [Popover](components/popover.md)
+Popover attached to the first child element, with optional title and body.
+- Click, hover, focus, or manual triggers
+- Five placements with fallback placements
+- Show/hide delay and offset parameters
+- Requires JavaScript interop
+
 #### [Toolbar](components/toolbar.md)
 Navigation toolbar for grouping icon-based action items.
 - Horizontal and vertical orientations
 - Three size variants (default, medium, small)
 - Badge counts and labels on items
 - `BitToolbarDivider` sub-component for visual separation
+
+#### [Tooltip](components/tooltip.md)
+Short hint attached to the first child element.
+- Hover, focus, click, or manual triggers
+- Five placements with fallback placements
+- Show/hide delay and offset parameters
+- Requires JavaScript interop
 
 ### Form Components
 

@@ -3,28 +3,14 @@ using System.Text.Json.Serialization;
 namespace BitBlazor.Components;
 
 /// <summary>
-/// Strongly-typed options for the Bootstrap Italia Popover component.
+/// Options payload sent to the Bootstrap Italia Popover JS API.
 /// Property names are serialized to camelCase to match the Bootstrap JS API.
 /// </summary>
-public class PopoverOptions
+internal class PopoverOptions
 {
     /// <summary>Applies a CSS fade transition. Default: <c>true</c>.</summary>
     [JsonPropertyName("animation")]
     public bool Animation { get; set; } = true;
-
-    /// <summary>
-    /// Overflow constraint boundary of the popover.
-    /// Default: <c>"clippingParents"</c>.
-    /// </summary>
-    [JsonPropertyName("boundary")]
-    public string Boundary { get; set; } = "clippingParents";
-
-    /// <summary>
-    /// Appends the popover to a specific element, e.g. <c>"body"</c>.
-    /// Default: <c>null</c> (appended after the trigger element).
-    /// </summary>
-    [JsonPropertyName("container")]
-    public string? Container { get; set; }
 
     /// <summary>Extra CSS classes added to the popover when shown.</summary>
     [JsonPropertyName("customClass")]
@@ -66,16 +52,6 @@ public class PopoverOptions
     /// <summary>Enable HTML sanitisation of title/content/template. Default: <c>true</c>.</summary>
     [JsonPropertyName("sanitize")]
     public bool Sanitize { get; set; } = true;
-
-    /// <summary>
-    /// CSS selector used for popover delegation on dynamically added elements.
-    /// </summary>
-    [JsonPropertyName("selector")]
-    public string? Selector { get; set; }
-
-    /// <summary>Custom HTML template used to create the popover.</summary>
-    [JsonPropertyName("template")]
-    public string? Template { get; set; }
 
     /// <summary>
     /// Events that trigger the popover: <c>click</c>, <c>hover</c>, <c>focus</c>,
