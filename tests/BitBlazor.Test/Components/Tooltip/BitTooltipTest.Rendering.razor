@@ -1,0 +1,47 @@
+@inherits BunitContext
+
+@code {
+    private void UseLooseJsInterop() => JSInterop.Mode = JSRuntimeMode.Loose;
+
+    [Fact]
+    public void BitTooltip_Should_Render_ChildContent_Inside_Wrapper()
+    {
+        UseLooseJsInterop();
+        var component = Render(
+            @<BitTooltip Text="My tooltip">
+                <button type="button">Trigger</button>
+             </BitTooltip>);
+
+        component.MarkupMatches(
+            @<bit-tooltip style="display:contents">
+                <button type="button">Trigger</button>
+             </bit-tooltip>);
+    }
+
+    [Fact]
+    public void BitTooltip_Should_Render_ChildContent_Inside_Span()
+    {
+        UseLooseJsInterop();
+        var component = Render(
+            @<BitTooltip Text="My tooltip">
+                <a href="#">Link trigger</a>
+             </BitTooltip>);
+
+        var link = component.Find("a");
+        Assert.NotNull(link);
+        Assert.Equal("Link trigger", link.TextContent);
+    }
+
+    [Fact]
+    public void BitTooltip_Should_Set_Id_When_Provided()
+    {
+        UseLooseJsInterop();
+        var component = Render(
+            @<BitTooltip Text="My tooltip" Id="my-tooltip-id">
+                <button type="button">Trigger</button>
+             </BitTooltip>);
+
+        var wrapper = component.Find("bit-tooltip");
+        Assert.Equal("my-tooltip-id", wrapper.GetAttribute("id"));
+    }
+}

@@ -1,0 +1,171 @@
+using BitBlazor.Core;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+
+namespace BitBlazor.Components;
+
+/// <summary>
+/// Wraps its child content and attaches a Bootstrap Italia tooltip
+/// directly to the first child element.
+/// </summary>
+public partial class BitTooltip : BitComponentBase, IAsyncDisposable
+{
+    [Inject]
+    private IJSRuntime JSRuntime { get; set; } = default!;
+
+    private const string ModulePath = "./_content/BitBlazor/Components/Tooltip/BitTooltip.razor.js";
+
+    private IJSObjectReference? _module;
+    private IJSObjectReference? _instance;
+    private ElementReference _wrapperRef;
+    private bool _disposed;
+
+    /// <summary>
+    /// The text displayed inside the tooltip (maps to the <c>title</c> attribute).
+    /// </summary>
+    [Parameter]
+    [EditorRequired]
+    public string Text { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the tooltip placement. Default: <see cref="TooltipPlacement.Top"/>.
+    /// </summary>
+    [Parameter]
+    public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
+
+    /// <summary>
+    /// Gets or sets the events that show the tooltip. Flags can be combined.
+    /// Default: <c>TooltipTrigger.Hover | TooltipTrigger.Focus</c>.
+    /// </summary>
+    [Parameter]
+    public TooltipTrigger Trigger { get; set; } = TooltipTrigger.Hover | TooltipTrigger.Focus;
+
+    /// <summary>
+    /// Gets or sets whether HTML is allowed in the tooltip text.
+    /// <para><b>Warning:</b> only use with trusted / sanitised content.</para>
+    /// </summary>
+    [Parameter]
+    public bool HtmlEnabled { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether a CSS fade transition is applied. Default: <c>true</c>.
+    /// </summary>
+    [Parameter]
+    public bool Animation { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether the tooltip text is HTML-sanitised. Default: <c>true</c>.
+    /// </summary>
+    [Parameter]
+    public bool Sanitize { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the delay, in milliseconds, before showing the tooltip. Default: <c>0</c>.
+    /// </summary>
+    [Parameter]
+    public int DelayShow { get; set; }
+
+    /// <summary>
+    /// Gets or sets the delay, in milliseconds, before hiding the tooltip. Default: <c>0</c>.
+    /// </summary>
+    [Parameter]
+    public int DelayHide { get; set; }
+
+    /// <summary>
+    /// Gets or sets the offset of the tooltip along the target edge (skidding), in pixels. Default: <c>0</c>.
+    /// </summary>
+    [Parameter]
+    public int OffsetSkidding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the distance of the tooltip from the target, in pixels. Default: <c>0</c>.
+    /// </summary>
+    [Parameter]
+    public int OffsetDistance { get; set; }
+
+    /// <summary>
+    /// Gets or sets the placements tried, in order, when the preferred one overflows.
+    /// Default: Top, Right, Bottom, Left.
+    /// </summary>
+    [Parameter]
+    public IReadOnlyList<TooltipPlacement> FallbackPlacements { get; set; } =
+        [TooltipPlacement.Top, TooltipPlacement.Right, TooltipPlacement.Bottom, TooltipPlacement.Left];
+
+    /// <summary>The element that triggers the tooltip on hover/focus.</summary>
+    [Parameter]
+    [EditorRequired]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <inheritdoc/>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", ModulePath);
+        var instance = await _module.InvokeAsync<IJSObjectReference?>(
+            "BitTooltip.create", _wrapperRef, Text, BuildOptions());
+
+        if (_disposed)
+        {
+            // Disposed while the import or init was pending: release immediately.
+            await ReleaseAsync(instance);
+            return;
+        }
+
+        _instance = instance;
+    }
+
+    private TooltipOptions BuildOptions() => new()
+    {
+        Animation = Animation,
+        CustomClass = string.IsNullOrWhiteSpace(CssClass) ? null : CssClass,
+        Delay = new TooltipDelay { Show = DelayShow, Hide = DelayHide },
+        FallbackPlacements = FallbackPlacements.Select(p => p.ToString().ToLowerInvariant()).ToList(),
+        Html = HtmlEnabled,
+        Offset = $"{OffsetSkidding},{OffsetDistance}",
+        Placement = Placement.ToString().ToLowerInvariant(),
+        Sanitize = Sanitize,
+        Trigger = BuildTrigger(Trigger)
+    };
+
+    // Bootstrap expects space-separated triggers; "manual" cannot be combined with others.
+    private static string BuildTrigger(TooltipTrigger trigger)
+    {
+        if (trigger.HasFlag(TooltipTrigger.Manual)) return "manual";
+
+        var triggers = new List<string>();
+        if (trigger.HasFlag(TooltipTrigger.Hover)) triggers.Add("hover");
+        if (trigger.HasFlag(TooltipTrigger.Focus)) triggers.Add("focus");
+        if (trigger.HasFlag(TooltipTrigger.Click)) triggers.Add("click");
+
+        return string.Join(' ', triggers);
+    }
+
+    /// <inheritdoc/>
+    public async ValueTask DisposeAsync()
+    {
+        _disposed = true;
+
+        try
+        {
+            await ReleaseAsync(_instance);
+            _instance = null;
+
+            if (_module is not null)
+            {
+                await _module.DisposeAsync();
+                _module = null;
+            }
+        }
+        catch (JSDisconnectedException) { }
+        catch (TaskCanceledException) { }
+    }
+
+    private static async Task ReleaseAsync(IJSObjectReference? instance)
+    {
+        if (instance is null) return;
+
+        await instance.InvokeVoidAsync("dispose");
+        await instance.DisposeAsync();
+    }
+}

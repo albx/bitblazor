@@ -1,0 +1,47 @@
+@inherits BunitContext
+
+@code {
+    private void UseLooseJsInterop() => JSInterop.Mode = JSRuntimeMode.Loose;
+
+    [Fact]
+    public void BitPopover_Should_Render_ChildContent_Inside_Wrapper()
+    {
+        UseLooseJsInterop();
+        var component = Render(
+            @<BitPopover Content="Popover content">
+                <button type="button">Trigger</button>
+             </BitPopover>);
+
+        component.MarkupMatches(
+            @<bit-popover style="display:contents">
+                <button type="button">Trigger</button>
+             </bit-popover>);
+    }
+
+    [Fact]
+    public void BitPopover_Should_Render_ChildContent_Inside_Span()
+    {
+        UseLooseJsInterop();
+        var component = Render(
+            @<BitPopover Content="Popover content">
+                <a href="#">Link trigger</a>
+             </BitPopover>);
+
+        var link = component.Find("a");
+        Assert.NotNull(link);
+        Assert.Equal("Link trigger", link.TextContent);
+    }
+
+    [Fact]
+    public void BitPopover_Should_Set_Id_When_Provided()
+    {
+        UseLooseJsInterop();
+        var component = Render(
+            @<BitPopover Content="Popover content" Id="my-popover-id">
+                <button type="button">Trigger</button>
+             </BitPopover>);
+
+        var wrapper = component.Find("bit-popover");
+        Assert.Equal("my-popover-id", wrapper.GetAttribute("id"));
+    }
+}

@@ -1,0 +1,8 @@
+@namespace BitBlazor.Components
+
+@inherits BitComponentBase
+@implements IAsyncDisposable
+
+<bit-tooltip @ref="_wrapperRef" style="display:contents" @attributes="AdditionalAttributes">
+    @ChildContent
+</bit-tooltip>

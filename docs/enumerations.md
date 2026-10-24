@@ -379,6 +379,65 @@ Specifies the display mode for the `BitPagination` component.
 **Components using PaginationState**:
 - `BitPagination` (`SimpleModeVisuallyHiddenTemplate` context)
 
+## Popover-specific Enumerations
+
+### PopoverPlacement
+
+**Namespace**: `BitBlazor.Components`
+
+| Value | Description |
+|-------|-------------|
+| `Auto` | Placed automatically based on the available space. |
+| `Top` | Placed above the trigger element. |
+| `Bottom` | Placed below the trigger element. |
+| `Left` | Placed to the left of the trigger element. |
+| `Right` | Placed to the right of the trigger element. |
+
+### PopoverTrigger
+
+**Namespace**: `BitBlazor.Components`
+
+A `[Flags]` enum: values can be combined with `|`. `Manual` takes precedence over the other flags.
+
+| Value | Description |
+|-------|-------------|
+| `Click` | Opened when the trigger element is clicked. |
+| `Hover` | Opened when the pointer hovers over the trigger element. |
+| `Focus` | Opened when the trigger element receives focus. |
+| `Manual` | Controlled programmatically via JavaScript. |
+
+**Components using PopoverPlacement and PopoverTrigger**:
+- `BitPopover`
+
+## Tooltip-specific Enumerations
+
+### TooltipPlacement
+
+**Namespace**: `BitBlazor.Components`
+
+| Value | Description |
+|-------|-------------|
+| `Auto` | Placed automatically based on the available space. |
+| `Top` | Placed above the trigger element. |
+| `Bottom` | Placed below the trigger element. |
+| `Left` | Placed to the left of the trigger element. |
+| `Right` | Placed to the right of the trigger element. |
+
+### TooltipTrigger
+
+**Namespace**: `BitBlazor.Components`
+
+A `[Flags]` enum: values can be combined with `|`. The component default is `Hover | Focus`. `Manual` takes precedence over the other flags.
+
+| Value | Description |
+|-------|-------------|
+| `Hover` | Shown when the pointer hovers over the trigger element. |
+| `Focus` | Shown when the trigger element receives focus. |
+| `Click` | Shown when the trigger element is clicked. |
+| `Manual` | Controlled programmatically via JavaScript. |
+
+**Components using TooltipPlacement and TooltipTrigger**:
+- `BitTooltip`
 ## Enumeration Mappings
 
 ### Color vs IconColor

@@ -39,6 +39,11 @@
                             </div>
                             <div class="col-12 col-sm-6">
                                 <BitTextField Label="Codice Fiscale" @bind-Value="formModel.CodiceFiscale" Placeholder="Es. RSSMRA80A01H501U" Required="true" />
+                                <div class="mt-1">
+                                    <BitTooltip Text="Il Codice Fiscale è composto da 16 caratteri alfanumerici. Lo trovi sul retro della tua Carta di Identità o sulla Tessera Sanitaria." Placement="TooltipPlacement.Right">
+                                        <span class="small text-muted" style="cursor:help">Dove trovo il Codice Fiscale?</span>
+                                    </BitTooltip>
+                                </div>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <BitTextField Label="Telefono" @bind-Value="formModel.Telefono" Placeholder="+39 000 0000000" />
@@ -111,6 +116,14 @@
                     <div class="mb-3">
                         <BitCheckbox Label="Acconsento al trattamento dei dati personali ai sensi del Reg. UE 2016/679 (GDPR)"
                                      @bind-Value="formModel.AccettaPrivacy" Required="true" />
+                        <div class="mt-1 ms-4">
+                            <BitPopover Title="Informativa Privacy (GDPR)"
+                                        Content="I tuoi dati saranno trattati esclusivamente per l'erogazione del servizio richiesto e conservati per il periodo previsto dalla normativa vigente. Non saranno ceduti a terzi."
+                                        Placement="PopoverPlacement.Right"
+                                        Trigger="PopoverTrigger.Click">
+                                <span class="small text-primary" style="cursor:pointer">Leggi l'informativa sintetica</span>
+                            </BitPopover>
+                        </div>
                     </div>
 
                     <div class="mb-3">
