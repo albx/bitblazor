@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-10-24
+
+### Added
+
+#### Components
+- [x] **Tooltip** - New BitTooltip component for contextual hints (#89)
+  - [x] TooltipPlacement and TooltipTrigger enumerations
+  - [x] TooltipOptions - Configuration options for tooltip behavior
+  - [x] Combinable trigger flags with accessible default focus support
+- [x] **Popover** - New BitPopover component for contextual content panels (#89)
+  - [x] PopoverPlacement and PopoverTrigger enumerations
+  - [x] PopoverOptions - Configuration options for popover behavior
+  - [x] Combinable trigger flags
+- [x] **Pagination changer** - Page size selector for BitPagination with customizable templates and `aria-label` support (#95, #106)
+  - [x] ChangerId for improved accessibility
+- [x] **Toolbar dropdown** - BitToolbarDropdownItem for placing dropdown menus inside a toolbar (#99, #107)
+  - [x] BitToolbarItemBase - Shared base class for toolbar items
+
+#### Documentation
+- [x] Tooltip component documentation
+- [x] Popover component documentation
+- [x] Pagination changer documentation
+- [x] Toolbar dropdown documentation
+
+### Changed
+- [x] **Breaking:** `PaginationState` now exposes `PageSize`, `IsFirstPage`, and `IsLastPage`; code that constructs or deconstructs it must be updated (#95, #106)
+- [x] Updated Bootstrap Italia version (#9)
+- [x] Updated NuGet packages
+
+### Fixed
+- [x] Fixed dropdown item not closing its parent menu (#95)
+
 ## [0.4.0] - 2026-07-31
 
 ### Added
