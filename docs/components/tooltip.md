@@ -20,7 +20,7 @@ The component requires JavaScript interop: the tooltip is created after the firs
 | `Text` | `string` | ✓ | `""` | The text displayed inside the tooltip |
 | `ChildContent` | `RenderFragment?` | ✓ | - | The element the tooltip is attached to (its first child element) |
 | `Placement` | `TooltipPlacement` | ✗ | `TooltipPlacement.Top` | Where the tooltip is placed relative to the element |
-| `Trigger` | `TooltipTrigger` | ✗ | `TooltipTrigger.Hover` | The event that shows the tooltip |
+| `Trigger` | `TooltipTrigger` | ✗ | `TooltipTrigger.Hover \| TooltipTrigger.Focus` | The event(s) that show the tooltip; flags can be combined |
 | `HtmlEnabled` | `bool` | ✗ | `false` | Allows HTML in `Text`. Only use with trusted content |
 | `Animation` | `bool` | ✗ | `true` | Applies a CSS fade transition |
 | `Sanitize` | `bool` | ✗ | `true` | Sanitizes the tooltip text when HTML is enabled |
@@ -49,6 +49,8 @@ The component requires JavaScript interop: the tooltip is created after the firs
 
 ### TooltipTrigger
 
+`TooltipTrigger` is a `[Flags]` enum: values can be combined with `|` (for example `TooltipTrigger.Click | TooltipTrigger.Focus`). `Manual` cannot be combined; when set, it takes precedence over the other flags.
+
 | Value | Description |
 |-------|-------------|
 | `Hover` | Shown when the pointer hovers over the element |
@@ -58,7 +60,7 @@ The component requires JavaScript interop: the tooltip is created after the firs
 
 ## Accessibility
 
-- Prefer the default `Hover` trigger on elements that are focusable (buttons, links), or use `Focus`, so keyboard users can reach the tooltip.
+- The default trigger is `Hover | Focus`, so keyboard users can reach the tooltip on focusable elements (buttons, links). Avoid restricting `Trigger` to `Hover` alone.
 - Do not put essential information or interactive content in a tooltip; use [`BitPopover`](popover.md) instead.
 - Bootstrap Italia sets `aria-describedby` on the target element while the tooltip is visible.
 

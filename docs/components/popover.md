@@ -21,7 +21,7 @@ The component requires JavaScript interop: the popover is created after the firs
 | `ChildContent` | `RenderFragment?` | ✓ | - | The element the popover is attached to (its first child element) |
 | `Title` | `string?` | ✗ | `null` | The text displayed in the popover header. No header is shown when empty |
 | `Placement` | `PopoverPlacement` | ✗ | `PopoverPlacement.Top` | Where the popover is placed relative to the element |
-| `Trigger` | `PopoverTrigger` | ✗ | `PopoverTrigger.Click` | The event that opens the popover |
+| `Trigger` | `PopoverTrigger` | ✗ | `PopoverTrigger.Click` | The event(s) that open the popover; flags can be combined |
 | `HtmlEnabled` | `bool` | ✗ | `false` | Allows HTML in `Title` and `Content`. Only use with trusted content |
 | `Animation` | `bool` | ✗ | `true` | Applies a CSS fade transition |
 | `Sanitize` | `bool` | ✗ | `true` | Sanitizes the title and content when HTML is enabled |
@@ -50,6 +50,8 @@ The component requires JavaScript interop: the popover is created after the firs
 
 ### PopoverTrigger
 
+`PopoverTrigger` is a `[Flags]` enum: values can be combined with `|` (for example `PopoverTrigger.Hover | PopoverTrigger.Focus`). `Manual` cannot be combined; when set, it takes precedence over the other flags.
+
 | Value | Description |
 |-------|-------------|
 | `Click` | Opened when the element is clicked |
@@ -60,7 +62,7 @@ The component requires JavaScript interop: the popover is created after the firs
 ## Accessibility
 
 - The target element should be focusable and operable with the keyboard (for example a `<button>`), so the popover can be opened without a pointer. Avoid attaching a popover to a plain `<span>` unless it is made focusable.
-- Do not rely on `Hover` alone: keyboard and touch users cannot trigger it.
+- Do not rely on `Hover` alone: keyboard and touch users cannot trigger it. Combine it with `Focus` (`PopoverTrigger.Hover | PopoverTrigger.Focus`).
 - Keep popover content short and non-essential; do not place interactive controls inside it.
 
 ## Usage Examples
@@ -86,8 +88,8 @@ The component requires JavaScript interop: the popover is created after the firs
 ```razor
 <BitPopover Title="Hover trigger"
             Content="This popover opens on mouse hover."
-            Trigger="PopoverTrigger.Hover">
-    <button type="button" class="btn btn-secondary">Hover me</button>
+            Trigger="PopoverTrigger.Hover | PopoverTrigger.Focus">
+    <button type="button" class="btn btn-secondary">Hover or focus me</button>
 </BitPopover>
 ```
 

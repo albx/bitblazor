@@ -48,7 +48,7 @@ public class BitTooltipTest
         var options = CaptureOptions(_ => { });
 
         Assert.Equal("top", (string?)options["placement"]);
-        Assert.Equal("hover", (string?)options["trigger"]);
+        Assert.Equal("hover focus", (string?)options["trigger"]);
         Assert.True((bool)options["animation"]!);
         Assert.True((bool)options["sanitize"]!);
         Assert.False((bool)options["html"]!);
@@ -85,5 +85,22 @@ public class BitTooltipTest
         Assert.Equal("5,10", (string?)options["offset"]);
         Assert.Equal(["left", "auto"], options["fallbackPlacements"]!.AsArray().Select(n => (string?)n));
         Assert.Equal("my-tooltip", (string?)options["customClass"]);
+    }
+
+    [Fact]
+    public void BitTooltip_Should_Send_Single_Trigger_When_Only_One_Flag_Is_Set()
+    {
+        var options = CaptureOptions(p => p.Add(c => c.Trigger, TooltipTrigger.Hover));
+
+        Assert.Equal("hover", (string?)options["trigger"]);
+    }
+
+    [Fact]
+    public void BitTooltip_Should_Join_Combined_Trigger_Flags_With_Spaces()
+    {
+        var options = CaptureOptions(p => p
+            .Add(c => c.Trigger, TooltipTrigger.Click | TooltipTrigger.Focus));
+
+        Assert.Equal("focus click", (string?)options["trigger"]);
     }
 }

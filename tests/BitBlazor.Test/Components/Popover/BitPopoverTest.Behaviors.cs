@@ -86,4 +86,21 @@ public class BitPopoverTest
         Assert.Equal(["left", "auto"], options["fallbackPlacements"]!.AsArray().Select(n => (string?)n));
         Assert.Equal("my-popover", (string?)options["customClass"]);
     }
+
+    [Fact]
+    public void BitPopover_Should_Map_Single_Trigger_Flag_To_Interop_Option()
+    {
+        var options = CaptureOptions(p => p.Add(c => c.Trigger, PopoverTrigger.Focus));
+
+        Assert.Equal("focus", (string?)options["trigger"]);
+    }
+
+    [Fact]
+    public void BitPopover_Should_Join_Combined_Trigger_Flags_In_Interop_Option()
+    {
+        var options = CaptureOptions(p => p
+            .Add(c => c.Trigger, PopoverTrigger.Click | PopoverTrigger.Focus | PopoverTrigger.Hover));
+
+        Assert.Equal("hover focus click", (string?)options["trigger"]);
+    }
 }

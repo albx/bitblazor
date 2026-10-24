@@ -56,6 +56,25 @@
         </Template>
     </Story>
 
+    <Story Name="Triggers">
+        <Template>
+            <div class="d-flex justify-content-center align-items-center gap-4" style="min-height:100vh;">
+                <BitTooltip Text="Hover and focus (default)">
+                    <button type="button" class="btn btn-secondary">Hover + Focus</button>
+                </BitTooltip>
+                <BitTooltip Text="Focus only" Trigger="TooltipTrigger.Focus">
+                    <button type="button" class="btn btn-secondary">Focus</button>
+                </BitTooltip>
+                <BitTooltip Text="Click only" Trigger="TooltipTrigger.Click">
+                    <button type="button" class="btn btn-secondary">Click</button>
+                </BitTooltip>
+                <BitTooltip Text="Click and focus" Trigger="TooltipTrigger.Click | TooltipTrigger.Focus">
+                    <button type="button" class="btn btn-secondary">Click + Focus</button>
+                </BitTooltip>
+            </div>
+        </Template>
+    </Story>
+
     <Story Name="HTML content">
         <Template>
             <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">

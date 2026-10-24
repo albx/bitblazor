@@ -46,9 +46,33 @@
         <Template>
             <div class="d-flex justify-content-center align-items-center" style="min-height:100vh;">
                 <BitPopover Title="Hover trigger"
-                            Content="This popover opens on mouse hover."
-                            Trigger="PopoverTrigger.Hover">
-                    <button type="button" class="btn btn-secondary">Hover trigger</button>
+                            Content="This popover opens on mouse hover or keyboard focus."
+                            Trigger="PopoverTrigger.Hover | PopoverTrigger.Focus">
+                    <button type="button" class="btn btn-secondary">Hover or focus trigger</button>
+                </BitPopover>
+            </div>
+        </Template>
+    </Story>
+
+    <Story Name="Triggers">
+        <Template>
+            <div class="d-flex justify-content-center align-items-center gap-4" style="min-height:100vh;">
+                <BitPopover Title="Click (default)" Content="Opens on click.">
+                    <button type="button" class="btn btn-secondary">Click</button>
+                </BitPopover>
+                <BitPopover Title="Hover" Content="Opens on hover only." Trigger="PopoverTrigger.Hover">
+                    <button type="button" class="btn btn-secondary">Hover</button>
+                </BitPopover>
+                <BitPopover Title="Focus" Content="Opens on keyboard focus." Trigger="PopoverTrigger.Focus">
+                    <button type="button" class="btn btn-secondary">Focus</button>
+                </BitPopover>
+                <BitPopover Title="Hover + Focus" Content="Opens on hover or keyboard focus."
+                            Trigger="PopoverTrigger.Hover | PopoverTrigger.Focus">
+                    <button type="button" class="btn btn-secondary">Hover + Focus</button>
+                </BitPopover>
+                <BitPopover Title="Click + Focus" Content="Opens on click or keyboard focus."
+                            Trigger="PopoverTrigger.Click | PopoverTrigger.Focus">
+                    <button type="button" class="btn btn-secondary">Click + Focus</button>
                 </BitPopover>
             </div>
         </Template>

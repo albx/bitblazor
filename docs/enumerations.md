@@ -397,6 +397,8 @@ Specifies the display mode for the `BitPagination` component.
 
 **Namespace**: `BitBlazor.Components`
 
+A `[Flags]` enum: values can be combined with `|`. `Manual` takes precedence over the other flags.
+
 | Value | Description |
 |-------|-------------|
 | `Click` | Opened when the trigger element is clicked. |
@@ -424,6 +426,8 @@ Specifies the display mode for the `BitPagination` component.
 ### TooltipTrigger
 
 **Namespace**: `BitBlazor.Components`
+
+A `[Flags]` enum: values can be combined with `|`. The component default is `Hover | Focus`. `Manual` takes precedence over the other flags.
 
 | Value | Description |
 |-------|-------------|

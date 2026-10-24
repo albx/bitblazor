@@ -40,7 +40,7 @@ public partial class BitPopover : BitComponentBase, IAsyncDisposable
     public PopoverPlacement Placement { get; set; } = PopoverPlacement.Top;
 
     /// <summary>
-    /// Gets or sets the event that opens the popover. Default: <see cref="PopoverTrigger.Click"/>.
+    /// Gets or sets the event(s) that open the popover; values can be combined. Default: <see cref="PopoverTrigger.Click"/>.
     /// </summary>
     [Parameter]
     public PopoverTrigger Trigger { get; set; } = PopoverTrigger.Click;
@@ -130,8 +130,21 @@ public partial class BitPopover : BitComponentBase, IAsyncDisposable
         Offset = $"{OffsetSkidding},{OffsetDistance}",
         Placement = Placement.ToString().ToLowerInvariant(),
         Sanitize = Sanitize,
-        Trigger = Trigger.ToString().ToLowerInvariant()
+        Trigger = BuildTrigger(Trigger)
     };
+
+    // Bootstrap expects space-separated triggers; "manual" cannot be combined with others.
+    private static string BuildTrigger(PopoverTrigger trigger)
+    {
+        if (trigger.HasFlag(PopoverTrigger.Manual)) return "manual";
+
+        var triggers = new List<string>();
+        if (trigger.HasFlag(PopoverTrigger.Hover)) triggers.Add("hover");
+        if (trigger.HasFlag(PopoverTrigger.Focus)) triggers.Add("focus");
+        if (trigger.HasFlag(PopoverTrigger.Click)) triggers.Add("click");
+
+        return string.Join(' ', triggers);
+    }
 
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()

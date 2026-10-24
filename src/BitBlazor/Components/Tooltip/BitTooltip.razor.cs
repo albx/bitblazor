@@ -34,10 +34,11 @@ public partial class BitTooltip : BitComponentBase, IAsyncDisposable
     public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
 
     /// <summary>
-    /// Gets or sets the event that shows the tooltip. Default: <see cref="TooltipTrigger.Hover"/>.
+    /// Gets or sets the events that show the tooltip. Flags can be combined.
+    /// Default: <c>TooltipTrigger.Hover | TooltipTrigger.Focus</c>.
     /// </summary>
     [Parameter]
-    public TooltipTrigger Trigger { get; set; } = TooltipTrigger.Hover;
+    public TooltipTrigger Trigger { get; set; } = TooltipTrigger.Hover | TooltipTrigger.Focus;
 
     /// <summary>
     /// Gets or sets whether HTML is allowed in the tooltip text.
@@ -124,8 +125,21 @@ public partial class BitTooltip : BitComponentBase, IAsyncDisposable
         Offset = $"{OffsetSkidding},{OffsetDistance}",
         Placement = Placement.ToString().ToLowerInvariant(),
         Sanitize = Sanitize,
-        Trigger = Trigger.ToString().ToLowerInvariant()
+        Trigger = BuildTrigger(Trigger)
     };
+
+    // Bootstrap expects space-separated triggers; "manual" cannot be combined with others.
+    private static string BuildTrigger(TooltipTrigger trigger)
+    {
+        if (trigger.HasFlag(TooltipTrigger.Manual)) return "manual";
+
+        var triggers = new List<string>();
+        if (trigger.HasFlag(TooltipTrigger.Hover)) triggers.Add("hover");
+        if (trigger.HasFlag(TooltipTrigger.Focus)) triggers.Add("focus");
+        if (trigger.HasFlag(TooltipTrigger.Click)) triggers.Add("click");
+
+        return string.Join(' ', triggers);
+    }
 
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()
