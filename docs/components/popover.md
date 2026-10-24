@@ -12,8 +12,7 @@ BitBlazor.Components
 
 `BitPopover` wraps its child content in a layout-neutral `<bit-popover>` element (`display: contents`) and initializes the Bootstrap Italia popover on the **first child element**. Use it to show a small overlay with an optional title and a body text when the user interacts with an element.
 
-The component requires JavaScript interop: the popover is created after the first render and disposed together with the component.
-
+The component requires JavaScript interop: the popover is created after the first render and disposed together with the component. No script setup is needed: the Bootstrap Italia JavaScript is loaded on demand. See the [JavaScript section of the README](../../README.md#javascript) for the supported version, bring-your-own rules and CSP requirements.
 ## Parameters
 
 | Name | Type | Required | Default | Description |

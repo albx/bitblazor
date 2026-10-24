@@ -12,8 +12,7 @@ BitBlazor.Components
 
 `BitTooltip` wraps its child content in a layout-neutral `<bit-tooltip>` element (`display: contents`) and initializes the Bootstrap Italia tooltip on the **first child element**. Use it to show a short, non-interactive hint when the user hovers or focuses an element.
 
-The component requires JavaScript interop: the tooltip is created after the first render and disposed together with the component.
-
+The component requires JavaScript interop: the tooltip is created after the first render and disposed together with the component. No script setup is needed: the Bootstrap Italia JavaScript is loaded on demand. See the [JavaScript section of the README](../../README.md#javascript) for the supported version, bring-your-own rules and CSP requirements.
 ## Parameters
 
 | Name | Type | Required | Default | Description |

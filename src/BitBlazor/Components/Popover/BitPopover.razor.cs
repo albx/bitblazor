@@ -13,8 +13,12 @@ public partial class BitPopover : BitComponentBase, IAsyncDisposable
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;
 
-    private IJSObjectReference? _jsModule;
-    private ElementReference _spanRef;
+    private const string ModulePath = "./_content/BitBlazor/Components/Popover/BitPopover.razor.js";
+
+    private IJSObjectReference? _module;
+    private IJSObjectReference? _instance;
+    private ElementReference _wrapperRef;
+    private bool _disposed;
 
     /// <summary>
     /// The text displayed in the popover header.
@@ -102,11 +106,18 @@ public partial class BitPopover : BitComponentBase, IAsyncDisposable
     {
         if (!firstRender) return;
 
-        _jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./_content/BitBlazor/js/bitblazor-interop.js");
+        _module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", ModulePath);
+        var instance = await _module.InvokeAsync<IJSObjectReference?>(
+            "BitPopover.create", _wrapperRef, Title, Content, BuildOptions());
 
-        await _jsModule.InvokeVoidAsync(
-            "initPopoverOnFirstChild", _spanRef, Title, Content, BuildOptions());
+        if (_disposed)
+        {
+            // Disposed while the import or init was pending: release immediately.
+            await ReleaseAsync(instance);
+            return;
+        }
+
+        _instance = instance;
     }
 
     private PopoverOptions BuildOptions() => new()
@@ -125,14 +136,28 @@ public partial class BitPopover : BitComponentBase, IAsyncDisposable
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
-        if (_jsModule is not null)
+        _disposed = true;
+
+        try
         {
-            try
+            await ReleaseAsync(_instance);
+            _instance = null;
+
+            if (_module is not null)
             {
-                await _jsModule.InvokeVoidAsync("disposePopoverOnFirstChild", _spanRef);
-                await _jsModule.DisposeAsync();
+                await _module.DisposeAsync();
+                _module = null;
             }
-            catch (JSDisconnectedException) { }
         }
+        catch (JSDisconnectedException) { }
+        catch (TaskCanceledException) { }
+    }
+
+    private static async Task ReleaseAsync(IJSObjectReference? instance)
+    {
+        if (instance is null) return;
+
+        await instance.InvokeVoidAsync("dispose");
+        await instance.DisposeAsync();
     }
 }

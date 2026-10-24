@@ -7,12 +7,14 @@ namespace BitBlazor.Test.Components.Tooltip;
 
 public class BitTooltipTest
 {
+    private const string ModulePath = "./_content/BitBlazor/Components/Tooltip/BitTooltip.razor.js";
+
     private static JsonNode CaptureOptions(Action<ComponentParameterCollectionBuilder<BitTooltip>> configure)
     {
         using var ctx = new BunitContext();
-        var module = ctx.JSInterop.SetupModule("./_content/BitBlazor/js/bitblazor-interop.js");
-        module.SetupVoid("initTooltipOnFirstChild", _ => true).SetVoidResult();
-        module.SetupVoid("disposeTooltipOnFirstChild", _ => true).SetVoidResult();
+        var module = ctx.JSInterop.SetupModule(ModulePath);
+        var handle = module.SetupModule("BitTooltip.create", _ => true);
+        handle.SetupVoid("dispose").SetVoidResult();
 
         ctx.Render<BitTooltip>(parameters =>
         {
@@ -20,8 +22,24 @@ public class BitTooltipTest
             configure(parameters);
         });
 
-        var invocation = module.Invocations["initTooltipOnFirstChild"].Single();
+        var invocation = module.Invocations["BitTooltip.create"].Single();
         return JsonSerializer.SerializeToNode(invocation.Arguments[2])!;
+    }
+
+    [Fact]
+    public async Task BitTooltip_Should_Dispose_Instance_Handle_When_Disposed()
+    {
+        await using var ctx = new BunitContext();
+        var module = ctx.JSInterop.SetupModule(ModulePath);
+        var handle = module.SetupModule("BitTooltip.create", _ => true);
+        handle.SetupVoid("dispose").SetVoidResult();
+
+        ctx.Render<BitTooltip>(p => p.Add(c => c.Text, "Text"));
+        Assert.Empty(handle.Invocations["dispose"]);
+
+        await ctx.DisposeComponentsAsync();
+
+        Assert.Single(handle.Invocations["dispose"]);
     }
 
     [Fact]

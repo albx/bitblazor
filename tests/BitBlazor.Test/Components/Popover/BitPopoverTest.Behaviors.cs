@@ -7,12 +7,14 @@ namespace BitBlazor.Test.Components.Popover;
 
 public class BitPopoverTest
 {
+    private const string ModulePath = "./_content/BitBlazor/Components/Popover/BitPopover.razor.js";
+
     private static JsonNode CaptureOptions(Action<ComponentParameterCollectionBuilder<BitPopover>> configure)
     {
         using var ctx = new BunitContext();
-        var module = ctx.JSInterop.SetupModule("./_content/BitBlazor/js/bitblazor-interop.js");
-        module.SetupVoid("initPopoverOnFirstChild", _ => true).SetVoidResult();
-        module.SetupVoid("disposePopoverOnFirstChild", _ => true).SetVoidResult();
+        var module = ctx.JSInterop.SetupModule(ModulePath);
+        var handle = module.SetupModule("BitPopover.create", _ => true);
+        handle.SetupVoid("dispose").SetVoidResult();
 
         ctx.Render<BitPopover>(parameters =>
         {
@@ -20,8 +22,24 @@ public class BitPopoverTest
             configure(parameters);
         });
 
-        var invocation = module.Invocations["initPopoverOnFirstChild"].Single();
+        var invocation = module.Invocations["BitPopover.create"].Single();
         return JsonSerializer.SerializeToNode(invocation.Arguments[3])!;
+    }
+
+    [Fact]
+    public async Task BitPopover_Should_Dispose_Instance_Handle_When_Disposed()
+    {
+        await using var ctx = new BunitContext();
+        var module = ctx.JSInterop.SetupModule(ModulePath);
+        var handle = module.SetupModule("BitPopover.create", _ => true);
+        handle.SetupVoid("dispose").SetVoidResult();
+
+        ctx.Render<BitPopover>(p => p.Add(c => c.Content, "Content"));
+        Assert.Empty(handle.Invocations["dispose"]);
+
+        await ctx.DisposeComponentsAsync();
+
+        Assert.Single(handle.Invocations["dispose"]);
     }
 
     [Fact]
