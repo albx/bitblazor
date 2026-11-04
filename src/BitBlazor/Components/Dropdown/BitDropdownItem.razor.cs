@@ -74,6 +74,7 @@ public partial class BitDropdownItem : IDisposable
     protected override void OnParametersSet()
     {
         SetDisabled();
+        SetRole();
     }
 
     private void SetDisabled()
@@ -81,11 +82,22 @@ public partial class BitDropdownItem : IDisposable
         if (Disabled)
         {
             AdditionalAttributes["aria-disabled"] = "true";
-            AdditionalAttributes["role"] = "button";
         }
         else
         {
             AdditionalAttributes.Remove("aria-disabled");
+        }
+    }
+
+    private void SetRole()
+    {
+        // An anchor without href has no implicit ARIA role, so action-only items need an explicit one.
+        if (string.IsNullOrEmpty(Href))
+        {
+            AdditionalAttributes["role"] = "button";
+        }
+        else
+        {
             AdditionalAttributes.Remove("role");
         }
     }

@@ -70,6 +70,11 @@ A `BitToolbarDropdownItem` renders a [`BitDropdown`](./dropdown.md) activator st
 | `BadgeLabel` | `string?` | ✗ | `null` | A visually hidden accessible label that provides context for the badge count; its markup position varies with the toolbar `Size` |
 | `AdditionalAttributes` | `IDictionary<string, object>?` | ✗ | - | Additional HTML attributes forwarded to the activator button |
 
+## Accessibility
+
+- Disabled `BitToolbarItem` components receive `aria-disabled="true"`.
+- A `BitToolbarItem` without an `Href` (action-only item driven by `OnClick`) always renders `role="button"`, whether enabled or disabled, because an `<a>` without `href` has no implicit ARIA role. Items with an `Href` keep native link semantics and do not receive an explicit `role`.
+
 ## Used Enumerations
 
 ### ToolbarSize

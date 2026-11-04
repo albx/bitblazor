@@ -26,13 +26,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -91,13 +91,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -133,13 +133,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -188,6 +188,58 @@
     }
 
     [Fact]
+    public void BitDropdownItem_Should_Render_Button_Role_When_Enabled_And_Without_Href()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem><span>Action Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var item = component.Find("a.dropdown-item");
+        Assert.Equal("button", item.GetAttribute("role"));
+        Assert.Null(item.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Render_Button_Role_When_Disabled_And_Without_Href()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Disabled="true"><span>Action Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var item = component.Find("a.dropdown-item");
+        Assert.Equal("button", item.GetAttribute("role"));
+        Assert.Equal("true", item.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Not_Render_Role_When_Enabled_And_With_Href()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Href="/test-page"><span>Link Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var item = component.Find("a.dropdown-item");
+        Assert.Null(item.GetAttribute("role"));
+        Assert.Null(item.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
+    public void BitDropdownItem_Should_Not_Render_Role_When_Disabled_And_With_Href()
+    {
+        var component = Render(
+            @<BitDropdown ActivatorId="dropdownMenu" ActivatorLabel="Open">
+                <BitDropdownItem Href="/test-page" Disabled="true"><span>Link Item</span></BitDropdownItem>
+            </BitDropdown>);
+
+        var item = component.Find("a.dropdown-item");
+        Assert.Null(item.GetAttribute("role"));
+        Assert.Equal("true", item.GetAttribute("aria-disabled"));
+    }
+
+    [Fact]
     public void BitDropdownItem_Should_Render_With_Href()
     {
         var component = Render(
@@ -232,13 +284,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -270,13 +322,13 @@
                         <div class="link-list-heading">Heading</div>
                         <ul class="link-list">
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -306,13 +358,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a class="dropdown-item list-item large" tabindex="0"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item large" tabindex="0" role="button"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item large" tabindex="0"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item large" tabindex="0" role="button"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item large" tabindex="0"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item large" tabindex="0" role="button"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -342,13 +394,13 @@
                     <div class="link-list-wrapper">
                         <ul class="link-list">
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 1</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 1</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 2</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 2</span></a>
                             </li>
                             <li>
-                                <a class="dropdown-item list-item" tabindex="0"><span>Action 3</span></a>
+                                <a class="dropdown-item list-item" tabindex="0" role="button"><span>Action 3</span></a>
                             </li>
                         </ul>
                     </div>

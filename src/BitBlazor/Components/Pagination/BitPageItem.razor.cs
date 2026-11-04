@@ -79,6 +79,20 @@ public partial class BitPageItem
         }
 
         SetDisabledAttributes();
+        SetRole();
+    }
+
+    private void SetRole()
+    {
+        // An anchor without href has no implicit ARIA role, so action-only items need an explicit one.
+        if (string.IsNullOrEmpty(Href))
+        {
+            attributes["role"] = "button";
+        }
+        else
+        {
+            attributes.Remove("role");
+        }
     }
 
     private void SetDisabledAttributes()
