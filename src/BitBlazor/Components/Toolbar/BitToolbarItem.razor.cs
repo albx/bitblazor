@@ -43,10 +43,12 @@ public partial class BitToolbarItem : BitToolbarItemBase
         if (string.IsNullOrEmpty(Href))
         {
             AdditionalAttributes["role"] = "button";
+            AdditionalAttributes["tabindex"] = Disabled ? "-1" : "0";
         }
         else
         {
             AdditionalAttributes.Remove("role");
+            AdditionalAttributes.Remove("tabindex");
         }
     }
 

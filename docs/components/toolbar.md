@@ -73,7 +73,7 @@ A `BitToolbarDropdownItem` renders a [`BitDropdown`](./dropdown.md) activator st
 ## Accessibility
 
 - Disabled `BitToolbarItem` components receive `aria-disabled="true"`.
-- A `BitToolbarItem` without an `Href` (action-only item driven by `OnClick`) always renders `role="button"`, whether enabled or disabled, because an `<a>` without `href` has no implicit ARIA role. Items with an `Href` keep native link semantics and do not receive an explicit `role`.
+- A `BitToolbarItem` without an `Href` (action-only item driven by `OnClick`) always renders `role="button"`, whether enabled or disabled, because an `<a>` without `href` has no implicit ARIA role. Enabled action-only items receive `tabindex="0"`; disabled action-only items receive `tabindex="-1"` so they are removed from the tab order. Items with an `Href` keep native link semantics and do not receive an explicit `role` or `tabindex`.
 
 ## Used Enumerations
 

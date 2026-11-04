@@ -128,7 +128,7 @@ public partial class BitPageItem
 
     private async Task OnKeyDownAsync(KeyboardEventArgs args)
     {
-        if (args.Key is "Enter")
+        if (args.Key is "Enter" or " ")
         {
             await ClickPageItemAsync();
         }
