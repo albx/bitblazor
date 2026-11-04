@@ -390,6 +390,7 @@ Combine `PageLinkGenerator` with `@bind-PageSize` to support both C# callbacks a
 - The wrapping `<nav>` element always carries the `aria-label` set via the required `Description` parameter.
 - The active page item receives `aria-current="page"` automatically.
 - Disabled items receive `aria-hidden="true"` and `tabindex="-1"` so they are skipped by keyboard and screen-reader navigation. The previous-page and next-page buttons are disabled automatically when already on the first or last page respectively.
+- Page items without an `Href` (no `PageLinkGenerator`, or no target page) render `role="button"`, because an `<a>` without `href` has no implicit ARIA role. Page items with an `Href` keep native link semantics and do not receive an explicit `role`.
 - Previous and next page buttons include a `<span class="visually-hidden">` text sourced from `PreviousPageLabel` and `NextPageLabel` respectively.
 - In Simple mode, a visually hidden element provides the full page context (e.g. `"page 3 of 20"`) for screen readers. Customise it with `SimpleModeVisuallyHiddenTemplate`.
 - When `ShowJumpToPage` is `true`, the input and its label are properly associated via `id`/`for` attributes generated at runtime.

@@ -112,6 +112,8 @@ The default activator button always carries:
 
 Disabled `BitDropdownItem` components receive `aria-disabled="true"` automatically and are skipped by all keyboard-focus algorithms.
 
+Items without an `Href` (action-only items driven by `OnClick`) always render `role="button"`, whether enabled or disabled, because an `<a>` without `href` has no implicit ARIA role. Items with an `Href` keep native link semantics and do not receive an explicit `role`.
+
 ### Keyboard interaction
 
 | Key | Behaviour |

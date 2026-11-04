@@ -30,6 +30,28 @@ public partial class BitToolbarItem : BitToolbarItemBase
     [Parameter]
     public EventCallback OnClick { get; set; }
 
+    /// <inheritdoc/>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        SetRole();
+    }
+
+    private void SetRole()
+    {
+        // An anchor without href has no implicit ARIA role, so action-only items need an explicit one.
+        if (string.IsNullOrEmpty(Href))
+        {
+            AdditionalAttributes["role"] = "button";
+            AdditionalAttributes["tabindex"] = Disabled ? "-1" : "0";
+        }
+        else
+        {
+            AdditionalAttributes.Remove("role");
+            AdditionalAttributes.Remove("tabindex");
+        }
+    }
+
     private string ComputeLinkCssClass()
     {
         var builder = new CssClassBuilder();
